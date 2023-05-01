@@ -1,0 +1,2 @@
+pyqtdeploy==2.5.1
+PyQt5>=5.15.6
