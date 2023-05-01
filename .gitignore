@@ -1,0 +1,8 @@
+# Generated repos
+venv/
+sysroot-android-64/
+build-android-64/
+
+# Generated or downloaded files
+*.dat
+*.tar.gz
