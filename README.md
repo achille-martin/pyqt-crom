@@ -112,7 +112,7 @@ Verify your email and register as an individual (no need for location).
 
 - Restart the Qt installer with: `./qt<Enter-Tab>`
 - Log in, state that you are an individual and not a company
-- Steup will start
+- Setup will start
 - Select folder location `~/Qt5.12.2`
 - Installation will start
 
@@ -126,7 +126,7 @@ _Note2: make sure that you can access `$HOME/Qt5.12.2/5.12.2` and that the folde
 
 _Note: at the time of writing, it is version 2022.2.1_
 
-- Extract the contents of the `.tar.gz` and move the contents of `android-studio` to $HOME directory
+- Extract the contents of the `.tar.gz` and move the contents of `android-studio` to `$HOME` directory
 - Start the installation with:
 ```
 cd ~/android-stuio/bin
@@ -197,7 +197,7 @@ No issues reported.
 
 ### Test the .apk
 
-- The .apk can be found in: $APP_DIR/pyqtdeploy-app/build-android-64/example-pyqt5-app/build/outputs/apk/debug/example-pyqt5-app-debug.apk
+- The generated `example-pyqt5-app-debug.apk` can be found in `$APP_DIR/pyqtdeploy-app/build-android-64/example-pyqt5-app/build/outputs/apk/debug`
 - Copy, install and run the .apk onto your phone (>=Android v9.0)
 
 ### Customise the app for Android (optional)
@@ -214,9 +214,9 @@ Use QPixmap and pyrcc to save images and render them.
 
 Review python modules to create a structured project folder with writable paths.
 
-## Build a complex pyqt-demo app (optional)
+## Build from a complex pyqt-demo app (optional)
 
-_This section explains how to create an .apk for a more complex pyqt5 app._
+_This section explains how to create an .apk from the more complex pyqt-demo app._
 
 ### Pre-requisites
 
@@ -286,7 +286,7 @@ _Note that the .pdy might force include some default Qt modules like: QtGui, sip
 
 ### Setup, build and test the app
 
-Please follow the steps in section "Example App Demo" to setup, build and test your complex pyqt5 app.
+Please follow the steps in section "Example App Demo" to setup, build and test your own pyqt5 app.
 
 ## Credits
 
@@ -294,7 +294,7 @@ _This section details the main contributors and sources for the creation of the 
 
 Repository created by Achille Martin.
 
-Donations accepted as hard work has been put into this repository and if you feel you can make progress with your projects by converting your pyqt5 apps into Android apps.
+Donations accepted as hard work has been put into this repository, and if you feel you can make progress with your projects by converting your pyqt5 apps into Android apps.
 
 Inspiration from:
 - https://github.com/kviktor/pyqtdeploy-android-build
