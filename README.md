@@ -288,6 +288,28 @@ _Note that the .pdy might force include some default Qt modules like: QtGui, sip
 
 Please follow the steps in section "Example App Demo" to setup, build and test your own pyqt5 app.
 
+## Setup in VirtualBox (optional)
+
+When setting the repo up in VirtualBox, you might come across the following issues:
+
+1) Issue with `xcb`
+
+The error message is likely to be:
+```
+qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though it was found.
+```
+
+First, enable the Qt debug prints:
+```
+export QT_DEBUG_PLUGINS=1
+```
+
+Second, identify the issue.
+If it is related to the package `libxcb-xinerama`, then:
+```
+sudo apt-get install libxcb-xinerama0
+``` 
+
 ## Credits
 
 _This section details the main contributors and sources for the creation of the repo._
