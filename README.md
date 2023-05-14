@@ -129,7 +129,7 @@ _Note: at the time of writing, it is version 2022.2.1_
 - Extract the contents of the `.tar.gz` and move the contents of `android-studio` to `$HOME` directory
 - Start the installation with:
 ```
-cd ~/android-stuio/bin
+cd ~/android-studio/bin
 ./studio.sh
 ```
 
