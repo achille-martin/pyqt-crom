@@ -118,7 +118,7 @@ Verify your email and register as an individual (no need for location).
 
 _Note: if custom installation has to be selected, make sure you only setup Qt5.12.2 and the default packages._
 
-_Note2: make sure that you can access `$HOME/Qt5.12.2/5.12.2` and that the folder `android_amr64_v8a` is located inside of it._
+_Note2: make sure that you can access `$HOME/Qt5.12.2/5.12.2` and that the folder `android_arm64_v8a` is located inside of it._
 
 3) Install Android Studio
 
