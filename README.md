@@ -258,7 +258,7 @@ mkdir pyqtdeploy-app
 ```
 shutil.copy('../example-pyqt5-app.py', os.path.join('data', 'example-pyqt5-app.py.dat'))
 ```
-- Rename all occurrences of `pyqt-demo` into `example-pyqt5-app.py` in `$APP_DIR/pyqtdeploy-app/build-app.py`
+- Rename all occurrences of `pyqt-demo` into `example-pyqt5-app` in `$APP_DIR/pyqtdeploy-app/build-app.py`
 - Rename `$APP_DIR/pyqtdeploy-app/pyqt-demo.pdy` into `$APP_DIR/pyqtdeploy-app/example-pyqt5-app.pdy`
 - Update the `$APP_DIR/pyqtdeploy-app/example-pyqt5-app.pdy` with the necessary packages:
 ```
