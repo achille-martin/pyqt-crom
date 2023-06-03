@@ -6,3 +6,4 @@ build-android-64/
 # Generated or downloaded files
 *.dat
 *.tar.gz
+*.tar.xz
