@@ -56,6 +56,7 @@ _Note: to exit, type in a terminal `deactivate`_
 
 ```
 cd $APP_DIR
+pip3 cache purge
 pip3 install -r requirements.txt
 ```
 
