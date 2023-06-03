@@ -56,7 +56,7 @@ _Note: to exit, type in a terminal `deactivate`_
 
 ```
 cd $APP_DIR
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 _Note that `pip --version` should display a version related to python 3.x_
@@ -64,7 +64,7 @@ _Note that `pip --version` should display a version related to python 3.x_
 Confirm your pip packages with:
 
 ```
-pip list --local
+pip3 list --local
 ```
 
 4) Test your virtual environment
