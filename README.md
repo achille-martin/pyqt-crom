@@ -212,7 +212,10 @@ No issues reported.
 ### Test the .apk
 
 - The generated `example-pyqt5-app-debug.apk` can be found in `$APP_DIR/pyqtdeploy-app/build-android-64/example-pyqt5-app/build/outputs/apk/debug`
+
+You can then either:
 - Copy, install and run the .apk onto your phone (>=Android v9.0)
+- Install BlueStacks on Windows (https://www.bluestacks.com/download.html), enable hyper-V, open `my games` and install the .apk, run the app offline
 
 ### Customise the app for Android (optional)
 
