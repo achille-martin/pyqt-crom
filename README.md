@@ -144,7 +144,7 @@ Start the download (unless you want to install extra features)
 
 - Confirm the installation of the SDK in `$HOME/Android/Sdk`
 
-_Note: you can also confirm that `$HOME/Android/Sdk/platforms` contains `android-28` folder_
+_Note: you can also confirm that `$HOME/Android/Sdk/platforms` contains `android-28` folder and only this folder_
 
 4) Install correct Android SDK and Tools
 
