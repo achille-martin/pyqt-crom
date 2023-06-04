@@ -83,8 +83,7 @@ Confirm that your pyqt5 app can be displayed properly in Linux:
 
 1) Download a set of external dependencies
 
-- Identify the list of packages required to build the app from `$APP_DIR/pyqtdeploy-app/sysroot.json`
-- A folder has been created to hold the resources (with the desired versions): `$APP_DIR/pyqtdeploy-app/resources`. 
+A folder has been created to hold the resources (with the desired versions): `$APP_DIR/pyqtdeploy-app/resources`.
 
 A file called `download_sources.sh` has been added to `$APP_DIR/pyqtdeploy-app/resources` to gather all resources at once.
 Please download the sources:
@@ -93,6 +92,8 @@ cd $APP_DIR/pyqtdeploy-app/resources
 chmod +x download_sources.sh
 ./download_sources.sh
 ```
+
+_Note: you can confirm that the list of packages required matches with the versions from `$APP_DIR/pyqtdeploy-app/sysroot.json`_
 
 2) Install QT from the installer
 
@@ -125,9 +126,9 @@ _Note2: make sure that you can access `$HOME/Qt5.12.2/5.12.2` and that the folde
 
 - Download Android Studio (latest version) from: https://developer.android.com/studio
 
-_Note: at the time of writing, it is version 2022.2.1_
+_Note: at the time of writing, it is version 2022.2.1.18, which can be downloaded at: https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2022.2.1.18/android-studio-2022.2.1.18-linux.tar.gz_
 
-- Extract the contents of the `.tar.gz` and move the contents of `android-studio` to `$HOME` directory
+- Extract the contents of the `.tar.gz` using `tar -xvf <tar_file>` and move the contents of `android-studio` to `$HOME` directory using `mv android-studio ~/`
 - Start the installation with:
 ```
 cd ~/android-studio/bin
@@ -144,7 +145,8 @@ Start the download (unless you want to install extra features)
 
 - Confirm the installation of the SDK in `$HOME/Android/Sdk`
 
-_Note: you can also confirm that `$HOME/Android/Sdk/platforms` contains `android-28` folder and only this folder_
+_Note: you can also confirm that `$HOME/Android/Sdk/platforms` contains `android-28` folder only.
+If not, follow the instructions at the next step to set things up correctly._
 
 4) Install correct Android SDK and Tools
 
@@ -156,7 +158,8 @@ _Note: It might be possible to install a later NDK and thus a later android vers
 
 - Confirm that the right SDK has been installed and get the API level (in the example, 28)
 
-Therefore, make sure that in the "SDK Platforms tab", the following is installed: (Android 9.0) Android SDK Platform 28, (Android 9.0) Sources for Android 28
+Therefore, make sure that in the "SDK Platforms tab", the following is installed: (Android 9.0) Android SDK Platform 28, (Android 9.0) Sources for Android 28.
+Remove any additional unneeded package from the list.
 
 And make sure that in the "SDK Tools tab", the following is installed (you might need to untick Hide Obsolete Packages and tick Show Package Details): (Android SDK Build-Tools 34-rc3) 33.0.2, Android Emulator, Android SDK Platform-tools, Android SDK Tools (Obsolete)
 
@@ -168,11 +171,21 @@ And make sure that in the "SDK Tools tab", the following is installed (you might
 
 _Note: this NDK is known to be working with Qt5.12.2, but there might be others_
 
-- Extract the contents into `~/Android` such that `~/Android/android-ndk-r19c` is the desired folder
+- Extract the contents into `~/Android` using `sudo apt-get install unzip` and `unzip <zip_file>` such that `~/Android/android-ndk-r19c` is the desired folder
 
 _Note: make sure that `~/Android/android-ndk-r19c/platforms` contains the folder `android-28`_
 
-6) Setup the environment variables
+6) Install Java for Android Studio
+
+Install a stable java jdk available for your Ubuntu distribution and tested with Gradle:
+
+```
+sudo apt install openjdk-8-jdk openjdk-8-jre
+```
+
+Confirm the version with `java -version` which should be v1.8.0_362.
+
+7) Setup the environment variables
 
 - A file called `path_setup.sh` has been added to `$APP_DIR/pyqtdeploy-app/resources` to set up the environment variables.
 
@@ -186,7 +199,7 @@ source $APP_DIR/pyqtdeploy-app/resources/path_setup.sh
 - Start the building process of the .apk with:
 ```
 cd $APP_DIR/pyqtdeploy-app
-python build-app.py --target android-64 --source-dir $RESOURCES_DIR --installed-qt-dir $QT_DIR --verbose
+python3 build-app.py --target android-64 --source-dir $RESOURCES_DIR --installed-qt-dir $QT_DIR --verbose
 ``` 
 - Let the app build (it may take a while).
 
