@@ -5,6 +5,7 @@
 
 :dart: The aim of this repo is to create an android app (.apk) from a (simple) PyQt5 app.
 
+<a id="toc"></a>
 ## Table of Contents
 
 1. [Purpose](#purpose)
@@ -38,6 +39,8 @@ Specs of Linux machine used:
 Specs of target machine desired:
 * Android 9.0 (at least)
 
+[:arrow_heading_up: Back to TOP](#toc) 
+
 <a id="path-setup"></a>
 ### Setup the path to the app folder
 
@@ -55,6 +58,8 @@ printf "%s\n" \
 source $HOME/.bashrc
 ```
 
+[:arrow_heading_up: Back to TOP](#toc) 
+
 <a id="github-repo-download"></a>
 ### Download the github repo 
 
@@ -62,6 +67,8 @@ source $HOME/.bashrc
 cd $HOME/Documents
 git clone git@github.com:achille-martin/simple-pyqt5-android-app.git
 ```
+
+[:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="virtual-environment-setup"></a>
 ### Setup the virtual environment for your app 
@@ -106,6 +113,8 @@ python3 example-pyqt5-app.py
 The PyQt5 app will start and you can confirm that it is displayed properly on the machine used:
 - Click the button
 - An alert message is displayed stating that you have clicked the button
+
+[:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="external-dependency-installation"></a>
 ### Install the external dependencies
@@ -227,6 +236,8 @@ sudo apt install openjdk-8-jdk openjdk-8-jre
 
 :hand: *Confirm the version with `java -version` which should be `v1.8.0_362`.*
 
+[:arrow_heading_up: Back to TOP](#toc) 
+
 <a id="environment-variable-setup"></a>
 ### Setup the environment variables
 
@@ -242,6 +253,8 @@ printf "%s\n" \
 source $HOME/.bashrc
 ```
 
+[:arrow_heading_up: Back to TOP](#toc) 
+
 <a id="apk-build"></a>
 ### Build the .apk with pyqtdeploy
 
@@ -255,6 +268,8 @@ python3 build-app.py --target android-64 --source-dir $RESOURCES_DIR --installed
 
 :tada: _The app is built when you see "BUILD SUCCESSFUL"_
 
+[:arrow_heading_up: Back to TOP](#toc) 
+
 <a id="apk-test"></a>
 ### Test the .apk 
 
@@ -264,10 +279,14 @@ You can then either:
 * Copy, install and run the .apk onto your phone (>=Android v9.0)
 * Install BlueStacks on Windows (https://www.bluestacks.com/download.html), enable hyper-V, open `my games` and install the .apk, run the app offline
 
+[:arrow_heading_up: Back to TOP](#toc) 
+
 <a id="app-customisation"></a>
 ### Customise the app for Android (OPTIONAL) 
 
 Refer to "Adding Android specific things" in https://github.com/kviktor/pyqtdeploy-android-build.
+
+[:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="pyqt5-modules-and-features"></a>
 ### PyQt5 modules and features (OPTIONAL) 
@@ -279,6 +298,8 @@ Use QPixmap and pyrcc to save images and render them.
 2) Manage your python app in android
 
 Review python modules to create a structured project folder with writable paths.
+
+[:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="detailed-complex-build"></a>
 ## Detailed build from a complex pyqt-demo app
@@ -293,6 +314,8 @@ Get rid of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app` folder:
 ```
 sudo rm -r $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app
 ```
+
+[:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="build-files-complex"></a>
 ### Get the build files for pyqtdeploy
@@ -310,6 +333,8 @@ _Note2: stick to v2.x as v3.x had some major changes which will generate loads o
 - Copy the contents into `$SIMPLE_PYQT5_ANDROID_APP_DIR`
 
 *Note: you should now have a folder called `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-2.5.1`*
+
+[:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="folder-setup-complex"></a>
 ### Setup your app folder to build an apk with pyqtdeploy
@@ -354,10 +379,14 @@ _Note that the .pdy might force include some default Qt modules like: QtGui, sip
         ],
 ```
 
+[:arrow_heading_up: Back to TOP](#toc) 
+
 <a id="setup-build-test-complex"></a>
 ### Setup, build and test the app
 
 Please follow the steps in section "Example App Demo" to setup, build and test your own pyqt5 app.
+
+[:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="virtualbox-setup"></a>
 ## Setup in VirtualBox
@@ -382,6 +411,8 @@ If it is related to the package `libxcb-xinerama`, then:
 sudo apt-get install libxcb-xinerama0
 ``` 
 
+[:arrow_heading_up: Back to TOP](#toc) 
+
 <a id="credits"></a>
 ## Credits
 
@@ -394,4 +425,6 @@ Donations accepted as hard work has been put into this repository, and if you fe
 Inspiration from:
 - https://github.com/kviktor/pyqtdeploy-android-build
 - https://medium.com/@Lola_Dam/packaging-pyqt-application-using-pyqtdeploy-for-both-linux-and-android-32ac7824708b
+
+[:arrow_heading_up: Back to TOP](#toc)
 
