@@ -7,3 +7,4 @@ build-android-64/
 *.dat
 *.tar.gz
 *.tar.xz
+*.db
