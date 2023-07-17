@@ -23,6 +23,7 @@
     1. [File management](#pyqt5-file-management)
     1. [Databases](#pyqt5-databases)
         1. [Engine selection](#engine-selection)
+        1. [Setup for database management](#database-management-setup)
         1. [Example PyQt5 app](#database-pyqt5-demo-app)
         1. [Example operational PyQt5 app](#operational-database-pyqt5-demo-app)
     1. [Android permissions](#android-app-permissions)
@@ -315,8 +316,8 @@ PyQt5 lets you work with many other database engines as shown on [tutorialspoint
 - Content is updated continuously and atomically for maximum reliability
 - Database content can be viewed with many third-party tools
 
-<a id="database-pyqt5-demo-app"></a>
-#### Example PyQt5 app
+<a id="database-management-setup"></a>
+#### Setup for database management
 
 Before attempting to run any `SQLite`-related actions, make sure that the library is available on your machine:
 
@@ -324,6 +325,9 @@ Before attempting to run any `SQLite`-related actions, make sure that the librar
 sudo apt-get install sqlite3
 sudo apt-get install sqlitebrowser
 ```
+
+<a id="database-pyqt5-demo-app"></a>
+#### Example PyQt5 app
 
 To confirm that `SQLite` is functional on your machine, run the following:
 
@@ -360,7 +364,7 @@ This demo app is built on the one highlighted in the [Getting started](#getting-
 - Once the pop-up has been acknowledged, a database is created in the current folder (called `sportsdatabase`), if not already existing
 - In the dialog window displaying the content of the database, rows can be added, removed or edited
 
-:point_up: _You can view the content of `sportsdatabase.db` at any time by following the instructions in [Example PyQt5 app with database](#database-pyqt5-demo-app)._
+:point_up: _You can view the content of `sportsdatabase.db` at any time by following the instructions in [Example PyQt5 app with database](#database-pyqt5-demo-app) after ensuring that your [Database manager](#database-management-setup) is correctly setup._
 
 <a id="android-app-permissions"></a>
 ### Android permissions
