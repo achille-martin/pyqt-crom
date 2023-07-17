@@ -1,11 +1,6 @@
 #!/usr/bin/env python3
 
-# Code from https://www.tutorialspoint.com/pyqt5/pyqt5_database_handling.htm
-# Run with ./<filename.py>
-# Review the contents of the database (.db) with sqlitebrowser or sqlitestudio
-# `sudo apt install sqlite3`
-# `sudo apt install sqlitebrowser`
-# `sqlitebrowser` and open a database
+# Code inspired from https://www.tutorialspoint.com/pyqt5/pyqt5_database_handling.htm
 
 import sys
 import os.path
@@ -61,7 +56,7 @@ if __name__ == '__main__':
     # Parameter setting
     db_type_ = 'QSQLITE'
     db_name_ = 'sportsdatabase.db'
-    db_folder_ = '/home/achillemartin/Documents/simple-pyqt5-android-app/'
+    db_folder_ = './'
     delrow_ = -1
     
     # Database creation

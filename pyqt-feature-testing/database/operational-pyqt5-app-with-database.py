@@ -2,6 +2,10 @@
 
 # Operational pyqt5 app
 
+# Inspiration from:
+# * https://www.tutorialspoint.com/pyqt5/pyqt5_database_handling.htm
+# * https://realpython.com/python-pyqt-database/
+
 ## Imports
 
 from PyQt5.QtCore import QSize, Qt
@@ -112,9 +116,6 @@ def findrow(i):
 
 ## Database definition
 
-# Primary help link:  https://www.tutorialspoint.com/pyqt5/pyqt5_database_handling.htm
-# Secondary help link: https://realpython.com/python-pyqt-database/
-
 # Parameter setting
 db_type_ = 'QSQLITE'
 db_name_ = 'sportsdatabase.db'
@@ -130,7 +131,7 @@ app = QApplication(sys.argv)
 
 # Create a Qt widget, which will be our window.
 main_window = MainWindow()
-main_window.show()  # IMPORTANT!!!!! Windows are hidden by default.
+main_window.show()  # IMPORTANT - Windows are hidden by default.
 
 # Start the event loop.
 app.exec()
