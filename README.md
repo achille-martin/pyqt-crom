@@ -79,7 +79,7 @@ git clone git@github.com:achille-martin/simple-pyqt5-android-app.git
 <a id="virtual-environment-setup"></a>
 ### Setup the virtual environment for your app 
 
-1. Create a virtual environment with your python3 installed on your computer
+1. **Create a virtual environment with your python3 installed on your computer**
 
 ```
 sudo apt-get update
@@ -93,7 +93,7 @@ virtualenv simple-pyqt5-android-app-venv -p python3
 
 <a id="virtual-environment-activation"></a>
 
-2. Activate your virtual environment
+2. **Activate your virtual environment**
 
 ```
 source $SIMPLE_PYQT5_ANDROID_APP_DIR/venv/simple-pyqt5-android-app-venv/bin/activate
@@ -101,7 +101,7 @@ source $SIMPLE_PYQT5_ANDROID_APP_DIR/venv/simple-pyqt5-android-app-venv/bin/acti
 
 :bulb: _To exit the virtual environment, type in your terminal `deactivate`._
 
-3. Install the necessary pip packages
+3. **Install the necessary pip packages**
 
 ```
 cd $SIMPLE_PYQT5_ANDROID_APP_DIR
@@ -111,7 +111,7 @@ pip3 install -r requirements.txt
 
 :bulb: _You can confirm your pip packages with `pip3 list --local`._
 
-4. Test the PyQt5  app in your virtual environment
+4. **Test the PyQt5  app in your virtual environment**
 
 ```
 cd $SIMPLE_PYQT5_ANDROID_APP_DIR
@@ -125,7 +125,7 @@ The PyQt5 app will start and you can confirm that it is displayed properly on th
 <a id="external-dependency-installation"></a>
 ### Install the external dependencies
 
-1. Download a set of external dependencies
+1. **Download a set of external dependencies**
 
 Download the sources with:
 
@@ -137,7 +137,7 @@ chmod +x download_sources.sh
 
 :point_up: _You can confirm that the list of packages required matches with the versions from `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/sysroot.json`._
 
-2. Install Qt from the installer
+2. **Install Qt from the installer**
 
 Download the version which matches the one in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/sysroot.json`:
 
@@ -161,7 +161,7 @@ A Qt window will appear on which you can sign up:
 
 :hand: _Make sure that you can access `$HOME/Qt5.12.2/5.12.2` and that the folder `android_arm64_v8a` is located inside of it._
 
-3. Install Android Studio
+3. **Install Android Studio**
 
 Download Android Studio (latest version) from [the Android studio website](https://developer.android.com/studio) or get the version `2022.2.1.18` used for this repo (at the time of writing):
 
@@ -195,7 +195,7 @@ The Android Studio installer will start:
 :hand: _Make sure that the default SDK has been installed in `$HOME/Android/Sdk` and that `$HOME/Android/Sdk/platforms` contains `android-28` folder only.
 If not, follow the instructions at the next step to set things up correctly._
 
-4. Install correct Android SDK and Tools
+4. **Install correct Android SDK and Tools**
 
 - Restart Android Studio with `cd $HOME/android-studio/bin && ./studio.sh` (skip if no SDK found)
 - On the menu screen, click on `more options` and then `SDK manager`
@@ -210,7 +210,7 @@ If not, follow the instructions at the next step to set things up correctly._
 
 - Close Android Studio
 
-5. Install Android NDK matching with Qt version
+5. **Install Android NDK matching with Qt version**
 
 Download NDK 19c using:
 
@@ -232,7 +232,7 @@ mv android-ndk-r19c/ $HOME/Android
 
 :hand: _Make sure that `~/Android/android-ndk-r19c/platforms` contains the folder `android-28`._
 
-6. Install Java for Android Studio
+6. **Install Java for Android Studio**
 
 Install a stable java jdk available for your Ubuntu distribution and tested with Gradle:
 
@@ -431,7 +431,7 @@ If you have followed the tutorial, then ensure that you have [activated your vir
 
 If the [building process](#apk-build) or any other process fails because some files cannot be found, ensure that you have correctly setup your `.bashrc` to load the environment.
 
-Go through the [Getting started](#getting-started) tutorial and confirm the state of your `~/.bashrc`.
+Go through the [Getting started](#getting-started) tutorial and confirm the state of your `.bashrc`.
 
 <a id="virtualbox-setup"></a>
 ### Setup repo with VirtualBox
