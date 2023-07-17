@@ -22,6 +22,9 @@
     1. [Images](#pyqt5-images)
     1. [File management](#pyqt5-file-management)
     1. [Databases](#pyqt5-databases)
+        1. [Engine selection](#engine-selection)
+        1. [Example PyQt5 app](#database-pyqt5-demo-app)
+        1. [Example operational PyQt5 app](#operational-database-pyqt5-demo-app)
     1. [Android permissions](#android-app-permissions)
 1. [How it all began...](#original-story)
     1. [A fresh start](#fresh-start)
@@ -301,9 +304,63 @@ Rely on python modules to create a structured project folder with writable paths
 <a id="pyqt5-databases"></a>
 ### Databases
 
-The preferred database for Android is `sqlite3`.
+<a id="engine-selection"></a>
+#### Engine selection
 
-However, PyQt5 lets you work with many other databases as shown on [tutorialspoint website](https://www.tutorialspoint.com/pyqt5/pyqt5_database_handling.htm).
+The preferred database engine for Android is `SQLite`. The latest SQLite library available is `sqlite3` as introduced on [the SQLite website](https://www.sqlite.org/version3.html).
+
+PyQt5 lets you work with many other database engines as shown on [tutorialspoint website](https://www.tutorialspoint.com/pyqt5/pyqt5_database_handling.htm), but `sqlite3` is a good start for simple python apps because:
+- The application file is portable across multiple platforms
+- Reading/writing performance is great as the application only loads the data it needs
+- Content is updated continuously and atomically for maximum reliability
+- Database content can be viewed with many third-party tools
+
+<a id="database-pyqt5-demo-app"></a>
+#### Example PyQt5 app
+
+Before attempting to run any `SQLite`-related actions, make sure that the library is available on your machine:
+
+```
+sudo apt-get install sqlite3
+sudo apt-get install sqlitebrowser
+```
+
+To confirm that `SQLite` is functional on your machine, run the following:
+
+```
+cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqt-feature-testing/database
+python3 pyqt5-app-with-database.py
+```
+
+A dialog window will pop up in which you can perform the following:
+- View the pre-populated database (called `sportsdatabase.db`)
+- Add a row to the database
+- Remove a row from the database
+
+You can view the content of the generated and edited database at any time outside of the application with:
+
+```
+cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqt-feature-testing/database
+sqlitebrowser sportsdatabase.db
+```
+
+<a id="operational-database-pyqt5-demo-app"></a>
+#### Example operational PyQt5 app
+
+You can also run a more operational PyQt5 app boasting a database with:
+
+```
+cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqt-feature-testing/database
+python3 operational-pyqt5-app-with-database.py
+```
+
+This demo app is built on the one highlighted in the [Getting started](#getting-started) section:
+- A button appears on the screen in a window
+- Once clicked, a pop-up appears on screen stating that the button has been clicked and that a database will open
+- Once the pop-up has been acknowledged, a database is created in the current folder (called `sportsdatabase`), if not already existing
+- In the dialog window displaying the content of the database, rows can be added, removed or edited
+
+:point_up: _You can view the content of `sportsdatabase.db` at any time by following the instructions in [Example PyQt5 app with database](#database-pyqt5-demo-app)._
 
 <a id="android-app-permissions"></a>
 ### Android permissions
