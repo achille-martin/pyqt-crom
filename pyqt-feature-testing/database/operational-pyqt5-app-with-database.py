@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Operational pyqt5 app
+# Operational pyqt5 app with database
 
 # Inspiration from:
 # * https://www.tutorialspoint.com/pyqt5/pyqt5_database_handling.htm
@@ -33,94 +33,108 @@ class MainWindow(QMainWindow):
         self.setMaximumSize(QSize(400, 300))
         self.setCentralWidget(button)
 
-
     def on_button_clicked(self):
+        
+        # Diplay debug message and alert message
         print("Button has been clicked!")
         alert = QMessageBox()
         alert.setText('You clicked the button!\n\nThis will open a database viewer and modifier...')
         alert.exec()
         
-        # Database creation
-        if not os.path.exists(db_folder_ + db_name_):
-            createDB(db_type_, db_name_)
-        
         # Database viewer and modifier
-        db = QSqlDatabase.addDatabase(db_type_)
-        db.setDatabaseName(db_name_)
-        model = QSqlTableModel()
-        initialiseModel(model)
+        db_manager = DbManager('QSQLITE', 'sportsdatabase.db', './')
+        table_model = QSqlTableModel()
+        db_manager.initialise_model(table_model)
 
-        view1 = createView("Table Model (View 1)", model)
-        view1.clicked.connect(findrow)
+        view_primary = db_manager.create_view("Table Model (View Primary)", table_model)
+        view_primary.clicked.connect(db_manager.find_row)
 
         dlg = QDialog(self)
         layout = QVBoxLayout()
-        layout.addWidget(view1)
+        layout.addWidget(view_primary)
 
-        button = QPushButton("Add a row")
-        button.clicked.connect(lambda: addrow(model))
-        layout.addWidget(button)
+        button_add_row = QPushButton("Add a row")
+        button_add_row.clicked.connect(lambda: db_manager.add_row(table_model))
+        layout.addWidget(button_add_row)
 
-        btn1 = QPushButton("del a row")
-        btn1.clicked.connect(lambda: model.removeRow(view1.currentIndex().row()))
-        layout.addWidget(btn1)
+        button_del_row = QPushButton("Delete a row")
+        button_del_row.clicked.connect(lambda: table_model.removeRow(view_primary.currentIndex().row()))
+        layout.addWidget(button_del_row)
 
         dlg.setLayout(layout)
         dlg.setWindowTitle("Database Demo")
         dlg.exec()
 
-## Extra function definition
+# Database Manager class
+class DbManager():
+   
+    # Ensure one connection to a database per application
+    db_connected = None
+    
+    def __init__(self, db_type, db_name, db_folder):
+        self.db_type = db_type
+        self.db_name = db_name
+        self.db_folder = db_folder
+        self.delrow = -1
+        
+        if DbManager.db_connected is None:
+            try:
+                DbManager.db_connected = QSqlDatabase.addDatabase(self.db_type)
+                DbManager.db_connected.setDatabaseName(self.db_name)
+            except Exception as error:
+                print("Error: Connection not established {}".format(error))
+            else:
+                print("Connection established for " + str(self.db_name) + " of type " + str(self.db_type))
 
-def createDB(db_type, db_name):
-    db = QSqlDatabase.addDatabase(db_type)
-    db.setDatabaseName(db_name)
+        # Initial database creation
+        if not os.path.exists(self.db_folder + self.db_name):
+            self.createDB(self.db_type, self.db_name)
 
-    if not db.open():
-      msg = QMessageBox()
-      msg.setIcon(QMessageBox.Critical)
-      msg.setText("Error in Database Creation")
-      retval = msg.exec_()
-      return False
+        print("Database Manager for " + str(self.db_folder) + str(self.db_name) + " instantiated")
 
-    query = QSqlQuery()
-    query.exec_("create table sportsmen(id int primary key, ""firstname varchar(20), lastname varchar(20))")
+    def __del__(self):
+        self.db_connected.close()
+        print("Database Manager for " + str(self.db_folder) + str(self.db_name) + " deleted")
 
-    query.exec_("insert into sportsmen values(101, 'Roger', 'Federer')")
-    query.exec_("insert into sportsmen values(102, 'Christiano', 'Ronaldo')")
-    query.exec_("insert into sportsmen values(103, 'Ussain', 'Bolt')")
-    query.exec_("insert into sportsmen values(104, 'Sachin', 'Tendulkar')")
-    query.exec_("insert into sportsmen values(105, 'Saina', 'Nehwal')")
-    return True
+    def create_db(self, db_type, db_name):
+        if not self.db_connected.open():
+          msg = QMessageBox()
+          msg.setIcon(QMessageBox.Critical)
+          msg.setText("Error in Database Creation")
+          retval = msg.exec_()
+          return False
 
-def initialiseModel(model):
-    model.setTable('sportsmen')
-    model.setEditStrategy(QSqlTableModel.OnFieldChange)
-    model.select()
-    model.setHeaderData(0, Qt.Horizontal, "ID")
-    model.setHeaderData(1, Qt.Horizontal, "First name")
-    model.setHeaderData(2, Qt.Horizontal, "Last name")
+        query = QSqlQuery()
+        query.exec_("create table sportsmen(id int primary key, ""firstname varchar(20), lastname varchar(20))")
 
-def createView(title, model):
-    view = QTableView()
-    view.setModel(model)
-    view.setWindowTitle(title)
-    return view
+        query.exec_("insert into sportsmen values(101, 'Roger', 'Federer')")
+        query.exec_("insert into sportsmen values(102, 'Christiano', 'Ronaldo')")
+        query.exec_("insert into sportsmen values(103, 'Ussain', 'Bolt')")
+        query.exec_("insert into sportsmen values(104, 'Sachin', 'Tendulkar')")
+        query.exec_("insert into sportsmen values(105, 'Saina', 'Nehwal')")
+        return True
 
-def addrow(model):
-    # print ("Model row number: " + str(model.rowCount()))
-    ret = model.insertRows(model.rowCount(), 1)
-    # print ("Model insert state: " + str(ret))
+    def initialise_model(self, model):
+        model.setTable('sportsmen')
+        model.setEditStrategy(QSqlTableModel.OnFieldChange)
+        model.select()
+        model.setHeaderData(0, Qt.Horizontal, "ID")
+        model.setHeaderData(1, Qt.Horizontal, "First name")
+        model.setHeaderData(2, Qt.Horizontal, "Last name")
 
-def findrow(i):
-    delrow_ = i.row()
+    def create_view(self, title, model):
+        view = QTableView()
+        view.setModel(model)
+        view.setWindowTitle(title)
+        return view
 
-## Database definition
+    def add_row(self, model):
+        # print ("Model row number: " + str(model.rowCount()))
+        ret = model.insertRows(model.rowCount(), 1)
+        # print ("Model insert state: " + str(ret))
 
-# Parameter setting
-db_type_ = 'QSQLITE'
-db_name_ = 'sportsdatabase.db'
-db_folder_ = './'
-delrow_ = -1
+    def find_row(self, i):
+        self.delrow = i.row()
 
 ## Application definition
 
