@@ -274,6 +274,14 @@ python3 build-app.py --target android-64 --source-dir $RESOURCES_DIR --installed
 
 :tada: _The app is built when you see "BUILD SUCCESSFUL"._
 
+:bulb: _The nextt time you build an app, you can skip the creation of the sysroot._
+_Use the following command for future builds:_
+
+```
+cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app
+python3 build-app.py --target android-64 --source-dir $RESOURCES_DIR --installed-qt-dir $QT_DIR --verbose --no-sysroot
+```
+
 <a id="apk-test"></a>
 ### Test the .apk 
 

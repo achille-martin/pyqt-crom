@@ -8,3 +8,4 @@ build-android-64/
 *.tar.gz
 *.tar.xz
 *.db
+*.apk
