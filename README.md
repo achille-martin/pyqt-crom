@@ -274,7 +274,7 @@ python3 build-app.py --target android-64 --source-dir $RESOURCES_DIR --installed
 
 :tada: _The app is built when you see "BUILD SUCCESSFUL"._
 
-:bulb: _The nextt time you build an app, you can skip the creation of the sysroot._
+:bulb: _The next time you build an app, you can skip the creation of the sysroot._
 _Use the following command for future builds:_
 
 ```
