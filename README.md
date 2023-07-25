@@ -118,7 +118,7 @@ pip3 install -r requirements.txt
 4. **Test the PyQt5  app in your virtual environment**
 
 ```
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR
+cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/example_pkg
 python3 example-pyqt5-app.py
 ```
 
