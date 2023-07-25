@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Project usingdefaultlocations="1" version="7">
     <Python major="3" minor="6" patch="9" platformpython="" />
-    <Application entrypoint="" isbundle="0" isconsole="0" ispyqt5="1" name="ExamplePyQt5AndroidApp" script="$HOME/Documents/simple-pyqt5-android-app/example-pyqt5-app.py" syspath="">
+    <Application entrypoint="" isbundle="0" isconsole="0" ispyqt5="1" name="ExamplePyQt5AndroidApp" script="$HOME/Documents/simple-pyqt5-android-app/pyqtdeploy-app/example_pkg/example-pyqt5-app.py" syspath="">
         <Exclude name="*.pyc" />
         <Exclude name="*.pyd" />
         <Exclude name="*.pyo" />

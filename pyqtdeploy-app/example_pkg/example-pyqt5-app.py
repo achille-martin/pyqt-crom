@@ -39,7 +39,7 @@ class MainWindow(QMainWindow):
 
 ## Application definition
 
-if __name__ == "__main__":
+def main():
 
     # You need one (and only one) QApplication instance per application.
     # Pass in sys.argv to allow command line arguments for your app.
@@ -55,3 +55,8 @@ if __name__ == "__main__":
 
     # Your application won't reach here until you exit and the event
     # loop has stopped.
+
+if __name__ == "__main__":
+    # This needs to only define main
+    # due to how pyqtdeploy is implemented to build packages
+    main()
