@@ -88,7 +88,7 @@ class DbManager():
 
         # Initial database creation
         if not os.path.exists(self.db_folder + self.db_name):
-            self.createDB(self.db_type, self.db_name)
+            self.create_db(self.db_type, self.db_name)
 
         print("Database Manager for " + str(self.db_folder) + str(self.db_name) + " instantiated")
 
