@@ -220,7 +220,9 @@ if build_sysroot:
     run(args)
 
 # Build the demo.
-shutil.copy(input_app_path, os.path.join('data', build_app_name + '.py.dat'))
+
+# Saving input script into a data file for review purposes
+# shutil.copy(input_app_path, os.path.join('data', build_app_name + '.py.dat'))
 
 run(['pyqtdeploy-build', '--target', target, '--sysroot', sysroot_dir,
             '--build-dir', build_dir, 'config-app.pdy'])
