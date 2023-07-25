@@ -471,6 +471,8 @@ pyqtdeploy example-pyqt5-app.pdy
 
 Please follow the steps detailed in [Getting Started](#getting-started) to setup, build and test your own PyQt5 app.
 
+If you would like to understand how `pyqtdeploy` works and how to set it up, please refer to the [official tutorial](https://docs.huihoo.com/pyqt/pyqtdeploy/tutorial.html).
+
 [:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="troubleshooting"></a>
