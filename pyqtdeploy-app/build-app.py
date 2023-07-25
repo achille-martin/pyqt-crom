@@ -53,13 +53,13 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--input-app-path', 
         help="the path to the app you want to build. \
                 Make sure that the app path is the same as \
-                the one entered in the `build-app.pdy` file.",
+                the one entered in the `config-app.pdy` file.",
         default='')
 parser.add_argument('--output-app-name',
         help="the desired name for your app. \
                 It must be lowercase and dash-separated. \
                 Make sure that you do not specify an app name \
-                in the `build-app.pdy` file \
+                in the `config-app.pdy` file \
                 and that you edit the `.py.dat` name.",
         default='')
 parser.add_argument('--output-app-dir',
@@ -135,7 +135,7 @@ if not output_app_name:
     print("Cannot find a desired name for the built app. \
             Use --output-app-name if you want to specify one. \
             Otherwise, the default name `built-app` will be used")
-    output_app_name="built-app"
+    output_app_name="ExamplePyQt5AndroidApp"
 # Request path to directory to save output built app
 if not output_app_dir:
     print("Cannot find a path to the desired directory \
@@ -223,7 +223,7 @@ if build_sysroot:
 shutil.copy(input_app_path, os.path.join('data', build_app_name + '.py.dat'))
 
 run(['pyqtdeploy-build', '--target', target, '--sysroot', sysroot_dir,
-            '--build-dir', build_dir, 'build-app.pdy'])
+            '--build-dir', build_dir, 'config-app.pdy'])
 
 # Run qmake.  Use the qmake left by pyqtdeploy-sysroot.
 os.chdir(build_dir)
@@ -241,7 +241,7 @@ else:
     if target.startswith('android'):
         run([make, 'INSTALL_ROOT=' + build_app_name, 'install'])
         run([os.path.join(host_bin_dir, 'androiddeployqt'), '--gradle',
-                '--input', 'android-lib' + build_app_name + '.so-deployment-settings.json',
+                '--input', 'android-lib' + output_app_name + '.so-deployment-settings.json',
                 '--output', build_app_name])
 
 # Tell the user where the output built app is.
