@@ -40,6 +40,7 @@
     1. [Module not found](#module-not-found)
     1. [File not found](#file-not-found)
     1. [Setup repo with VirtualBox](#virtualbox-setup)
+1. [Roadmap](#roadmap)
 1. [Credits](#credits)
 
 <a id="getting-started"></a>
@@ -581,6 +582,13 @@ export QT_DEBUG_PLUGINS=1
 ```
 sudo apt-get install libxcb-xinerama0
 ``` 
+
+[:arrow_heading_up: Back to TOP](#toc) 
+
+<a id="roadmap"></a>
+## Roadmap
+
+_This section describes the broad roadmap to deliver a functional repo._
 
 [:arrow_heading_up: Back to TOP](#toc) 
 
