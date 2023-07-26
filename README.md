@@ -27,6 +27,10 @@
         1. [Example PyQt5 app](#database-pyqt5-demo-app)
         1. [Example operational PyQt5 app](#operational-database-pyqt5-demo-app)
     1. [Android permissions](#android-app-permissions)
+1. [Generating your own app](#custom-app)
+    1. [Create your python package](#package-creation)
+    1. [Configure the pdy](#pdy-configuration)
+    1. [Build the apk](#app-generation)
 1. [How it all began...](#original-story)
     1. [A fresh start](#fresh-start)
     1. [Get the build files for pyqtdeploy](#original-build-files)
@@ -380,6 +384,57 @@ This demo app is built on the one highlighted in the [Getting started](#getting-
 Tips are given on [kviktor's github page](https://github.com/kviktor/pyqtdeploy-android-build#adding-android-specific-things) on how to deal with Android permissions.
 
 [:arrow_heading_up: Back to TOP](#toc) 
+
+<a id="custom-app"></a>
+## Generating your own app
+
+_This section describes the step to generate your own `.apk` from a `PyQt5` app._
+
+<a id="package-creation"></a>
+### Create your python package
+
+Start by creating a python package to hold your `PyQt5` app:
+* Create a folder `<pkg_name>`
+* Populate with at least `__init__.py` file and a `<app_name>.py` script
+_Note that the `<app_name>.py` must contain a unique `main()` function (or any similar distinctive entry point)._
+* Add more files if required for your package
+
+<a id="pdy-configuration"></a>
+### Configure the pdy
+
+Follow up by configuring the `config-app.pdy` file:
+
+APPLICATION SOURCE TAB
+* Open the `.pdy` file with `pyqtdeploy config-app.pdy`
+* Define an application name (called <apk_name>) with no spaces
+* Define an entry point in the form `<pkg_name>.<app_name>:main`
+* Add `sys.path` if necessary
+* Scan for the application package directory <pkg_name> and tick the files/subfolders you want to include in the apk
+* Confirm the python and PyQt versions
+
+PYQT MODULES TAB
+* Tick all relevant Qt modules required for your app
+
+STANDARD LIBRARY TAB
+* Tick all python libraries required for your app
+
+REMAINING TABS
+* Leave as it is or add elements as necessary
+
+Once you have updated the `config-app.pdy` you can save it.
+
+<a id="app-generation"></a>
+### Build the apk
+
+Follow up with the building of your app.
+
+Generate the `<apk_name>.apk` located in the `<pkg_name>` repo with:
+
+```
+python3 build-app.py --target android-64 --source-dir $RESOURCES_DIR --installed-qt-dir $QT_DIR --verbose --no-sysroot
+```
+
+[:arrow_heading_up: Back to TOP](#toc)
 
 <a id="original-story"></a>
 ## How it all began...
