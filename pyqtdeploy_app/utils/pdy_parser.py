@@ -18,7 +18,7 @@ class PdyParser():
         return application_tag.attrib['name']
 
 # Example code
-# my_parser = PdyParser('./config_app.pdy')
+# my_parser = PdyParser('../config_app.pdy')
 # app_name = my_parser.get_app_name()
 # print(app_name)
 
