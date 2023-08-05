@@ -96,7 +96,7 @@ if not input_app_path:
     print("Cannot find the desired path to an app to build. \
             Use --input-app-path if you want to specify one. \
             Otherwise, the default \
-            `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/example_pkg/example-pyqt5-app.py` \
+            `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/example_pkg/example_pyqt5_app.py` \
             will be used.")
     # Ensure that the default input app path exists
     env_var_repo = os.environ.get('SIMPLE_PYQT5_ANDROID_APP_DIR') 
@@ -107,14 +107,14 @@ if not input_app_path:
                 file=sys.stderr)
         sys.exit(2)
     else:
-        if not os.path.isfile(os.path.join(env_var_repo, 'pyqtdeploy-app', 'example_pkg', 'example-pyqt5-app.py')):
+        if not os.path.isfile(os.path.join(env_var_repo, 'pyqtdeploy-app', 'example_pkg', 'example_pyqt5_app.py')):
             print("Cannot find a default app to build. \
                     Your environment has not been setup correctly, \
                     please refer to the README.",
                     file=sys.stderr)
             sys.exit(2)
         else:
-            input_app_path = os.path.join(env_var_repo, 'pyqtdeploy-app', 'example_pkg', 'example-pyqt5-app.py')
+            input_app_path = os.path.join(env_var_repo, 'pyqtdeploy-app', 'example_pkg', 'example_pyqt5_app.py')
             input_app_path_is_file = True
 else:
     # Ensure that the input app path exists

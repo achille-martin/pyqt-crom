@@ -3,7 +3,7 @@
     <Application entrypoint="example_pkg.example-pyqt5-app:main" isbundle="0" isconsole="0" ispyqt5="1" name="ExamplePyQt5AndroidApp" script="" syspath="">
         <Package name="example_pkg">
             <PackageContent included="1" isdirectory="0" name="__init__.py" />
-            <PackageContent included="1" isdirectory="0" name="example-pyqt5-app.py" />
+            <PackageContent included="1" isdirectory="0" name="example_pyqt5_app.py" />
             <Exclude name="*.pyc" />
             <Exclude name="*.pyd" />
             <Exclude name="*.pyo" />

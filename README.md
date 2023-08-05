@@ -124,7 +124,7 @@ pip3 install -r requirements.txt
 
 ```
 cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/example_pkg
-python3 example-pyqt5-app.py
+python3 example_pyqt5_app.py
 ```
 
 The PyQt5 app will start and you can confirm that it is displayed properly on the machine used:
@@ -491,7 +491,7 @@ mkdir pyqtdeploy-app
 - Replace the line `shutil.copy('pyqt-demo.py', os.path.join('data', 'pyqt-demo.py.dat'))` in `build-app.py` with:
 
 ```
-shutil.copy('../example-pyqt5-app.py', os.path.join('data', 'example-pyqt5-app.py.dat'))
+shutil.copy('../example_pyqt5_app.py', os.path.join('data', 'example_pyqt5_app.py.dat'))
 ```
 
 - Rename all occurrences of `pyqt-demo` into `example-pyqt5-app` in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/build-app.py`
@@ -503,8 +503,8 @@ cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app
 pyqtdeploy example-pyqt5-app.pdy
 ```
 
-- Update the location of the main script file in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/example-pyqt5-app.pdy`: use the file explorer to find `example-pyqt5-app.py`
-- Rename `pyqt-demo.py.dat` inside of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/example-pyqt5-app.pdy` with vim into: `example-pyqt5-app.py.dat`
+- Update the location of the main script file in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/example-pyqt5-app.pdy`: use the file explorer to find `example_pyqt5_app.py`
+- Rename `pyqt-demo.py.dat` inside of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/example-pyqt5-app.pdy` with vim into: `example_pyqt5_app.py.dat`
 - Check your python version (in your virtual environment) and make the version in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/example-pyqt5-app.pdy` match: select the right one
 - In the PyQt Modules tab of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/example-pyqt5-app.pdy`, select your relevant Qt modules. For instance: QtCore, QtWidgets.
 
@@ -543,7 +543,7 @@ When trying to run the PyQt5 app on your machine, the following issue might come
 
 ```
 Traceback (most recent call last):
-  File "./example-pyqt5-app.py", line 8, in <module>
+  File "./example_pyqt5_app.py", line 8, in <module>
     from PyQt5.QtCore import QSize
 ModuleNotFoundError: No module named 'PyQt5'
 ```
