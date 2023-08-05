@@ -345,8 +345,8 @@ sudo apt-get install sqlitebrowser
 To confirm that `SQLite` is functional on your machine, run the following:
 
 ```
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqt-feature-testing/database
-python3 pyqt5-app-with-database.py
+cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqt_feature_testing/database
+python3 pyqt5_app_with_database.py
 ```
 
 A dialog window will pop up in which you can perform the following:
@@ -357,7 +357,7 @@ A dialog window will pop up in which you can perform the following:
 You can view the content of the generated and edited database at any time outside of the application with:
 
 ```
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqt-feature-testing/database
+cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqt_feature_testing/database
 sqlitebrowser sportsdatabase.db
 ```
 
@@ -367,8 +367,8 @@ sqlitebrowser sportsdatabase.db
 You can also run a more operational PyQt5 app boasting a database with:
 
 ```
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqt-feature-testing/database
-python3 operational-pyqt5-app-with-database.py
+cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqt_feature_testing/database
+python3 operational_pyqt5_app_with_database.py
 ```
 
 This demo app is built on the one highlighted in the [Getting started](#getting-started) section:
