@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 export SIMPLE_PYQT5_ANDROID_APP_DIR=$HOME/Documents/simple-pyqt5-android-app
-export RESOURCES_DIR=$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/resources
+export RESOURCES_DIR=$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/resources
 export QT_DIR=$HOME/Qt5.12.2/5.12.2
 export ANDROID_SDK_ROOT=$HOME/Android/Sdk
 export ANDROID_NDK_ROOT=$HOME/Android/android-ndk-r19c
