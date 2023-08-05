@@ -273,7 +273,7 @@ Start the building process of the .apk with:
 
 ```
 cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app
-python3 build-app.py --target android-64 --source-dir $RESOURCES_DIR --installed-qt-dir $QT_DIR --verbose
+python3 build_app.py --target android-64 --source-dir $RESOURCES_DIR --installed-qt-dir $QT_DIR --verbose
 ``` 
 :hourglass_flowing_sand: _Let the app build (it may take a while)._
 
@@ -284,7 +284,7 @@ _Use the following command for future builds:_
 
 ```
 cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app
-python3 build-app.py --target android-64 --source-dir $RESOURCES_DIR --installed-qt-dir $QT_DIR --verbose --no-sysroot
+python3 build_app.py --target android-64 --source-dir $RESOURCES_DIR --installed-qt-dir $QT_DIR --verbose --no-sysroot
 ```
 
 <a id="apk-test"></a>
@@ -432,7 +432,7 @@ Follow up with the building of your app.
 Generate the `<apk_name>.apk` located in the `<pkg_name>` repo with:
 
 ```
-python3 build-app.py --target android-64 --source-dir $RESOURCES_DIR --installed-qt-dir $QT_DIR --verbose --no-sysroot
+python3 build_app.py --target android-64 --source-dir $RESOURCES_DIR --installed-qt-dir $QT_DIR --verbose --no-sysroot
 ```
 
 [:arrow_heading_up: Back to TOP](#toc)
@@ -487,14 +487,14 @@ mkdir pyqtdeploy-app
 
 - Copy the contents of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-2.5.1/demo` into `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app`:
 - Delete `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/pyqt-demo.py`
-- Rename `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/build-demo.py` into `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/build-app.py`
-- Replace the line `shutil.copy('pyqt-demo.py', os.path.join('data', 'pyqt-demo.py.dat'))` in `build-app.py` with:
+- Rename `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/build-demo.py` into `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/build_app.py`
+- Replace the line `shutil.copy('pyqt-demo.py', os.path.join('data', 'pyqt-demo.py.dat'))` in `build_app.py` with:
 
 ```
 shutil.copy('../example_pyqt5_app.py', os.path.join('data', 'example_pyqt5_app.py.dat'))
 ```
 
-- Rename all occurrences of `pyqt-demo` into `example-pyqt5-app` in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/build-app.py`
+- Rename all occurrences of `pyqt-demo` into `example-pyqt5-app` in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/build_app.py`
 - Rename `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/pyqt-demo.pdy` into `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/example-pyqt5-app.pdy`
 - Update the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-app/example-pyqt5-app.pdy` with the necessary packages:
 
