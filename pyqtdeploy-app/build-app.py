@@ -53,13 +53,13 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--input-app-path', 
         help="the path to the app you want to build. \
                 Make sure that the app path is the same as \
-                the one entered in the `config-app.pdy` file.",
+                the one entered in the `config_app.pdy` file.",
         default='')
 parser.add_argument('--output-app-name',
         help="the desired name for your app. \
                 It must be lowercase and dash-separated. \
                 Make sure that you do not specify an app name \
-                in the `config-app.pdy` file \
+                in the `config_app.pdy` file \
                 and that you edit the `.py.dat` name.",
         default='')
 parser.add_argument('--output-app-dir',
@@ -225,7 +225,7 @@ if build_sysroot:
 # shutil.copy(input_app_path, os.path.join('data', build_app_name + '.py.dat'))
 
 run(['pyqtdeploy-build', '--target', target, '--sysroot', sysroot_dir,
-            '--build-dir', build_dir, 'config-app.pdy'])
+            '--build-dir', build_dir, 'config_app.pdy'])
 
 # Run qmake.  Use the qmake left by pyqtdeploy-sysroot.
 os.chdir(build_dir)
