@@ -290,7 +290,7 @@ python3 build_app.py --target android-64 --source-dir $RESOURCES_DIR --installed
 <a id="apk-test"></a>
 ### Test the .apk 
 
-The generated `example-pyqt5-app-debug.apk` can be found in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/build-android-64/example-pyqt5-app/build/outputs/apk/debug`.
+The generated `example_pyqt5_app-debug.apk` can be found in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/build-android-64/example_pyqt5_app/build/outputs/apk/debug`.
 
 You can then either:
 - Copy, install and run the .apk onto your phone (>=Android v9.0)
@@ -494,27 +494,27 @@ mkdir pyqtdeploy_app
 shutil.copy('../example_pyqt5_app.py', os.path.join('data', 'example_pyqt5_app.py.dat'))
 ```
 
-- Rename all occurrences of `pyqt-demo` into `example-pyqt5-app` in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/build_app.py`
-- Rename `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/pyqt-demo.pdy` into `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example-pyqt5-app.pdy`
-- Update the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example-pyqt5-app.pdy` with the necessary packages:
+- Rename all occurrences of `pyqt-demo` into `example_pyqt5_app` in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/build_app.py`
+- Rename `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/pyqt-demo.pdy` into `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy`
+- Update the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy` with the necessary packages:
 
 ```
 cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app
-pyqtdeploy example-pyqt5-app.pdy
+pyqtdeploy example_pyqt5_app.pdy
 ```
 
-- Update the location of the main script file in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example-pyqt5-app.pdy`: use the file explorer to find `example_pyqt5_app.py`
-- Rename `pyqt-demo.py.dat` inside of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example-pyqt5-app.pdy` with vim into: `example_pyqt5_app.py.dat`
-- Check your python version (in your virtual environment) and make the version in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example-pyqt5-app.pdy` match: select the right one
-- In the PyQt Modules tab of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example-pyqt5-app.pdy`, select your relevant Qt modules. For instance: QtCore, QtWidgets.
+- Update the location of the main script file in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy`: use the file explorer to find `example_pyqt5_app.py`
+- Rename `pyqt-demo.py.dat` inside of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy` with vim into: `example_pyqt5_app.py.dat`
+- Check your python version (in your virtual environment) and make the version in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy` match: select the right one
+- In the PyQt Modules tab of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy`, select your relevant Qt modules. For instance: QtCore, QtWidgets.
 
 :point_up: _The `.pdy` might force include some default Qt modules like: `QtGui`, `sip`._
 
-- In the Standard Library tab of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example-pyqt5-app.pdy`, remove all the extra modules and keep only the default ones. If needed for your app, add more.
-- Update `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json` to reflect the packages selected in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example-pyqt5-app.pdy` and the desired versions
+- In the Standard Library tab of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy`, remove all the extra modules and keep only the default ones. If needed for your app, add more.
+- Update `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json` to reflect the packages selected in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy` and the desired versions
 - Remove the following packages (for the example) from `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json`: openssl, zlib, pyqt3d, pyqtchart, pyqtdatavisualization, pyqtpurchasing, qscintilla
 - Keep the following packages (for the example) in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json`: qt5 version 5.12.2, python update to version 3.6.9 (the version in your virtual environment), sip version 4.19.15, pyqt5 version 5.12.1 (even though v.5.15.6 installed in virtual environment)
-- in PyQt5 section of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json`, update the list of android modules to match `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example-pyqt5-app.pdy`:
+- in PyQt5 section of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json`, update the list of android modules to match `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy`:
 
 ```
         "android#modules":              [

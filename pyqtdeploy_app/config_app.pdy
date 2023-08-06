@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Project usingdefaultlocations="1" version="7"><Python major="3" minor="6" patch="9" platformpython="" />
-    <Application entrypoint="example_pkg.example-pyqt5-app:main" isbundle="0" isconsole="0" ispyqt5="1" name="ExamplePyQt5AndroidApp" script="" syspath="">
+    <Application entrypoint="example_pkg.example_pyqt5_app:main" isbundle="0" isconsole="0" ispyqt5="1" name="ExamplePyQt5AndroidApp" script="" syspath="">
         <Package name="example_pkg">
             <PackageContent included="1" isdirectory="0" name="__init__.py" />
             <PackageContent included="1" isdirectory="0" name="example_pyqt5_app.py" />

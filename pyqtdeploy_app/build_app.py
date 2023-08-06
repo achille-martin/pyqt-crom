@@ -46,7 +46,7 @@ def run(args):
 # Initialise handy variables
 input_app_path_is_file = False
 input_app_path_is_dir = False
-build_app_name = 'example-pyqt5-app'
+build_app_name = 'example_pyqt5_app'
 
 # Parse the command line.
 parser = argparse.ArgumentParser()
