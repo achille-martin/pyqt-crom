@@ -13,7 +13,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox,
 from PyQt5.QtSql import QSqlDatabase, QSqlTableModel, QSqlQuery
 
 import sys
-import os.path
+import os.path # To manage file paths for cross-platform apps
 
 ## Class definition
 
@@ -42,7 +42,8 @@ class MainWindow(QMainWindow):
         alert.exec()
         
         # Database viewer and modifier
-        db_manager = DbManager('QSQLITE', 'sportsdatabase.db', './')
+        app_folder = os.path.dirname(os.path.realpath(__file__)) # App folder is the one containing this script
+        db_manager = DbManager('QSQLITE', 'sportsdatabase.db', app_folder)
         table_model = QSqlTableModel()
         db_manager.initialise_model(table_model)
 
@@ -73,28 +74,28 @@ class DbManager():
     
     def __init__(self, db_type, db_name, db_folder):
         self.db_type = db_type
-        self.db_name = db_name
+        self.db_name = db_name # Include the extension in the name (e.g. `test.db`)
         self.db_folder = db_folder
         self.delrow = -1
         
         if DbManager.db_connected is None:
             try:
                 DbManager.db_connected = QSqlDatabase.addDatabase(self.db_type)
-                DbManager.db_connected.setDatabaseName(self.db_name)
+                DbManager.db_connected.setDatabaseName(os.path.join(self.db_folder, self.db_name))
             except Exception as error:
                 print("Error: Connection not established {}".format(error))
             else:
-                print("Connection established for " + str(self.db_name) + " of type " + str(self.db_type))
+                print("Connection established for " + str(self.db_name) + " of type " + str(self.db_type) + " at location " + str(os.path.join(self.db_folder, self.db_name)))
 
         # Initial database creation
-        if not os.path.exists(self.db_folder + self.db_name):
+        if not os.path.exists(os.path.join(self.db_folder, self.db_name)):
             self.create_db(self.db_type, self.db_name)
 
-        print("Database Manager for " + str(self.db_folder) + str(self.db_name) + " instantiated")
+        print("Database Manager for " + str(os.path.join(self.db_folder, self.db_name)) + " instantiated")
 
     def __del__(self):
         self.db_connected.close()
-        print("Database Manager for " + str(self.db_folder) + str(self.db_name) + " deleted")
+        print("Database Manager for " + str(os.path.join(self.db_folder, self.db_name)) + " deleted")
 
     def create_db(self, db_type, db_name):
         if not self.db_connected.open():

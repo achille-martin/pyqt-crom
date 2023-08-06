@@ -3,7 +3,7 @@
 # Code inspired from https://www.tutorialspoint.com/pyqt5/pyqt5_database_handling.htm
 
 import sys
-import os.path
+import os.path # To manage file paths for cross-platform apps
 from PyQt5.QtSql import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -55,18 +55,19 @@ if __name__ == '__main__':
     
     # Parameter setting
     db_type_ = 'QSQLITE'
-    db_name_ = 'sportsdatabase.db'
-    db_folder_ = './'
+    db_name_ = 'sportsdatabase.db' # Include the extension in the name (e.g. `test.db`)
+    app_folder_ = os.path.dirname(os.path.realpath(__file__)) # App folder is the one containing this script
+    db_folder_ = app_folder_
     delrow_ = -1
     
     # Database creation
-    if not os.path.exists(db_folder_ + db_name_):
-        createDB(db_type_, db_name_)
+    if not os.path.exists(os.path.join(db_folder_, db_name_)):
+        createDB(db_type_, os.path.join(db_folder_, db_name_))
     
     # Database target
     app = QApplication(sys.argv)
     db = QSqlDatabase.addDatabase(db_type_)
-    db.setDatabaseName(db_name_)
+    db.setDatabaseName(os.path.join(db_folder_, db_name_))
     model = QSqlTableModel()
     initializeModel(model)
 
