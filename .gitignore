@@ -9,3 +9,4 @@ build-android-64/
 *.tar.xz
 *.db
 *.apk
+*__pycache__

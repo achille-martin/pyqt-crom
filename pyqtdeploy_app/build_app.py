@@ -29,6 +29,7 @@ import os
 import shutil
 import subprocess
 import sys
+import utils.pdy_parser as pdyp
 
 
 def run(args):
@@ -42,6 +43,9 @@ def run(args):
 
     if ec:
         sys.exit(ec)
+
+script_folder = os.path.dirname(os.path.realpath(__file__)) # Set current script location as anchor
+pdy_parser = pdyp.PdyParser(os.path.join(script_folder, 'config_app.pdy'))
 
 # Initialise handy variables
 input_app_path_is_file = False
