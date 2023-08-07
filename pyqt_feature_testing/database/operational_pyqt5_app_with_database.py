@@ -89,7 +89,7 @@ class DbManager():
 
         # Initial database creation
         if not os.path.exists(os.path.join(self.db_folder, self.db_name)):
-            self.create_db(self.db_type, self.db_name)
+            self.create_db()
 
         print("Database Manager for " + str(os.path.join(self.db_folder, self.db_name)) + " instantiated")
 
@@ -97,7 +97,7 @@ class DbManager():
         self.db_connected.close()
         print("Database Manager for " + str(os.path.join(self.db_folder, self.db_name)) + " deleted")
 
-    def create_db(self, db_type, db_name):
+    def create_db(self):
         if not self.db_connected.open():
           msg = QMessageBox()
           msg.setIcon(QMessageBox.Critical)
