@@ -30,6 +30,7 @@ import shutil
 import subprocess
 import sys
 import utils.pdy_parser as pdyp
+from datetime import datetime
 
 
 def run(args):
@@ -44,32 +45,42 @@ def run(args):
     if ec:
         sys.exit(ec)
 
-script_folder = os.path.dirname(os.path.realpath(__file__)) # Set current script location as anchor
-pdy_parser = pdyp.PdyParser(os.path.join(script_folder, 'config_app.pdy'))
-
-# Initialise handy variables
-input_app_path_is_file = False
-input_app_path_is_dir = False
-build_app_name = 'example_pyqt5_app'
+# Initialise handy variables and tools
+## Define current script location as reference
+script_dir = os.path.dirname(os.path.realpath(__file__))
+## Define default variable values
+app_name_default = "MyApp"
+app_release_dir_default = script_dir
+## Instantiate pdy_parser object
+pdy_path = os.path.join(script_dir, 'config_app.pdy')
+if not os.path.exists(pdy_path):
+    print("[ERROR] Cannot find .pdy at location: " + str(pdy_path), file=sys.stderr)
+    sys.exit(2)
+pdy_parser = pdyp.PdyParser(pdy_path)
+## Get essential information from pdy file
+app_name = pdy_parser.get_app_name()
+if not app_name:
+    print("[INFO] The application name has not been specified in the .pdy located at " + str(pdy_path))
+    app_name = app_name_default
+    print("[INFO] Setting the application name to `" + str(app_name) + "`")
+app_entrypoint_name = pdy_parser.get_app_entrypoint_script_name()
+if not app_entrypoint_name:
+    print("[ERROR] The entrypoint has not been specified in the .pdy", file=sys.stderr)
+    print("Please add an entrypoint to the .pdy located at: " + str(pdy_path))
+    sys.exit(2)
+app_package_dir = pdy_parser.get_app_package_path()
+if not app_package_dir:
+    print("[ERROR] The package directory has not been specified in the .pdy", file=sys.stderr)
+    print("Please select your package in the .pdy located at: " + str(pdy_path))
+    sys.exit(2)
+## Generate practical directory structure
+## Create directories with date timestamp to store the app releases
+current_datetime = datetime.now().strftime("%Y_%m_%d-%H_%M_%S")
+app_release_dir = os.path.join(app_package_dir, 'releases', str(current_datetime)) 
+os.makedirs(app_release_dir, exist_ok=True) 
 
 # Parse the command line.
 parser = argparse.ArgumentParser()
-parser.add_argument('--input-app-path', 
-        help="the path to the app you want to build. \
-                Make sure that the app path is the same as \
-                the one entered in the `config_app.pdy` file.",
-        default='')
-parser.add_argument('--output-app-name',
-        help="the desired name for your app. \
-                It must be lowercase and dash-separated. \
-                Make sure that you do not specify an app name \
-                in the `config_app.pdy` file \
-                and that you edit the `.py.dat` name.",
-        default='')
-parser.add_argument('--output-app-dir',
-        help="the path to the desired directory \
-                in which your built app will be saved",
-        default='')
 parser.add_argument('--installed-qt-dir',
         help="the name of a directory containing pre-built Qt installations",
         metavar="DIR")
@@ -84,80 +95,12 @@ parser.add_argument('--quiet', help="disable progress messages",
 parser.add_argument('--verbose', help="enable verbose progress messages",
         action='store_true')
 cmd_line_args = parser.parse_args()
-input_app_path = cmd_line_args.input_app_path
-output_app_name = cmd_line_args.output_app_name
-output_app_dir = cmd_line_args.output_app_dir
 build_sysroot = not cmd_line_args.no_sysroot
 installed_qt_dir = cmd_line_args.installed_qt_dir
 source_dirs = cmd_line_args.source_dirs
 target = cmd_line_args.target
 quiet = cmd_line_args.quiet
 verbose = cmd_line_args.verbose
-
-# Request input and output app characteristics
-# Request path for input app to build
-if not input_app_path:
-    print("Cannot find the desired path to an app to build. \
-            Use --input-app-path if you want to specify one. \
-            Otherwise, the default \
-            `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pkg/example_pyqt5_app.py` \
-            will be used.")
-    # Ensure that the default input app path exists
-    env_var_repo = os.environ.get('SIMPLE_PYQT5_ANDROID_APP_DIR') 
-    if not env_var_repo:
-        print("Cannot find the required environment variables. \
-                Your environment has not been setup correctly, \
-                please refer to the README.",
-                file=sys.stderr)
-        sys.exit(2)
-    else:
-        if not os.path.isfile(os.path.join(env_var_repo, 'pyqtdeploy_app', 'example_pkg', 'example_pyqt5_app.py')):
-            print("Cannot find a default app to build. \
-                    Your environment has not been setup correctly, \
-                    please refer to the README.",
-                    file=sys.stderr)
-            sys.exit(2)
-        else:
-            input_app_path = os.path.join(env_var_repo, 'pyqtdeploy_app', 'example_pkg', 'example_pyqt5_app.py')
-            input_app_path_is_file = True
-else:
-    # Ensure that the input app path exists
-    if os.path.isfile(input_app_path):
-        input_app_path_is_file = True
-    elif os.path.isdir(input_app_path):
-        input_app_path_is_dir = True
-        print("Cannot handle input app path as directory yet.",
-                file=sys.stderr)
-        sys.exit(2)
-    else:
-        print("Cannot find the specified path to the app to build. \
-                Please review the --input-app-path argument.",
-                file=sys.stderr)
-        sys.exit(2)
-# Request name for output built app
-if not output_app_name:
-    print("Cannot find a desired name for the built app. \
-            Use --output-app-name if you want to specify one. \
-            Otherwise, the default name `built-app` will be used")
-    output_app_name="ExamplePyQt5AndroidApp"
-# Request path to directory to save output built app
-if not output_app_dir:
-    print("Cannot find a path to the desired directory \
-            in which the built app will be saved. \
-            Use --output-app-dir if you want to specify one. \
-            Otherwise, the same directory as the app to build will be used.")
-    # Extract directory path from input app path
-    if input_app_path_is_file:
-        output_app_dir = os.path.split(input_app_path)[0]
-    elif input_app_path_is_dir:
-        output_app_dir = input_app_path
-    else:
-        pass
-else:
-    # Ensure output dir path exists
-    if not os.path.isdir(output_app_dir):
-        print("Cannot find the path to the output app directory. \
-                Please review the argument --output-app-dir.")
 
 # Pick a default target if none is specified.
 if not target:
@@ -224,12 +167,8 @@ if build_sysroot:
     run(args)
 
 # Build the demo.
-
-# Saving input script into a data file for review purposes
-# shutil.copy(input_app_path, os.path.join('data', build_app_name + '.py.dat'))
-
 run(['pyqtdeploy-build', '--target', target, '--sysroot', sysroot_dir,
-            '--build-dir', build_dir, 'config_app.pdy'])
+            '--build-dir', build_dir, str(pdy_path)])
 
 # Run qmake.  Use the qmake left by pyqtdeploy-sysroot.
 os.chdir(build_dir)
@@ -245,40 +184,41 @@ else:
     run([make])
 
     if target.startswith('android'):
-        run([make, 'INSTALL_ROOT=' + build_app_name, 'install'])
+        run([make, 'INSTALL_ROOT=' + app_entrypoint_name, 'install'])
         run([os.path.join(host_bin_dir, 'androiddeployqt'), '--gradle',
-                '--input', 'android-lib' + output_app_name + '.so-deployment-settings.json',
-                '--output', build_app_name])
+                '--input', 'android-lib' + app_name + '.so-deployment-settings.json',
+                '--output', app_entrypoint_name])
 
 # Tell the user where the output built app is.
 if target.startswith('android'):
-    apk_dir = os.path.join(env_var_repo, 'pyqtdeploy_app', build_dir, build_app_name, 'build', 'outputs', 'apk',
+    output_app_name = app_entrypoint_name + '-debug.apk'
+    output_app_dir = os.path.join(script_dir, build_dir, app_entrypoint_name, 'build', 'outputs', 'apk',
             'debug')
-    output_app_full_name = build_app_name + '-debug.apk'
     print("""The '{0}' file can be found in the '{1}'
-directory.  Run adb to install it to a simulator.""".format(output_app_full_name, apk_dir))
-    # Copy the output built app to the specified or default path
-    shutil.copy(os.path.join(apk_dir, output_app_full_name), output_app_dir)
-    os.rename(os.path.join(output_app_dir, output_app_full_name), os.path.join(output_app_dir, output_app_name + '.apk'))
+directory.  Run adb to install it to a simulator.""".format(output_app_name, output_app_dir))
+    # Copy the output app to the specified release directory
+    shutil.copy(os.path.join(output_app_dir, output_app_name), app_release_dir)
+    os.rename(os.path.join(app_release_dir, output_app_name), os.path.join(app_release_dir, app_name + '.apk'))
+    print("\nThe released app " + app_name + ".apk" + " can be found in " + app_release_dir)
 
 elif target.startswith('ios'):
-    output_app_full_name = build_app_name + '.xcodeproj'
+    output_app_name = app_entrypoint_name + '.xcodeproj'
     print("""The '{0}' file can be found in the '{1}' directory.
 Run Xcode to build the app and run it in the simulator or deploy it to a
-device.""".format(output_app_full_name, build_dir))
-    # Copy the output built app to the specified or default path
-    shutil.copy(os.path.join(build_dir, output_app_full_name), output_app_dir)
+device.""".format(output_app_name, build_dir))
+    # Copy the output built app to the specified release directory
+    shutil.copy(os.path.join(build_dir, output_app_name), app_release_dir)
 
 elif target.startswith('win') or sys.platform == 'win32':
-    output_app_full_name = build_app_name
-    output_dir_default = os.path.join(build_dir, 'release')
-    print("The '{0}' executable can be found in the '{1}' directory.".format(output_app_full_name, output_dir_default))
-    # Copy the output built app to the specified or default path
-    shutil.copy(os.path.join(output_dir_default, output_app_full_name), output_app_dir)
+    output_app_name = app_entrypoint_name
+    output_app_dir = os.path.join(build_dir, 'release')
+    print("The '{0}' executable can be found in the '{1}' directory.".format(output_app_name, output_app_dir))
+    # Copy the output built app to the specified release directory
+    shutil.copy(os.path.join(output_app_dir, output_app_name), app_release_dir)
 
 else:
-    output_app_full_name = build_app_name
-    print("The '{0}' executable can be found in the '{1}' directory.".format(output_app_full_name, build_dir))
-    # Copy the output built app to the specified or default path
-    shutil.copy(os.path.join(build_dir, output_app_full_name), output_app_dir)
+    output_app_name = app_entrypoint_name
+    print("The '{0}' executable can be found in the '{1}' directory.".format(output_app_name, build_dir))
+    # Copy the output built app to the specified release directory
+    shutil.copy(os.path.join(build_dir, output_app_name), app_release_dir)
 

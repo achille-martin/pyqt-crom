@@ -403,10 +403,10 @@ _Note that the `<app_name>.py` must contain a unique `main()` function (or any s
 <a id="pdy-configuration"></a>
 ### Configure the pdy
 
-Follow up by configuring the `config_app.pdy` file:
+Follow up by configuring the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/config_app.pdy` file:
 
 APPLICATION SOURCE TAB
-* Open the `.pdy` file with `pyqtdeploy config_app.pdy`
+* Open the `.pdy` file with `cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app && pyqtdeploy config_app.pdy`
 * Define an application name (called <apk_name>) with no spaces
 * Define an entry point in the form `<pkg_name>.<app_name>:main`
 * Add `sys.path` if necessary
@@ -422,18 +422,21 @@ STANDARD LIBRARY TAB
 REMAINING TABS
 * Leave as it is or add elements as necessary
 
-Once you have updated the `config_app.pdy` you can save it.
+Once you have updated the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/config_app.pdy` you can save it.
 
 <a id="app-generation"></a>
 ### Build the apk
 
 Follow up with the building of your app.
 
-Generate the `<apk_name>.apk` located in the `<pkg_name>` repo with:
+Generate the `<apk_name>.apk` located in the `<pkg_name>/releases/<date>` repo with:
 
 ```
+$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app
 python3 build_app.py --target android-64 --source-dir $RESOURCES_DIR --installed-qt-dir $QT_DIR --verbose --no-sysroot
 ```
+
+:hand: _If it is your first time using `build_app.py`, please refer to the [build instructions](#apk-build)._
 
 [:arrow_heading_up: Back to TOP](#toc)
 
