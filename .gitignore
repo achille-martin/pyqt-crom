@@ -10,3 +10,4 @@ build-android-64/
 *.db
 *.apk
 *__pycache__
+*.log
