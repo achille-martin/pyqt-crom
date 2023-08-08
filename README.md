@@ -29,6 +29,7 @@
     1. [Android permissions](#android-app-permissions)
 1. [Generating your own app](#custom-app)
     1. [Create your python package](#package-creation)
+    1. [Update the sysroot](#sysroot-update)
     1. [Configure the pdy](#pdy-configuration)
     1. [Build the apk](#app-generation)
 1. [How it all began...](#original-story)
@@ -399,6 +400,13 @@ Start by creating a python package to hold your `PyQt5` app:
 * Populate with at least `__init__.py` file and a `<app_name>.py` script
 _Note that the `<app_name>.py` must contain a unique `main()` function (or any similar distinctive entry point)._
 * Add more files if required for your package
+
+<a id="sysroot-update"></a>
+### Update the sysroot
+
+Make sure that you update the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json` with any new module.
+
+For instance, if you imported `QtSql` in your `PyQt5` app, then you must include `QtSQl` in the `pyqt5/android#modules`.
 
 <a id="pdy-configuration"></a>
 ### Configure the pdy
