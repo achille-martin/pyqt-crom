@@ -32,6 +32,7 @@
     1. [Update the sysroot](#sysroot-update)
     1. [Configure the pdy](#pdy-configuration)
     1. [Build the apk](#app-generation)
+    1. [Debug the apk](#app-debugging)
 1. [How it all began...](#original-story)
     1. [A fresh start](#fresh-start)
     1. [Get the build files for pyqtdeploy](#original-build-files)
@@ -447,6 +448,39 @@ python3 build_app.py --target android-64 --source-dir $RESOURCES_DIR --installed
 ```
 
 :hand: _If it is your first time using `build_app.py`, please refer to the [build instructions](#apk-build)._
+
+<a id="app-debugging"></a>
+### Debug the apk
+
+The most nerve-wracking part of deploying an application is the debugging part. 
+Therefore, make sure that you have added a logger to your application and that you use an Emulator (or a physical device) to confirm your expectations.
+
+To setup an Android Emulator, it is recommended to use Android Studio.
+_If you want to set up the Android Emulator in VirtualBox, please refer to [this issue](https://github.com/achille-martin/simple-pyqt5-android-app/issues/12)._
+
+To setup the Android Emulator in Ubuntu, make sure that you have:
+* Android Studio installed (refer to [External dependencies setup](#external-dependency-installation) if needed)
+* Correctly set up Android Studio as per [Expo dev recommendations](https://docs.expo.dev/workflow/android-studio-emulator/)
+* Added the following to your `$HOME/.bashrc`
+
+```
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+```
+
+* Have correctly set up the virtualisation solution and solved potential issues mentioned on [Stackoverflow](https://stackoverflow.com/questions/37300811/android-studio-dev-kvm-device-permission-denied))
+
+```
+sudo apt install qemu-kvm
+ls -al /dev/kvm
+sudo adduser <username> kvm
+sudo chown <username> /dev/kvm
+```
+
+Once the Android Emulator is set up and running, you can drag and drop your `.apk` to install it and run it.
+
+If you wish to access more Android logs, please refer to [this issue](https://github.com/achille-martin/simple-pyqt5-android-app/issues/12), which mentions tips for `adb`, the Android Debug Bridge.
 
 [:arrow_heading_up: Back to TOP](#toc)
 
