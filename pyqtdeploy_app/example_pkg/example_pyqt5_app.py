@@ -39,18 +39,24 @@ class MainWindow(QMainWindow):
 
 ## Application definition
 
-# You need one (and only one) QApplication instance per application.
-# Pass in sys.argv to allow command line arguments for your app.
-# If you know you won't use command line arguments QApplication([]) works too.
-app = QApplication(sys.argv)
+def main():
 
-# Create a Qt widget, which will be our window.
-main_window = MainWindow()
-main_window.show()  # IMPORTANT!!!!! Windows are hidden by default.
+    # You need one (and only one) QApplication instance per application.
+    # Pass in sys.argv to allow command line arguments for your app.
+    # If you know you won't use command line arguments QApplication([]) works too.
+    app = QApplication(sys.argv)
 
-# Start the event loop.
-app.exec()
+    # Create a Qt widget, which will be our window.
+    main_window = MainWindow()
+    main_window.show()  # IMPORTANT!!!!! Windows are hidden by default.
 
+    # Start the event loop.
+    app.exec()
 
-# Your application won't reach here until you exit and the event
-# loop has stopped.
+    # Your application won't reach here until you exit and the event
+    # loop has stopped.
+
+if __name__ == "__main__":
+    # This needs to only define main
+    # due to how pyqtdeploy is implemented to build packages
+    main()
