@@ -456,6 +456,7 @@ The most nerve-wracking part of deploying an application is the debugging part.
 Therefore, make sure that you have added a logger to your application and that you use an Emulator (or a physical device) to confirm your expectations.
 
 To setup an Android Emulator, it is recommended to use Android Studio.
+
 _If you want to set up the Android Emulator in VirtualBox, please refer to [this issue](https://github.com/achille-martin/simple-pyqt5-android-app/issues/12)._
 
 To setup the Android Emulator in Ubuntu, make sure that you have:
@@ -469,7 +470,7 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 ```
 
-* Have correctly set up the virtualisation solution and solved potential issues mentioned on [Stackoverflow](https://stackoverflow.com/questions/37300811/android-studio-dev-kvm-device-permission-denied))
+* Have correctly set up the virtualisation solution and solved potential issues mentioned on [Stackoverflow](https://stackoverflow.com/questions/37300811/android-studio-dev-kvm-device-permission-denied)
 
 ```
 sudo apt install qemu-kvm
