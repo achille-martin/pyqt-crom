@@ -9,7 +9,7 @@
 ## Imports
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QDialog, QTableView, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QDialog, QTableView, QVBoxLayout, QWidget, QSizePolicy
 from PyQt5.QtSql import QSqlDatabase, QSqlTableModel, QSqlQuery
 
 import sys
@@ -69,6 +69,10 @@ class MainWindow(QMainWindow):
         button_exit.setCheckable(True)
         button_exit.clicked.connect(self.close)
         
+        # Ensure buttons resize to the whole window
+        button_magic.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        button_exit.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
         # Set the main window to show as maximised
         self.showMaximized()
 
@@ -91,12 +95,12 @@ class MainWindow(QMainWindow):
         alert_msg += str(app_folder)
         alert.setText(alert_msg)
 
-        # Add standard buttons to the alert window
+        # Add standard buttons to the alert window and set OK as default
         alert.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        alert.setDefaultButton(QMessageBox.Ok)
         
         # Start the window
         logger.debug("MainWindow::on_button_clicked - Alert message started")
-        alert.showMaximized()
         alert_value = alert.exec()
 
         # Return to main window if user cancels alert window
