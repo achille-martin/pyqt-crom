@@ -8,7 +8,7 @@
 
 ## Imports
 
-from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QDialog, QTableView, QVBoxLayout, QWidget
 from PyQt5.QtSql import QSqlDatabase, QSqlTableModel, QSqlQuery
 
@@ -68,15 +68,20 @@ class MainWindow(QMainWindow):
 
         button_exit.setCheckable(True)
         button_exit.clicked.connect(self.close)
+        
+        # Set the main window to show as maximised
+        self.showMaximized()
 
         logger.debug("MainWindow::__init__ - Exited method")
 
     def on_button_clicked(self):
         
-        # Diplay debug message and alert message
         logger.debug("MainWindow::on_button_clicked - Entered method")
         logger.info("MainWindow::on_button_clicked - Button has been clicked")
+
+        # Create alert window message
         alert = QMessageBox()
+        alert.setWindowTitle("Information")
         alert_msg = """
         You clicked the button!
         
@@ -85,36 +90,57 @@ class MainWindow(QMainWindow):
         The app folder is: """
         alert_msg += str(app_folder)
         alert.setText(alert_msg)
-        logger.debug("MainWindow::on_button_clicked - Alert message started")
-        alert.exec()
-        logger.debug("MainWindow::on_button_clicked - Alert message terminated")
+
+        # Add standard buttons to the alert window
+        alert.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         
-        # Database viewer and modifier
-        db_manager = DbManager('QSQLITE', 'sportsdatabase.db', app_folder)
-        table_model = QSqlTableModel()
-        db_manager.initialise_model(table_model)
+        # Start the window
+        logger.debug("MainWindow::on_button_clicked - Alert message started")
+        alert.showMaximized()
+        alert_value = alert.exec()
 
-        view_primary = db_manager.create_view("Table Model (View Primary)", table_model)
-        view_primary.clicked.connect(db_manager.find_row)
+        # Return to main window if user cancels alert window
+        if alert_value == QMessageBox.Cancel:
+            alert.close()
+            logger.debug("MainWindow::on_button_clicked - Alert message terminated")
+        # Proceed to next window if user accepts alert window
+        else:
+            logger.debug("MainWindow::on_button_clicked - Alert message terminated")
+        
+            # Instantiate the database manager
+            db_manager = DbManager('QSQLITE', 'sportsdatabase.db', app_folder)
+            table_model = QSqlTableModel()
+            db_manager.initialise_model(table_model)
 
-        dlg = QDialog(self)
-        layout = QVBoxLayout()
-        layout.addWidget(view_primary)
+            view_primary = db_manager.create_view("Table Model (View Primary)", table_model)
+            view_primary.clicked.connect(db_manager.find_row)
+            
+            # Create a window to display the database viewer and modifier
+            dlg = QDialog(self)
+            layout_database_window = QVBoxLayout()
+            layout_database_window.addWidget(view_primary)
+            
+            # Add buttons to the window to interact with the database viewer and modifier
+            button_add_row = QPushButton("Add a row")
+            button_add_row.clicked.connect(lambda: db_manager.add_row(table_model))
+            layout_database_window.addWidget(button_add_row)
 
-        button_add_row = QPushButton("Add a row")
-        button_add_row.clicked.connect(lambda: db_manager.add_row(table_model))
-        layout.addWidget(button_add_row)
+            button_del_row = QPushButton("Delete a row")
+            button_del_row.clicked.connect(lambda: table_model.removeRow(view_primary.currentIndex().row()))
+            layout_database_window.addWidget(button_del_row)
 
-        button_del_row = QPushButton("Delete a row")
-        button_del_row.clicked.connect(lambda: table_model.removeRow(view_primary.currentIndex().row()))
-        layout.addWidget(button_del_row)
-
-        dlg.setLayout(layout)
-        dlg.setWindowTitle("Database Demo")
-        logger.debug("MainWindow::on_button_clicked - Database dialog started")
-        dlg.exec()
-        logger.debug("MainWindow::on_button_clicked - Database dialog terminated")
-        logger.debug("MainWindow::on_button_clicked - Exited method")
+            button_done = QPushButton("Done")
+            button_done.clicked.connect(dlg.close)
+            layout_database_window.addWidget(button_done)
+            
+            # Set layout and start the window
+            dlg.setLayout(layout_database_window)
+            dlg.setWindowTitle("Database Demo")
+            logger.debug("MainWindow::on_button_clicked - Database dialog started")
+            dlg.showMaximized()
+            dlg.exec()
+            logger.debug("MainWindow::on_button_clicked - Database dialog terminated")
+            logger.debug("MainWindow::on_button_clicked - Exited method")
 
 # Database Manager class
 class DbManager():
@@ -126,7 +152,8 @@ class DbManager():
         logger.debug("DbManager::__init__ - Entered method")
 
         self.db_type = db_type
-        self.db_name = db_name # Include the extension in the name (e.g. `test.db`)
+        # Include the extension in the name (e.g. `test.db`)
+        self.db_name = db_name 
         self.db_folder = db_folder
         self.delrow = -1
         
@@ -234,9 +261,9 @@ def main():
     main_window = MainWindow()
     main_window.show()  # IMPORTANT - Windows are hidden by default.
     
-    # Start the event loop.
+    # Start the event loop and handle the exit code
     logger.info("main - App started")
-    app.exec()
+    sys.exit(app.exec())
     logger.info("main - App terminated")
     
     # Your application won't reach here until you exit and the event
