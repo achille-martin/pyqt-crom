@@ -398,7 +398,9 @@ _This section describes the step to generate your own `.apk` from a `PyQt5` app.
 Start by creating a python package to hold your `PyQt5` app:
 * Create a folder `<pkg_name>`
 * Populate with at least `__init__.py` file and a `<app_name>.py` script
+
 _Note that the `<app_name>.py` must contain a unique `main()` function (or any similar distinctive entry point)._
+
 * Add more files if required for your package
 
 <a id="sysroot-update"></a>
@@ -406,7 +408,7 @@ _Note that the `<app_name>.py` must contain a unique `main()` function (or any s
 
 Make sure that you update the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json` with any new module.
 
-For instance, if you imported `QtSql` in your `PyQt5` app, then you must include `QtSQl` in the `pyqt5/android#modules`.
+For instance, if you imported `QtSql` in your `PyQt5` app, then you must include `QtSql` in the `pyqt5/android#modules`.
 
 <a id="pdy-configuration"></a>
 ### Configure the pdy
@@ -430,7 +432,7 @@ STANDARD LIBRARY TAB
 REMAINING TABS
 * Leave as it is or add elements as necessary
 
-Once you have updated the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/config_app.pdy` you can save it.
+Once you have updated the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/config_app.pdy`, you can save it.
 
 <a id="app-generation"></a>
 ### Build the apk
