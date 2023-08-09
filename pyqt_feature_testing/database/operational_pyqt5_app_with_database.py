@@ -9,17 +9,20 @@
 ## Imports
 
 from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QDialog, QTableView, QVBoxLayout
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox, QDialog, QTableView, QVBoxLayout, QWidget
 from PyQt5.QtSql import QSqlDatabase, QSqlTableModel, QSqlQuery
 
 import sys
 import os.path # To manage file paths for cross-platform apps
-import logging as log_tool # The logger for debugging
+import logging as log_tool # The logging library for debugging
 
-# Define global variables and objects
+## Main variables and objects
 
-# Define path reference: app folder is the one containing this script
-app_folder = os.path.dirname(os.path.realpath(__file__))
+# Define path reference: app folder is the reference for the device
+app_folder = os.path.expanduser('~')
+if not os.path.exists(app_folder):
+    # Ensure that a path can be defined to generate the necessary files on device
+    app_folder = os.getcwd()
 
 # Set logger config and instantiate object
 logger_logging_level = "DEBUG"
@@ -44,15 +47,27 @@ class MainWindow(QMainWindow):
         logger.debug("MainWindow::__init__ - Entered method")
 
         self.setWindowTitle("Example simple pyqt5 app")
+        
+        # Create a widget to serve as layout for the main window
+        widget_main_window = QWidget(self)
+        self.setCentralWidget(widget_main_window)
+        layout_main_window = QVBoxLayout()
+        widget_main_window.setLayout(layout_main_window)
+        
+        # Instantiate buttons for the main window
+        button_magic = QPushButton("Press HERE for the MAGIC")
+        button_exit = QPushButton("Press HERE to EXIT")
+        
+        # Add buttons to the main window layout
+        layout_main_window.addWidget(button_magic)
+        layout_main_window.addWidget(button_exit)
 
-        button = QPushButton("Press Here for the magic")
+        # Attach callbacks to buttons
+        button_magic.setCheckable(True)
+        button_magic.clicked.connect(self.on_button_clicked)
 
-        button.setCheckable(True)
-        button.clicked.connect(self.on_button_clicked)
-
-        # Set properties of the  widget in the Window.
-        self.setMaximumSize(QSize(400, 300))
-        self.setCentralWidget(button)
+        button_exit.setCheckable(True)
+        button_exit.clicked.connect(self.close)
 
         logger.debug("MainWindow::__init__ - Exited method")
 
@@ -62,7 +77,14 @@ class MainWindow(QMainWindow):
         logger.debug("MainWindow::on_button_clicked - Entered method")
         logger.info("MainWindow::on_button_clicked - Button has been clicked")
         alert = QMessageBox()
-        alert.setText('You clicked the button!\n\nThis will open a database viewer and modifier...')
+        alert_msg = """
+        You clicked the button!
+        
+        This will open a database viewer and modifier.
+        
+        The app folder is: """
+        alert_msg += str(app_folder)
+        alert.setText(alert_msg)
         logger.debug("MainWindow::on_button_clicked - Alert message started")
         alert.exec()
         logger.debug("MainWindow::on_button_clicked - Alert message terminated")
@@ -199,6 +221,7 @@ class DbManager():
 
 def main():
     logger.info("========================\n")
+    logger.info("========================")
     logger.debug("main - Entered function and logger instantiated")
     logger.debug("main - Log output file can be found at: " + str(logger_output_file_path))
 
@@ -221,6 +244,4 @@ def main():
     logger.debug("main - Exited function")
 
 if __name__ == "__main__":    
-    # This needs to only define main    
-    # due to how pyqtdeploy is implemented to build packages    
     main()
