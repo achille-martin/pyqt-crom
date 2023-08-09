@@ -101,6 +101,7 @@ class MainWindow(QMainWindow):
         
         # Start the window
         logger.debug("MainWindow::on_button_clicked - Alert message started")
+        # Note: do not maximise alert windows as it might lead to button display issues
         alert_value = alert.exec()
 
         # Return to main window if user cancels alert window
