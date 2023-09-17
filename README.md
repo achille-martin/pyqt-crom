@@ -638,6 +638,8 @@ sudo apt-get install libxcb-xinerama0
 
 _This section describes the broad roadmap to deliver a functional repo._
 
+![Roadmap Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/achille-martin/simple-pyqt5-android-app/master/documentation_resources/roadmap/roadmap.iuml)
+
 [:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="credits"></a>

@@ -1,0 +1,52 @@
+@startuml
+start
+partition Overview {
+    :Articulate aim;
+    note right
+        Create an android app (.apk) from a simple PyQt5 app
+    end note
+    :Define requirements;
+    note right
+      Relevant for custom apps
+    end note
+    :Research existing projects;
+    note right
+        **Pyqtdeploy** / Pyside / Kivy / BeeWare
+    end note
+}
+partition Implementation {
+    :Apk generation;
+    note right
+      Managed by build_app.py
+    end note
+    :Pkg structure;
+    note right
+      Basic python project structure
+    end note
+    :SQL database;
+    note right
+      Managed with QtSql
+    end note
+    :Graphics;
+    note right
+      WIP
+    end note    
+}
+partition Testing {
+    :Logging;
+    note right
+      Basic python logging
+    end note
+    :Tests;
+}
+partition Deployment {
+    :Documentation;
+    :Sharing and Advertising;
+}
+partition Extension {
+    :Windows OS;
+    :Linux OS;
+    :Mac OS;
+}
+stop
+@enduml
