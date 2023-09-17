@@ -36,7 +36,8 @@
         * [3.3.2. Setup for database management](#database-management-setup)
         * [3.3.3. Example PyQt5 app](#database-pyqt5-demo-app)
         * [3.3.4. Example operational PyQt5 app](#operational-database-pyqt5-demo-app)
-    * [3.4. Android permissions](#android-app-permissions)
+    * [3.4. Graphics](#pyqt5-graphics)
+    * [3.5. Android permissions](#android-app-permissions)
 * [4. Generating your own app](#custom-app)
     * [4.1. Create your python package](#package-creation)
     * [4.2. Update the sysroot](#sysroot-update)
@@ -399,8 +400,11 @@ This demo app is built on the one highlighted in the [Getting started](#getting-
 
 :point_up: _You can view the content of `sportsdatabase.db` at any time by following the instructions in [Example PyQt5 app with database](#database-pyqt5-demo-app) after ensuring that your [Database manager](#database-management-setup) is correctly setup._
 
+<a id="pyqt5-graphics"></a>
+### 3.4. Graphics
+
 <a id="android-app-permissions"></a>
-### 3.4. Android permissions
+### 3.5. Android permissions
 
 Tips are given on [kviktor's github page](https://github.com/kviktor/pyqtdeploy-android-build#adding-android-specific-things) on how to deal with Android permissions.
 
