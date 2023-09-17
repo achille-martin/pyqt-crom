@@ -1,57 +1,67 @@
 # Simple PyQt5 Android App
 
 <a id="purpose"></a>
-## Purpose 
+## 1. Purpose 
 
 :dart: The aim of this repo is to create an android app (.apk) from a python (PyQt5) app.
 
 <a id="toc"></a>
 ## Table of Contents
 
-1. [Purpose](#purpose)
-1. [Getting started](#getting-started)
-    1. [Review the pre-requisites](#pre-requisites)
-    1. [Setup the path to the app folder](#path-setup)
-    1. [Download the github repo](#github-repo-download)
-    1. [Setup the virtual environment for your app](#virtual-environment-setup)
-    1. [Install the external dependencies](#external-dependency-installation)
-    1. [Setup the environment variables](#environment-variable-setup)
-    1. [Build the .apk with pyqtdeploy](#apk-build)
-    1. [Test the .apk](#apk-test)
-1. [Extra features for your Android app](#android-app-extra-features)
-    1. [Images](#pyqt5-images)
-    1. [File management](#pyqt5-file-management)
-    1. [Databases](#pyqt5-databases)
-        1. [Engine selection](#engine-selection)
-        1. [Setup for database management](#database-management-setup)
-        1. [Example PyQt5 app](#database-pyqt5-demo-app)
-        1. [Example operational PyQt5 app](#operational-database-pyqt5-demo-app)
-    1. [Android permissions](#android-app-permissions)
-1. [Generating your own app](#custom-app)
-    1. [Create your python package](#package-creation)
-    1. [Update the sysroot](#sysroot-update)
-    1. [Configure the pdy](#pdy-configuration)
-    1. [Build the apk](#app-generation)
-    1. [Debug the apk](#app-debugging)
-1. [How it all began...](#original-story)
-    1. [A fresh start](#fresh-start)
-    1. [Get the build files for pyqtdeploy](#original-build-files)
-    1. [Setup an app folder to build an .apk with pyqtdeploy](#original-setup)
-    1. [Setup, build and test the app](#original-build)
-1. [Troubleshooting](#troubleshooting)
-    1. [Module not found](#module-not-found)
-    1. [File not found](#file-not-found)
-    1. [Setup repo with VirtualBox](#virtualbox-setup)
-1. [Roadmap](#roadmap)
-1. [Credits](#credits)
+* [1. Purpose](#purpose)
+* [2. Getting started](#getting-started)
+    * [2.1. Review the pre-requisites](#pre-requisites)
+    * [2.2. Setup the path to the app folder](#path-setup)
+    * [2.3. Download the github repo](#github-repo-download)
+    * [2.4. Setup the virtual environment for your app](#virtual-environment-setup)
+        * [2.4.1. Create a virtual environment with your python3 installed on your machine](#virtual-environment-creation)
+        * [2.4.2. Activate your virtual environment](#virtual-environment-activation)
+        * [2.4.3. Install the necessary pip packages](#pip-package-installation)
+        * [2.4.4. Test the PyQt5 app in your virtual environment](#virtual-environment-app-test)
+    * [2.5. Install the external dependencies](#external-dependency-installation)
+        * [2.5.1. Download a set of external dependencies](#external-dependency-download)
+        * [2.5.2. Install Qt from the installer](#qt-installation)
+        * [2.5.3. Install Android Studio](#android-studio-installation)
+        * [2.5.4. Install correct Android SDK and Tools](#android-sdk-installation)
+        * [2.5.5. Install Android NDK matching with Qt version](#android-ndk-installation)
+        * [2.5.6. Install Java for Android Studio](#java-installation)
+    * [2.6. Setup the environment variables](#environment-variable-setup)
+    * [2.7. Build the .apk with pyqtdeploy](#apk-build)
+    * [2.8. Test the .apk](#apk-test)
+* [3. Extra features for your Android app](#android-app-extra-features)
+    * [3.1. Images](#pyqt5-images)
+    * [3.2. File management](#pyqt5-file-management)
+    * [3.3. Databases](#pyqt5-databases)
+        * [3.3.1. Engine selection](#engine-selection)
+        * [3.3.2. Setup for database management](#database-management-setup)
+        * [3.3.3. Example PyQt5 app](#database-pyqt5-demo-app)
+        * [3.3.4. Example operational PyQt5 app](#operational-database-pyqt5-demo-app)
+    * [3.4. Android permissions](#android-app-permissions)
+* [4. Generating your own app](#custom-app)
+    * [4.1. Create your python package](#package-creation)
+    * [4.2. Update the sysroot](#sysroot-update)
+    * [4.3. Configure the pdy](#pdy-configuration)
+    * [4.4. Build the apk](#app-generation)
+    * [4.5. Debug the apk](#app-debugging)
+* [5. How it all began...](#original-story)
+    * [5.1. A fresh start](#fresh-start)
+    * [5.2. Get the build files for pyqtdeploy](#original-build-files)
+    * [5.3. Setup an app folder to build an .apk with pyqtdeploy](#original-setup)
+    * [5.4. Setup, build and test the app](#original-build)
+* [6. Troubleshooting](#troubleshooting)
+    * [6.1. Module not found](#module-not-found)
+    * [6.2. File not found](#file-not-found)
+    * [6.3. Setup repo with VirtualBox](#virtualbox-setup)
+* [7. Roadmap](#roadmap)
+* [8. Credits](#credits)
 
 <a id="getting-started"></a>
-## Getting started 
+## 2. Getting started 
 
 :mag: This section guides you through the process of generating an .apk from a simple PyQt5 demo app.
 
 <a id="pre-requisites"></a>
-### Review the pre-requisites 
+### 2.1. Review the pre-requisites 
 
 Specs of Linux machine used:
 - Ubuntu 18.04
@@ -63,7 +73,7 @@ Specs of target machine desired:
 - Android 9.0 (at least)
 
 <a id="path-setup"></a>
-### Setup the path to the app folder
+### 2.2. Setup the path to the app folder
 
 :warning: _We will use `$SIMPLE_PYQT5_ANDROID_APP_DIR` as the variable containing the path to the app folder._
 
@@ -80,7 +90,7 @@ source $HOME/.bashrc
 ```
 
 <a id="github-repo-download"></a>
-### Download the github repo 
+### 2.3. Download the github repo 
 
 ```
 cd $HOME/Documents
@@ -88,9 +98,10 @@ git clone git@github.com:achille-martin/simple-pyqt5-android-app.git
 ```
 
 <a id="virtual-environment-setup"></a>
-### Setup the virtual environment for your app 
+### 2.4. Setup the virtual environment for your app 
 
-1. **Create a virtual environment with your python3 installed on your computer**
+<a id="virtual-environment-creation"></a>
+#### 2.4.1. Create a virtual environment with your python3 installed on your machine
 
 ```
 sudo apt-get update
@@ -103,8 +114,7 @@ virtualenv simple-pyqt5-android-app-venv -p python3
 ```
 
 <a id="virtual-environment-activation"></a>
-
-2. **Activate your virtual environment**
+#### 2.4.2. Activate your virtual environment
 
 ```
 source $SIMPLE_PYQT5_ANDROID_APP_DIR/venv/simple-pyqt5-android-app-venv/bin/activate
@@ -112,7 +122,8 @@ source $SIMPLE_PYQT5_ANDROID_APP_DIR/venv/simple-pyqt5-android-app-venv/bin/acti
 
 :bulb: _To exit the virtual environment, type in your terminal `deactivate`._
 
-3. **Install the necessary pip packages**
+<a id="pip-package-installation"></a>
+#### 2.4.3. Install the necessary pip packages
 
 ```
 cd $SIMPLE_PYQT5_ANDROID_APP_DIR
@@ -122,7 +133,8 @@ pip3 install -r requirements.txt
 
 :bulb: _You can confirm your pip packages with `pip3 list --local`._
 
-4. **Test the PyQt5  app in your virtual environment**
+<a id="virtual-environment-app-test"></a>
+#### 2.4.4. Test the PyQt5 app in your virtual environment
 
 ```
 cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pkg
@@ -134,9 +146,10 @@ The PyQt5 app will start and you can confirm that it is displayed properly on th
 - An alert message is displayed stating that you have clicked the button
 
 <a id="external-dependency-installation"></a>
-### Install the external dependencies
+### 2.5. Install the external dependencies
 
-1. **Download a set of external dependencies**
+<a id="external-dependency-download"></a>
+#### 2.5.1. Download a set of external dependencies
 
 Download the sources with:
 
@@ -148,7 +161,8 @@ chmod +x download_sources.sh
 
 :point_up: _You can confirm that the list of packages required matches with the versions from `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json`._
 
-2. **Install Qt from the installer**
+<a id="qt-installation"></a>
+#### 2.5.2. Install Qt from the installer
 
 Download the version which matches the one in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json`:
 
@@ -172,7 +186,8 @@ A Qt window will appear on which you can sign up:
 
 :hand: _Make sure that you can access `$HOME/Qt5.12.2/5.12.2` and that the folder `android_arm64_v8a` is located inside of it._
 
-3. **Install Android Studio**
+<a id="android-studio-installation"></a>
+#### 2.5.3. Install Android Studio
 
 Download Android Studio (latest version) from [the Android studio website](https://developer.android.com/studio) or get the version `2022.2.1.18` used for this repo (at the time of writing):
 
@@ -206,7 +221,8 @@ The Android Studio installer will start:
 :hand: _Make sure that the default SDK has been installed in `$HOME/Android/Sdk` and that `$HOME/Android/Sdk/platforms` contains `android-28` folder only.
 If not, follow the instructions at the next step to set things up correctly._
 
-4. **Install correct Android SDK and Tools**
+<a id="android-sdk-installation"></a>
+#### 2.5.4. Install correct Android SDK and Tools
 
 - Restart Android Studio with `cd $HOME/android-studio/bin && ./studio.sh` (skip if no SDK found)
 - On the menu screen, click on `more options` and then `SDK manager`
@@ -221,7 +237,8 @@ If not, follow the instructions at the next step to set things up correctly._
 
 - Close Android Studio
 
-5. **Install Android NDK matching with Qt version**
+<a id="android-ndk-installation"></a>
+#### 2.5.5. Install Android NDK matching with Qt version
 
 Download NDK 19c using:
 
@@ -243,7 +260,8 @@ mv android-ndk-r19c/ $HOME/Android
 
 :hand: _Make sure that `~/Android/android-ndk-r19c/platforms` contains the folder `android-28`._
 
-6. **Install Java for Android Studio**
+<a id="java-installation"></a>
+#### 2.5.6. Install Java for Android Studio
 
 Install a stable java jdk available for your Ubuntu distribution and tested with Gradle:
 
@@ -254,7 +272,7 @@ sudo apt install openjdk-8-jdk openjdk-8-jre
 :hand: *Confirm the version with `java -version` which should be `v1.8.0_362`.*
 
 <a id="environment-variable-setup"></a>
-### Setup the environment variables
+### 2.6. Setup the environment variables
 
 Load the environment variables on terminal startup with:
 
@@ -269,7 +287,7 @@ source $HOME/.bashrc
 ```
 
 <a id="apk-build"></a>
-### Build the .apk with pyqtdeploy
+### 2.7. Build the .apk with pyqtdeploy
 
 Start the building process of the .apk with:
 
@@ -290,7 +308,7 @@ python3 build_app.py --target android-64 --source-dir $RESOURCES_DIR --installed
 ```
 
 <a id="apk-test"></a>
-### Test the .apk 
+### 2.8. Test the .apk 
 
 The generated `example_pyqt5_app-debug.apk` can be found in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/build-android-64/example_pyqt5_app/build/outputs/apk/debug`.
 
@@ -301,27 +319,27 @@ You can then either:
 [:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="android-app-extra-features"></a>
-## Extra features for your Android app
+## 3. Extra features for your Android app
 
 :mag: This section introduces a few outstanding capabilities of PyQt5 which can be ported to your Android app.
 
 The demo app only contains a very small set of PyQt5 features, but this section explores the full potential of PyQt5 and gives hints on how to make a fully working Android (prototype) app.
 
 <a id="pyqt5-images"></a>
-### Images
+### 3.1. Images
 
 Use `QPixmap` and `pyrcc` to save images and render them.
 
 <a id="pyqt5-file-management"></a>
-### File management
+### 3.2. File management
 
 Rely on python modules to create a structured project folder with writable paths.
 
 <a id="pyqt5-databases"></a>
-### Databases
+### 3.3. Databases
 
 <a id="engine-selection"></a>
-#### Engine selection
+#### 3.3.1. Engine selection
 
 The preferred database engine for Android is `SQLite`. The latest SQLite library available is `sqlite3` as introduced on [the SQLite website](https://www.sqlite.org/version3.html).
 
@@ -332,7 +350,7 @@ PyQt5 lets you work with many other database engines as shown on [tutorialspoint
 - Database content can be viewed with many third-party tools
 
 <a id="database-management-setup"></a>
-#### Setup for database management
+#### 3.3.2. Setup for database management
 
 Before attempting to run any `SQLite`-related actions, make sure that the library is available on your machine:
 
@@ -342,7 +360,7 @@ sudo apt-get install sqlitebrowser
 ```
 
 <a id="database-pyqt5-demo-app"></a>
-#### Example PyQt5 app
+#### 3.3.3. Example PyQt5 app
 
 To confirm that `SQLite` is functional on your machine, run the following:
 
@@ -364,7 +382,7 @@ sqlitebrowser sportsdatabase.db
 ```
 
 <a id="operational-database-pyqt5-demo-app"></a>
-#### Example operational PyQt5 app
+#### 3.3.4. Example operational PyQt5 app
 
 You can also run a more operational PyQt5 app boasting a database with:
 
@@ -382,19 +400,19 @@ This demo app is built on the one highlighted in the [Getting started](#getting-
 :point_up: _You can view the content of `sportsdatabase.db` at any time by following the instructions in [Example PyQt5 app with database](#database-pyqt5-demo-app) after ensuring that your [Database manager](#database-management-setup) is correctly setup._
 
 <a id="android-app-permissions"></a>
-### Android permissions
+### 3.4. Android permissions
 
 Tips are given on [kviktor's github page](https://github.com/kviktor/pyqtdeploy-android-build#adding-android-specific-things) on how to deal with Android permissions.
 
 [:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="custom-app"></a>
-## Generating your own app
+## 4. Generating your own app
 
 _This section describes the step to generate your own `.apk` from a `PyQt5` app._
 
 <a id="package-creation"></a>
-### Create your python package
+### 4.1. Create your python package
 
 Start by creating a python package to hold your `PyQt5` app:
 * Create a folder `<pkg_name>`
@@ -405,14 +423,14 @@ _Note that the `<app_name>.py` must contain a unique `main()` function (or any s
 * Add more files if required for your package
 
 <a id="sysroot-update"></a>
-### Update the sysroot
+### 4.2. Update the sysroot
 
 Make sure that you update the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json` with any new module.
 
 For instance, if you imported `QtSql` in your `PyQt5` app, then you must include `QtSql` in the `pyqt5/android#modules`.
 
 <a id="pdy-configuration"></a>
-### Configure the pdy
+### 4.3. Configure the pdy
 
 Follow up by configuring the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/config_app.pdy` file:
 
@@ -436,7 +454,7 @@ REMAINING TABS
 Once you have updated the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/config_app.pdy`, you can save it.
 
 <a id="app-generation"></a>
-### Build the apk
+### 4.4. Build the apk
 
 Follow up with the building of your app.
 
@@ -450,7 +468,7 @@ python3 build_app.py --target android-64 --source-dir $RESOURCES_DIR --installed
 :hand: _If it is your first time using `build_app.py`, please refer to the [build instructions](#apk-build)._
 
 <a id="app-debugging"></a>
-### Debug the apk
+### 4.5. Debug the apk
 
 The most nerve-wracking part of deploying an application is the debugging part. 
 Therefore, make sure that you have added a logger to your application and that you use an Emulator (or a physical device) to confirm your expectations.
@@ -486,12 +504,12 @@ If you wish to access more Android logs, please refer to [this issue](https://gi
 [:arrow_heading_up: Back to TOP](#toc)
 
 <a id="original-story"></a>
-## How it all began...
+## 5. How it all began...
 
 :mag: This section shows you how this repo came to life by leveraging the functionalities of [pyqtdeploy](https://pypi.org/project/pyqtdeploy/).
 
 <a id="fresh-start"></a>
-### A fresh start
+### 5.1. A fresh start
 
 Get rid of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app` folder:
 
@@ -500,7 +518,7 @@ sudo rm -r $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app
 ```
 
 <a id="original-build-files"></a>
-### Get the build files for pyqtdeploy
+### 5.2. Get the build files for pyqtdeploy
 
 - Download the `pyqt-demo` folder from [pypi website](https://pypi.org/project/pyqtdeploy/2.5.1/#files) or use the following command:
 
@@ -524,7 +542,7 @@ mv pyqtdeploy-2.5.1/ $SIMPLE_PYQT5_ANDROID_APP_DIR
 :hand: *Make sure that you now have a folder called `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-2.5.1`*
 
 <a id="original-setup"></a>
-### Setup an app folder to build an .apk with pyqtdeploy
+### 5.3. Setup an app folder to build an .apk with pyqtdeploy
 
 - Create a new folder called `pyqtdeploy_app`:
 
@@ -571,7 +589,7 @@ pyqtdeploy example_pyqt5_app.pdy
 ```
 
 <a id="original-build"></a>
-### Setup, build and test the app
+### 5.4. Setup, build and test the app
 
 Please follow the steps detailed in [Getting Started](#getting-started) to setup, build and test your own PyQt5 app.
 
@@ -580,12 +598,12 @@ If you would like to understand how `pyqtdeploy` works and how to set it up, ple
 [:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="troubleshooting"></a>
-## Troubleshooting
+## 6. Troubleshooting
 
 :mag: This section walks you through tips and fixes for the main challenges you might encounter.
 
 <a id="module-not-found"></a>
-### Module not found
+### 6.1. Module not found
 
 When trying to run the PyQt5 app on your machine, the following issue might come up:
 
@@ -602,14 +620,14 @@ Please make sure that you have followed the [Getting started](#getting-started) 
 If you have followed the tutorial, then ensure that you have [activated your virtual environment](#virtual-environment-activation).
 
 <a id="file-not-found"></a>
-### File not found
+### 6.2. File not found
 
 If the [building process](#apk-build) or any other process fails because some files cannot be found, ensure that you have correctly setup your `.bashrc` to load the environment.
 
 Go through the [Getting started](#getting-started) tutorial and confirm the state of your `.bashrc`.
 
 <a id="virtualbox-setup"></a>
-### Setup repo with VirtualBox
+### 6.3. Setup repo with VirtualBox
 
 When setting the repo up in VirtualBox, you might come across the following issue with `xcb`:
 
@@ -634,14 +652,16 @@ sudo apt-get install libxcb-xinerama0
 [:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="roadmap"></a>
-## Roadmap
+## 7. Roadmap
 
 _This section describes the broad roadmap to deliver a functional repo._
+
+![Roadmap Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/achille-martin/simple-pyqt5-android-app/master/documentation_resources/roadmap/roadmap.iuml)
 
 [:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="credits"></a>
-## Credits
+## 8. Credits
 
 Repository created and maintained by [Achille Martin](https://github.com/achille-martin).
 
