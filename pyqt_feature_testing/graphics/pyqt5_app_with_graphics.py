@@ -2,10 +2,28 @@
 
 # Code inspired from https://www.pythonguis.com/tutorials/pyqt-qgraphics-vector-graphics/
 
+# Tip to handle various views and scenes at:
+# https://kb.froglogic.com/squish/qt/howto/getting-qgraphicsview-object-screen-geometry/
+
+# More on GraphicsView at:
+# https://doc.qt.io/qtforpython-5/overviews/graphicsview.html
+
+# QGraphicsItem resources at:
+# https://doc.qt.io/qtforpython-5/PySide2/QtWidgets/QGraphicsItem.html
+
+# Create custom QGraphics Signals at:
+# https://stackoverflow.com/questions/47079461/pyside-pyqt5-how-to-emit-signals-from-a-qgraphicsitem
+
 import sys
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsView, QApplication, QGraphicsRectItem, QGraphicsEllipseItem, QGraphicsItem
 from PyQt5.QtGui import QBrush, QPen, QPainter
 from PyQt5.QtCore import Qt
+
+def on_scene_change(scene, item):
+    # print("Scene changes")
+    if item in scene.selectedItems():
+        print("Ellipse is selected and its center is: ")
+        print([item.pos().x() + item.rect().width()/2, item.pos().y() + item.rect().height()/2])
 
 if __name__ == '__main__':
 
@@ -89,12 +107,24 @@ if __name__ == '__main__':
     # Perform operations on the items
     rect.setRotation(45)
 
-    # Track an object
+    # Get position of an object
     print("----- Attributes of ellipse -----")
     print(ellipse.__dir__())
     print("----- Ellipse centre position -----")
-    ellipse_centre_x = 0 
-    ellipse_centre_y = 0
+    ellipse_centre_x = ellipse.pos().x()
+    ellipse_centre_y = ellipse.pos().y()
+    print(ellipse.rect().__dir__())
+    ellipse_a = ellipse.rect().width()
+    ellipse_b = ellipse.rect().height()
+    # ellipse_centre_x = ellipse.scenePos().x()
+    # ellipse_centre_y = ellipse.scenePos().y()
+    print("X = " + str(ellipse_centre_x + ellipse_a/2) + ", Y = " + str(ellipse_centre_y + ellipse_b/2))
+    
+    # Track position of an object
+    print(ellipse.ItemPositionChange)
+    # Standard events related to the scene can be found at:
+    # https://doc.qt.io/qtforpython-5/PySide2/QtWidgets/QGraphicsScene.html 
+    scene.changed.connect(lambda: on_scene_change(scene, ellipse))
 
     # 3) Define the view
 
