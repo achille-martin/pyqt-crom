@@ -15,7 +15,7 @@
 # https://stackoverflow.com/questions/47079461/pyside-pyqt5-how-to-emit-signals-from-a-qgraphicsitem
 
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsScene, QGraphicsView, QGraphicsRectItem, QGraphicsEllipseItem, QGraphicsItem, QStatusBar, QLabel
+from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsScene, QGraphicsView, QGraphicsRectItem, QGraphicsEllipseItem, QGraphicsItem, QStatusBar, QLabel, QGridLayout, QPushButton, QWidget
 from PyQt5.QtGui import QBrush, QPen, QPainter
 from PyQt5.QtCore import Qt
 
@@ -36,10 +36,20 @@ class MainWindow(QMainWindow):
         self.show()
 
     def create_graphics_visualiser(self):
+            
+        # 1) Define a central widget with a specific layout
+        # Tip: QLayout cannot be set on the MainWindow directly
+        self.graphics_window = QWidget()
+        self.setCentralWidget(self.graphics_window)
+        self.graphics_window_layout = QGridLayout()
+        self.graphics_window.setLayout(self.graphics_window_layout)
+        
+        # 2) Define control buttons
+        self.home_button = QPushButton("HOME")
 
-        # 1) Define the scene
+        # 3) Define a scene for the Graphics
 
-        # Define a scene rect of custom dimensions (width x height), with it's origin at 0,0.
+        # Define a scene rect of custom dimensions (width x height), with its origin at 0,0.
         # If we don't set this on creation, we can set it later with .setSceneRect
         self.scene_width = 400
         self.scene_height = 200
@@ -120,17 +130,18 @@ class MainWindow(QMainWindow):
         # https://doc.qt.io/qtforpython-5/PySide2/QtWidgets/QGraphicsScene.html
         self.scene.changed.connect(lambda: self.on_scene_change(self.scene, self.ellipse))
         
-        # 2) Define the view
+        # 4) Define a view for the Graphics
 
         # Define a view associated to the scene
         self.view = QGraphicsView(self.scene)
 
         # Render the view with antialiasing
         self.view.setRenderHint(QPainter.Antialiasing)
-
-        # Define the Graphics view as the central widget of the main window
-        self.setCentralWidget(self.view)
-   
+        
+        # 5) Update the widgets in the selected layout
+        self.graphics_window_layout.addWidget(self.home_button, 0, 0)
+        self.graphics_window_layout.addWidget(self.view, 1, 0)
+ 
     def create_statusbar(self):
         
         # Instantiate a status bar
