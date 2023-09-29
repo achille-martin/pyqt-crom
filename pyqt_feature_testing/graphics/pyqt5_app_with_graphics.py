@@ -45,7 +45,7 @@ class MainWindow(QMainWindow):
         self.graphics_window.setLayout(self.graphics_window_layout)
         
         # 2) Define control buttons
-        self.home_button = QPushButton("HOME")
+        self.home_button = QPushButton("Go to Home Page")
 
         # 3) Define a scene for the Graphics
 
@@ -128,6 +128,7 @@ class MainWindow(QMainWindow):
         # print(self.ellipse.ItemPositionChange)
         # Standard events related to the scene can be found at:
         # https://doc.qt.io/qtforpython-5/PySide2/QtWidgets/QGraphicsScene.html
+        self.scene.changed.connect(lambda: self.on_scene_change(self.scene, self.rect))
         self.scene.changed.connect(lambda: self.on_scene_change(self.scene, self.ellipse))
         
         # 4) Define a view for the Graphics
@@ -171,11 +172,10 @@ class MainWindow(QMainWindow):
             # print("----- Ellipse shape -----")
             # print(self.ellipse.shape())
             
-            print("Ellipse is selected and its center is: ")
             item_centre_x = item.pos().x() + item.rect().width()/2
             item_centre_y = item.pos().y() + item.rect().height()/2 
 
-            self.status_bar_text = "Selected ellipse centre coordinates: ({}, {})".format(item_centre_x, item_centre_y)
+            self.status_bar_text = "Selected item centre coordinates: ({}, {})".format(round(item_centre_x, 2), round(item_centre_y, 2))
             self.object_centre_tracker_label.setText(self.status_bar_text)
 
 
