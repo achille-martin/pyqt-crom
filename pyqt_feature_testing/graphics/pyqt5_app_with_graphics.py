@@ -127,7 +127,7 @@ class MainWindow(QMainWindow):
         self.rect.setFlags(QGraphicsItem.ItemIsMovable | QGraphicsItem.ItemIsSelectable)
 
         # Perform operations on the items
-        self.rect.setRotation(45)
+        # self.rect.setRotation(45)
 
         # Track position of an object
         # print(self.ellipse.ItemPositionChange)
