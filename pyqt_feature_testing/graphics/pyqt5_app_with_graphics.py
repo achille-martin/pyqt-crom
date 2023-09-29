@@ -14,6 +14,11 @@
 # Create custom QGraphics Signals at:
 # https://stackoverflow.com/questions/47079461/pyside-pyqt5-how-to-emit-signals-from-a-qgraphicsitem
 
+# Understand QGridLayout grid format and stretches at:
+# https://stackoverflow.com/questions/61451279/how-does-setcolumnstretch-and-setrowstretch-works
+# Combine knowledge and caveats with:
+# https://doc.qt.io/qtforpython-5/PySide2/QtWidgets/QGridLayout.html
+
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsScene, QGraphicsView, QGraphicsRectItem, QGraphicsEllipseItem, QGraphicsItem, QStatusBar, QLabel, QGridLayout, QPushButton, QWidget
 from PyQt5.QtGui import QBrush, QPen, QPainter
@@ -140,9 +145,12 @@ class MainWindow(QMainWindow):
         self.view.setRenderHint(QPainter.Antialiasing)
         
         # 5) Update the widgets in the selected layout
-        self.graphics_window_layout.addWidget(self.home_button, 0, 0)
-        self.graphics_window_layout.addWidget(self.view, 1, 0)
- 
+        self.graphics_window_layout.addWidget(self.home_button, 0, 1, 1, 1)
+        self.graphics_window_layout.addWidget(self.view, 1, 0, 1, 3)
+        self.graphics_window_layout.setRowStretch(0, 0)
+        self.graphics_window_layout.setColumnStretch(0, 1)
+        self.graphics_window_layout.setColumnStretch(2, 1)
+
     def create_statusbar(self):
         
         # Instantiate a status bar
