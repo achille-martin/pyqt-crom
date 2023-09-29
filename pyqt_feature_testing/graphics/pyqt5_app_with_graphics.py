@@ -20,7 +20,7 @@
 # https://doc.qt.io/qtforpython-5/PySide2/QtWidgets/QGridLayout.html
 
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsScene, QGraphicsView, QGraphicsRectItem, QGraphicsEllipseItem, QGraphicsItem, QStatusBar, QLabel, QGridLayout, QPushButton, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsScene, QGraphicsView, QGraphicsRectItem, QGraphicsEllipseItem, QGraphicsItem, QStatusBar, QLabel, QGridLayout, QPushButton, QWidget, QMessageBox
 from PyQt5.QtGui import QBrush, QPen, QPainter
 from PyQt5.QtCore import Qt
 
@@ -51,6 +51,7 @@ class MainWindow(QMainWindow):
         
         # 2) Define control buttons
         self.home_button = QPushButton("Go to Home Page")
+        self.home_button.clicked.connect(self.on_home_button_clicked)
 
         # 3) Define a scene for the Graphics
 
@@ -166,7 +167,22 @@ class MainWindow(QMainWindow):
         self.status_bar_text_init = ""
         self.object_centre_tracker_label.setText(self.status_bar_text_init)
         self.status_bar.addWidget(self.object_centre_tracker_label)
+
+    def on_home_button_clicked(self):
         
+        # Instatiate the alert message for the home button
+        alert = QMessageBox()
+        alert.setText('You are already on the Home Page!')
+
+        # Set standard buttons for the alert window
+        alert.setStandardButtons(QMessageBox.Ok)
+        alert.setDefaultButton(QMessageBox.Ok)
+        
+        # Handle alert window button press
+        alert_value = alert.exec()
+        if alert_value == QMessageBox.Ok:
+            alert.close()
+
     def on_scene_change(self, scene, item):
 
         # print("Scene changes")
@@ -185,7 +201,6 @@ class MainWindow(QMainWindow):
 
             self.status_bar_text = "Selected item centre coordinates: ({}, {})".format(round(item_centre_x, 2), round(item_centre_y, 2))
             self.object_centre_tracker_label.setText(self.status_bar_text)
-
 
 if __name__ == '__main__':
 
