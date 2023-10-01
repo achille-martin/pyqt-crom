@@ -35,6 +35,8 @@
         * [2.3.3. Example PyQt5 app](#database-pyqt5-demo-app)
         * [2.3.4. Example operational PyQt5 app](#operational-database-pyqt5-demo-app)
     * [2.4. Graphics](#pyqt5-graphics)
+        * [2.4.1. 2D Graphics](#pyqt5-2d-graphics)
+        * [2.4.2. Example PyQt5 app](#graphics-pyqt5-demo-app)
     * [2.5. Android permissions](#android-app-permissions)
 * [3. Generating your own app](#custom-app)
     * [3.1. Create your python package](#package-creation)
@@ -400,6 +402,35 @@ This demo app is built on the one highlighted in the [Getting started](#getting-
 
 <a id="pyqt5-graphics"></a>
 ### 2.4. Graphics
+
+<a id="pyqt5-2d-graphics"></a>
+#### 2.4.1. 2D Graphics
+
+There are 2 main approaches to create 2D Graphics in Qt apps:
+* QGraphics way
+* QtQuick way
+
+QGraphics relies on a database of useful shapes and widgets (QWidgets) to make the app efficient and native (the look is tied to the platform). As described on the [pythonguis website](https://www.pythonguis.com/tutorials/pyqt-qgraphics-vector-graphics/), QGraphics harnesses the model-view paradigm through QGraphicsScene (model), QGraphicsView (view) and QGraphicsItems (visual elements).
+
+QtQuick on the other hand, relies on the Qt Modeling language (QML) to define user interfaces. As described on the [pythonguis website](https://www.pythonguis.com/tutorials/qml-qtquick-python-application/), QML is focused on custom UI design and is useful for consistent app design across multiple platforms. The look of the app will be more modern, but the development might take longer.
+
+As we are showcasing a prototyping tool for mobile apps, we have decided to explore QGraphics options rather than follow QtQuick practices. Note that both approaches are viable and handled by the pyqtdeploy tool.
+
+<a id="graphics-pyqt5-demo-app"></a>
+#### 2.4.2. Example PyQt5 app
+
+To visualise a basic example of 2D Graphics in a PyQt app, run the following:
+
+
+```
+cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqt_feature_testing/graphics
+python3 pyqt5_app_with_graphics.py
+```
+
+A graphics window will appear, in which you can perform the following:
+
+* Move shapes around and locate their centre thanks to the status bar prompt
+* Get back to the home screen thanks to the button at the top of the window
 
 <a id="android-app-permissions"></a>
 ### 2.5. Android permissions
