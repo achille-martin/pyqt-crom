@@ -6,7 +6,7 @@
 
 ## Imports
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsScene, QGraphicsView, QGraphicsRectItem, QGraphicsEllipseItem, QGraphicsItem, QStatusBar, QLabel, QGridLayout, QPushButton, QWidget, QMessageBox, QStackedLayout
+from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsScene, QGraphicsView, QGraphicsRectItem, QGraphicsEllipseItem, QGraphicsItem, QStatusBar, QLabel, QGridLayout, QPushButton, QWidget, QMessageBox, QStackedLayout, QVBoxLayout
 from PyQt5.QtGui import QBrush, QPen, QPainter
 from PyQt5.QtCore import Qt
 
@@ -46,11 +46,18 @@ class MainWindow(QMainWindow):
         
         # Set main window title
         self.setWindowTitle("Example simple pyqt5 geometric shape visualiser")
+
+        # Create a default widget and layout for the main window
+        main_window_widget = QWidget(self)
+        self.setCentralWidget(main_window_widget)
+        main_window_layout = QVBoxLayout()
+        main_window_widget.setLayout(main_window_layout)
         
         # Create a stacked layout to switch between widget display (app "screens")
         self.stacked_layout = QStackedLayout()
         self.stacked_layout_dict = {} # Dict mapping screen index with screen name
-
+        main_window_layout.addLayout(self.stacked_layout)
+        
         # Create components of the main window
         self.create_home_page()
         self.create_graphics_visualiser()
@@ -69,7 +76,6 @@ class MainWindow(QMainWindow):
         home_screen = QWidget()
         home_screen_layout = QGridLayout()
         home_screen.setLayout(home_screen_layout)
-        self.setCentralWidget(home_screen)
         self.stacked_layout.addWidget(home_screen)
         self.stacked_layout_dict["home"] = 0
 
@@ -134,14 +140,17 @@ class MainWindow(QMainWindow):
 
     def create_graphics_visualiser(self):
             
+        logger.debug("MainWindow::create_graphics_visualiser - Entered method")
+        
         # Define a central widget with a specific layout
         # Tip: QLayout cannot be set on the MainWindow directly
         graphics_screen = QWidget()
-        self.setCentralWidget(graphics_screen)
         graphics_screen_layout = QGridLayout()
         graphics_screen.setLayout(graphics_screen_layout)
         self.stacked_layout.addWidget(graphics_screen)
         self.stacked_layout_dict["graphics"] = 1
+
+        logger.debug("MainWindow::create_graphics_visualiser - Updated stacked layout: " + str(self.stacked_layout_dict))
 
         # Define control buttons
         home_button = QPushButton("Go to Home Page")
@@ -246,8 +255,12 @@ class MainWindow(QMainWindow):
         graphics_screen_layout.setColumnStretch(0, 1)
         graphics_screen_layout.setColumnStretch(2, 1)
 
+        logger.debug("MainWindow::create_graphics_visualiser - Exited method")
+
     def create_statusbar(self):
         
+        logger.debug("MainWindow::create_statusbar - Entered method")
+
         # Instantiate a status bar
         self.status_bar = QStatusBar()
  
@@ -262,8 +275,12 @@ class MainWindow(QMainWindow):
         self.object_centre_tracker_label.setText(self.status_bar_text_init)
         self.status_bar.addWidget(self.object_centre_tracker_label)
 
+        logger.debug("MainWindow::create_statusbar - Exited method")
+
     def on_home_button_clicked(self):
         
+        logger.debug("MainWindow::on_home_button_clicked - Entered method")
+
         # Instantiate the alert message for the home button
         alert = QMessageBox()
         alert.setText('You will be redirected to the home page...')
@@ -278,13 +295,17 @@ class MainWindow(QMainWindow):
         # Return to graphics screen if user cancels the alert pop-up
         if alert_value == QMessageBox.Cancel:
             alert.close()
+            logger.debug("MainWindow::on_home_button_clicked - Exited method")
         # Proceed to next screen if user accepts alert pop-up
         else:
             alert.close()
+            logger.debug("MainWindow::on_home_button_clicked - Exited method")
             self.status_bar.setVisible(False) # Make status bar invisible
             self.stacked_layout.setCurrentIndex(self.stacked_layout_dict["home"])
 
     def on_scene_change(self, scene, item):
+
+        logger.debug("MainWindow::on_scene_change - Entered method")
 
         # print("Scene changes")
         if item in scene.selectedItems():
@@ -294,6 +315,8 @@ class MainWindow(QMainWindow):
 
             self.status_bar_text = "Selected item centre coordinates: ({}, {})".format(round(item_centre_x, 2), round(item_centre_y, 2))
             self.object_centre_tracker_label.setText(self.status_bar_text)
+
+        logger.debug("MainWindow::on_scene_change - Exited method")
 
 ## Application definition
 
