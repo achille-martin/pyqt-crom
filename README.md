@@ -494,7 +494,7 @@ Follow up with the building of your app.
 Generate the `<apk_name>.apk` located in the `<pkg_name>/releases/<date>` repo with:
 
 ```
-$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app
+cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app
 python3 build_app.py --target android-64 --source-dir $RESOURCES_DIR --installed-qt-dir $QT_DIR --verbose --no-sysroot
 ```
 
