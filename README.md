@@ -714,6 +714,8 @@ Repository created and maintained by [Achille Martin](https://github.com/achille
 
 If you feel you can make progress with your projects by converting your PyQt5 apps into Android apps, please support this project.
 
+:warning: _This repo is aimed at boosting the capability of well-intentioned international developers to create apps benefitting the community._
+
 Inspiration for this repo comes from:
 - [Kviktor's github repo](https://github.com/kviktor/pyqtdeploy-android-build)
 - [Lola Rigaut-Luczak's medium article](https://medium.com/@Lola_Dam/packaging-pyqt-application-using-pyqtdeploy-for-both-linux-and-android-32ac7824708b)
