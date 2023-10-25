@@ -37,7 +37,7 @@
     * [2.4. Graphics](#pyqt5-graphics)
         * [2.4.1. 2D Graphics](#pyqt5-2d-graphics)
         * [2.4.2. Example PyQt5 app](#graphics-pyqt5-demo-app)
-    * [2.5. Android permissions](#android-app-permissions)
+        * [2.4.3. Example operational PyQt5 app](#operational-graphics-pyqt5-demo-app)
 * [3. Generating your own app](#custom-app)
     * [3.1. Create your python package](#package-creation)
     * [3.2. Update the sysroot](#sysroot-update)
@@ -432,10 +432,22 @@ A graphics window will appear, in which you can perform the following:
 * Move shapes around and locate their centre thanks to the status bar prompt
 * Get back to the home screen thanks to the button at the top of the window
 
-<a id="android-app-permissions"></a>
-### 2.5. Android permissions
+<a id="operational-graphics-pyqt5-demo-app"></a>
+#### 2.4.3. Example operational PyQt5 app
 
-Tips are given on [kviktor's github page](https://github.com/kviktor/pyqtdeploy-android-build#adding-android-specific-things) on how to deal with Android permissions.
+You can also run a more operational PyQt5 app boasting a graphics playground with:
+
+```
+cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqt_feature_testing/graphics
+python3 operational_pyqt5_app_with_graphics.py
+```
+
+This demo app is built on the one highlighted in the [Getting started](#getting-started) section:
+- A window appears on the screen in a window with 2 buttons: MAGIC or EXIT
+- Once MAGIC is clicked, a pop-up appears on screen stating that the button has been clicked and that a graphics playground will open
+- Once the pop-up has been acknowledged, a graphics playground opens up with 2 shapes that can be dragged around
+- When selecting a shape, its coordinates are displayed at the bottom of the screen, in the status bar
+- To exit the graphics playground, hit the HOME button
 
 [:arrow_heading_up: Back to TOP](#toc) 
 
