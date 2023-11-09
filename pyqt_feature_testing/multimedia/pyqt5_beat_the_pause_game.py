@@ -10,7 +10,7 @@
 # Concept:
 # 1) Record screenshots in the background while playing the video
 # 2) Identify image / frame changes and save at each sharp change
-# 3) Reveal the images saved to the user (hopefully including the hidden one)
+# 3) Reveal the images hidden to the user (hopefully including the hidden one)
 
 import sys
 from threading import Timer
@@ -32,12 +32,14 @@ class MainWindow(QMainWindow):
         self.create_screen_grabber_visualiser()
         self.create_status_bar()
 
-        # Create useful variables
+        # Configure settings for the app
         self.grab_screen_timeout = 5  # s
         self.grab_screen_frequency = 0.25  # s
-        self.image_list = []
         self.image_saved_name = "screenshot_saved_1"
         self.image_similarity_percentage = 80  # % - How similar are the images
+        
+        # Create useful variables
+        self.image_list = []
         self.rmse_threshold = math.sqrt((100 - self.image_similarity_percentage)/100 * ((2**24) ** 2))  # 24-bit colour
         print(f"RMSE threshold = {self.rmse_threshold}")
 
@@ -181,4 +183,3 @@ if __name__ == '__main__':
     
     # Start the event loop and handle the exit code
     sys.exit(app.exec())
-
