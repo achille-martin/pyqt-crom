@@ -16,8 +16,8 @@ import sys
 from threading import Timer
 import math
 import time
-from textwrap import dedent
-from PyQt5.QtWidgets import QApplication, QMainWindow, QGridLayout, QPushButton, QWidget, QMessageBox, QStatusBar, QLabel
+import os
+from PyQt5.QtWidgets import QApplication, QMainWindow, QGridLayout, QPushButton, QWidget, QMessageBox, QStatusBar, QLabel, QFileDialog
 
 class MainWindow(QMainWindow):
     
@@ -40,6 +40,7 @@ class MainWindow(QMainWindow):
         
         # Create useful variables
         self.image_list = []
+        self.img_saved_dir = None
         self.rmse_threshold = math.sqrt((100 - self.image_similarity_percentage)/100 * ((2**24) ** 2))  # 24-bit colour
         print(f"RMSE threshold = {self.rmse_threshold}")
 
@@ -84,7 +85,7 @@ class MainWindow(QMainWindow):
         
         # Instatiate the alert message for the button
         alert = QMessageBox()
-        alert.setText("Start grabbing screenshots?")
+        alert.setText("Set save location\nand start grabbing screenshots?")
 
         # Set standard buttons for the alert window
         alert.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
@@ -93,6 +94,8 @@ class MainWindow(QMainWindow):
         # Handle alert window button press
         alert_value = alert.exec()
         if alert_value == QMessageBox.Yes:
+            # Specify saving location
+            self.get_save_location()
             delayed_background_grab_process = Timer(0, lambda: self.background_grab_process())
             delayed_background_grab_process.start()
             alert.close()
@@ -122,6 +125,14 @@ class MainWindow(QMainWindow):
         device_screen = QApplication.primaryScreen()
         screenshot = device_screen.grabWindow(self.screen_grabber_window.winId())
         self.image_list.append(screenshot)
+
+    def get_save_location(self):
+        self.img_saved_dir = QFileDialog.getExistingDirectory(self, "Select a Directory")
+        print(f"Selected directory: {self.img_saved_dir}")
+        # Check write permissions for folder otherwise change to current folder
+        if not os.access(self.img_saved_dir, os.W_OK):
+            self.img_saved_dir = os.getcwd()
+            print(f"No write permission on selected directory, changing to: {self.img_saved_dir}")
 
     def compare_screenshots(self):
         # Inform user of the progress of the process
@@ -158,15 +169,17 @@ class MainWindow(QMainWindow):
 
                 # Save the 2 different images
                 if not similarity_indicator:
-                    image_1.save(self.image_saved_name, 'jpg')
+                    print(f"Save images in: {self.img_saved_dir}")
+                    image_1.save(os.path.join(self.img_saved_dir, self.image_saved_name), 'jpg')
                     self.image_saved_name += '1'
-                    image_2.save(self.image_saved_name, 'jpg')
+                    image_2.save(os.path.join(self.img_saved_dir, self.image_saved_name), 'jpg')
                     self.image_saved_name += '1'
                 
         else:
             print("Cannot perform screenshot comparison")
 
         # Inform user of the completion of the process
+        print("Compared screenshots")
         self.update_status_bar("Done.")
 
     def update_status_bar(self, txt):
