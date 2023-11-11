@@ -42,8 +42,7 @@ class MainWindow(QMainWindow):
         
         # Create useful variables
         self.image_list = []
-        self.rmse_threshold = math.sqrt((100 - self.image_similarity_percentage)/100 * ((2**24) ** 2))  # 24-bit colour
-        print(f"RMSE threshold = {self.rmse_threshold}")
+        self.rmse_threshold = None
 
         # Display the main window
         self.showMaximized()
@@ -166,6 +165,10 @@ class MainWindow(QMainWindow):
         if is_inputted:
             self.image_similarity_percentage = float(value)
 
+    def calculate_rmse_threshold(self):
+        self.rmse_threshold = math.sqrt((100 - self.image_similarity_percentage)/100 * ((2**24) ** 2))  # 24-bit colour
+        print(f"Updated RMSE threshold = {self.rmse_threshold}")
+
     def background_grab_process(self):
         # Reset timeout
         timeout = self.grab_screen_timeout
@@ -207,6 +210,9 @@ class MainWindow(QMainWindow):
         if len(self.image_list) > 1 and len(self.image_list)%2 == 0:
             print("Comparing screenshots")
             
+            # Update rmse threshold
+            self.calculate_rmse_threshold()
+
             for counter in range(len(self.image_list)-1):
 
                 # Convert QPixmap to QImage
@@ -252,7 +258,7 @@ class MainWindow(QMainWindow):
         self.status_label.setText(txt)
 
 
-if __name__ == '__main__':
+def main():
 
     # Define the app object/instance
     app = QApplication(sys.argv)
@@ -262,3 +268,6 @@ if __name__ == '__main__':
     
     # Start the event loop and handle the exit code
     sys.exit(app.exec())
+
+if __name__ == "__main__":        
+    main()
