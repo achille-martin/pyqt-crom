@@ -17,7 +17,7 @@ from threading import Timer
 import math
 import time
 import os
-from PyQt5.QtWidgets import QApplication, QMainWindow, QGridLayout, QPushButton, QWidget, QMessageBox, QStatusBar, QLabel, QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QGridLayout, QPushButton, QWidget, QMessageBox, QStatusBar, QLabel, QFileDialog, QInputDialog
 
 class MainWindow(QMainWindow):
     
@@ -32,15 +32,16 @@ class MainWindow(QMainWindow):
         self.create_screen_grabber_visualiser()
         self.create_status_bar()
 
-        # Configure settings for the app
+        # Configure initial settings for the app
         self.grab_screen_timeout = 5  # s
         self.grab_screen_frequency = 0.25  # s
+        self.grab_screen_start_delay = 0  # s
         self.image_saved_name = "screenshot_saved_1"
         self.image_similarity_percentage = 80  # % - How similar are the images
+        self.img_saved_dir = os.getcwd()
         
         # Create useful variables
         self.image_list = []
-        self.img_saved_dir = None
         self.rmse_threshold = math.sqrt((100 - self.image_similarity_percentage)/100 * ((2**24) ** 2))  # 24-bit colour
         print(f"RMSE threshold = {self.rmse_threshold}")
 
@@ -59,17 +60,33 @@ class MainWindow(QMainWindow):
         # Define control buttons
         self.screen_grab_button = QPushButton("Grab screenshots")
         self.screen_grab_button.clicked.connect(self.on_screen_grab_button_clicked)
+        self.set_save_location_button = QPushButton("Set\nsave location")
+        self.set_save_location_button.clicked.connect(self.on_set_save_location_button_clicked)
+        self.set_start_delay_button = QPushButton("Set\nstart delay")
+        self.set_start_delay_button.clicked.connect(self.on_set_start_delay_button_clicked)
+        self.set_timeout_button = QPushButton("Set\ntimeout")
+        self.set_timeout_button.clicked.connect(self.on_set_timeout_button_clicked)
+        self.set_update_frequency_button = QPushButton("Set\nupdate frequency")
+        self.set_update_frequency_button.clicked.connect(self.on_set_update_frequency_button_clicked)
+        self.set_image_similarity_button = QPushButton("Set\nimage similarity")
+        self.set_image_similarity_button.clicked.connect(self.on_set_image_similarity_button_clicked)
         self.exit_button = QPushButton("Exit")
         self.exit_button.clicked.connect(self.close)
 
         # Update the widgets in the selected layout
-        self.screen_grabber_window_layout.addWidget(self.screen_grab_button, 1, 1, 1, 1)
-        self.screen_grabber_window_layout.addWidget(self.exit_button, 3, 1, 1, 1)
+        self.screen_grabber_window_layout.addWidget(self.set_save_location_button, 1, 1, 1, 2)
+        self.screen_grabber_window_layout.addWidget(self.set_start_delay_button, 2, 1, 1, 1)
+        self.screen_grabber_window_layout.addWidget(self.set_timeout_button, 2, 2, 1, 1)
+        self.screen_grabber_window_layout.addWidget(self.set_update_frequency_button, 3, 1, 1, 1)
+        self.screen_grabber_window_layout.addWidget(self.set_image_similarity_button, 3, 2, 1, 1)
+        self.screen_grabber_window_layout.addWidget(self.screen_grab_button, 5, 1, 1, 2)
+        self.screen_grabber_window_layout.addWidget(self.exit_button, 7, 1, 1, 2)
         self.screen_grabber_window_layout.setRowStretch(0, 1)
-        self.screen_grabber_window_layout.setRowStretch(2, 1)
         self.screen_grabber_window_layout.setRowStretch(4, 1)
+        self.screen_grabber_window_layout.setRowStretch(6, 1)
+        self.screen_grabber_window_layout.setRowStretch(8, 1)
         self.screen_grabber_window_layout.setColumnStretch(0, 1)
-        self.screen_grabber_window_layout.setColumnStretch(2, 1)
+        self.screen_grabber_window_layout.setColumnStretch(3, 1)
 
     def create_status_bar(self):
         # Instantiate a status bar        
@@ -85,7 +102,7 @@ class MainWindow(QMainWindow):
         
         # Instatiate the alert message for the button
         alert = QMessageBox()
-        alert.setText("Set save location\nand start grabbing screenshots?")
+        alert.setText("Start process of finding hidden images?")
 
         # Set standard buttons for the alert window
         alert.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
@@ -94,11 +111,60 @@ class MainWindow(QMainWindow):
         # Handle alert window button press
         alert_value = alert.exec()
         if alert_value == QMessageBox.Yes:
-            # Specify saving location
-            self.get_save_location()
-            delayed_background_grab_process = Timer(0, lambda: self.background_grab_process())
+            delayed_background_grab_process = Timer(
+                    self.grab_screen_start_delay, 
+                    lambda: self.background_grab_process()
+            )
             delayed_background_grab_process.start()
+            self.update_status_bar(f"Starting process in {self.grab_screen_start_delay} s...")
             alert.close()
+
+    def on_set_save_location_button_clicked(self):
+        self.set_save_location()
+
+    def on_set_start_delay_button_clicked(self):
+        options = ['0', '5', '10']
+        value, is_inputted = QInputDialog.getItem(
+                self,
+                "Process start delay input",
+                "Select your desired process start delay:",
+                options,
+        )
+        if is_inputted:
+            self.grab_screen_start_delay = float(value)
+
+    def on_set_timeout_button_clicked(self):
+        options = ['5', '10', '15', '20']
+        value, is_inputted = QInputDialog.getItem(
+                self,
+                "Process timeout input",
+                "Select your desired process timeout:",
+                options,
+        )
+        if is_inputted:
+            self.grab_screen_timeout = float(value)
+
+    def on_set_update_frequency_button_clicked(self):
+        options = ['0.1', '0.25', '0.5', '1', '2']
+        value, is_inputted = QInputDialog.getItem(
+                self,
+                "Process update frequency input",
+                "Select your desired process update frequency:",
+                options,
+        )
+        if is_inputted:
+            self.grab_screen_frequency = float(value)
+
+    def on_set_image_similarity_button_clicked(self):
+        options = ['50', '75', '90', '95']
+        value, is_inputted = QInputDialog.getItem(
+                self,
+                "Process image similarity input",
+                "Select your desired process image similarity (%):",
+                options,
+        )
+        if is_inputted:
+            self.image_similarity_percentage = float(value)
 
     def background_grab_process(self):
         # Reset timeout
@@ -126,7 +192,7 @@ class MainWindow(QMainWindow):
         screenshot = device_screen.grabWindow(self.screen_grabber_window.winId())
         self.image_list.append(screenshot)
 
-    def get_save_location(self):
+    def set_save_location(self):
         self.img_saved_dir = QFileDialog.getExistingDirectory(self, "Select a Directory")
         print(f"Selected directory: {self.img_saved_dir}")
         # Check write permissions for folder otherwise change to current folder
