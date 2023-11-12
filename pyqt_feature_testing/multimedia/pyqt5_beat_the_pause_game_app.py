@@ -12,6 +12,9 @@
 # 2) Identify image / frame changes and save at each sharp change
 # 3) Reveal the images hidden to the user (hopefully including the hidden one)
 
+# To enable file access and saving on any os,
+# you need to manually give folder access/write permission to this app
+
 import sys
 from threading import Timer
 import math
@@ -369,10 +372,17 @@ class MainWindow(QMainWindow):
                 # NOTE: the two images must have the same dimension
                 w = image_1.width()
                 h = image_1.height()
+                
+                logger.debug(f"MainWindow::compare_screenshots - Image dimensions in pixels: w={w} | h={h}")
+                
                 squared_err = 0
                 for x in range(w):
                     for y in range(h):
                         squared_err += (image_1.pixel(x, y) - image_2.pixel(x, y)) ** 2
+                # Ensure that there is no division by zero
+                if w == 0 or h == 0:
+                    w = 1
+                    h = 1
                 mse = squared_err/float(w * h)  # Divide by the number of pixels
                 rmse = math.sqrt(mse)  # Take the square root of the MSE
                 logger.debug(f"MainWindow::compare_screenshots - RMSE calculated = {rmse}")
