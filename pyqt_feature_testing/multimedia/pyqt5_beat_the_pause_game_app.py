@@ -17,13 +17,39 @@ from threading import Timer
 import math
 import time
 import os
+import logging as log_tool # The logging library for debugging
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGridLayout, QPushButton, QWidget, QMessageBox, QStatusBar, QLabel, QFileDialog, QInputDialog
+
+## Main variables and objects
+
+# Define path reference: app folder is the reference for the device
+app_folder = os.path.expanduser('~')
+if not os.path.exists(app_folder):
+    # Ensure that a path can be defined to generate the necessary files on device
+    app_folder = os.getcwd()
+
+# Set logger config and instantiate object
+logger_logging_level = "DEBUG"
+logger_output_file_name = "pyqt5-app-beat-the-pause-game.log"
+logger_output_prefix_format = "[%(asctime)s] [%(levelname)s] - %(message)s"
+
+logger = log_tool.getLogger(__name__)
+logger.setLevel(logger_logging_level)
+logger_output_file_path = os.path.join(app_folder, str(logger_output_file_name))
+file_handler = log_tool.FileHandler(logger_output_file_path)
+formatter = log_tool.Formatter(logger_output_prefix_format)
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
+
+## Class definition
 
 class MainWindow(QMainWindow):
     
     def __init__(self):
         
         super().__init__()
+        
+        logger.debug("MainWindow::__init__ - Entered method")
         
         # Set main window title
         self.setWindowTitle("Basic geometry shape visualiser")
@@ -40,14 +66,30 @@ class MainWindow(QMainWindow):
         self.image_similarity_percentage = 80  # % - How similar are the images
         self.img_saved_dir = os.getcwd()
         
+        logger.debug(f"""MainWindow::__init__ - Initial settings for the app:
+                Grab screen timeout = {self.grab_screen_timeout}
+                Grab screen frequency = {self.grab_screen_frequency}
+                Grab screen start delay = {self.grab_screen_start_delay}
+                First screenshot saved name = {self.image_saved_name}
+                Image similarity percentage between screenshots = {self.image_similarity_percentage}
+                Screenshot save location = {self.img_saved_dir}
+                """
+        )
+        
         # Create useful variables
         self.image_list = []
         self.rmse_threshold = None
 
         # Display the main window
         self.showMaximized()
+        
+        logger.info("MainWindow::__init__ - Main Window created")
+        
+        logger.debug("MainWindow::__init__ - Exited method")
 
     def create_screen_grabber_visualiser(self):
+        
+        logger.debug("MainWindow::create_screen_grabber_visualiser - Entered method")
             
         # Define a central widget with a specific layout
         # Tip: QLayout cannot be set on the MainWindow directly
@@ -86,8 +128,13 @@ class MainWindow(QMainWindow):
         self.screen_grabber_window_layout.setRowStretch(8, 1)
         self.screen_grabber_window_layout.setColumnStretch(0, 1)
         self.screen_grabber_window_layout.setColumnStretch(3, 1)
+        
+        logger.debug("MainWindow::create_screen_grabber_visualiser - Exited method")
 
     def create_status_bar(self):
+        
+        logger.debug("MainWindow::create_status_bar - Entered method")
+        
         # Instantiate a status bar        
         self.status_bar = QStatusBar()                
         # Define the status bar as part of the main window        
@@ -96,8 +143,12 @@ class MainWindow(QMainWindow):
         self.status_label = QLabel()        
         self.update_status_bar("")
         self.status_bar.addWidget(self.status_label)
+        
+        logger.debug("MainWindow::create_status_bar - Exited method")
 
     def on_screen_grab_button_clicked(self):
+        
+        logger.debug("MainWindow::on_screen_grab_button_clicked - Entered method")
         
         # Instatiate the alert message for the button
         alert = QMessageBox()
@@ -115,13 +166,21 @@ class MainWindow(QMainWindow):
                     lambda: self.background_grab_process()
             )
             delayed_background_grab_process.start()
-            self.update_status_bar(f"Starting process in {self.grab_screen_start_delay} s...")
+            self.update_status_bar(f"Starting process in {self.grab_screen_start_delay} s. Hang on!")
             alert.close()
+        
+        logger.debug("MainWindow::on_screen_grab_button_clicked - Exited method")
 
     def on_set_save_location_button_clicked(self):
+        
+        logger.debug("MainWindow::on_set_save_location_button_clicked - Entered method")
         self.set_save_location()
+        logger.debug("MainWindow::on_set_save_location_button_clicked - Exited method")
 
     def on_set_start_delay_button_clicked(self):
+        
+        logger.debug("MainWindow::on_set_start_delay_button_clicked - Entered method")
+        
         options = ['0', '5', '10']
         value, is_inputted = QInputDialog.getItem(
                 self,
@@ -131,8 +190,14 @@ class MainWindow(QMainWindow):
         )
         if is_inputted:
             self.grab_screen_start_delay = float(value)
+            logger.debug(f"MainWindow::on_set_start_delay_button_clicked - Updated screen start delay to: {self.grab_screen_start_delay}")
+        
+        logger.debug("MainWindow::on_set_start_delay_button_clicked - Exited method")
 
     def on_set_timeout_button_clicked(self):
+        
+        logger.debug("MainWindow::on_set_timeout_button_clicked - Entered method")
+        
         options = ['5', '10', '15', '20']
         value, is_inputted = QInputDialog.getItem(
                 self,
@@ -142,8 +207,14 @@ class MainWindow(QMainWindow):
         )
         if is_inputted:
             self.grab_screen_timeout = float(value)
+            logger.debug(f"MainWindow::on_set_timeout_button_clicked - Updated screen timeout to: {self.grab_screen_timeout}")
+        
+        logger.debug("MainWindow::on_set_timeout_button_clicked - Exited method")
 
     def on_set_update_frequency_button_clicked(self):
+        
+        logger.debug("MainWindow::on_set_update_frequency_button_clicked - Entered method")
+        
         options = ['0.1', '0.25', '0.5', '1', '2']
         value, is_inputted = QInputDialog.getItem(
                 self,
@@ -153,8 +224,14 @@ class MainWindow(QMainWindow):
         )
         if is_inputted:
             self.grab_screen_frequency = float(value)
+            logger.debug(f"MainWindow::on_set_update_frequency_button_clicked - Updated screen frequency to: {self.grab_screen_frequency}")
+        
+        logger.debug("MainWindow::on_set_update_frequency_button_clicked - Exited method")
 
     def on_set_image_similarity_button_clicked(self):
+        
+        logger.debug("MainWindow::on_set_image_similarity_button_clicked - Entered method")
+        
         options = ['50', '75', '90', '95']
         value, is_inputted = QInputDialog.getItem(
                 self,
@@ -164,56 +241,100 @@ class MainWindow(QMainWindow):
         )
         if is_inputted:
             self.image_similarity_percentage = float(value)
+            logger.debug(f"MainWindow::on_set_image_similarity_button_clicked - Updated image similarity to: {self.image_similarity_percentage}")
+        
+        logger.debug("MainWindow::on_set_image_similarity_button_clicked - Exited method")
 
     def calculate_rmse_threshold(self):
+        
+        logger.debug("MainWindow::calculate_rmse_threshold - Entered method")
+        
         self.rmse_threshold = math.sqrt((100 - self.image_similarity_percentage)/100 * ((2**24) ** 2))  # 24-bit colour
-        print(f"Updated RMSE threshold = {self.rmse_threshold}")
+        logger.debug(f"MainWindow::calculate_rmse_threshold - Updated RMSE threshold to: {self.rmse_threshold}")
+        
+        logger.debug("MainWindow::calculate_rmse_threshold - Exited method")
 
     def background_grab_process(self):
+        
+        logger.debug("MainWindow::background_grab_process - Entered method")
+        
         # Reset timeout
         timeout = self.grab_screen_timeout
         # Reset image list
         self.image_list = []
         # Grab screenshots until timeout
         while timeout > 0:
+            
+            logger.debug(f"MainWindow::background_grab_process - Time left for screenshot grabbing: {timeout} s")
+
             # Inform user of the progress of the process
-            self.update_status_bar(f"Grabbing screenshots for {round(timeout, 1)} s...")
+            self.update_status_bar(f"Grabbing screenshots for {self.round_up(timeout, 1)} s...")
+
             loop_start = time.time()
+
             self.grab_screen()
             time.sleep(self.grab_screen_frequency)
             self.grab_screen()
+
             loop_end = time.time()
             loop_elapsed_time = loop_end - loop_start
-            print(loop_elapsed_time)
+            logger.debug(f"MainWindow::background_grab_process - Time elapsed between 2 screenshots: {loop_elapsed_time} s")
+            
             timeout -= loop_elapsed_time
+        
         # Compare screenshots
         self.compare_screenshots()
+        
+        logger.debug("MainWindow::background_grab_process - Exited method")
 
     def grab_screen(self):
-        print("Grabbing Screenshot")
+        
+        logger.debug("MainWindow::grab_screen - Entered method")
+        
+        logger.info("MainWindow::grab_screen - Grabbing a screenshot")
+        
         device_screen = QApplication.primaryScreen()
         screenshot = device_screen.grabWindow(self.screen_grabber_window.winId())
         self.image_list.append(screenshot)
+        
+        logger.debug(f"MainWindow::grab_screen - Total screenshots taken: {len(self.image_list)}")
+
+        logger.debug("MainWindow::grab_screen - Exited method")
 
     def set_save_location(self):
+        
+        logger.debug("MainWindow::set_save_location - Entered method")
+        
         self.img_saved_dir = QFileDialog.getExistingDirectory(self, "Select a Directory")
-        print(f"Selected directory: {self.img_saved_dir}")
+        logger.debug(f"MainWindow::set_save_location - Selected directory: {self.img_saved_dir}")
         # Check write permissions for folder otherwise change to current folder
         if not os.access(self.img_saved_dir, os.W_OK):
             self.img_saved_dir = os.getcwd()
-            print(f"No write permission on selected directory, changing to: {self.img_saved_dir}")
+            logger.debug(f"MainWindow::set_save_location - No write permission on selected directory, changing to: {self.img_saved_dir}")
+        
+        logger.debug(f"MainWindow::set_save_location - Updated save location to: {self.img_saved_dir}")
+        
+        logger.debug("MainWindow::set_save_location - Exited method")
 
     def compare_screenshots(self):
+        
+        logger.debug("MainWindow::compare_screenshots - Entered method")
+        
         # Inform user of the progress of the process
         self.update_status_bar("Comparing screenshots...")
+        
         # Ensure image list contains enough images
+        logger.debug(f"MainWindow::compare_screenshots - Total of images to compare: {len(self.image_list)}-1 (since coupled)")
         if len(self.image_list) > 1 and len(self.image_list)%2 == 0:
-            print("Comparing screenshots")
+            
+            logger.info("MainWindow::compare_screenshots - Comparing stored screenshots")
             
             # Update rmse threshold
             self.calculate_rmse_threshold()
 
             for counter in range(len(self.image_list)-1):
+                
+                logger.debug(f"MainWindow::compare_screenshots - Progress: {counter+1}/{len(self.image_list)-1}")
 
                 # Convert QPixmap to QImage
                 image_1 = self.image_list[counter].toImage()
@@ -230,35 +351,54 @@ class MainWindow(QMainWindow):
                         squared_err += (image_1.pixel(x, y) - image_2.pixel(x, y)) ** 2
                 mse = squared_err/float(w * h)  # Divide by the number of pixels
                 rmse = math.sqrt(mse)  # Take the square root of the MSE
-                print(f"RMSE = {rmse}")
+                logger.debug(f"MainWindow::compare_screenshots - RMSE calculated = {rmse}")
 
                 # return the RMSE, the lower the error, the more "similar" "the two images are
                 # NOTE: With the similarity indicator, if it is negative, then the images are similar
                 similarity_calc = rmse - self.rmse_threshold
-                print(f"Similarity calculation = {similarity_calc}")
+                logger.debug(f"MainWindow::compare_screenshots - Similarity calculated = {similarity_calc}")
                 similarity_indicator = True if similarity_calc < 0 else False
-                print(f"Images are similar? {similarity_indicator}")
+                logger.debug(f"MainWindow::compare_screenshots - Are images similar? {similarity_indicator}")
 
                 # Save the 2 different images
                 if not similarity_indicator:
-                    print(f"Save images in: {self.img_saved_dir}")
+                    logger.debug(f"MainWindow::compare_screenshots - Images differ, therefore saving them in {self.img_saved_dir}")
                     image_1.save(os.path.join(self.img_saved_dir, self.image_saved_name), 'jpg')
                     self.image_saved_name += '1'
                     image_2.save(os.path.join(self.img_saved_dir, self.image_saved_name), 'jpg')
                     self.image_saved_name += '1'
                 
         else:
-            print("Cannot perform screenshot comparison")
+            logger.warn("MainWindow::compare_screenshots - Cannot perform screenshot comparison")
+            pass
 
         # Inform user of the completion of the process
-        print("Compared screenshots")
+        logger.info("MainWindow::compare_screenshots - Finished comparing screenshots")
         self.update_status_bar("Done.")
+        
+        logger.debug("MainWindow::compare_screenshots - Exited method")
 
     def update_status_bar(self, txt):
-        self.status_label.setText(txt)
 
+        logger.debug("MainWindow::update_status_bar - Entered method")
+        self.status_label.setText(txt)
+        logger.debug("MainWindow::update_status_bar - Exited method")
+
+    def round_up(self, nb_to_round, decimals = 0): 
+        
+        logger.debug("MainWindow::round_up - Entered method")
+        multiplier = 10 ** decimals
+        rounded_up_nb = math.ceil(nb_to_round * multiplier) / multiplier
+        logger.debug("MainWindow::round_up - Exited method")
+        
+        return rounded_up_nb
 
 def main():
+    
+    logger.info("========================\n")
+    logger.info("========================")
+    logger.debug("main - Entered function and logger instantiated")
+    logger.debug("main - Log output file can be found at: " + str(logger_output_file_path))
 
     # Define the app object/instance
     app = QApplication(sys.argv)
@@ -267,7 +407,11 @@ def main():
     main_window = MainWindow()
     
     # Start the event loop and handle the exit code
+    logger.info("main - App started")
     sys.exit(app.exec())
+    logger.info("main - App terminated")
+    
+    logger.debug("main - Exited function")
 
 if __name__ == "__main__":        
     main()
