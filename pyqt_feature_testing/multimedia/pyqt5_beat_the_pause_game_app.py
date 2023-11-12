@@ -19,6 +19,7 @@ import time
 import os
 import logging as log_tool # The logging library for debugging
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGridLayout, QPushButton, QWidget, QMessageBox, QStatusBar, QLabel, QFileDialog, QInputDialog
+from PyQt5.QtCore import QStandardPaths, QUrl
 
 ## Main variables and objects
 
@@ -304,15 +305,38 @@ class MainWindow(QMainWindow):
     def set_save_location(self):
         
         logger.debug("MainWindow::set_save_location <(")
+       
+        # Parametrise the File Dialog to select a directory to save content to
+        file_dlg = QFileDialog()
+        file_dlg.setAcceptMode(QFileDialog.AcceptOpen)
+        file_dlg.setFileMode(QFileDialog.Directory)
+        file_dlg.setOption(QFileDialog.DontUseNativeDialog)  # Custom dialog for more control on the options
+        file_dlg.setViewMode(QFileDialog.List)
         
-        self.img_saved_dir = QFileDialog.getExistingDirectory(self, "Select a Directory")
-        logger.debug(f"MainWindow::set_save_location - Selected directory: {self.img_saved_dir}")
-        # Check write permissions for folder otherwise change to current folder
-        if not os.access(self.img_saved_dir, os.W_OK):
-            self.img_saved_dir = os.getcwd()
-            logger.debug(f"MainWindow::set_save_location - No write permission on selected directory, changing to: {self.img_saved_dir}")
+        url_list = [
+                QUrl.fromLocalFile(QStandardPaths.standardLocations(QStandardPaths.HomeLocation)[0]),
+                QUrl.fromLocalFile(QStandardPaths.standardLocations(QStandardPaths.DesktopLocation)[0]),
+                QUrl.fromLocalFile(QStandardPaths.standardLocations(QStandardPaths.PicturesLocation)[0]),
+                QUrl.fromLocalFile(QStandardPaths.standardLocations(QStandardPaths.MoviesLocation)[0]),
+                QUrl.fromLocalFile(QStandardPaths.standardLocations(QStandardPaths.DownloadLocation)[0]),
+                QUrl.fromLocalFile(QStandardPaths.standardLocations(QStandardPaths.AppDataLocation)[0]),
+                QUrl.fromLocalFile(QStandardPaths.standardLocations(QStandardPaths.AppLocalDataLocation)[0]),
+        ]
+        file_dlg.setSidebarUrls(url_list)
+        logger.debug(f"MainWindow::set_save_location - Sidebar contains the following urls: {file_dlg.sidebarUrls()}")
         
-        logger.debug(f"MainWindow::set_save_location - Updated save location to: {self.img_saved_dir}")
+        # React to dialog execution
+        if file_dlg.exec_():
+
+            self.img_saved_dir = file_dlg.selectedFiles()[0]
+            logger.debug(f"MainWindow::set_save_location - Selected directory: {self.img_saved_dir}")
+        
+            # Check write permissions for folder otherwise change to current folder
+            if not os.access(self.img_saved_dir, os.W_OK):
+                self.img_saved_dir = os.getcwd()
+                logger.debug(f"MainWindow::set_save_location - No write permission on selected directory, changing to: {self.img_saved_dir}")
+            
+            logger.debug(f"MainWindow::set_save_location - Updated save location to: {self.img_saved_dir}")
         
         logger.debug("MainWindow::set_save_location )>")
 
