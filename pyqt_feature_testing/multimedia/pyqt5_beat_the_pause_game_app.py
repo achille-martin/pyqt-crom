@@ -49,7 +49,7 @@ class MainWindow(QMainWindow):
         
         super().__init__()
         
-        logger.debug("MainWindow::__init__ - Entered method")
+        logger.debug("MainWindow::__init__ <(")
         
         # Set main window title
         self.setWindowTitle("Basic geometry shape visualiser")
@@ -85,11 +85,11 @@ class MainWindow(QMainWindow):
         
         logger.info("MainWindow::__init__ - Main Window created")
         
-        logger.debug("MainWindow::__init__ - Exited method")
+        logger.debug("MainWindow::__init__ )>")
 
     def create_screen_grabber_visualiser(self):
         
-        logger.debug("MainWindow::create_screen_grabber_visualiser - Entered method")
+        logger.debug("MainWindow::create_screen_grabber_visualiser <(")
             
         # Define a central widget with a specific layout
         # Tip: QLayout cannot be set on the MainWindow directly
@@ -129,11 +129,11 @@ class MainWindow(QMainWindow):
         self.screen_grabber_window_layout.setColumnStretch(0, 1)
         self.screen_grabber_window_layout.setColumnStretch(3, 1)
         
-        logger.debug("MainWindow::create_screen_grabber_visualiser - Exited method")
+        logger.debug("MainWindow::create_screen_grabber_visualiser )>")
 
     def create_status_bar(self):
         
-        logger.debug("MainWindow::create_status_bar - Entered method")
+        logger.debug("MainWindow::create_status_bar <(")
         
         # Instantiate a status bar        
         self.status_bar = QStatusBar()                
@@ -144,11 +144,11 @@ class MainWindow(QMainWindow):
         self.update_status_bar("")
         self.status_bar.addWidget(self.status_label)
         
-        logger.debug("MainWindow::create_status_bar - Exited method")
+        logger.debug("MainWindow::create_status_bar )>")
 
     def on_screen_grab_button_clicked(self):
         
-        logger.debug("MainWindow::on_screen_grab_button_clicked - Entered method")
+        logger.debug("MainWindow::on_screen_grab_button_clicked <(")
         
         # Instatiate the alert message for the button
         alert = QMessageBox()
@@ -169,17 +169,17 @@ class MainWindow(QMainWindow):
             self.update_status_bar(f"Starting process in {self.grab_screen_start_delay} s. Hang on!")
             alert.close()
         
-        logger.debug("MainWindow::on_screen_grab_button_clicked - Exited method")
+        logger.debug("MainWindow::on_screen_grab_button_clicked )>")
 
     def on_set_save_location_button_clicked(self):
         
-        logger.debug("MainWindow::on_set_save_location_button_clicked - Entered method")
+        logger.debug("MainWindow::on_set_save_location_button_clicked <(")
         self.set_save_location()
-        logger.debug("MainWindow::on_set_save_location_button_clicked - Exited method")
+        logger.debug("MainWindow::on_set_save_location_button_clicked )>")
 
     def on_set_start_delay_button_clicked(self):
         
-        logger.debug("MainWindow::on_set_start_delay_button_clicked - Entered method")
+        logger.debug("MainWindow::on_set_start_delay_button_clicked <(")
         
         options = ['0', '5', '10']
         value, is_inputted = QInputDialog.getItem(
@@ -192,11 +192,11 @@ class MainWindow(QMainWindow):
             self.grab_screen_start_delay = float(value)
             logger.debug(f"MainWindow::on_set_start_delay_button_clicked - Updated screen start delay to: {self.grab_screen_start_delay}")
         
-        logger.debug("MainWindow::on_set_start_delay_button_clicked - Exited method")
+        logger.debug("MainWindow::on_set_start_delay_button_clicked )>")
 
     def on_set_timeout_button_clicked(self):
         
-        logger.debug("MainWindow::on_set_timeout_button_clicked - Entered method")
+        logger.debug("MainWindow::on_set_timeout_button_clicked <(")
         
         options = ['5', '10', '15', '20']
         value, is_inputted = QInputDialog.getItem(
@@ -209,11 +209,11 @@ class MainWindow(QMainWindow):
             self.grab_screen_timeout = float(value)
             logger.debug(f"MainWindow::on_set_timeout_button_clicked - Updated screen timeout to: {self.grab_screen_timeout}")
         
-        logger.debug("MainWindow::on_set_timeout_button_clicked - Exited method")
+        logger.debug("MainWindow::on_set_timeout_button_clicked )>")
 
     def on_set_update_frequency_button_clicked(self):
         
-        logger.debug("MainWindow::on_set_update_frequency_button_clicked - Entered method")
+        logger.debug("MainWindow::on_set_update_frequency_button_clicked <(")
         
         options = ['0.1', '0.25', '0.5', '1', '2']
         value, is_inputted = QInputDialog.getItem(
@@ -226,11 +226,11 @@ class MainWindow(QMainWindow):
             self.grab_screen_frequency = float(value)
             logger.debug(f"MainWindow::on_set_update_frequency_button_clicked - Updated screen frequency to: {self.grab_screen_frequency}")
         
-        logger.debug("MainWindow::on_set_update_frequency_button_clicked - Exited method")
+        logger.debug("MainWindow::on_set_update_frequency_button_clicked )>")
 
     def on_set_image_similarity_button_clicked(self):
         
-        logger.debug("MainWindow::on_set_image_similarity_button_clicked - Entered method")
+        logger.debug("MainWindow::on_set_image_similarity_button_clicked <(")
         
         options = ['50', '75', '90', '95']
         value, is_inputted = QInputDialog.getItem(
@@ -243,20 +243,20 @@ class MainWindow(QMainWindow):
             self.image_similarity_percentage = float(value)
             logger.debug(f"MainWindow::on_set_image_similarity_button_clicked - Updated image similarity to: {self.image_similarity_percentage}")
         
-        logger.debug("MainWindow::on_set_image_similarity_button_clicked - Exited method")
+        logger.debug("MainWindow::on_set_image_similarity_button_clicked )>")
 
     def calculate_rmse_threshold(self):
         
-        logger.debug("MainWindow::calculate_rmse_threshold - Entered method")
+        logger.debug("MainWindow::calculate_rmse_threshold <(")
         
         self.rmse_threshold = math.sqrt((100 - self.image_similarity_percentage)/100 * ((2**24) ** 2))  # 24-bit colour
         logger.debug(f"MainWindow::calculate_rmse_threshold - Updated RMSE threshold to: {self.rmse_threshold}")
         
-        logger.debug("MainWindow::calculate_rmse_threshold - Exited method")
+        logger.debug("MainWindow::calculate_rmse_threshold )>")
 
     def background_grab_process(self):
         
-        logger.debug("MainWindow::background_grab_process - Entered method")
+        logger.debug("MainWindow::background_grab_process <(")
         
         # Reset timeout
         timeout = self.grab_screen_timeout
@@ -285,11 +285,11 @@ class MainWindow(QMainWindow):
         # Compare screenshots
         self.compare_screenshots()
         
-        logger.debug("MainWindow::background_grab_process - Exited method")
+        logger.debug("MainWindow::background_grab_process )>")
 
     def grab_screen(self):
         
-        logger.debug("MainWindow::grab_screen - Entered method")
+        logger.debug("MainWindow::grab_screen <(")
         
         logger.info("MainWindow::grab_screen - Grabbing a screenshot")
         
@@ -299,11 +299,11 @@ class MainWindow(QMainWindow):
         
         logger.debug(f"MainWindow::grab_screen - Total screenshots taken: {len(self.image_list)}")
 
-        logger.debug("MainWindow::grab_screen - Exited method")
+        logger.debug("MainWindow::grab_screen )>")
 
     def set_save_location(self):
         
-        logger.debug("MainWindow::set_save_location - Entered method")
+        logger.debug("MainWindow::set_save_location <(")
         
         self.img_saved_dir = QFileDialog.getExistingDirectory(self, "Select a Directory")
         logger.debug(f"MainWindow::set_save_location - Selected directory: {self.img_saved_dir}")
@@ -314,11 +314,11 @@ class MainWindow(QMainWindow):
         
         logger.debug(f"MainWindow::set_save_location - Updated save location to: {self.img_saved_dir}")
         
-        logger.debug("MainWindow::set_save_location - Exited method")
+        logger.debug("MainWindow::set_save_location )>")
 
     def compare_screenshots(self):
         
-        logger.debug("MainWindow::compare_screenshots - Entered method")
+        logger.debug("MainWindow::compare_screenshots <(")
         
         # Inform user of the progress of the process
         self.update_status_bar("Comparing screenshots...")
@@ -376,20 +376,20 @@ class MainWindow(QMainWindow):
         logger.info("MainWindow::compare_screenshots - Finished comparing screenshots")
         self.update_status_bar("Done.")
         
-        logger.debug("MainWindow::compare_screenshots - Exited method")
+        logger.debug("MainWindow::compare_screenshots )>")
 
     def update_status_bar(self, txt):
 
-        logger.debug("MainWindow::update_status_bar - Entered method")
+        logger.debug("MainWindow::update_status_bar <(")
         self.status_label.setText(txt)
-        logger.debug("MainWindow::update_status_bar - Exited method")
+        logger.debug("MainWindow::update_status_bar )>")
 
     def round_up(self, nb_to_round, decimals = 0): 
         
-        logger.debug("MainWindow::round_up - Entered method")
+        logger.debug("MainWindow::round_up <(")
         multiplier = 10 ** decimals
         rounded_up_nb = math.ceil(nb_to_round * multiplier) / multiplier
-        logger.debug("MainWindow::round_up - Exited method")
+        logger.debug("MainWindow::round_up )>")
         
         return rounded_up_nb
 
@@ -397,7 +397,8 @@ def main():
     
     logger.info("========================\n")
     logger.info("========================")
-    logger.debug("main - Entered function and logger instantiated")
+    logger.debug("main <(")
+    logger.debug("main - Logger instantiated")
     logger.debug("main - Log output file can be found at: " + str(logger_output_file_path))
 
     # Define the app object/instance
@@ -411,7 +412,7 @@ def main():
     sys.exit(app.exec())
     logger.info("main - App terminated")
     
-    logger.debug("main - Exited function")
+    logger.debug("main )>")
 
 if __name__ == "__main__":        
     main()
