@@ -9,7 +9,7 @@ from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox
 
 # Only needed for access to command line arguments
-import sys
+# import sys
 
 ## Class definition
 
@@ -44,11 +44,11 @@ def main():
     # You need one (and only one) QApplication instance per application.
     # Pass in sys.argv to allow command line arguments for your app.
     # If you know you won't use command line arguments QApplication([]) works too.
-    app = QApplication(sys.argv)
+    app = QApplication([])
 
     # Create a Qt widget, which will be our window.
     main_window = MainWindow()
-    main_window.show()  # IMPORTANT!!!!! Windows are hidden by default.
+    main_window.showMaximized()  # IMPORTANT!!!!! Windows are hidden by default.
 
     # Start the event loop.
     app.exec()

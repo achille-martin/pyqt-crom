@@ -68,10 +68,52 @@ Specs of Linux machine used:
 - Ubuntu 18.04
 - Python 3.6.9
 
+Note: it might be recommended to install python 3.7.5 using:
+```
+sudo apt-get update
+sudo apt install python3.7
+sudo apt remove python3-pip
+sudo apt purge python3-pip
+sudo apt autoremove
+sudo apt install curl
+cd $HOME
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3.7 get-pip.py
+python3.7 -m pip install --upgrade pip
+```
+
+and update your `$HOME/.bashrc`:
+
+```
+printf "%s\n" \
+"" \
+"# Ensuring stable python version" \
+"alias python3=python3.7" \
+"alias pip3='python3.7 -m pip'" \
+"" \
+>> $HOME/.bashrc
+source $HOME/.bashrc
+
+```
+
 :bulb: _Refer to [Virtualbox Setup](#virtualbox-setup) if you don't have a Linux OS available on your machine._
 
 Specs of target machine desired:
 - Android 9.0 (at least)
+
+:point_up: It is possible to use other versions than the ones suggested, to benefit from long-term support (LTS).
+
+To find the best matching versions, you need to browse available versions in order:
+
+* Pick a Python version that you like (v_python)
+* Find the matching Ubuntu version that delivers / allows it (v_ubuntu)
+* Pick a pyqtdeploy version (v_pyqtdeploy) from [PyPI website](https://pypi.org/project/pyqtdeploy/#history) - there are drastic changes between v2.x and v3.x
+* Pick a PyQt5 version which can run with your v_python (v_pyqt5) from [PyPI website](https://pypi.org/project/PyQt5/#history)
+* Pick a PyQt5-sip version compatible with v_pyqt5 (v_pyqt5_sip) from [PyPI website](https://pypi.org/project/PyQt5-sip/#history)
+* Pick a sip version which matches the release date of v_pyqt5_sip) from [PyPI website](https://pypi.org/project/sip/#history)
+* Pick a Qt version which will work with your v_python according to [Qt website](https://download.qt.io/archive/qt/) from [Qt archives](https://download.qt.io/archive/qt/) (v_qt)
+
+_Note: you can also run `pipdeptree` (installed from `pip3 install pipdeptree`) to figure out whether you can upgrade some of the versions you picked._
 
 <a id="path-setup"></a>
 ### 1.2. Setup the path to the app folder
@@ -105,14 +147,15 @@ git clone git@github.com:achille-martin/simple-pyqt5-android-app.git
 #### 1.4.1. Create a virtual environment with your python3 installed on your machine
 
 ```
-sudo apt-get update
-sudo apt-get install python3-pip
 pip3 install virtualenv
 cd $SIMPLE_PYQT5_ANDROID_APP_DIR
 mkdir -p venv
 cd venv
-virtualenv simple-pyqt5-android-app-venv -p python3
+virtualenv simple-pyqt5-android-app-venv -p python3.7
 ```
+
+_Note: for reference, the pip3 version installed is 21.3.1 (associated with Python3.6)._
+_Or with 23.3.1 (associated with Python3.7)._
 
 <a id="virtual-environment-activation"></a>
 #### 1.4.2. Activate your virtual environment
@@ -170,10 +213,74 @@ Download the version which matches the one in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyq
 ```
 sudo apt-get install wget
 cd $HOME/Downloads
-wget https://download.qt.io/archive/qt/5.12/5.12.2/qt-opensource-linux-x64-5.12.2.run
-chmod +x qt*.run
-./qt-opensource-linux-x64-5.12.2.run
+wget https://download.qt.io/archive/qt/5.15/5.15.11/single/qt-everywhere-opensource-src-5.15.11.tar.xz
+tar -xvf qt-everywhere-opensource-src-5.15.11.tar.xz
+mkdir -p qt-build
+cd qt-build
+../qt-everywhere-src-5.15.11/configure -prefix $HOME/Qt5.15.11 -opensource -confirm-license -nomake examples -nomake tests -no-opengl -skip qtwebengine
+sudo apt-get install libxcb-xfixes0-dev
+make
+make install
 ```
+
+If you want to skip more modules (not necessary for your apps), have a look at the list of Qt5 modules on [Qt website](https://doc.qt.io/qt-5/qtmodules.html).
+With the example given for the configuration, the building process might take between 1 and 2 hours.
+If the building from source fails (of the commercial installer), you can use the open source available online installer (Qt5.15.2) from [Qt website](wget https://d13lb3tujbc8s0.cloudfront.net/onlineinstallers/qt-unified-linux-x64-4.6.1-online.run).
+Follow up with  `make -j4`
+Select "Open Source" and "Accept the terms of the licence (GPL)" when prompted.
+
+If you know that you will be working with Android, you need to build Qt from source following specific instructions from [Qt website](https://doc.qt.io/qt-5/android-building.html).
+Extra tip: check version requirements on [Qt website](https://wiki.qt.io/Qt_5.15_Tools_and_Versions#Software_configurations_for_Qt_5.15.11) for Qt software.
+You also need to make sure that you have completed the [Qt pre-requisites](https://doc.qt.io/qt-5/android-getting-started.html).
+* Get Android Studio
+* Get Android SDK > v26 and actually >= v31 (get SDK Platform Tools on [Qt website](https://androidsdkmanager.azurewebsites.net/Platformtools))
+* Get NDK r20b or r21e
+* Get java JDK > v8
+* (Optional) Get linux libraries if issues: `sudo apt-get install libstdc++6:i386 libgcc1:i386 zlib1g:i386 libncurses5:i386`
+* (Optional) Get Qt Creator if you wish
+* Load all environment variablles from path_setup.sh
+* Build Qt for Android (64-bit android only but can be modified through the android-abis list) with:
+
+```
+cd $HOME/Downloads
+mkdir -p qt-build-android-64
+cd qt-build-android-64
+sudo apt-get install libxcb-xfixes0-dev
+../qt-everywhere-src-5.15.11/configure -opensource -confirm-license -release -verbose -prefix $HOME/Qt5.15.11/5.15.11/android -xplatform android-clang -android-abis arm64-v8a -disable-rpath -android-sdk $ANDROID_SDK_ROOT -android-ndk $ANDROID_NDK_ROOT -nomake examples -nomake tests -skip qtwebengine -no-warnings-are-errors
+make
+make install
+```
+
+In case you need to specify the NDK to built Qt from source for android, use:
+```
+../qt-everywhere-src-5.15.11/configure -opensource -confirm-license -release -verbose -prefix $HOME/Qt5.15.11/5.15.11/android -xplatform android-clang -android-abis arm64-v8a -disable-rpath -android-sdk $ANDROID_SDK_ROOT -android-ndk $ANDROID_NDK_ROOT -android-ndk-platform $ANDROID_NDK_PLATFORM -android-ndk-host $ANDROID_NDK_HOST -nomake examples -nomake tests -skip qtwebengine -no-warnings-are-errors
+```
+
+There will be issues with your Java install if you don't go for v11 instead of v1.8 (which you actually also need to get for the Qt building process).
+To upgrade on Ubuntu 18.04:
+```
+sudo apt update
+sudo apt install default-jre
+java -version
+sudo apt install default-jdk
+javac -version
+```
+
+If you know that you will be working with iOS, you need to build Qt from source following specific instructions too from [Qt website](https://doc.qt.io/qt-5/ios-building-from-source.html).
+Note that you will need to have a virtual machine with macOS on it to be able to install Xcode.
+
+
+Wanring: ensure that your sysroot reflects the building options and skipped modules for qt5.
+
+
+```
+make
+make install
+```
+
+Qt will bee installed under `/usr/local/Qt-5.15.11`.
+General building instructions and removal can be found on [Qt website](https://doc.qt.io/qt-5/linux-building.html).
+Tip: remove `config.cache` and `.qmake.cache` if you want to rebuild or reconfigure Qt.
 
 A Qt window will appear on which you can sign up:
 - Verify your email and register as an individual (no need for location)
@@ -197,6 +304,11 @@ cd $HOME/Downloads
 wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2022.2.1.18/android-studio-2022.2.1.18-linux.tar.gz
 ```
 
+Or for the latest patches:
+```
+wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2022.3.1.22/android-studio-2022.3.1.22-linux.tar.gz
+```
+
 Move the contents of the downloaded `tar.gz` to your `$HOME` directory using:
 
 ```
@@ -211,6 +323,8 @@ Start the installation with:
 cd $HOME/android-studio/bin
 ./studio.sh
 ```
+
+Tip: if there is an issue with android studio start, use `sudo ./studio.sh`.
 
 The Android Studio installer will start:
 - Do not import settings
@@ -249,6 +363,13 @@ wget https://dl.google.com/android/repository/android-ndk-r19c-linux-x86_64.zip
 ```
 
 :thought_balloon: _This NDK is known to be working with Qt5.12.2, but there might be others._
+
+To download NDK 20b:
+
+```
+cd $HOME/Downloads
+wget https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip
+```
 
 Extract the contents of the downloaded `.zip` into `$HOME/Android` using:
 
@@ -307,6 +428,10 @@ _Use the following command for future builds:_
 cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app
 python3 build_app.py --target android-64 --source-dir $RESOURCES_DIR --installed-qt-dir $QT_DIR --verbose --no-sysroot
 ```
+
+_Note: the Android Manifest can be checked at debug stage at `build-android-64/android-build/build/intermediates/packaged_manifests/debug/AndroidManifest.xml`._
+
+_Note2: the `build.gradle` file located in `build-android-64/android-build` gives crucial information on min and max versions of components._
 
 <a id="apk-test"></a>
 ### 1.8. Test the .apk 
@@ -701,7 +826,7 @@ sudo apt-get install libxcb-xinerama0
 
 _This section describes the broad roadmap to deliver a functional repo._
 
-![Roadmap Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/achille-martin/simple-pyqt5-android-app/master/documentation_resources/roadmap/roadmap.iuml)
+![Roadmap Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/achille-martin/simple-pyqt-cross-platform-app/master/doc/roadmap/roadmap.iuml)
 
 [:arrow_heading_up: Back to TOP](#toc) 
 

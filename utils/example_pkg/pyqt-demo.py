@@ -23,6 +23,7 @@ import os
 import logging as log_tool # The logging library for debugging
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGridLayout, QPushButton, QWidget, QMessageBox, QStatusBar, QLabel, QFileDialog, QInputDialog
 from PyQt5.QtCore import QStandardPaths, QUrl
+from PyQt5.QtGui import QScreen
 
 ## Main variables and objects
 
@@ -297,10 +298,121 @@ class MainWindow(QMainWindow):
         
         logger.info("MainWindow::grab_screen - Grabbing a screenshot")
         
-        device_screen = QApplication.primaryScreen()
-        screenshot = device_screen.grabWindow(self.screen_grabber_window.winId())
-        self.image_list.append(screenshot)
-        
+        # Method 1 = QApplication self primary screen
+        try:
+            device_screen = QApplication.primaryScreen()
+            logger.debug(f"MainWindow::grab_screen - Device 1 object confirmation: {device_screen}")
+            screenshot_1 = device_screen.grabWindow(self.screen_grabber_window.winId())
+            logger.debug(f"MainWindow::grab_screen - Screenshot 1 object confirmation: {screenshot_1}")
+            img_1 = screenshot_1.toImage()
+            logger.debug(f"MainWindow::grab_screen - Screenshot 1 dimensions: {img_1.width()} x {img_1.height()}")
+            img_1.save(os.path.join(self.img_saved_dir, 'img_1'), 'jpg') 
+            logger.debug(f"MainWindow::grab_screen - Saved screenshot at: {os.path.join(self.img_saved_dir, 'img_1.jpg')}")
+        except Exception as e:
+            logger.warn(f"MainWindow::grab_screen - Exception 1 caught: {e}")
+
+        # Method 2 = device window from widget
+        try:
+            device_window = self.windowHandle()
+            logger.debug(f"MainWindow::grab_screen - Device 2 object confirmation: {device_window}")
+            device_screen = device_window.screen()
+            screenshot_2 = device_screen.grabWindow(0)
+            self.image_list.append(screenshot_2)
+            logger.debug(f"MainWindow::grab_screen - Screenshot 2 object confirmation: {screenshot_2}")
+            img_2 = screenshot_2.toImage()
+            logger.debug(f"MainWindow::grab_screen - Screenshot 2 dimensions: {img_2.width()} x {img_2.height()}")
+            img_2.save(os.path.join(self.img_saved_dir, 'img_2'), 'jpg')
+            logger.debug(f"MainWindow::grab_screen - Saved screenshot at: {os.path.join(self.img_saved_dir, 'img_2.jpg')}")
+        except Exception as e:
+            logger.warn(f"MainWindow::grab_screen - Exception 2 caught: {e}")
+       
+        # # Method 3 = QScreen
+        # try:
+        #     logger.debug(f"MainWindow::grab_screen - Device 3 object confirmation: None")
+        #     screenshot_3 = QScreen.grabWindow(QApplication.primaryScreen(), QApplication.desktop().winId())
+        #     logger.debug(f"MainWindow::grab_screen - Screenshot 3 object confirmation: {screenshot_3}")
+        #     img_3 = screenshot_3.toImage()
+        #     logger.debug(f"MainWindow::grab_screen - Screenshot 3 dimensions: {img_3.width()} x {img_3.height()}")
+        #     img_3.save(os.path.join(self.img_saved_dir, 'img_3'), 'jpg') 
+        # except Exception as e:
+        #     logger.warn(f"MainWindow::grab_screen - Exception 3 caught: {e}")
+
+        # # Method 4 = QApplication screen
+        # try:
+        #     device_screen = QApplication.primaryScreen()
+        #     logger.debug(f"MainWindow::grab_screen - Device 4 object confirmation: {device_screen}")
+        #     screenshot_4 = device_screen.grabWindow(self.screen_grabber_window.winId())
+        #     logger.debug(f"MainWindow::grab_screen - Screenshot 4 object confirmation: {screenshot_4}")
+        #     img_4 = screenshot_4.toImage()
+        #     logger.debug(f"MainWindow::grab_screen - Screenshot 4 dimensions: {img_4.width()} x {img_4.height()}")
+        #     img_4.save(os.path.join(self.img_saved_dir, 'img_4'), 'jpg') 
+        # except Exception as e:
+        #     logger.warn(f"MainWindow::grab_screen - Exception 4 caught: {e}")
+
+        # # Method 5 = Screen off QWidget
+        # try:
+        #     qscreen_window = self.screen_grabber_window.windowHandle()
+        #     logger.debug(f"MainWindow::grab_screen - Device 5 object confirmation: {qscreen_window}")
+        #     device_screen = qscreen_window.screen()
+        #     screenshot_5 = device_screen.grabWindow(0)
+        #     logger.debug(f"MainWindow::grab_screen - Screenshot 5 object confirmation: {screenshot_5}")
+        #     img_5 = screenshot_5.toImage()
+        #     logger.debug(f"MainWindow::grab_screen - Screenshot 5 dimensions: {img_5.width()} x {img_5.height()}")
+        #     img_5.save(os.path.join(self.img_saved_dir, 'img_5'), 'jpg')
+        # except Exception as e:
+        #     logger.warn(f"MainWindow::grab_screen - Exception 5 caught: {e}")
+
+        # # Method 6 = QApplication screen
+        # try:
+        #     device_screen = QApplication.primaryScreen()
+        #     logger.debug(f"MainWindow::grab_screen - Device 6 object confirmation: {device_screen}")
+        #     screenshot_6 = device_screen.grabWindow(QApplication.desktop().winId())
+        #     logger.debug(f"MainWindow::grab_screen - Screenshot 6 object confirmation: {screenshot_6}")
+        #     img_6 = screenshot_6.toImage()
+        #     logger.debug(f"MainWindow::grab_screen - Screenshot 6 dimensions: {img_6.width()} x {img_6.height()}")
+        #     img_6.save(os.path.join(self.img_saved_dir, 'img_6'), 'jpg') 
+        # except Exception as e:
+        #     logger.warn(f"MainWindow::grab_screen - Exception 6 caught: {e}")
+
+        # # Method 7 = QApplication primary
+        # try:
+        #     all_screens = QApplication.screens()
+        #     logger.debug(f"MainWindow::grab_screen - Device 7 all screens: {all_screens}")
+        #     all_windows = QApplication.allWindows()
+        #     logger.debug(f"MainWindow::grab_screen - Device 7 all windows: {all_windows}")
+        #     device_screen = QApplication.primaryScreen()
+        #     logger.debug(f"MainWindow::grab_screen - Device 7 screen confirmation: {device_screen}")
+        #     device_screen_size = device_screen.size()
+        #     logger.debug(f"MainWindow::grab_screen - Device 7 screen size confirmation: {device_screen_size}")
+        #     temp_img_a = 'img_7a'
+        #     temp_img_b = 'img_7b'
+        #     for win in range(len(all_windows)):
+        #         logger.debug(f"MainWindow::grab_screen - Window {win} object: {all_windows[win]}")
+        #         logger.debug(f"MainWindow::grab_screen - Window {win} dimensions: {all_windows[win].width()} x {all_windows[win].height()}")
+        #         screenshot_7 = device_screen.grabWindow(win)
+        #         logger.debug(f"MainWindow::grab_screen - Window {win} QPixmap confirmation: {screenshot_7}")
+        #         logger.debug(f"MainWindow::grab_screen - Window {win} dimensions: {screenshot_7.size()}")
+        #         screenshot_7.save(os.path.join(self.img_saved_dir, 'img_7a'), 'jpg') 
+        #         temp_img_a += 'a'
+        #         img_7 = screenshot_7.toImage()
+        #         logger.debug(f"MainWindow::grab_screen - Image 7 dimensions: {img_7.width()} x {img_7.height()}")
+        #         img_7.save(os.path.join(self.img_saved_dir, 'img_7b'), 'jpg') 
+        #         temp_img_b += 'b'
+        # except Exception as e:
+        #     logger.warn(f"MainWindow::grab_screen - Exception 7 caught: {e}")
+
+        # # Method 8 = QApplication screen
+        # try:
+        #     device_screen = QApplication.primaryScreen()
+        #     logger.debug(f"MainWindow::grab_screen - Device 8 object confirmation: {device_screen}")
+        #     screenshot_8 = device_screen.grabWindow(QApplication.desktop().winId(), 0, 0, 100, 100)
+        #     logger.debug(f"MainWindow::grab_screen - Screenshot 8 object confirmation: {screenshot_8}")
+        #     img_8 = screenshot_8.toImage()
+        #     logger.debug(f"MainWindow::grab_screen - Screenshot 8 dimensions: {img_8.width()} x {img_8.height()}")
+        #     img_8.save(os.path.join(self.img_saved_dir, 'img_8'), 'jpg') 
+        # except Exception as e:
+        #     logger.warn(f"MainWindow::grab_screen - Exception 8 caught: {e}")
+
         logger.debug(f"MainWindow::grab_screen - Total screenshots taken: {len(self.image_list)}")
 
         logger.debug("MainWindow::grab_screen )>")
@@ -316,15 +428,28 @@ class MainWindow(QMainWindow):
         file_dlg.setOption(QFileDialog.DontUseNativeDialog)  # Custom dialog for more control on the options
         file_dlg.setViewMode(QFileDialog.List)
         
-        url_list = [
-                QUrl.fromLocalFile(QStandardPaths.standardLocations(QStandardPaths.HomeLocation)[0]),
-                QUrl.fromLocalFile(QStandardPaths.standardLocations(QStandardPaths.DesktopLocation)[0]),
-                QUrl.fromLocalFile(QStandardPaths.standardLocations(QStandardPaths.PicturesLocation)[0]),
-                QUrl.fromLocalFile(QStandardPaths.standardLocations(QStandardPaths.MoviesLocation)[0]),
-                QUrl.fromLocalFile(QStandardPaths.standardLocations(QStandardPaths.DownloadLocation)[0]),
-                QUrl.fromLocalFile(QStandardPaths.standardLocations(QStandardPaths.AppDataLocation)[0]),
-                QUrl.fromLocalFile(QStandardPaths.standardLocations(QStandardPaths.AppLocalDataLocation)[0]),
+        # Define list of local writable locations
+        std_path_list = [
+                QStandardPaths.HomeLocation,
+                QStandardPaths.DesktopLocation,
+                QStandardPaths.PicturesLocation,
+                QStandardPaths.MoviesLocation,
+                QStandardPaths.DownloadLocation,
+                QStandardPaths.AppDataLocation,
+                QStandardPaths.AppLocalDataLocation,
         ]
+        
+        url_list = []
+
+        for index, std_path in enumerate(std_path_list):
+            if std_path:
+                for path in QStandardPaths.standardLocations(std_path):
+                    local_path = QUrl.fromLocalFile(path)
+                    url_list.append(local_path)
+                    logger.debug(f"MainWindow::set_save_location - Added path {local_path} to the list of urls")
+            else:
+                logger.debug(f"MainWindow::set_save_location - Std path index {index} is empty")
+
         file_dlg.setSidebarUrls(url_list)
         logger.debug(f"MainWindow::set_save_location - Sidebar contains the following urls: {file_dlg.sidebarUrls()}")
         
@@ -351,7 +476,7 @@ class MainWindow(QMainWindow):
         self.update_status_bar("Comparing screenshots...")
         
         # Ensure image list contains enough images
-        logger.debug(f"MainWindow::compare_screenshots - Total of images to compare: {len(self.image_list)}-1 (since coupled)")
+        logger.debug(f"MainWindow::compare_screenshots - Total of images to compare: {len(self.image_list)}-1={len(self.image_list)-1} (since coupled)")
         if len(self.image_list) > 1 and len(self.image_list)%2 == 0:
             
             logger.info("MainWindow::compare_screenshots - Comparing stored screenshots")
@@ -376,6 +501,8 @@ class MainWindow(QMainWindow):
                 logger.debug(f"MainWindow::compare_screenshots - Image dimensions in pixels: w={w} | h={h}")
                 
                 squared_err = 0
+                logger.debug(f"MainWindow::compare_screenshots - Image 1 initial pixel: {image_1.pixel(0, 0)}")
+                logger.debug(f"MainWindow::compare_screenshots - Image 2 initial pixel: {image_2.pixel(0, 0)}")
                 for x in range(w):
                     for y in range(h):
                         squared_err += (image_1.pixel(x, y) - image_2.pixel(x, y)) ** 2

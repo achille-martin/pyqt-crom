@@ -29,6 +29,7 @@ import os
 import shutil
 import subprocess
 import sys
+import time
 import utils.pdy_parser as pdyp
 from datetime import datetime
 
@@ -142,7 +143,8 @@ if installed_qt_dir:
 source_dirs = [os.path.abspath(s) for s in source_dirs]
 
 # Anchor everything from the directory containing this script.
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
+current_script_location = os.path.dirname(os.path.abspath(__file__))
+os.chdir(current_script_location)
 
 sysroot_dir = 'sysroot-' + target
 build_dir = 'build-' + target
@@ -182,24 +184,47 @@ else:
     make = 'nmake' if sys.platform == 'win32' else 'make'
 
     run([make])
-
+    
     if target.startswith('android'):
-        run([make, 'INSTALL_ROOT=' + app_entrypoint_name, 'install'])
-        run([os.path.join(host_bin_dir, 'androiddeployqt'), '--gradle',
-                '--input', 'android-lib' + app_name + '.so-deployment-settings.json',
-                '--output', app_entrypoint_name])
+        qt_old_version_flag = 1
+        if os.path.isfile('android-' + app_name + '-deployment-settings.json'):
+            # Qt v5.14 or later
+            print("Qt v5.14 or later DETECTED")
+            run([make, 'apk', '--debug'])
+            qt_old_version_flag = 0
+        else:
+            # Qt v5.13 or earlier
+            print("Qt v5.13 or earlier DETECTED")
+            run([make, 'INSTALL_ROOT=' + app_entrypoint_name, 'install'])
+            run([os.path.join(host_bin_dir, 'androiddeployqt'), '--gradle', '--verbose',
+                    '--input', 'android-lib' + app_name + '.so-deployment-settings.json',
+                    '--output', app_entrypoint_name])
+            qt_old_version_flag = 1
+
+# Re-centre folders around this script in case current directory has been modified
+os.chdir(current_script_location)
 
 # Tell the user where the output built app is.
 if target.startswith('android'):
-    output_app_name = app_entrypoint_name + '-debug.apk'
-    output_app_dir = os.path.join(script_dir, build_dir, app_entrypoint_name, 'build', 'outputs', 'apk',
-            'debug')
-    print("""The '{0}' file can be found in the '{1}'
-directory.  Run adb to install it to a simulator.""".format(output_app_name, output_app_dir))
-    # Copy the output app to the specified release directory
-    shutil.copy(os.path.join(output_app_dir, output_app_name), app_release_dir)
-    os.rename(os.path.join(app_release_dir, output_app_name), os.path.join(app_release_dir, app_name + '.apk'))
-    print("\nThe released app " + app_name + ".apk" + " can be found in " + app_release_dir)
+    if qt_old_version_flag:
+        output_app_name = app_entrypoint_name + '-debug.apk'
+        output_app_dir = os.path.join(script_dir, build_dir, app_entrypoint_name, 'build', 'outputs', 'apk',
+                'debug')
+        print("""The '{0}' file can be found in the '{1}'
+    directory.  Run adb to install it to a simulator.""".format(output_app_name, output_app_dir))
+        # Copy the output app to the specified release directory
+        shutil.copy(os.path.join(output_app_dir, output_app_name), app_release_dir)
+        os.rename(os.path.join(app_release_dir, output_app_name), os.path.join(app_release_dir, app_name + '.apk'))
+        print("\nThe released app " + app_name + ".apk" + " can be found in " + app_release_dir)
+    else:
+        output_app_name = app_name + '.apk'
+        output_app_dir = os.path.join(build_dir, 'android-build')
+        print("""The '{0}' file can be found in the '{1}'
+    directory.  Run adb to install it to a simulator.""".format(output_app_name, output_app_dir))
+        # Copy the output app to the specified release directory
+        shutil.copy(os.path.join(output_app_dir, output_app_name), app_release_dir)
+        print("\nThe released app " + output_app_name + " can be found in " + app_release_dir)
+
 
 elif target.startswith('ios'):
     output_app_name = app_entrypoint_name + '.xcodeproj'
