@@ -21,12 +21,12 @@
         * [1.4.3. Install the necessary pip packages](#pip-package-installation)
         * [1.4.4. Test the PyQt5 demo app in your virtual environment](#virtual-environment-app-test)
     * [1.5. Install the external dependencies](#external-dependency-installation)
-        * [1.5.1. Download a set of external dependencies](#external-dependency-download)
-        * [1.5.2. Install Qt from the installer](#qt-installation)
+        * [1.5.1. Download a set of external dependencies for pyqtdeploy](#external-dependency-download)
+        * [1.5.2. Install Java for Android Studio](#java-installation)
         * [1.5.3. Install Android Studio](#android-studio-installation)
         * [1.5.4. Install correct Android SDK and Tools](#android-sdk-installation)
         * [1.5.5. Install Android NDK matching with Qt version](#android-ndk-installation)
-        * [1.5.6. Install Java for Android Studio](#java-installation)
+        * [1.5.6. Install Qt from the installer](#qt-installation)
     * [1.6. Setup the environment variables](#environment-variable-setup)
     * [1.7. Build the .apk with pyqtdeploy](#apk-build)
     * [1.8. Test the .apk](#apk-test)
@@ -63,7 +63,7 @@
 <a id="getting-started"></a>
 ## 1. Getting started 
 
-:mag: This section guides you through the process of generating a cross-platfrom app from a simple PyQt5 demo app.
+:mag: This section guides you through the process of generating a cross-platform app from a simple PyQt5 demo app.
 
 <a id="pre-requisites"></a>
 ### 1.1. Check the pre-requisites 
@@ -112,7 +112,7 @@ Specs of target OS:
 <a id="repo-path-setup"></a>
 ### 1.2. Setup the path to the main repo
 
-:warning: _We will use `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR` as the variable containing the path to the main repo._
+:warning: _We will use `SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR` as the variable containing the path to the main repo._
 
 Add the variable to your `.bashrc` with:
 
@@ -177,7 +177,7 @@ cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/examples/demo/demo_pkg \
 && python3 demo_pyqt5_app.py
 ```
 
-The PyQt5 app will start and you can confirm that it is displayed properly on your machine:
+The PyQt5 demo app will start and you can confirm that it is displayed properly on your machine:
 - Click the button
 - An alert message is displayed stating that you have clicked the button
 
@@ -185,7 +185,7 @@ The PyQt5 app will start and you can confirm that it is displayed properly on yo
 ### 1.5. Install the external dependencies
 
 <a id="external-dependency-download"></a>
-#### 1.5.1. Download a set of external dependencies
+#### 1.5.1. Download a set of external dependencies for pyqtdeploy
 
 Download the sources with:
 
@@ -195,124 +195,49 @@ cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/resources \
 && ./download_sources.sh
 ```
 
-:point_up: _You can confirm that the list of packages required matches with the versions from `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/sysroot.toml`._
+:bulb: _You can confirm that the list of packages required matches with the versions from `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/sysroot.toml`._
 
-<a id="qt-installation"></a>
-#### 1.5.2. Install Qt from the installer
+<a id="java-installation"></a>
+#### 1.5.2. Install Java for Android Studio
 
-Download the version which matches the one in `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/sysroot.toml`:
-
-```
-sudo apt-get install wget
-cd $HOME/Downloads
-wget https://download.qt.io/archive/qt/5.15/5.15.11/single/qt-everywhere-opensource-src-5.15.11.tar.xz
-tar -xvf qt-everywhere-opensource-src-5.15.11.tar.xz
-mkdir -p qt-build
-cd qt-build
-../qt-everywhere-src-5.15.11/configure -prefix $HOME/Qt5.15.11 -opensource -confirm-license -nomake examples -nomake tests -no-opengl -skip qtwebengine
-sudo apt-get install libxcb-xfixes0-dev
-make
-make install
-```
-
-If you want to skip more modules (not necessary for your apps), have a look at the list of Qt5 modules on [Qt website](https://doc.qt.io/qt-5/qtmodules.html).
-With the example given for the configuration, the building process might take between 1 and 2 hours.
-If the building from source fails (of the commercial installer), you can use the open source available online installer (Qt5.15.2) from [Qt website](wget https://d13lb3tujbc8s0.cloudfront.net/onlineinstallers/qt-unified-linux-x64-4.6.1-online.run).
-Follow up with  `make -j4`
-Select "Open Source" and "Accept the terms of the licence (GPL)" when prompted.
-
-If you know that you will be working with Android, you need to build Qt from source following specific instructions from [Qt website](https://doc.qt.io/qt-5/android-building.html).
-Extra tip: check version requirements on [Qt website](https://wiki.qt.io/Qt_5.15_Tools_and_Versions#Software_configurations_for_Qt_5.15.11) for Qt software.
-You also need to make sure that you have completed the [Qt pre-requisites](https://doc.qt.io/qt-5/android-getting-started.html).
-* Get Android Studio
-* Get Android SDK > v26 and actually >= v31 (get SDK Platform Tools on [Qt website](https://androidsdkmanager.azurewebsites.net/Platformtools))
-* Get NDK r20b or r21e
-* Get java JDK > v8
-* (Optional) Get Qt Creator if you wish
-* Load all environment variablles from path_setup.sh
-* Build Qt for Android (64-bit android only but can be modified through the android-abis list) with:
+Install a stable java jdk available for your Ubuntu distribution and tested with Gradle:
 
 ```
-cd $HOME/Downloads
-mkdir -p qt-build-android-64
-cd qt-build-android-64
-sudo apt-get install libxcb-xfixes0-dev
-../qt-everywhere-src-5.15.11/configure -opensource -confirm-license -release -verbose -prefix $HOME/Qt5.15.11/5.15.11/android -xplatform android-clang -android-abis arm64-v8a -disable-rpath -android-sdk $ANDROID_SDK_ROOT -android-ndk $ANDROID_NDK_ROOT -nomake examples -nomake tests -skip qtwebengine -no-warnings-are-errors
-make
-make install
+sudo apt install openjdk-8-jdk openjdk-8-jre
 ```
 
-In case you need to specify the NDK to built Qt from source for android, use:
-```
-../qt-everywhere-src-5.15.11/configure -opensource -confirm-license -release -verbose -prefix $HOME/Qt5.15.11/5.15.11/android -xplatform android-clang -android-abis arm64-v8a -disable-rpath -android-sdk $ANDROID_SDK_ROOT -android-ndk $ANDROID_NDK_ROOT -android-ndk-platform $ANDROID_NDK_PLATFORM -android-ndk-host $ANDROID_NDK_HOST -nomake examples -nomake tests -skip qtwebengine -no-warnings-are-errors
-```
-
-There will be issues with your Java install if you don't go for v11 instead of v1.8 (which you actually also need to get for the Qt building process).
-To upgrade on Ubuntu 18.04:
-```
-sudo apt update
-sudo apt install default-jre
-java -version
-sudo apt install default-jdk
-javac -version
-```
-
-If you know that you will be working with iOS, you need to build Qt from source following specific instructions too from [Qt website](https://doc.qt.io/qt-5/ios-building-from-source.html).
-Note that you will need to have a virtual machine with macOS on it to be able to install Xcode.
-
-
-Wanring: ensure that your sysroot reflects the building options and skipped modules for qt5.
-
+Set the default java and javac version to 8 using:
 
 ```
-make
-make install
+sudo update-alternatives --config java \
+&& sudo update-alternatives --config javac
 ```
 
-Qt will bee installed under `/usr/local/Qt-5.15.11`.
-General building instructions and removal can be found on [Qt website](https://doc.qt.io/qt-5/linux-building.html).
-Tip: remove `config.cache` and `.qmake.cache` if you want to rebuild or reconfigure Qt.
-
-A Qt window will appear on which you can sign up:
-- Verify your email and register as an individual (no need for location)
-- Restart the Qt installer with: `./qt-opensource-linux-x64-5.12.2.run`
-- Log in, state that you are an individual and not a company
-- Setup will start
-- Select folder location `$HOME/Qt5.12.2`
-- Installation will start
-
-:bulb: _If custom installation has to be selected, make sure you only setup `Qt5.12.2` and the default packages._
-
-:hand: _Make sure that you can access `$HOME/Qt5.12.2/5.12.2` and that the folder `android_arm64_v8a` is located inside of it._
+:hand: *Confirm the version with `java -version && javac -version` which should be `v1.8.0_362`.*
 
 <a id="android-studio-installation"></a>
 #### 1.5.3. Install Android Studio
 
-Download Android Studio (latest version) from [the Android studio website](https://developer.android.com/studio) or get the version `2022.2.1.18` used for this repo (at the time of writing):
+Download Android Studio (latest version) from [the Android studio website](https://developer.android.com/studio) or get the version `2022.3.1.22` used for this repo:
 
 ```
-cd $HOME/Downloads
-wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2022.2.1.18/android-studio-2022.2.1.18-linux.tar.gz
-```
-
-Or for the latest patches:
-```
-wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2022.3.1.22/android-studio-2022.3.1.22-linux.tar.gz
+cd $HOME/Downloads \
+&& wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2022.3.1.22/android-studio-2022.3.1.22-linux.tar.gz
 ```
 
 Move the contents of the downloaded `tar.gz` to your `$HOME` directory using:
 
 ```
-cd $HOME/Downloads
-tar -xvf android-studio-2022.2.1.18-linux.tar.gz
-mv android-studio $HOME
+cd $HOME/Downloads \
+&& tar -xvf android-studio-2022.3.1.22-linux.tar.gz \
+&& mv android-studio $HOME
 ```
 
 Start the installation with:
 
 ```
-cd $HOME/android-studio/bin
-./studio.sh
+cd $HOME/android-studio/bin \
+&& ./studio.sh
 ```
 
 Tip: if there is an issue with android studio start, use `sudo ./studio.sh`.
@@ -346,6 +271,8 @@ If not, follow the instructions at the next step to set things up correctly._
 <a id="android-ndk-installation"></a>
 #### 1.5.5. Install Android NDK matching with Qt version
 
+Use side-by-side NDK - same as for platform tools menu.
+
 Download NDK 19c using:
 
 ```
@@ -373,16 +300,32 @@ mv android-ndk-r19c/ $HOME/Android
 
 :hand: _Make sure that `~/Android/android-ndk-r19c/platforms` contains the folder `android-28`._
 
-<a id="java-installation"></a>
-#### 1.5.6. Install Java for Android Studio
 
-Install a stable java jdk available for your Ubuntu distribution and tested with Gradle:
+<a id="qt-installation"></a>
+#### 1.5.6. Install Qt from the installer
+
+Download the Qt version which matches the one in `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/sysroot.toml` from the open source online installer:
 
 ```
-sudo apt install openjdk-8-jdk openjdk-8-jre
+sudo apt-get install wget \
+&& sudo apt-get install libxcb-xfixes0-dev \
+&& cd $HOME/Downloads \
+&& wget https://d13lb3tujbc8s0.cloudfront.net/onlineinstallers/qt-unified-linux-x64-4.6.1-online.run \
+&& chmod +x qt*.run \
+&& ./qt-unified-linux-x64-4.6.1-online.run
 ```
 
-:hand: *Confirm the version with `java -version` which should be `v1.8.0_362`.*
+A Qt window will appear on which you can sign up:
+- Verify your email and register as an individual (no need for location)
+- Restart the Qt installer with: `cd $HOME/Downloads && ./qt-unified-linux-x64-4.6.1-online.run`
+- Log in, state that you are an individual and not a company
+- Setup will start
+- Select folder location `$HOME/Qt5.15.2`
+- Installation will start
+
+:bulb: _If custom installation has to be selected, make sure you only setup `Qt5.15.2` and the default packages._
+
+:hand: _Make sure that you can access `$HOME/Qt5.12.2/5.12.2` and that the folder `android` is located inside of it._
 
 <a id="environment-variable-setup"></a>
 ### 1.6. Setup the environment variables
