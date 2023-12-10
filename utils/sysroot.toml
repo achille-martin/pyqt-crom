@@ -41,7 +41,7 @@ installed_modules = ["QtCore", "QtGui", "QtNetwork", "QtWidgets",
 # Qt ##########################################################################
 
 [Qt]
-version = "5.15.11"
+version = "5.15.2"
 edition = "opensource"
 configure_options = ["-opengl", "desktop", "-no-dbus", "-qt-pcre"]
 skip = ["qtactiveqt", "qtconnectivity", "qtdoc", "qtgamepad", "qtlocation",

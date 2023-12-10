@@ -2,11 +2,11 @@
 
 <a id="purpose"></a>
 
-:dart: The aim of this repo is to explain how to create cross-platform apps (Android and Linux for now) using only Python and the Qt Framework (PyQt5 for now). 
+:dart: How to create cross-platform apps (Android and Linux) using only Python and the Qt Framework (PyQt5). 
 
-<a href="https://www.buymeacoffee.com/achille_martin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee"></a>
+<a href="https://www.buymeacoffee.com/achille_martin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png alt="Buy Me A Coffee" width="200px"></a>
 
-<a href="https://github.com/sponsors/achille-martin" target="_blank"><img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=%3Curl%3E&color=f88379"></a>
+<a href="https://github.com/sponsors/achille-martin" target="_blank"><img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=%3Curl%3E&color=f88379" width="200px"></a>
 
 <a id="toc"></a>
 ## Table of Contents
@@ -70,22 +70,23 @@
 
 Specs of Linux machine used:
 
-- Ubuntu 18.04 (EOL April 2028)
+- `Ubuntu 18.04` (EOL April 2028)
 
 :bulb: _Refer to [Virtualbox Setup](#virtualbox-setup) if you don't have a Linux OS available on your machine._
 
-- Python 3.7.5 (EOL June 2023) and pip3.7 (v23.3.1)
+- `Python 3.7.5` (EOL June 2023) and `pip3.7 (v23.3.1)`
 
-Ubuntu 18.04 is shipped with python 3.6.9, but python 3.7.5 and pip3.7 can be installed using:
+`Ubuntu 18.04` is shipped with python 3.6.9, but `python 3.7.5` and `pip3.7` can be installed using:
 
 ```
-sudo apt-get update
-sudo apt install python3.7
-sudo apt install curl
-cd $HOME
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-python3.7 get-pip.py
-python3.7 -m pip install --upgrade pip
+sudo apt-get update \
+&& sudo apt install python3.7 \
+&& sudo apt install python3.7-dev \
+&& sudo apt install curl \
+&& cd $HOME \
+&& curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
+&& python3.7 get-pip.py \
+&& python3.7 -m pip install --upgrade pip
 ```
 
 Then, update your `$HOME/.bashrc` for easier python/pip access:
@@ -97,14 +98,16 @@ printf "%s\n" \
 "alias python3=python3.7" \
 "alias pip3='python3.7 -m pip'" \
 "" \
->> $HOME/.bashrc
-source $HOME/.bashrc
+>> $HOME/.bashrc \
+&& source $HOME/.bashrc
 
 ```
 
+:bulb: _Dev options for `python3.7` are required by PyQt5-sip (Python.h)._
+
 Specs of target OS:
 
-- Android 9.0 (app can be used with later Android versions but won't pack the latest Android features)
+- `Android 9.0` (app can be used with later Android versions but won't pack the latest Android features)
 
 <a id="repo-path-setup"></a>
 ### 1.2. Setup the path to the main repo
@@ -119,16 +122,16 @@ printf "%s\n" \
 "# Environment variable for Simple PyQt Cross-Platform App path" \
 "export SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR=$HOME/Documents/simple-pyqt-cross-platform-app" \
 "" \
->> $HOME/.bashrc
-source $HOME/.bashrc
+>> $HOME/.bashrc \
+&& source $HOME/.bashrc
 ```
 
 <a id="github-repo-download"></a>
 ### 1.3. Download the github repo 
 
 ```
-cd $HOME/Documents
-git clone git@github.com:achille-martin/simple-pyqt-cross-platform-app
+cd $HOME/Documents \
+&& git clone git@github.com:achille-martin/simple-pyqt-cross-platform-app
 ```
 
 <a id="virtual-environment-setup"></a>
@@ -138,11 +141,12 @@ git clone git@github.com:achille-martin/simple-pyqt-cross-platform-app
 #### 1.4.1. Create a virtual environment with python3 installed on your machine
 
 ```
-pip3 install virtualenv
-cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR
-mkdir -p venv
-cd venv
-virtualenv simple-pyqt-cross-platform-app-venv -p python3.7
+pip3 install virtualenv \
+&& cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR \
+&& mkdir -p venv \
+&& cd venv \
+&& virtualenv simple-pyqt-cross-platform-app-venv -p python3.7 \
+&& cd ..
 ```
 
 <a id="virtual-environment-activation"></a>
@@ -158,9 +162,9 @@ source $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/venv/simple-pyqt-cross-platform-app-v
 #### 1.4.3. Install the necessary pip packages
 
 ```
-cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR
-pip3 cache purge
-pip3 install -r requirements.txt
+cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR \
+&& pip3 cache purge \
+&& pip3 install -r requirements.txt
 ```
 
 :bulb: _You can confirm the installed pip packages with `pip3 list --local`._
@@ -169,11 +173,11 @@ pip3 install -r requirements.txt
 #### 1.4.4. Test the PyQt5 demo app in your virtual environment
 
 ```
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pkg
-python3 example_pyqt5_app.py
+cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/examples/demo/demo_pkg \
+&& python3 demo_pyqt5_app.py
 ```
 
-The PyQt5 app will start and you can confirm that it is displayed properly on the machine used:
+The PyQt5 app will start and you can confirm that it is displayed properly on your machine:
 - Click the button
 - An alert message is displayed stating that you have clicked the button
 
@@ -186,17 +190,17 @@ The PyQt5 app will start and you can confirm that it is displayed properly on th
 Download the sources with:
 
 ```
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/resources
-chmod +x download_sources.sh
-./download_sources.sh
+cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/resources \
+&& chmod +x download_sources.sh \
+&& ./download_sources.sh
 ```
 
-:point_up: _You can confirm that the list of packages required matches with the versions from `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json`._
+:point_up: _You can confirm that the list of packages required matches with the versions from `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/sysroot.toml`._
 
 <a id="qt-installation"></a>
 #### 1.5.2. Install Qt from the installer
 
-Download the version which matches the one in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json`:
+Download the version which matches the one in `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/sysroot.toml`:
 
 ```
 sudo apt-get install wget
@@ -224,7 +228,6 @@ You also need to make sure that you have completed the [Qt pre-requisites](https
 * Get Android SDK > v26 and actually >= v31 (get SDK Platform Tools on [Qt website](https://androidsdkmanager.azurewebsites.net/Platformtools))
 * Get NDK r20b or r21e
 * Get java JDK > v8
-* (Optional) Get linux libraries if issues: `sudo apt-get install libstdc++6:i386 libgcc1:i386 zlib1g:i386 libncurses5:i386`
 * (Optional) Get Qt Creator if you wish
 * Load all environment variablles from path_setup.sh
 * Build Qt for Android (64-bit android only but can be modified through the android-abis list) with:
