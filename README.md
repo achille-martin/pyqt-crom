@@ -1,21 +1,25 @@
-# Simple PyQt5 Android App
+# Simple PyQt Cross-Platform App
 
 <a id="purpose"></a>
 
-:dart: The aim of this repo is to create an android app (.apk) from a python (PyQt5) app.
+:dart: The aim of this repo is to explain how to create cross-platform apps (Android and Linux for now) using only Python and the Qt Framework (PyQt5 for now). 
+
+<a href="https://www.buymeacoffee.com/achille_martin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee"></a>
+
+<a href="https://github.com/sponsors/achille-martin" target="_blank"><img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=%3Curl%3E&color=f88379"></a>
 
 <a id="toc"></a>
 ## Table of Contents
 
 * [1. Getting started](#getting-started)
-    * [1.1. Review the pre-requisites](#pre-requisites)
-    * [1.2. Setup the path to the app folder](#path-setup)
+    * [1.1. Check the pre-requisites](#pre-requisites)
+    * [1.2. Setup the path to the main repo](#repo-path-setup)
     * [1.3. Download the github repo](#github-repo-download)
-    * [1.4. Setup the virtual environment for your app](#virtual-environment-setup)
-        * [1.4.1. Create a virtual environment with your python3 installed on your machine](#virtual-environment-creation)
+    * [1.4. Setup the virtual environment for the demo app](#virtual-environment-setup)
+        * [1.4.1. Create a virtual environment with python3 installed on your machine](#virtual-environment-creation)
         * [1.4.2. Activate your virtual environment](#virtual-environment-activation)
         * [1.4.3. Install the necessary pip packages](#pip-package-installation)
-        * [1.4.4. Test the PyQt5 app in your virtual environment](#virtual-environment-app-test)
+        * [1.4.4. Test the PyQt5 demo app in your virtual environment](#virtual-environment-app-test)
     * [1.5. Install the external dependencies](#external-dependency-installation)
         * [1.5.1. Download a set of external dependencies](#external-dependency-download)
         * [1.5.2. Install Qt from the installer](#qt-installation)
@@ -59,22 +63,24 @@
 <a id="getting-started"></a>
 ## 1. Getting started 
 
-:mag: This section guides you through the process of generating an .apk from a simple PyQt5 demo app.
+:mag: This section guides you through the process of generating a cross-platfrom app from a simple PyQt5 demo app.
 
 <a id="pre-requisites"></a>
-### 1.1. Review the pre-requisites 
+### 1.1. Check the pre-requisites 
 
 Specs of Linux machine used:
-- Ubuntu 18.04
-- Python 3.6.9
 
-Note: it might be recommended to install python 3.7.5 using:
+- Ubuntu 18.04 (EOL April 2028)
+
+:bulb: _Refer to [Virtualbox Setup](#virtualbox-setup) if you don't have a Linux OS available on your machine._
+
+- Python 3.7.5 (EOL June 2023) and pip3.7 (v23.3.1)
+
+Ubuntu 18.04 is shipped with python 3.6.9, but python 3.7.5 and pip3.7 can be installed using:
+
 ```
 sudo apt-get update
 sudo apt install python3.7
-sudo apt remove python3-pip
-sudo apt purge python3-pip
-sudo apt autoremove
 sudo apt install curl
 cd $HOME
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
@@ -82,7 +88,7 @@ python3.7 get-pip.py
 python3.7 -m pip install --upgrade pip
 ```
 
-and update your `$HOME/.bashrc`:
+Then, update your `$HOME/.bashrc` for easier python/pip access:
 
 ```
 printf "%s\n" \
@@ -96,37 +102,22 @@ source $HOME/.bashrc
 
 ```
 
-:bulb: _Refer to [Virtualbox Setup](#virtualbox-setup) if you don't have a Linux OS available on your machine._
+Specs of target OS:
 
-Specs of target machine desired:
-- Android 9.0 (at least)
+- Android 9.0 (app can be used with later Android versions but won't pack the latest Android features)
 
-:point_up: It is possible to use other versions than the ones suggested, to benefit from long-term support (LTS).
+<a id="repo-path-setup"></a>
+### 1.2. Setup the path to the main repo
 
-To find the best matching versions, you need to browse available versions in order:
-
-* Pick a Python version that you like (v_python)
-* Find the matching Ubuntu version that delivers / allows it (v_ubuntu)
-* Pick a pyqtdeploy version (v_pyqtdeploy) from [PyPI website](https://pypi.org/project/pyqtdeploy/#history) - there are drastic changes between v2.x and v3.x
-* Pick a PyQt5 version which can run with your v_python (v_pyqt5) from [PyPI website](https://pypi.org/project/PyQt5/#history)
-* Pick a PyQt5-sip version compatible with v_pyqt5 (v_pyqt5_sip) from [PyPI website](https://pypi.org/project/PyQt5-sip/#history)
-* Pick a sip version which matches the release date of v_pyqt5_sip) from [PyPI website](https://pypi.org/project/sip/#history)
-* Pick a Qt version which will work with your v_python according to [Qt website](https://download.qt.io/archive/qt/) from [Qt archives](https://download.qt.io/archive/qt/) (v_qt)
-
-_Note: you can also run `pipdeptree` (installed from `pip3 install pipdeptree`) to figure out whether you can upgrade some of the versions you picked._
-
-<a id="path-setup"></a>
-### 1.2. Setup the path to the app folder
-
-:warning: _We will use `$SIMPLE_PYQT5_ANDROID_APP_DIR` as the variable containing the path to the app folder._
+:warning: _We will use `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR` as the variable containing the path to the main repo._
 
 Add the variable to your `.bashrc` with:
 
 ```
 printf "%s\n" \
 "" \
-"# Environment variable for Simple PyQt5 Android App path" \
-"export SIMPLE_PYQT5_ANDROID_APP_DIR=$HOME/Documents/simple-pyqt5-android-app" \
+"# Environment variable for Simple PyQt Cross-Platform App path" \
+"export SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR=$HOME/Documents/simple-pyqt-cross-platform-app" \
 "" \
 >> $HOME/.bashrc
 source $HOME/.bashrc
@@ -137,31 +128,28 @@ source $HOME/.bashrc
 
 ```
 cd $HOME/Documents
-git clone git@github.com:achille-martin/simple-pyqt5-android-app.git
+git clone git@github.com:achille-martin/simple-pyqt-cross-platform-app
 ```
 
 <a id="virtual-environment-setup"></a>
-### 1.4. Setup the virtual environment for your app 
+### 1.4. Setup the virtual environment for the demo app 
 
 <a id="virtual-environment-creation"></a>
-#### 1.4.1. Create a virtual environment with your python3 installed on your machine
+#### 1.4.1. Create a virtual environment with python3 installed on your machine
 
 ```
 pip3 install virtualenv
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR
+cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR
 mkdir -p venv
 cd venv
-virtualenv simple-pyqt5-android-app-venv -p python3.7
+virtualenv simple-pyqt-cross-platform-app-venv -p python3.7
 ```
-
-_Note: for reference, the pip3 version installed is 21.3.1 (associated with Python3.6)._
-_Or with 23.3.1 (associated with Python3.7)._
 
 <a id="virtual-environment-activation"></a>
 #### 1.4.2. Activate your virtual environment
 
 ```
-source $SIMPLE_PYQT5_ANDROID_APP_DIR/venv/simple-pyqt5-android-app-venv/bin/activate
+source $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/venv/simple-pyqt-cross-platform-app-venv/bin/activate
 ```
 
 :bulb: _To exit the virtual environment, type in your terminal `deactivate`._
@@ -170,15 +158,15 @@ source $SIMPLE_PYQT5_ANDROID_APP_DIR/venv/simple-pyqt5-android-app-venv/bin/acti
 #### 1.4.3. Install the necessary pip packages
 
 ```
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR
+cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR
 pip3 cache purge
 pip3 install -r requirements.txt
 ```
 
-:bulb: _You can confirm your pip packages with `pip3 list --local`._
+:bulb: _You can confirm the installed pip packages with `pip3 list --local`._
 
 <a id="virtual-environment-app-test"></a>
-#### 1.4.4. Test the PyQt5 app in your virtual environment
+#### 1.4.4. Test the PyQt5 demo app in your virtual environment
 
 ```
 cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pkg
@@ -798,6 +786,8 @@ Go through the [Getting started](#getting-started) tutorial and confirm the stat
 
 <a id="virtualbox-setup"></a>
 ### 5.3. Setup repo with VirtualBox
+
+To setup a Linux Virtual Machine on Windows via VirtualBox, follow [It's FOSS virtualbox setup tutorial](https://itsfoss.com/install-linux-in-virtualbox/).
 
 When setting the repo up in VirtualBox, you might come across the following issue with `xcb`:
 
