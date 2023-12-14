@@ -1,0 +1,37 @@
+version = 0
+sysroot = ""
+sysroots_dir = ""
+parts = [ "Python:sysconfig", "PyQt:PyQt5.QtWidgets", "Python:syslog",]
+
+[Application]
+entry_point = "demo_pkg.demo_pyqt5_app:main"
+is_console = false
+is_bundle = false
+name = "DemoPyQt5App"
+qmake_configuration = ""
+script = ""
+syspath = ""
+
+[Application.Package]
+name = "."
+exclude = [ "*.pyc", "*.pyd", "*.pyo", "*.pyx", "*.pxi", "__pycache__", "*-info", "EGG_INFO", "*.so",]
+[[Application.Package.Content]]
+name = "__init__.py"
+included = true
+is_directory = false
+
+[[Application.Package.Content]]
+name = "config.pdt"
+included = false
+is_directory = false
+
+[[Application.Package.Content]]
+name = "demo_pyqt5_app.py"
+included = true
+is_directory = false
+
+[[Application.Package.Content]]
+name = "sysroot.toml"
+included = false
+is_directory = false
+
