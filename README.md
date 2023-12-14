@@ -240,7 +240,7 @@ cd $HOME/android-studio/bin \
 && ./studio.sh
 ```
 
-Tip: if there is an issue with android studio start, use `sudo ./studio.sh`.
+_Tip: if there is an issue with android studio start, use `sudo ./studio.sh`._
 
 The Android Studio installer will start:
 - Do not import settings
@@ -250,56 +250,43 @@ The Android Studio installer will start:
 - Start the download (unless you want to install extra features)
 
 :hand: _Make sure that the default SDK has been installed in `$HOME/Android/Sdk` and that `$HOME/Android/Sdk/platforms` contains `android-28` folder only.
+The reason why android-28 (corresponding to Android v9.0) is selected is because there are restrictions depending on the Java version installed.
 If not, follow the instructions at the next step to set things up correctly._
 
 <a id="android-sdk-installation"></a>
 #### 1.5.4. Install correct Android SDK and Tools
 
-- Restart Android Studio with `cd $HOME/android-studio/bin && ./studio.sh` (skip if no SDK found)
+- Restart Android Studio with `cd $HOME/android-studio/bin && ./studio.sh` (skip / cancel if no SDK found)
 - On the menu screen, click on `more options` and then `SDK manager`
-- At this point, it is recommended to use MAX Android v9.0 (Pie) = android-28 because it is the latest version of the working NDK (v19)
-
-:thought_balloon: _It might be possible to install a later NDK and thus a later android version_
-
-- Confirm that the right SDK has been installed and get the API level (in the example, 28)
+    - Make sure that you are in the Settings -> Languages & Frameworks -> Android SDK
     - Make sure that in the `SDK Platforms` tab, the following is installed: (Android 9.0) Android SDK Platform 28, (Android 9.0) Sources for Android 28.
     - Remove any additional unneeded package from the list.
-    - Make sure that in the `SDK Tools` tab, the following is installed (you might need to untick Hide Obsolete Packages and tick Show Package Details): (Android SDK Build-Tools 34-rc3) 33.0.2, Android Emulator, Android SDK Platform-tools, Android SDK Tools (Obsolete)
-
+    - Apply changes for `SDK Platforms` tab.
+    - Make sure that in the `SDK Tools` tab, the following is installed (you need to untick Hide Obsolete Packages and tick Show Package Details): (Android SDK Build-Tools 34) v28.0.3, Android Emulator any version, Android SDK Tools (Obsolete) v26.1.1. Uninstall any other interfering package.
 - Close Android Studio
+- Download SDK Platform-Tools v28.0.3 to match the SDK Build-Tools version and add it to your SDK folder using:
+
+```
+cd $HOME/Downloads \
+&& wget https://dl.google.com/android/repository/platform-tools_r28.0.3-linux.zip \
+&& sudo apt-get install unzip \
+&& unzip platform-tools_r28.0.3-linux.zip \
+&& rm -r $HOME/Android/Sdk/platform-tools \
+&& mv platform-tools $HOME/Android/Sdk
+```
 
 <a id="android-ndk-installation"></a>
-#### 1.5.5. Install Android NDK matching with Qt version
+#### 1.5.5. Install Android NDK working with Qt version
 
-Use side-by-side NDK - same as for platform tools menu.
+- Restart Android Studio with `cd $HOME/android-studio/bin && ./studio.sh` (skip / cancel if no SDK found)
+- On the menu screen, click on `more options` and then `SDK manager`
+    - Make sure that you are in the Settings -> Languages & Frameworks -> Android SDK
+    - Make sure that in the `SDK Tools` tab, the following is installed as an additional package to the previous ones: NDK Side-By-Side v21.4.7075529 (equivalent to r21e). According to the [Qt Website](https://doc.qt.io/qt-5/android-getting-started.html), this is the one recommended for Qt5.15.2.
+- Close Android Studio
 
-Download NDK 19c using:
+:hand: _Make sure that `$HOME/Android/Sdk/ndk/21.4.7075529/platforms` contains the folder `android-28`._
 
-```
-cd $HOME/Downloads
-wget https://dl.google.com/android/repository/android-ndk-r19c-linux-x86_64.zip
-```
-
-:thought_balloon: _This NDK is known to be working with Qt5.12.2, but there might be others._
-
-To download NDK 20b:
-
-```
-cd $HOME/Downloads
-wget https://dl.google.com/android/repository/android-ndk-r20b-linux-x86_64.zip
-```
-
-Extract the contents of the downloaded `.zip` into `$HOME/Android` using:
-
-```
-cd $HOME/Downloads
-sudo apt-get install unzip
-unzip android-ndk-r19c-linux-x86_64.zip
-mv android-ndk-r19c/ $HOME/Android
-```
-
-:hand: _Make sure that `~/Android/android-ndk-r19c/platforms` contains the folder `android-28`._
-
+:bulb: _The NDK corresponds to the minimum version required to run the app. Technically, you could choose a lower version._
 
 <a id="qt-installation"></a>
 #### 1.5.6. Install Qt from the installer
@@ -335,11 +322,11 @@ Load the environment variables on terminal startup with:
 ```
 printf "%s\n" \
 "" \
-"# Load extra environment variables for Simple PyQt5 Android App" \
-"source $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/resources/path_setup.sh" \
+"# Load extra environment variables for Simple PyQt Cross-Platform App" \
+"source $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/resources/path_setup.sh" \
 "" \
->> $HOME/.bashrc
-source $HOME/.bashrc
+>> $HOME/.bashrc \
+&& source $HOME/.bashrc
 ```
 
 <a id="apk-build"></a>
