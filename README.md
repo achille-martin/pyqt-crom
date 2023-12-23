@@ -13,8 +13,8 @@
 
 * [1. Getting started](#getting-started)
     * [1.1. Check the pre-requisites](#pre-requisites)
-    * [1.2. Setup the path to the main repo](#repo-path-setup)
-    * [1.3. Download the github repo](#github-repo-download)
+    * [1.2. Download the github repo](#github-repo-download)
+    * [1.3. Setup the path to the main repo](#repo-path-setup)
     * [1.4. Setup the virtual environment for the demo app](#virtual-environment-setup)
         * [1.4.1. Create a virtual environment with python3 installed on your machine](#virtual-environment-creation)
         * [1.4.2. Activate your virtual environment](#virtual-environment-activation)
@@ -87,8 +87,16 @@ Specs of target OS:
 
 - `Android 9.0` (app can be used with later Android versions but won't pack the latest Android features)
 
+<a id="github-repo-download"></a>
+### 1.2. Download the github repo 
+
+```
+cd $HOME/Documents \
+&& git clone git@github.com:achille-martin/simple-pyqt-cross-platform-app
+```
+
 <a id="repo-path-setup"></a>
-### 1.2. Setup the path to the main repo
+### 1.3. Setup the path to the main repo
 
 :warning: _We will use `SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR` as the variable containing the path to the main repo._
 
@@ -102,14 +110,6 @@ printf "%s\n" \
 "" \
 >> $HOME/.bashrc \
 && source $HOME/.bashrc
-```
-
-<a id="github-repo-download"></a>
-### 1.3. Download the github repo 
-
-```
-cd $HOME/Documents \
-&& git clone git@github.com:achille-martin/simple-pyqt-cross-platform-app
 ```
 
 <a id="virtual-environment-setup"></a>
