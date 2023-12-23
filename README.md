@@ -204,19 +204,19 @@ sudo update-alternatives --config java \
 <a id="android-studio-installation"></a>
 #### 1.5.3. Install Android Studio
 
-Download Android Studio (latest version) from [the Android studio website](https://developer.android.com/studio) or get the version `2022.3.1.22` used for this repo:
+Download Android Studio version `2023.1.1.26` with:
 
 ```
 sudo apt-get install wget \
 && cd $HOME/Downloads \
-&& wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2022.3.1.22/android-studio-2022.3.1.22-linux.tar.gz
+&& wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2023.1.1.26/android-studio-2023.1.1.26-linux.tar.gz
 ```
 
 Move the contents of the downloaded `tar.gz` to your `$HOME` directory using:
 
 ```
 cd $HOME/Downloads \
-&& tar -xvf android-studio-2022.3.1.22-linux.tar.gz \
+&& tar -xvf android-studio-2023.1.1.26-linux.tar.gz \
 && mv android-studio $HOME
 ```
 
@@ -238,28 +238,29 @@ The Android Studio installer will start:
 - Start the download (unless you want to install extra features)
 - Close Android Studio
 
-:hand: _Make sure that the default SDK has been installed in `$HOME/Android/Sdk` and that `$HOME/Android/Sdk/platforms` contains `android-28` folder only.
-The reason why android-28 (corresponding to Android v9.0) is selected is because there are restrictions depending on the Java version installed.
+:hand: _Make sure that the default SDK has been installed in `$HOME/Android/Sdk` and that `$HOME/Android/Sdk/platforms` contains `android-34` folder only.
+The reason why android-34 (corresponding to Android v14.0) is selected is because there are restrictions depending on the Java version installed.
 If not, follow the instructions at the next step to set things up correctly._
 
 <a id="android-sdk-installation"></a>
 #### 1.5.4. Install correct Android SDK and Tools
 
 - Restart Android Studio with `cd $HOME/android-studio/bin && ./studio.sh` (skip / cancel if no SDK found)
-- On the menu screen, click on `more options` and then `SDK manager`
+- On the menu screen, click on `more actions` and then `SDK manager`
     - Make sure that you are in the Settings -> Languages & Frameworks -> Android SDK
-    - Make sure that in the `SDK Platforms` tab, the following is installed: (Android 9.0) Android SDK Platform 28, (Android 9.0) Sources for Android 28.
+    - Make sure that in the `SDK Platforms` tab, the following is installed (Show package details and unhide obsolete packages): (Android 14.0) Android SDK Platform 34 and Sources for Android 34.
     - Remove any additional unneeded package from the list.
     - Apply changes for `SDK Platforms` tab.
-    - Make sure that in the `SDK Tools` tab, the following is installed (you need to untick Hide Obsolete Packages and tick Show Package Details): (Android SDK Build-Tools 34) v28.0.3, Android Emulator any version, Android SDK Tools (Obsolete) v26.1.1. Uninstall any other interfering package.
+    - Make sure that in the `SDK Tools` tab, the following is installed (Show package details and unhide obsolete packages): (Android SDK Build-Tools 34) v34.0.0, Android Emulator any version, Android SDK Tools (Obsolete) v26.1.1.
+    - Remove any additional unneeded and interfering package from the list.
 - Close Android Studio
-- Download SDK Platform-Tools v28.0.3 to match the SDK Build-Tools version and add it to your SDK folder using:
+- Download SDK Platform-Tools v34.0.5 to match the SDK Build-Tools version and add it to your SDK folder using:
 
 ```
 cd $HOME/Downloads \
-&& wget https://dl.google.com/android/repository/platform-tools_r28.0.3-linux.zip \
+&& wget https://dl.google.com/android/repository/platform-tools_r34.0.5-linux.zip \
 && sudo apt-get install unzip \
-&& unzip platform-tools_r28.0.3-linux.zip \
+&& unzip platform-tools_r34.0.5-linux.zip \
 && rm -r $HOME/Android/Sdk/platform-tools \
 && mv platform-tools $HOME/Android/Sdk
 ```
@@ -268,14 +269,14 @@ cd $HOME/Downloads \
 #### 1.5.5. Install Android NDK working with Qt version
 
 - Restart Android Studio with `cd $HOME/android-studio/bin && ./studio.sh` (skip / cancel if no SDK found)
-- On the menu screen, click on `more options` and then `SDK manager`
+- On the menu screen, click on `more actions` and then `SDK manager`
     - Make sure that you are in the Settings -> Languages & Frameworks -> Android SDK
     - Make sure that in the `SDK Tools` tab, the following is installed as an additional package to the previous ones: NDK Side-By-Side v21.4.7075529 (equivalent to r21e). According to the [Qt Website](https://doc.qt.io/qt-5/android-getting-started.html), this is the one recommended for Qt5.15.2.
 - Close Android Studio
 
 :hand: _Make sure that `$HOME/Android/Sdk/ndk/21.4.7075529/platforms` contains the folder `android-28`._
 
-:bulb: _The NDK corresponds to the minimum version required to run the app. Technically, you could choose a lower version._
+:bulb: _The NDK corresponds to the minimum version required to run the app. Technically, you could choose a lower version than Android API 9.0 (android-28)._
 
 <a id="qt-installation"></a>
 #### 1.5.6. Install Qt from the installer
