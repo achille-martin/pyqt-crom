@@ -721,8 +721,11 @@ Go through the [Getting started](#getting-started) tutorial and confirm the stat
 ### 5.3. Setup repo with VirtualBox
 
 To setup a Linux Virtual Machine on Windows via VirtualBox, follow [It's FOSS virtualbox setup tutorial](https://itsfoss.com/install-linux-in-virtualbox/).
+If you would prefer to setup a Linux Virtual Machine on MacOS via VirtualBox, follow [TecAdmin virtualbox setup tutorial](https://tecadmin.net/how-to-install-virtualbox-on-macos/).
 
-When setting the repo up in VirtualBox, you might come across the following issue with `xcb`:
+It is also recommended to install the VirtualBox Guest Additions. Follow the [LinuxTechi guest addition setup tutorial](https://www.linuxtechi.com/install-virtualbox-guest-additions-on-ubuntu/) for more information.
+
+When setting the repo up in VirtualBox and trying to install Qt, you might come across the following issue with `xcb`:
 
 ```
 qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though it was found.
