@@ -189,17 +189,17 @@ cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/resources \
 Install a stable java jdk available for your Ubuntu distribution and tested with Gradle:
 
 ```
-sudo apt install openjdk-8-jdk openjdk-8-jre
+sudo apt install openjdk-17-jdk openjdk-17-jre
 ```
 
-Set the default java and javac version to 8 using:
+Set the default java and javac version to 17 using:
 
 ```
 sudo update-alternatives --config java \
 && sudo update-alternatives --config javac
 ```
 
-:hand: *Confirm the version with `java -version && javac -version` which should be `v1.8.0_362`.*
+:hand: _Confirm the version with `java -version && javac -version` which should be `v17.0.9`._
 
 <a id="android-studio-installation"></a>
 #### 1.5.3. Install Android Studio
