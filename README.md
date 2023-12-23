@@ -119,11 +119,11 @@ printf "%s\n" \
 #### 1.4.1. Create a virtual environment with python3 installed on your machine
 
 ```
-pip3 install virtualenv \
+sudo apt-get install python3-virtualenv \
 && cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR \
 && mkdir -p venv \
 && cd venv \
-&& virtualenv simple-pyqt-cross-platform-app-venv -p python3.7 \
+&& virtualenv simple-pyqt-cross-platform-app-venv -p python3 \
 && cd ..
 ```
 
@@ -138,6 +138,14 @@ source $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/venv/simple-pyqt-cross-platform-app-v
 
 <a id="pip-package-installation"></a>
 #### 1.4.3. Install the necessary pip packages
+
+Upgrade your version of pip to v23.3.2 in the virtual environment with:
+
+```
+pip3 install --upgrade pip
+```
+
+Install the pip packages with:
 
 ```
 cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR \
