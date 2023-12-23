@@ -56,7 +56,7 @@
 * [5. Troubleshooting](#troubleshooting)
     * [5.1. Module not found](#module-not-found)
     * [5.2. File not found](#file-not-found)
-    * [5.3. Setup repo with VirtualBox](#virtualbox-setup)
+    * [5.3. Setup repo with a Virtual Machine](#virtual-machin-setup)
 * [6. Roadmap](#roadmap)
 * [7. Credits](#credits)
 
@@ -70,40 +70,18 @@
 
 Specs of Linux machine used:
 
-- `Ubuntu 18.04` (EOL April 2028)
+- `Ubuntu 22.04` (EOL April 2032)
+- `Python 3.10.12` (EOL October 2026) and `pip3 v23.3.2`
 
-:bulb: _Refer to [Virtualbox Setup](#virtualbox-setup) if you don't have a Linux OS available on your machine._
+:bulb: _Refer to [Virtual Machine Setup](#virtual-machine-setup) if you don't have a Linux OS available on your machine._
 
-- `Python 3.7.5` (EOL June 2023) and `pip3.7 (v23.3.1)`
-
-`Ubuntu 18.04` is shipped with python 3.6.9, but `python 3.7.5` and `pip3.7` can be installed using:
-
-```
-sudo apt-get update \
-&& sudo apt install python3.7 \
-&& sudo apt install python3.7-dev \
-&& sudo apt install curl \
-&& cd $HOME \
-&& curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
-&& python3.7 get-pip.py \
-&& python3.7 -m pip install --upgrade pip
-```
-
-Then, update your `$HOME/.bashrc` for easier python/pip access:
+:bulb: _Setup pip3 on Ubuntu with:_
 
 ```
-printf "%s\n" \
-"" \
-"# Ensuring stable python version" \
-"alias python3=python3.7" \
-"alias pip3='python3.7 -m pip'" \
-"" \
->> $HOME/.bashrc \
-&& source $HOME/.bashrc
-
+sudo apt-get update
+sudo apt-get install python3-pip
+python3 -m pip install --upgrade pip
 ```
-
-:bulb: _Dev options for `python3.7` are required by PyQt5-sip (Python.h)._
 
 Specs of target OS:
 
@@ -717,8 +695,8 @@ If the [building process](#apk-build) or any other process fails because some fi
 
 Go through the [Getting started](#getting-started) tutorial and confirm the state of your `.bashrc`.
 
-<a id="virtualbox-setup"></a>
-### 5.3. Setup repo with VirtualBox
+<a id="virtual-machine-setup"></a>
+### 5.3. Setup repo with a Virtual Machine
 
 To setup a Linux Virtual Machine on Windows via VirtualBox, follow [It's FOSS virtualbox setup tutorial](https://itsfoss.com/install-linux-in-virtualbox/).
 If you would prefer to setup a Linux Virtual Machine on MacOS via VirtualBox, follow [TecAdmin virtualbox setup tutorial](https://tecadmin.net/how-to-install-virtualbox-on-macos/).
