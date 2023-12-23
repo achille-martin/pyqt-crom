@@ -186,7 +186,7 @@ cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/resources \
 <a id="java-installation"></a>
 #### 1.5.2. Install Java for Android Studio
 
-Install a stable java jdk available for your Ubuntu distribution and tested with Gradle:
+Install stable java jdk 17 available for your Ubuntu distribution and tested with Gradle:
 
 ```
 sudo apt install openjdk-17-jdk openjdk-17-jre
@@ -207,7 +207,8 @@ sudo update-alternatives --config java \
 Download Android Studio (latest version) from [the Android studio website](https://developer.android.com/studio) or get the version `2022.3.1.22` used for this repo:
 
 ```
-cd $HOME/Downloads \
+sudo apt-get install wget \
+&& cd $HOME/Downloads \
 && wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2022.3.1.22/android-studio-2022.3.1.22-linux.tar.gz
 ```
 
@@ -231,9 +232,11 @@ _Tip: if there is an issue with android studio start, use `sudo ./studio.sh`._
 The Android Studio installer will start:
 - Do not import settings
 - Select custom installation if possible
+- Pick the default Android SDK
 - Deselect Virtual Device if you don't need it for testing
 - Keep a note of the Sdk installation path, which should be `$HOME/Android/Sdk`
 - Start the download (unless you want to install extra features)
+- Close Android Studio
 
 :hand: _Make sure that the default SDK has been installed in `$HOME/Android/Sdk` and that `$HOME/Android/Sdk/platforms` contains `android-28` folder only.
 The reason why android-28 (corresponding to Android v9.0) is selected is because there are restrictions depending on the Java version installed.
@@ -280,8 +283,7 @@ cd $HOME/Downloads \
 Download the Qt version which matches the one in `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/sysroot.toml` from the open source online installer:
 
 ```
-sudo apt-get install wget \
-&& sudo apt-get install libxcb-xfixes0-dev \
+sudo apt-get install libxcb-xfixes0-dev \
 && cd $HOME/Downloads \
 && wget https://d13lb3tujbc8s0.cloudfront.net/onlineinstallers/qt-unified-linux-x64-4.6.1-online.run \
 && chmod +x qt*.run \
