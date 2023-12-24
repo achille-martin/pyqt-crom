@@ -85,7 +85,8 @@ python3 -m pip install --upgrade pip
 
 Specs of target OS:
 
-- `Android 9.0` (app can be used with later Android versions but won't pack the latest Android features)
+- `Android 13.0` as targeted Android features
+- `Android 9.0` as minimum Android version to run the app
 
 <a id="github-repo-download"></a>
 ### 1.2. Download the github repo 
@@ -186,20 +187,20 @@ cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/resources \
 <a id="java-installation"></a>
 #### 1.5.2. Install Java for Android Studio
 
-Install stable java jdk 17 available for your Ubuntu distribution and tested with Gradle:
+Install stable java JDK 11 available for your Ubuntu distribution and tested with Gradle:
 
 ```
-sudo apt install openjdk-17-jdk openjdk-17-jre
+sudo apt install openjdk-11-jdk openjdk-11-jre
 ```
 
-Set the default java and javac version to 17 using:
+Set the default java and javac version to 11 using:
 
 ```
 sudo update-alternatives --config java \
 && sudo update-alternatives --config javac
 ```
 
-:hand: _Confirm the version with `java -version && javac -version` which should be `v17.0.9`._
+:hand: _Confirm the version with `java -version && javac -version` which should be `v11.0.21`._
 
 <a id="android-studio-installation"></a>
 #### 1.5.3. Install Android Studio
@@ -238,8 +239,8 @@ The Android Studio installer will start:
 - Start the download (unless you want to install extra features)
 - Close Android Studio
 
-:hand: _Make sure that the default SDK has been installed in `$HOME/Android/Sdk` and that `$HOME/Android/Sdk/platforms` contains `android-34` folder only.
-The reason why android-34 (corresponding to Android v14.0) is selected is because there are restrictions depending on the Java version installed.
+:hand: _Make sure that the default SDK has been installed in `$HOME/Android/Sdk` and that `$HOME/Android/Sdk/platforms` contains `android-33` folder only.
+The reason why android-33 (corresponding to Android v13.0) is selected is because there are restrictions depending on the Java version installed.
 If not, follow the instructions at the next step to set things up correctly._
 
 <a id="android-sdk-installation"></a>
@@ -248,19 +249,19 @@ If not, follow the instructions at the next step to set things up correctly._
 - Restart Android Studio with `cd $HOME/android-studio/bin && ./studio.sh` (skip / cancel if no SDK found)
 - On the menu screen, click on `more actions` and then `SDK manager`
     - Make sure that you are in the Settings -> Languages & Frameworks -> Android SDK
-    - Make sure that in the `SDK Platforms` tab, the following is installed (Show package details and unhide obsolete packages): (Android 14.0) Android SDK Platform 34 and Sources for Android 34.
+    - Make sure that in the `SDK Platforms` tab, the following is installed (Show package details and unhide obsolete packages): (Android 13.0) Android SDK Platform 33 and Sources for Android 33.
     - Remove any additional unneeded package from the list.
     - Apply changes for `SDK Platforms` tab.
-    - Make sure that in the `SDK Tools` tab, the following is installed (Show package details and unhide obsolete packages): (Android SDK Build-Tools 34) v34.0.0, Android Emulator any version, Android SDK Tools (Obsolete) v26.1.1.
+    - Make sure that in the `SDK Tools` tab, the following is installed (Show package details and unhide obsolete packages): (Android SDK Build-Tools 33) v33.0.2, Android Emulator any version, Android SDK Tools (Obsolete) v26.1.1.
     - Remove any additional unneeded and interfering package from the list.
 - Close Android Studio
-- Download SDK Platform-Tools v34.0.5 to match the SDK Build-Tools version and add it to your SDK folder using:
+- Download SDK Platform-Tools v33.0.2 to match the SDK Build-Tools version and add it to your SDK folder using:
 
 ```
 cd $HOME/Downloads \
-&& wget https://dl.google.com/android/repository/platform-tools_r34.0.5-linux.zip \
+&& wget https://dl.google.com/android/repository/platform-tools_r33.0.2-linux.zip \
 && sudo apt-get install unzip \
-&& unzip platform-tools_r34.0.5-linux.zip \
+&& unzip platform-tools_r33.0.2-linux.zip \
 && rm -r $HOME/Android/Sdk/platform-tools \
 && mv platform-tools $HOME/Android/Sdk
 ```
@@ -295,11 +296,10 @@ A Qt window will appear on which you can sign up:
 - Verify your email and register as an individual (no need for location)
 - Restart the Qt installer with: `cd $HOME/Downloads && ./qt-unified-linux-x64-4.6.1-online.run`
 - Log in, state that you are an individual and not a company
+- If possible, select "Custom installation" and make sure to only setup `Qt5.15.2` (and other packages you might want)
 - Setup will start
 - Select folder location `$HOME/Qt5.15.2`
 - Installation will start
-
-:bulb: _If custom installation has to be selected, make sure you only setup `Qt5.15.2` and the default packages._
 
 :hand: _Make sure that you can access `$HOME/Qt5.12.2/5.12.2` and that the folder `android` is located inside of it._
 
