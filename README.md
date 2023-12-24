@@ -321,23 +321,23 @@ printf "%s\n" \
 <a id="apk-build"></a>
 ### 1.7. Build the .apk with pyqtdeploy
 
+Tip for the `.pdt` file: there might be a need to add [zlib] then save the project file, then remove it from the sysroot and save.
+To get pyqtdeploy project tips: https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/pyqtdeploy.html
+To get sysroot tips: https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html
+For the whole pyqtdeploy 3.3.0 manual: https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/index.html
+
+Qt5.15.2 requires gradle 5.6.4 by default which requires Java 8.
+Try to build Qt5.15.11 from source for android and find out the gradle version (which should be 8.2 max) in Qt5.15.2/5.15.2/android/src/3rdparty/gradle/gradle/wrapper/gradle-wrapper.properties
+
 Start the building process of the .apk with:
 
 ```
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app
-python3 build_app.py --target android-64 --source-dir $RESOURCES_DIR --installed-qt-dir $QT_DIR --verbose
+cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils
+python3 build-demo.py --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
 ``` 
 :hourglass_flowing_sand: _Let the app build (it may take a while)._
 
 :tada: _The app is built when you see "BUILD SUCCESSFUL"._
-
-:bulb: _The next time you build an app, you can skip the creation of the sysroot._
-_Use the following command for future builds:_
-
-```
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app
-python3 build_app.py --target android-64 --source-dir $RESOURCES_DIR --installed-qt-dir $QT_DIR --verbose --no-sysroot
-```
 
 _Note: the Android Manifest can be checked at debug stage at `build-android-64/android-build/build/intermediates/packaged_manifests/debug/AndroidManifest.xml`._
 
