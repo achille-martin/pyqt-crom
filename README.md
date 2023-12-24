@@ -326,9 +326,6 @@ To get pyqtdeploy project tips: https://www.riverbankcomputing.com/static/Docs/p
 To get sysroot tips: https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html
 For the whole pyqtdeploy 3.3.0 manual: https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/index.html
 
-Qt5.15.2 requires gradle 5.6.4 by default which requires Java 8.
-Try to build Qt5.15.11 from source for android and find out the gradle version (which should be 8.2 max) in Qt5.15.2/5.15.2/android/src/3rdparty/gradle/gradle/wrapper/gradle-wrapper.properties
-
 Start the building process of the .apk with:
 
 ```
