@@ -329,8 +329,8 @@ For the whole pyqtdeploy 3.3.0 manual: https://www.riverbankcomputing.com/static
 Start the building process of the .apk with:
 
 ```
-cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils
-python3 build-demo.py --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
+cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils \
+&& python3 build-demo.py --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
 ``` 
 :hourglass_flowing_sand: _Let the app build (it may take a while)._
 
