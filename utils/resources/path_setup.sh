@@ -9,4 +9,3 @@ export ANDROID_NDK_PLATFORM=android-28
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export JAVA_JRE=/usr/lib/jvm/java-11-openjdk-amd64/jre
 export PATH=$PATH:$JAVA_HOME/bin
-# export GRADLE_LOCAL_JAVA_HOME=$JAVA_HOME
