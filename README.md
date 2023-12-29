@@ -23,10 +23,11 @@
     * [1.5. Install the external dependencies](#external-dependency-installation)
         * [1.5.1. Download a set of external dependencies for pyqtdeploy](#external-dependency-download)
         * [1.5.2. Install Java for Android Studio](#java-installation)
-        * [1.5.3. Install Android Studio](#android-studio-installation)
-        * [1.5.4. Install correct Android SDK and Tools](#android-sdk-installation)
-        * [1.5.5. Install Android NDK matching with Qt version](#android-ndk-installation)
-        * [1.5.6. Install Qt from the installer](#qt-installation)
+        * [1.5.3. Install Zlib](#zlib-installation)
+        * [1.5.4. Install Android Studio](#android-studio-installation)
+        * [1.5.5. Install correct Android SDK and Tools](#android-sdk-installation)
+        * [1.5.6. Install Android NDK matching with Qt version](#android-ndk-installation)
+        * [1.5.7. Install Qt from the installer](#qt-installation)
     * [1.6. Setup the environment variables](#environment-variable-setup)
     * [1.7. Build the .apk with pyqtdeploy](#apk-build)
     * [1.8. Test the .apk](#apk-test)
@@ -85,8 +86,8 @@ python3 -m pip install --upgrade pip
 
 Specs of target OS:
 
-- `Android 13.0` as targeted Android features
-- `Android 9.0` as minimum Android version to run the app
+- `Android 9.0` as targeted Android features (default)
+- `Android 9.0` as minimum Android version to run the app (default)
 
 <a id="github-repo-download"></a>
 ### 1.2. Download the github repo 
@@ -202,8 +203,21 @@ sudo update-alternatives --config java \
 
 :hand: _Confirm the version with `java -version && javac -version` which should be `v11.0.21`._
 
+<a id="zlib-installation"></a>
+#### 1.5.3. Install Zlib
+
+Install zlib on Ubuntu with:
+
+```
+sudo apt install zlib1g-dev
+```
+
+Zlib is required by the pyqtdeploy project `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/pyqt-demo.pdt` to correctly identify the dependencies from the `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/sysroot.toml`.
+
+Sysroot setup tips can be obtained from [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html).
+
 <a id="android-studio-installation"></a>
-#### 1.5.3. Install Android Studio
+#### 1.5.4. Install Android Studio
 
 Download Android Studio version `2023.1.1.26` with:
 
@@ -239,35 +253,35 @@ The Android Studio installer will start:
 - Start the download (unless you want to install extra features)
 - Close Android Studio
 
-:hand: _Make sure that the default SDK has been installed in `$HOME/Android/Sdk` and that `$HOME/Android/Sdk/platforms` contains `android-33` folder only.
-The reason why android-33 (corresponding to Android v13.0) is selected is because there are restrictions depending on the Java version installed.
+:hand: _Make sure that the default SDK has been installed in `$HOME/Android/Sdk` and that `$HOME/Android/Sdk/platforms` contains `android-28` folder only.
+The reason why android-28 (corresponding to Android v9.0) is selected is because there are restrictions depending on the Java version installed and the Qt version installed.
 If not, follow the instructions at the next step to set things up correctly._
 
 <a id="android-sdk-installation"></a>
-#### 1.5.4. Install correct Android SDK and Tools
+#### 1.5.5. Install correct Android SDK and Tools
 
 - Restart Android Studio with `cd $HOME/android-studio/bin && ./studio.sh` (skip / cancel if no SDK found)
 - On the menu screen, click on `more actions` and then `SDK manager`
     - Make sure that you are in the Settings -> Languages & Frameworks -> Android SDK
-    - Make sure that in the `SDK Platforms` tab, the following is installed (Show package details and unhide obsolete packages): (Android 13.0) Android SDK Platform 33 and Sources for Android 33.
+    - Make sure that in the `SDK Platforms` tab, the following is installed (Show package details and unhide obsolete packages): (Android 9.0) Android SDK Platform 28 and Sources for Android 28.
     - Remove any additional unneeded package from the list.
     - Apply changes for `SDK Platforms` tab.
-    - Make sure that in the `SDK Tools` tab, the following is installed (Show package details and unhide obsolete packages): (Android SDK Build-Tools 33) v33.0.2, Android Emulator any version, Android SDK Tools (Obsolete) v26.1.1.
+    - Make sure that in the `SDK Tools` tab, the following is installed (Show package details and unhide obsolete packages): (Android SDK Build-Tools 28) v28.0.3, Android Emulator any version, Android SDK Tools (Obsolete) v26.1.1.
     - Remove any additional unneeded and interfering package from the list.
 - Close Android Studio
-- Download SDK Platform-Tools v33.0.2 to match the SDK Build-Tools version and add it to your SDK folder using:
+- Download SDK Platform-Tools v28.0.3 to match the SDK Build-Tools version and add it to your SDK folder using:
 
 ```
 cd $HOME/Downloads \
-&& wget https://dl.google.com/android/repository/platform-tools_r33.0.2-linux.zip \
+&& wget https://dl.google.com/android/repository/platform-tools_r28.0.3-linux.zip \
 && sudo apt-get install unzip \
-&& unzip platform-tools_r33.0.2-linux.zip \
+&& unzip platform-tools_r28.0.3-linux.zip \
 && rm -r $HOME/Android/Sdk/platform-tools \
 && mv platform-tools $HOME/Android/Sdk
 ```
 
 <a id="android-ndk-installation"></a>
-#### 1.5.5. Install Android NDK working with Qt version
+#### 1.5.6. Install Android NDK working with Qt version
 
 - Restart Android Studio with `cd $HOME/android-studio/bin && ./studio.sh` (skip / cancel if no SDK found)
 - On the menu screen, click on `more actions` and then `SDK manager`
@@ -280,7 +294,7 @@ cd $HOME/Downloads \
 :bulb: _The NDK corresponds to the minimum version required to run the app. Technically, you could choose a lower version than Android API 9.0 (android-28)._
 
 <a id="qt-installation"></a>
-#### 1.5.6. Install Qt from the installer
+#### 1.5.7. Install Qt from the installer
 
 Download the Qt version which matches the one in `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/sysroot.toml` from the open source online installer:
 
@@ -320,11 +334,6 @@ printf "%s\n" \
 
 <a id="apk-build"></a>
 ### 1.7. Build the .apk with pyqtdeploy
-
-Tip for the `.pdt` file: there might be a need to add [zlib] then save the project file, then remove it from the sysroot and save.
-To get pyqtdeploy project tips: https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/pyqtdeploy.html
-To get sysroot tips: https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html
-For the whole pyqtdeploy 3.3.0 manual: https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/index.html
 
 Start the building process of the .apk with:
 
