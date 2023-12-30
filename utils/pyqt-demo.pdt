@@ -1,7 +1,7 @@
 version = 0
-sysroot = ""
+sysroot = "sysroot.toml"
 sysroots_dir = ""
-parts = [ "Python:sysconfig", "PyQt:PyQt5.QtWidgets", "Python:logging", "Python:logging.config",]
+parts = [ "Python:sysconfig", "PyQt:PyQt5.QtWidgets",]
 
 [Application]
 entry_point = "example_pkg.pyqt-demo:main"
