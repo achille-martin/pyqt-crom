@@ -518,6 +518,10 @@ For instance, if you imported `QtSql` in your `PyQt5` app, then you must include
 <a id="pdy-configuration"></a>
 ### 3.3. Configure the pdy
 
+Tip for 3.3.0: you can add a sysroot specification file (or sysroot directory) to target the exact file from the .pdt.
+
+For more information, read on [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/pyqtdeploy.html).
+
 Follow up by configuring the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/config_app.pdy` file:
 
 APPLICATION SOURCE TAB
