@@ -29,6 +29,9 @@ import os
 import shutil
 import subprocess
 import sys
+#import time
+#import utils.pdt_parser as pdtp
+#from datetime import datetime
 
 
 def run(args):
@@ -44,12 +47,28 @@ def run(args):
         sys.exit(ec)
 
 
+# Initialise handy variables and tools
+## Define current script location as reference
+build_script_dir = os.path.dirname(os.path.realpath(__file__))
+## Define default variable values
+app_name_default = "MyCrossPlatformApp"
+app_release_dir_default = build_script_dir
+## Instantiate pdt_parser object
+### TODO
+## Get essential information from pdt file
+### TODO
+## Generate practical release directory structure
+### TODO
+
 # Parse the command line.
 parser = argparse.ArgumentParser()
 parser.add_argument('--jobs',
         help="the number of make jobs to be run in parallel on Linux and "
                 "macOS [default: 1]",
         metavar="NUMBER", type=int, default=1)
+parser.add_argument('--pdt',
+        help="the pdt file used to define app sources and imported packages",
+        metavar="FILE")      
 parser.add_argument('--qmake',
         help="the qmake executable when using an existing Qt installation",
         metavar="FILE")
@@ -171,14 +190,14 @@ else:
     run([make])
 
     if target.startswith('android'):
-        if os.path.isfile('android-example_pkg-deployment-settings.json'):
+        if os.path.isfile('android-CrossPlatformDemoApp-deployment-settings.json'):
             # Qt v5.14 or later.
             run([make, 'apk'])
-            apk = 'example_pkg.apk'
+            apk = 'CrossPlatformDemoApp.apk'
             apk_dir = os.path.join(build_dir, 'android-build')
         else:
             # Qt v5.13 or earlier.
-            run([make, 'INSTALL_ROOT=pyqt-demo', 'install'])
+            run([make, 'INSTALL_ROOT=' + 'pyqt-demo', 'install'])
             run([os.path.join(os.path.dirname(qmake_path), 'androiddeployqt'),
                     '--gradle', '--input',
                     'android-libpyqt-demo.so-deployment-settings.json',
