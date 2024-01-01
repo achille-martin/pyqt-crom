@@ -2,7 +2,7 @@
 
 <a id="purpose"></a>
 
-:dart: Create cross-platform apps (Android and Linux) using only Python and the Qt Framework (PyQt5). 
+:dart: Create cross-platform apps (Android) using only Python and the Qt Framework (PyQt5). 
 
 <a href="https://www.buymeacoffee.com/achille_martin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" width="200px"></a>
 
