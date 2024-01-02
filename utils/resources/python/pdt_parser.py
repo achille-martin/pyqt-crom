@@ -25,6 +25,8 @@ class PdtParser():
             if sysroot_entry_relative_path == '':
                 raise Exception("Sysroot path not specified in pdt")
             sysroot_path = os.path.join(os.path.dirname(os.path.abspath(self.pdt_path)), sysroot_entry_relative_path)
+            if not os.path.exists(sysroot_path):
+                raise Exception("Sysroot path does not exist")
             return sysroot_path
         except Exception as e:
             print("[ERROR] Cannot find sysroot path")
@@ -38,7 +40,8 @@ class PdtParser():
             application_name_entry_split = self.pdt_data[application_entry_index + 4].split("\"")
             application_name_entry = application_name_entry_split[1]
             if application_name_entry == '':
-                raise Exception("Application name not specified in pdt")
+                print("[WARN] Application name not specified in pdt")
+                application_name_entry == None
             app_name = application_name_entry
             return app_name
         except Exception as e:
@@ -74,6 +77,8 @@ class PdtParser():
                 raise Exception("Package path not specified in pdt")
             app_package_relative_path = application_package_name_entry
             app_package_path = os.path.join(os.path.dirname(os.path.abspath(self.pdt_path)), app_package_relative_path)
+            if not os.path.exists(app_package_path):
+                raise Exception("Application package path does not exist")
             return app_package_path
         except Exception as e:
             print("[ERROR] Cannot find application package path")
@@ -81,19 +86,19 @@ class PdtParser():
             sys.exit(1)
 
 # Example code
-script_folder = os.path.dirname(os.path.realpath(__file__))
-print(f"Current script folder location: {script_folder}")
-pdt_path = os.path.abspath(os.path.join(script_folder, os.path.pardir, os.path.pardir, 'pyqt-demo.pdt'))
-print(f"Pdt path: {pdt_path}")
-my_parser = PdtParser(pdt_path)
-pdt_data = my_parser.pdt_data
-print(f"Pdt data: {pdt_data}")
-sysroot_path = my_parser.get_sysroot_path()
-print(f"Sysroot path: {sysroot_path}")
-app_name = my_parser.get_app_name()
-print(f"Application name: {app_name}")
-app_entry_point_script_name = my_parser.get_app_entry_point_script_name()
-print(f"Application entry point script name: {app_entry_point_script_name}")
-app_package_path = my_parser.get_app_package_path()
-print(f"Application package path: {app_package_path}")
-
+if __name__ == "__main__":
+    script_folder = os.path.dirname(os.path.realpath(__file__))
+    print(f"Current script folder location: {script_folder}")
+    pdt_path = os.path.abspath(os.path.join(script_folder, os.path.pardir, os.path.pardir, 'pyqt-demo.pdt'))
+    print(f"Pdt path: {pdt_path}")
+    my_parser = PdtParser(pdt_path)
+    pdt_data = my_parser.pdt_data
+    print(f"Pdt data: {pdt_data}")
+    sysroot_path = my_parser.get_sysroot_path()
+    print(f"Sysroot path: {sysroot_path}")
+    app_name = my_parser.get_app_name()
+    print(f"Application name: {app_name}")
+    app_entry_point_script_name = my_parser.get_app_entry_point_script_name()
+    print(f"Application entry point script name: {app_entry_point_script_name}")
+    app_package_path = my_parser.get_app_package_path()
+    print(f"Application package path: {app_package_path}")

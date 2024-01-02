@@ -23,7 +23,7 @@
     * [1.5. Install the external dependencies](#external-dependency-installation)
         * [1.5.1. Download a set of external dependencies for pyqtdeploy](#external-dependency-download)
         * [1.5.2. Install Java for Android Studio](#java-installation)
-        * [1.5.3. Install Zlib](#zlib-installation)
+        * [1.5.3. Install Zlib for pyqtdeploy](#zlib-installation)
         * [1.5.4. Install Android Studio](#android-studio-installation)
         * [1.5.5. Install correct Android SDK and Tools](#android-sdk-installation)
         * [1.5.6. Install Android NDK matching with Qt version](#android-ndk-installation)
@@ -31,33 +31,15 @@
     * [1.6. Setup the environment variables](#environment-variable-setup)
     * [1.7. Build the .apk with pyqtdeploy](#apk-build)
     * [1.8. Test the .apk](#apk-test)
-* [2. Extra features for your Android app](#android-app-extra-features)
-    * [2.1. Images](#pyqt5-images)
-    * [2.2. File management](#pyqt5-file-management)
-    * [2.3. Databases](#pyqt5-databases)
-        * [2.3.1. Engine selection](#engine-selection)
-        * [2.3.2. Setup for database management](#database-management-setup)
-        * [2.3.3. Example PyQt5 app](#database-pyqt5-demo-app)
-        * [2.3.4. Example operational PyQt5 app](#operational-database-pyqt5-demo-app)
-    * [2.4. Graphics](#pyqt5-graphics)
-        * [2.4.1. 2D Graphics](#pyqt5-2d-graphics)
-        * [2.4.2. Example PyQt5 app](#graphics-pyqt5-demo-app)
-        * [2.4.3. Example operational PyQt5 app](#operational-graphics-pyqt5-demo-app)
-* [3. Generating your own app](#custom-app)
-    * [3.1. Create your python package](#package-creation)
-    * [3.2. Update the sysroot](#sysroot-update)
-    * [3.3. Configure the pdy](#pdy-configuration)
-    * [3.4. Build the apk](#app-generation)
-    * [3.5. Debug the apk](#app-debugging)
+* [2. Generating your own app](#custom-app)
+    * [2.1. Create your python package](#package-creation)
+    * [2.2. Update the sysroot](#sysroot-update)
+    * [2.3. Configure the pdy](#pdy-configuration)
+    * [2.4. Build the apk](#app-generation)
+    * [2.5. Debug the apk](#app-debugging)
+* [3. Extra features for your Android app](#android-app-extra-features)
 * [4. How it all began...](#original-story)
-    * [4.1. A fresh start](#fresh-start)
-    * [4.2. Get the build files for pyqtdeploy](#original-build-files)
-    * [4.3. Setup an app folder to build an .apk with pyqtdeploy](#original-setup)
-    * [4.4. Setup, build and test the app](#original-build)
 * [5. Troubleshooting](#troubleshooting)
-    * [5.1. Module not found](#module-not-found)
-    * [5.2. File not found](#file-not-found)
-    * [5.3. Setup repo with a Virtual Machine](#virtual-machin-setup)
 * [6. Roadmap](#roadmap)
 * [7. Credits](#credits)
 
@@ -165,6 +147,8 @@ cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/examples/demo/demo_pkg \
 && python3 demo_pyqt5_app.py
 ```
 
+!! ADD DEMO APP VISUALS (LINUX) HERE !!
+
 The PyQt5 demo app will start and you can confirm that it is displayed properly on your machine:
 - Click the button
 - An alert message is displayed stating that you have clicked the button
@@ -204,7 +188,7 @@ sudo update-alternatives --config java \
 :hand: _Confirm the version with `java -version && javac -version` which should be `v11.0.21`._
 
 <a id="zlib-installation"></a>
-#### 1.5.3. Install Zlib
+#### 1.5.3. Install Zlib for pyqtdeploy
 
 Install zlib on Ubuntu with:
 
@@ -339,188 +323,66 @@ Start the building process of the .apk with:
 
 ```
 cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils \
-&& python3 build-demo.py --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
+&& python3 build_app.py --pdt $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/examples/demo/demo_project/config.pdt --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
 ``` 
 :hourglass_flowing_sand: _Let the app build (it may take a while)._
 
 :tada: _The app is built when you see "BUILD SUCCESSFUL"._
 
-_Note: the Android Manifest can be checked at debug stage at `build-android-64/android-build/build/intermediates/packaged_manifests/debug/AndroidManifest.xml`._
-
-_Note2: the `build.gradle` file located in `build-android-64/android-build` gives crucial information on min and max versions of components._
+_Note: the Android Manifest, `build.gradle` can be checked at debug stage at `build-android-64/android-build`._
 
 <a id="apk-test"></a>
 ### 1.8. Test the .apk 
 
-The generated `example_pyqt5_app-debug.apk` can be found in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/build-android-64/example_pyqt5_app/build/outputs/apk/debug`.
+The generated `DemoCrossPlatformApp.apk` can be found in `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/examples/demo/demo_project/releases`.
 
 You can then either:
 - Copy, install and run the .apk onto your phone (>=Android v9.0)
 - Install BlueStacks on Windows (https://www.bluestacks.com/download.html), enable hyper-V, open `my games` and install the .apk, run the app offline
+- Setup a virtual device in Android Studio and install the app on it to access debugging messages and application-related files
 
-[:arrow_heading_up: Back to TOP](#toc) 
-
-<a id="android-app-extra-features"></a>
-## 2. Extra features for your Android app
-
-:mag: This section introduces a few outstanding capabilities of PyQt5 which can be ported to your Android app.
-
-The demo app only contains a very small set of PyQt5 features, but this section explores the full potential of PyQt5 and gives hints on how to make a fully working Android (prototype) app.
-
-<a id="pyqt5-images"></a>
-### 2.1. Images
-
-Use `QPixmap` and `pyrcc` to save images and render them.
-
-<a id="pyqt5-file-management"></a>
-### 2.2. File management
-
-Rely on python modules to create a structured project folder with writable paths.
-
-<a id="pyqt5-databases"></a>
-### 2.3. Databases
-
-<a id="engine-selection"></a>
-#### 2.3.1. Engine selection
-
-The preferred database engine for Android is `SQLite`. The latest SQLite library available is `sqlite3` as introduced on [the SQLite website](https://www.sqlite.org/version3.html).
-
-PyQt5 lets you work with many other database engines as shown on [tutorialspoint website](https://www.tutorialspoint.com/pyqt5/pyqt5_database_handling.htm), but `sqlite3` is a good start for simple python apps because:
-- The application file is portable across multiple platforms
-- Reading/writing performance is great as the application only loads the data it needs
-- Content is updated continuously and atomically for maximum reliability
-- Database content can be viewed with many third-party tools
-
-<a id="database-management-setup"></a>
-#### 2.3.2. Setup for database management
-
-Before attempting to run any `SQLite`-related actions, make sure that the library is available on your machine:
-
-```
-sudo apt-get install sqlite3
-sudo apt-get install sqlitebrowser
-```
-
-<a id="database-pyqt5-demo-app"></a>
-#### 2.3.3. Example PyQt5 app
-
-To confirm that `SQLite` is functional on your machine, run the following:
-
-```
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqt_feature_testing/database
-python3 pyqt5_app_with_database.py
-```
-
-A dialog window will pop up in which you can perform the following:
-- View the pre-populated database (called `sportsdatabase.db`)
-- Add a row to the database
-- Remove a row from the database
-
-You can view the content of the generated and edited database at any time outside of the application with:
-
-```
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqt_feature_testing/database
-sqlitebrowser sportsdatabase.db
-```
-
-<a id="operational-database-pyqt5-demo-app"></a>
-#### 2.3.4. Example operational PyQt5 app
-
-You can also run a more operational PyQt5 app boasting a database with:
-
-```
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqt_feature_testing/database
-python3 operational_pyqt5_app_with_database.py
-```
-
-This demo app is built on the one highlighted in the [Getting started](#getting-started) section:
-- A window appears on the screen in a window with 2 buttons: MAGIC or EXIT
-- Once MAGIC is clicked, a pop-up appears on screen stating that the button has been clicked and that a database will open
-- Once the pop-up has been acknowledged, a database (called `sportsdatabase.db`) is created in the `home` folder as shown in the alert window, if not already existing
-- In the dialog window displaying the content of the database, rows can be added, removed or edited
-
-:point_up: _You can view the content of `sportsdatabase.db` at any time by following the instructions in [Example PyQt5 app with database](#database-pyqt5-demo-app) after ensuring that your [Database manager](#database-management-setup) is correctly setup._
-
-<a id="pyqt5-graphics"></a>
-### 2.4. Graphics
-
-<a id="pyqt5-2d-graphics"></a>
-#### 2.4.1. 2D Graphics
-
-There are 2 main approaches to create 2D Graphics in Qt apps:
-* QGraphics way
-* QtQuick way
-
-QGraphics relies on a database of useful shapes and widgets (QWidgets) to make the app efficient and native (the look is tied to the platform). As described on the [pythonguis website](https://www.pythonguis.com/tutorials/pyqt-qgraphics-vector-graphics/), QGraphics harnesses the model-view paradigm through QGraphicsScene (model), QGraphicsView (view) and QGraphicsItems (visual elements).
-
-QtQuick on the other hand, relies on the Qt Modeling language (QML) to define user interfaces. As described on the [pythonguis website](https://www.pythonguis.com/tutorials/qml-qtquick-python-application/), QML is focused on custom UI design and is useful for consistent app design across multiple platforms. The look of the app will be more modern, but the development might take longer.
-
-As we are showcasing a prototyping tool for mobile apps, we have decided to explore QGraphics options rather than follow QtQuick practices. Note that both approaches are viable and handled by the pyqtdeploy tool.
-
-<a id="graphics-pyqt5-demo-app"></a>
-#### 2.4.2. Example PyQt5 app
-
-To visualise a basic example of 2D Graphics in a PyQt app, run the following:
-
-
-```
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqt_feature_testing/graphics
-python3 pyqt5_app_with_graphics.py
-```
-
-A graphics window will appear, in which you can perform the following:
-
-* Move shapes around and locate their centre thanks to the status bar prompt
-* Get back to the home screen thanks to the button at the top of the window
-
-<a id="operational-graphics-pyqt5-demo-app"></a>
-#### 2.4.3. Example operational PyQt5 app
-
-You can also run a more operational PyQt5 app boasting a graphics playground with:
-
-```
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqt_feature_testing/graphics
-python3 operational_pyqt5_app_with_graphics.py
-```
-
-This demo app is built on the one highlighted in the [Getting started](#getting-started) section:
-- A window appears on the screen in a window with 2 buttons: MAGIC or EXIT
-- Once MAGIC is clicked, a pop-up appears on screen stating that the button has been clicked and that a graphics playground will open
-- Once the pop-up has been acknowledged, a graphics playground opens up with 2 shapes that can be dragged around
-- When selecting a shape, its coordinates are displayed at the bottom of the screen, in the status bar
-- To exit the graphics playground, hit the HOME button
+!! ADD DEMO APP VISUALS (ANDROID) HERE !!
 
 [:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="custom-app"></a>
-## 3. Generating your own app
+## 2. Generating your own app
 
 _This section describes the step to generate your own `.apk` from a `PyQt5` app._
 
 <a id="package-creation"></a>
-### 3.1. Create your python package
+### 2.1. Create your python package
 
-Start by creating a python package to hold your `PyQt5` app:
-* Create a folder `<pkg_name>`
+Start by creating a project folder:
+* Create a folder `<project_name>`
+
+Inside of the project folder, create a python package to hold your `PyQt5` app:
+* Create a folder `<project_name>/<pkg_name>`
 * Populate with at least `__init__.py` file and a `<app_name>.py` script
 
 _Note that the `<app_name>.py` must contain a unique `main()` function (or any similar distinctive entry point)._
 
 * Add more files if required for your package
 
+Inside of the project folder, add a config folder to hold your configuration files:
+* Create a folder `<project_name>/config`
+* Populate with `<app_name_sysroot>.toml` and `<app_name_config>.pdt` files
+
 <a id="sysroot-update"></a>
-### 3.2. Update the sysroot
+### 2.2. Update the sysroot
 
 Make sure that you update the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json` with any new module.
 
 For instance, if you imported `QtSql` in your `PyQt5` app, then you must include `QtSql` in the `pyqt5/android#modules`.
 
 <a id="pdy-configuration"></a>
-### 3.3. Configure the pdy
+### 2.3. Configure the pdy
 
 Tip for 3.3.0: you can add a sysroot specification file (or sysroot directory) to target the exact file from the .pdt.
 
 For more information, read on [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/pyqtdeploy.html).
+
+Make sure that any module imported in your `<app_name>.py` (or any part of your python project), is ticked in the .pdt file.
 
 Follow up by configuring the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/config_app.pdy` file:
 
@@ -544,7 +406,7 @@ REMAINING TABS
 Once you have updated the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/config_app.pdy`, you can save it.
 
 <a id="app-generation"></a>
-### 3.4. Build the apk
+### 2.4. Build the apk
 
 Follow up with the building of your app.
 
@@ -558,7 +420,7 @@ python3 build_app.py --target android-64 --source-dir $RESOURCES_DIR --installed
 :hand: _If it is your first time using `build_app.py`, please refer to the [build instructions](#apk-build)._
 
 <a id="app-debugging"></a>
-### 3.5. Debug the apk
+### 2.5. Debug the apk
 
 The most nerve-wracking part of deploying an application is the debugging part. 
 Therefore, make sure that you have added a logger to your application and that you use an Emulator (or a physical device) to confirm your expectations.
@@ -593,163 +455,25 @@ If you wish to access more Android logs, please refer to [this issue](https://gi
 
 [:arrow_heading_up: Back to TOP](#toc)
 
+<a id="android-app-extra-features"></a>
+## 3. Extra features for your Android app
+
+Refer to [PyQt5 features](doc/features/pyqt5_features.md) for this section.
+
 <a id="original-story"></a>
 ## 4. How it all began...
 
-:mag: This section shows you how this repo came to life by leveraging the functionalities of [pyqtdeploy](https://pypi.org/project/pyqtdeploy/).
-
-<a id="fresh-start"></a>
-### 4.1. A fresh start
-
-Get rid of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app` folder:
-
-```
-sudo rm -r $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app
-```
-
-<a id="original-build-files"></a>
-### 4.2. Get the build files for pyqtdeploy
-
-- Download the `pyqt-demo` folder from [pypi website](https://pypi.org/project/pyqtdeploy/2.5.1/#files) or use the following command:
-
-```
-cd $HOME/Downloads
-wget https://files.pythonhosted.org/packages/ea/7e/2ac107e713badfbb6ae6ac6f2272a78f060e846748bcb83e7c71413badc9/pyqtdeploy-2.5.1.tar.gz 
-```
-
-:warning: _Stick to v2.x as v3.x had some major changes which will generate loads of issues._
-
-:hand: _Make sure that you get the matching `pyqtdeploy` version you installed with `pip`_
-
-- Extract the contents of the `.tar.gz` into `$SIMPLE_PYQT5_ANDROID_APP_DIR` with the command:
-
-```
-cd $HOME/Downloads
-tar -xvf pyqtdeploy-2.5.1.tar.gz
-mv pyqtdeploy-2.5.1/ $SIMPLE_PYQT5_ANDROID_APP_DIR
-```
-
-:hand: *Make sure that you now have a folder called `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-2.5.1`*
-
-<a id="original-setup"></a>
-### 4.3. Setup an app folder to build an .apk with pyqtdeploy
-
-- Create a new folder called `pyqtdeploy_app`:
-
-```
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR
-mkdir pyqtdeploy_app
-```
-
-- Copy the contents of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy-2.5.1/demo` into `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app`:
-- Delete `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/pyqt-demo.py`
-- Rename `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/build-demo.py` into `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/build_app.py`
-- Replace the line `shutil.copy('pyqt-demo.py', os.path.join('data', 'pyqt-demo.py.dat'))` in `build_app.py` with:
-
-```
-shutil.copy('../example_pyqt5_app.py', os.path.join('data', 'example_pyqt5_app.py.dat'))
-```
-
-- Rename all occurrences of `pyqt-demo` into `example_pyqt5_app` in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/build_app.py`
-- Rename `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/pyqt-demo.pdy` into `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy`
-- Update the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy` with the necessary packages:
-
-```
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app
-pyqtdeploy example_pyqt5_app.pdy
-```
-
-- Update the location of the main script file in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy`: use the file explorer to find `example_pyqt5_app.py`
-- Rename `pyqt-demo.py.dat` inside of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy` with vim into: `example_pyqt5_app.py.dat`
-- Check your python version (in your virtual environment) and make the version in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy` match: select the right one
-- In the PyQt Modules tab of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy`, select your relevant Qt modules. For instance: QtCore, QtWidgets.
-
-:point_up: _The `.pdy` might force include some default Qt modules like: `QtGui`, `sip`._
-
-- In the Standard Library tab of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy`, remove all the extra modules and keep only the default ones. If needed for your app, add more.
-- Update `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json` to reflect the packages selected in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy` and the desired versions
-- Remove the following packages (for the example) from `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json`: openssl, zlib, pyqt3d, pyqtchart, pyqtdatavisualization, pyqtpurchasing, qscintilla
-- Keep the following packages (for the example) in `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json`: qt5 version 5.12.2, python update to version 3.6.9 (the version in your virtual environment), sip version 4.19.15, pyqt5 version 5.12.1 (even though v.5.15.6 installed in virtual environment)
-- in PyQt5 section of `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json`, update the list of android modules to match `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/example_pyqt5_app.pdy`:
-
-```
-        "android#modules":              [
-                "QtCore", "QtGui", "QtWidgets"
-        ],
-```
-
-<a id="original-build"></a>
-### 4.4. Setup, build and test the app
-
-Please follow the steps detailed in [Getting Started](#getting-started) to setup, build and test your own PyQt5 app.
-
-If you would like to understand how `pyqtdeploy` works and how to set it up, please refer to the [official tutorial](https://docs.huihoo.com/pyqt/pyqtdeploy/tutorial.html).
-
-[:arrow_heading_up: Back to TOP](#toc) 
+Refer to [Origin story](doc/origins/origin_story.md) for this section.
 
 <a id="troubleshooting"></a>
 ## 5. Troubleshooting
 
-:mag: This section walks you through tips and fixes for the main challenges you might encounter.
-
-<a id="module-not-found"></a>
-### 5.1. Module not found
-
-When trying to run the PyQt5 app on your machine, the following issue might come up:
-
-```
-Traceback (most recent call last):
-  File "./example_pyqt5_app.py", line 8, in <module>
-    from PyQt5.QtCore import QSize
-ModuleNotFoundError: No module named 'PyQt5'
-```
-
-This means that the python modules have not been correctly loaded.
-
-Please make sure that you have followed the [Getting started](#getting-started) tutorial.
-If you have followed the tutorial, then ensure that you have [activated your virtual environment](#virtual-environment-activation).
-
-<a id="file-not-found"></a>
-### 5.2. File not found
-
-If the [building process](#apk-build) or any other process fails because some files cannot be found, ensure that you have correctly setup your `.bashrc` to load the environment.
-
-Go through the [Getting started](#getting-started) tutorial and confirm the state of your `.bashrc`.
-
-<a id="virtual-machine-setup"></a>
-### 5.3. Setup repo with a Virtual Machine
-
-To setup a Linux Virtual Machine on Windows via VirtualBox, follow [It's FOSS virtualbox setup tutorial](https://itsfoss.com/install-linux-in-virtualbox/).
-If you would prefer to setup a Linux Virtual Machine on MacOS via VirtualBox, follow [TecAdmin virtualbox setup tutorial](https://tecadmin.net/how-to-install-virtualbox-on-macos/).
-
-It is also recommended to install the VirtualBox Guest Additions. Follow the [LinuxTechi guest addition setup tutorial](https://www.linuxtechi.com/install-virtualbox-guest-additions-on-ubuntu/) for more information.
-
-When setting the repo up in VirtualBox and trying to install Qt, you might come across the following issue with `xcb`:
-
-```
-qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though it was found.
-```
-
-- First, enable the Qt debug prints:
-
-```
-export QT_DEBUG_PLUGINS=1
-```
-
-- Second, identify the issue:
-
-    - If it is related to the package `libxcb-xinerama`, then download the package with:
-
-```
-sudo apt-get install libxcb-xinerama0
-``` 
-
-[:arrow_heading_up: Back to TOP](#toc) 
+Refer to [Common issues](doc/troubleshooting/common_issues.md) for this section.
 
 <a id="roadmap"></a>
 ## 6. Roadmap
 
-_This section describes the broad roadmap to deliver a functional repo._
+:mag: This section describes the broad roadmap to deliver a functional repo.
 
 ![Roadmap Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/achille-martin/simple-pyqt-cross-platform-app/master/doc/roadmap/roadmap.iuml)
 
@@ -763,6 +487,10 @@ Repository created and maintained by [Achille Martin](https://github.com/achille
 :money_with_wings: Donations are welcomed as hard work has been put into this repository.
 
 If you feel you can make progress with your projects by converting your PyQt5 apps into Android apps, please support this project.
+
+<a href="https://www.buymeacoffee.com/achille_martin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" width="200px"></a>
+
+<a href="https://github.com/sponsors/achille-martin" target="_blank"><img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=%3Curl%3E&color=f88379" width="200px"></a>
 
 :warning: _This repo is aimed at boosting the capability of well-intentioned international developers to create apps benefitting the community._
 
