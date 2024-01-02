@@ -169,6 +169,7 @@ print("\n----- BUILDING TARGET SYSROOT -----\n")
 
 if reload_sysroot:
     shutil.rmtree('sysroot-' + target)
+    shutil.rmtree('build-' + target)
 
 args = ['pyqtdeploy-sysroot', '--target', target]
 
