@@ -87,11 +87,16 @@ class PdtParser():
 
 # Example code
 if __name__ == "__main__":
-    script_folder = os.path.dirname(os.path.realpath(__file__))
-    print(f"Current script folder location: {script_folder}")
-    pdt_path = os.path.abspath(os.path.join(script_folder, os.path.pardir, os.path.pardir, 'pyqt-demo.pdt'))
-    print(f"Pdt path: {pdt_path}")
-    my_parser = PdtParser(pdt_path)
+    demo_pdt_path = os.path.join(
+            os.environ['SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR'], 
+            'examples', 
+            'demo', 
+            'demo_project', 
+            'config.pdt',
+    )
+    demo_pdt_path = os.path.abspath(demo_pdt_path)
+    print(f"Pdt path: {demo_pdt_path}")
+    my_parser = PdtParser(demo_pdt_path)
     pdt_data = my_parser.pdt_data
     print(f"Pdt data: {pdt_data}")
     sysroot_path = my_parser.get_sysroot_path()

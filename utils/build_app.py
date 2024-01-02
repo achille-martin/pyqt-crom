@@ -30,7 +30,7 @@ import shutil
 import subprocess
 import sys
 import time
-import resources.python.pdt_parser as pdtp
+import pdt_parser as pdtp
 from datetime import datetime
 
 
