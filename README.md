@@ -329,7 +329,7 @@ cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils \
 
 :tada: _The app is built when you see "BUILD SUCCESSFUL"._
 
-_Note: the Android Manifest, `build.gradle` can be checked at debug stage at `build-android-64/android-build`._
+_Note: the Android Manifest, `build.gradle` and `gradle.properties` can be checked at debug stage at `build-android-64/android-build`._
 
 <a id="apk-test"></a>
 ### 1.8. Test the .apk 
@@ -498,7 +498,7 @@ Inspiration for this repo comes from:
 - [Kviktor's github repo](https://github.com/kviktor/pyqtdeploy-android-build)
 - [Lola Rigaut-Luczak's medium article](https://medium.com/@Lola_Dam/packaging-pyqt-application-using-pyqtdeploy-for-both-linux-and-android-32ac7824708b)
 
-Huge thanks to [Phil Thompson](https://pypi.org/user/PhilThompson/), the creator and maintainer of [PyQt](https://riverbankcomputing.com/software/pyqt/intro) and [pyqtdeploy](https://pypi.org/project/pyqtdeploy/).
+:clap: Huge thanks to [Phil Thompson](https://pypi.org/user/PhilThompson/), the creator and maintainer of [PyQt](https://riverbankcomputing.com/software/pyqt/intro) and [pyqtdeploy](https://pypi.org/project/pyqtdeploy/).
 
 [:arrow_heading_up: Back to TOP](#toc)
 
