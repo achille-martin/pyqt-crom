@@ -3,7 +3,7 @@ start
 partition Overview {
     :Articulate aim;
     note right
-        Create an android app (.apk) from a simple PyQt5 app
+        Create a cross-platform app from a simple PyQt5 app
     end note
     :Define requirements;
     note right
@@ -29,8 +29,16 @@ partition Implementation {
     end note
     :Graphics;
     note right
+      Managed with QGraphicsScene
+    end note
+    :Multimedia;
+    note right
+      Managed with QApplication
+    end note
+    :Network;
+    note right
       WIP
-    end note    
+    end note
 }
 partition Testing {
     :Logging;
@@ -41,12 +49,19 @@ partition Testing {
 }
 partition Deployment {
     :Documentation;
+    note right
+      WIP: embellishments
+    end note
     :Sharing and Advertising;
+    note right
+      WIP: social media and donations
+    end note
 }
 partition Extension {
-    :Windows OS;
     :Linux OS;
+    :Windows OS;
     :Mac OS;
+    :iOS;
 }
 stop
 @enduml
