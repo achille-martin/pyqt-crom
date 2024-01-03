@@ -153,7 +153,7 @@ The PyQt5 demo app will start and you can confirm that it is displayed properly 
 
 https://github.com/achille-martin/simple-pyqt-cross-platform-app/assets/66834162/250e9449-bcde-437c-8cfd-2c4b71514736
 
-_PyQt5 demo app linux platform_
+_[PyQt5 demo app linux platform video](doc/resources/multimedia/pyqt5_demo_app_linux.mp4)_
 
 <a id="external-dependency-installation"></a>
 ### 1.5. Install the external dependencies
