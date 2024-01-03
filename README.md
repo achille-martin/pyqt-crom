@@ -15,15 +15,15 @@
     * [1.1. Check the pre-requisites](#pre-requisites)
     * [1.2. Download the github repo](#github-repo-download)
     * [1.3. Setup the path to the main repo](#repo-path-setup)
-    * [1.4. Setup the virtual environment for the demo app](#virtual-environment-setup)
-        * [1.4.1. Create a virtual environment with python3 installed on your machine](#virtual-environment-creation)
+    * [1.4. Setup the python virtual environment](#virtual-environment-setup)
+        * [1.4.1. Create a virtual environment with python installed on your machine](#virtual-environment-creation)
         * [1.4.2. Activate your virtual environment](#virtual-environment-activation)
         * [1.4.3. Install the necessary pip packages](#pip-package-installation)
         * [1.4.4. Test the PyQt5 demo app in your virtual environment](#virtual-environment-app-test)
     * [1.5. Install the external dependencies](#external-dependency-installation)
         * [1.5.1. Download a set of external dependencies for pyqtdeploy](#external-dependency-download)
-        * [1.5.2. Install Java for Android Studio](#java-installation)
-        * [1.5.3. Install Zlib for pyqtdeploy](#zlib-installation)
+        * [1.5.2. Install Zlib for pyqtdeploy](#zlib-installation)
+        * [1.5.3. Install Java for Android Studio](#java-installation)
         * [1.5.4. Install Android Studio](#android-studio-installation)
         * [1.5.5. Install correct Android SDK and Tools](#android-sdk-installation)
         * [1.5.6. Install Android NDK matching with Qt version](#android-ndk-installation)
@@ -34,10 +34,10 @@
 * [2. Generating your own app](#custom-app)
     * [2.1. Create your python package](#package-creation)
     * [2.2. Update the sysroot](#sysroot-update)
-    * [2.3. Configure the pdy](#pdy-configuration)
-    * [2.4. Build the apk](#app-generation)
-    * [2.5. Debug the apk](#app-debugging)
-* [3. Extra features for your Android app](#android-app-extra-features)
+    * [2.3. Configure the pdt](#pdt-configuration)
+    * [2.4. Build the app](#app-generation)
+    * [2.5. Debug the app](#app-debugging)
+* [3. Extra features for your app](#app-extra-features)
 * [4. How it all began...](#original-story)
 * [5. Troubleshooting](#troubleshooting)
 * [6. Roadmap](#roadmap)
@@ -97,7 +97,7 @@ printf "%s\n" \
 ```
 
 <a id="virtual-environment-setup"></a>
-### 1.4. Setup the virtual environment for the demo app 
+### 1.4. Setup the python virtual environment
 
 <a id="virtual-environment-creation"></a>
 #### 1.4.1. Create a virtual environment with python3 installed on your machine
@@ -147,11 +147,11 @@ cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/examples/demo/demo_pkg \
 && python3 demo_pyqt5_app.py
 ```
 
-!! ADD DEMO APP VISUALS (LINUX) HERE !!
-
 The PyQt5 demo app will start and you can confirm that it is displayed properly on your machine:
 - Click the button
 - An alert message is displayed stating that you have clicked the button
+
+![PyQt5 demo app linux platform](doc/resources/multimedia/pyqt5_demo_app_linux.mp4)
 
 <a id="external-dependency-installation"></a>
 ### 1.5. Install the external dependencies
@@ -169,8 +169,21 @@ cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/resources \
 
 :bulb: _You can confirm that the list of packages required matches with the versions from `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/sysroot.toml`._
 
+<a id="zlib-installation"></a>
+#### 1.5.2. Install Zlib for pyqtdeploy
+
+Install zlib on Ubuntu with:
+
+```
+sudo apt install zlib1g-dev
+```
+
+Zlib is required by the pyqtdeploy project `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/pyqt-demo.pdt` to correctly identify the dependencies from the `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/sysroot.toml`.
+
+Sysroot setup tips can be obtained from [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html).
+
 <a id="java-installation"></a>
-#### 1.5.2. Install Java for Android Studio
+#### 1.5.3. Install Java for Android Studio
 
 Install stable java JDK 11 available for your Ubuntu distribution and tested with Gradle:
 
@@ -186,19 +199,6 @@ sudo update-alternatives --config java \
 ```
 
 :hand: _Confirm the version with `java -version && javac -version` which should be `v11.0.21`._
-
-<a id="zlib-installation"></a>
-#### 1.5.3. Install Zlib for pyqtdeploy
-
-Install zlib on Ubuntu with:
-
-```
-sudo apt install zlib1g-dev
-```
-
-Zlib is required by the pyqtdeploy project `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/pyqt-demo.pdt` to correctly identify the dependencies from the `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/sysroot.toml`.
-
-Sysroot setup tips can be obtained from [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html).
 
 <a id="android-studio-installation"></a>
 #### 1.5.4. Install Android Studio
@@ -375,8 +375,8 @@ Make sure that you update the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysr
 
 For instance, if you imported `QtSql` in your `PyQt5` app, then you must include `QtSql` in the `pyqt5/android#modules`.
 
-<a id="pdy-configuration"></a>
-### 2.3. Configure the pdy
+<a id="pdt-configuration"></a>
+### 2.3. Configure the pdt
 
 Tip for 3.3.0: you can add a sysroot specification file (or sysroot directory) to target the exact file from the .pdt.
 
@@ -406,7 +406,7 @@ REMAINING TABS
 Once you have updated the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/config_app.pdy`, you can save it.
 
 <a id="app-generation"></a>
-### 2.4. Build the apk
+### 2.4. Build the app
 
 Follow up with the building of your app.
 
@@ -420,7 +420,7 @@ python3 build_app.py --target android-64 --source-dir $RESOURCES_DIR --installed
 :hand: _If it is your first time using `build_app.py`, please refer to the [build instructions](#apk-build)._
 
 <a id="app-debugging"></a>
-### 2.5. Debug the apk
+### 2.5. Debug the app
 
 The most nerve-wracking part of deploying an application is the debugging part. 
 Therefore, make sure that you have added a logger to your application and that you use an Emulator (or a physical device) to confirm your expectations.
@@ -455,8 +455,8 @@ If you wish to access more Android logs, please refer to [this issue](https://gi
 
 [:arrow_heading_up: Back to TOP](#toc)
 
-<a id="android-app-extra-features"></a>
-## 3. Extra features for your Android app
+<a id="app-extra-features"></a>
+## 3. Extra features for your app
 
 Refer to [PyQt5 features](doc/features/pyqt5_features.md) for this section.
 
