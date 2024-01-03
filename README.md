@@ -152,7 +152,7 @@ The PyQt5 demo app will start and you can confirm that it is displayed properly 
 - An alert message is displayed stating that you have clicked the button
 
 <video controls>
-    <source src="doc/resources/multimedia/pyqt5_demo_app_linux.mp4" type="video/mp4">
+    <source src="https://raw.githubusercontent.com/achille-martin/simple-pyqt-cross-platform-app/25-update-test-lts-version-of-all-dependencies/doc/resources/multimedia/pyqt5_demo_app_linux.mp4" type="video/mp4">
     <p>PyQt5 demo app linux platform</p>
 </video>
 
