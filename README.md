@@ -50,6 +50,8 @@
 
 :trophy: By the end of the tutorial, you will be able to launch the simple PyQt5 demo app from your Android phone:
 
+<a id="pyqt5-demo-app-android-video"></a>
+
 <video src="https://github.com/achille-martin/simple-pyqt-cross-platform-app/assets/66834162/6724ea92-18ee-4471-82a8-2bf255765506">
    <p>PyQt5 demo app Android platform video</p>
 </video>
@@ -335,9 +337,9 @@ cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils \
 ``` 
 :hourglass_flowing_sand: _Let the app build (it may take a while)._
 
-:tada: _The app is built when you see "BUILD SUCCESSFUL"._
+_Note: The app is built when you see "BUILD SUCCESSFUL"._
 
-_Note: the Android Manifest, `build.gradle` and `gradle.properties` can be checked at debug stage at `build-android-64/android-build`._
+_The Android Manifest, `build.gradle` and `gradle.properties` can be checked at debug stage at `build-android-64/android-build`._
 
 <a id="apk-test"></a>
 ### 1.8. Test the .apk 
@@ -349,7 +351,7 @@ You can then either:
 - Install BlueStacks on Windows (https://www.bluestacks.com/download.html), enable hyper-V, open `my games` and install the .apk, run the app offline
 - Setup a virtual device in Android Studio and install the app on it to access debugging messages and application-related files
 
-!! ADD DEMO APP VISUALS (ANDROID) HERE !!
+:trophy: Congratulations! You have completed the tutorial. You can view the [demo app running on an Android phone](#pyqt5-demo-app-android-video).
 
 [:arrow_heading_up: Back to TOP](#toc) 
 
