@@ -48,6 +48,12 @@
 
 :mag: This section guides you through the process of generating a cross-platform app from a simple PyQt5 demo app.
 
+By the end of the tutorial, you will be able to launch the following demo app on your Android phone:
+
+
+
+_[PyQt5 demo app android platform video](doc/resources/multimedia/pyqt5_demo_app_android.mp4)_
+
 <a id="pre-requisites"></a>
 ### 1.1. Check the pre-requisites 
 
