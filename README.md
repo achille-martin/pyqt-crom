@@ -48,7 +48,7 @@
 
 :mag: This tutorial guides you through the process of generating a cross-platform app from a simple PyQt5 demo app.
 
-By the end of the tutorial, you will be able to launch the simple PyQt5 demo app from your Android phone:
+:trophy: By the end of the tutorial, you will be able to launch the simple PyQt5 demo app from your Android phone:
 
 <video src="https://github.com/achille-martin/simple-pyqt-cross-platform-app/assets/66834162/e08bf0cf-2755-4381-941b-912ed72a917f">
    <p>PyQt5 demo app Android platform video</p>
