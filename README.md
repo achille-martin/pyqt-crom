@@ -50,7 +50,7 @@
 
 :trophy: By the end of the tutorial, you will be able to launch the simple PyQt5 demo app from your Android phone:
 
-<video src="https://github.com/achille-martin/simple-pyqt-cross-platform-app/assets/66834162/06481600-ae00-4526-9125-96a082d2ed4a">
+<video src="https://github.com/achille-martin/simple-pyqt-cross-platform-app/assets/66834162/6724ea92-18ee-4471-82a8-2bf255765506">
    <p>PyQt5 demo app Android platform video</p>
 </video>
 
