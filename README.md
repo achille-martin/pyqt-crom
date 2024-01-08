@@ -38,10 +38,9 @@
     * [2.4. Build the app](#app-generation)
     * [2.5. Debug the app](#app-debugging)
 * [3. Extra features for your app](#app-extra-features)
-* [4. How it all began...](#original-story)
-* [5. Troubleshooting](#troubleshooting)
-* [6. Roadmap](#roadmap)
-* [7. Credits](#credits)
+* [4. Troubleshooting](#troubleshooting)
+* [5. Roadmap](#roadmap)
+* [6. Credits](#credits)
 
 <a id="getting-started"></a>
 ## 1. Getting started 
@@ -470,18 +469,13 @@ If you wish to access more Android logs, please refer to [this issue](https://gi
 
 Refer to [PyQt5 features](doc/features/pyqt5_features.md) for this section.
 
-<a id="original-story"></a>
-## 4. How it all began...
-
-Refer to [Origin story](doc/origins/origin_story.md) for this section.
-
 <a id="troubleshooting"></a>
-## 5. Troubleshooting
+## 4. Troubleshooting
 
 Refer to [Common issues](doc/troubleshooting/common_issues.md) for this section.
 
 <a id="roadmap"></a>
-## 6. Roadmap
+## 5. Roadmap
 
 :mag: This section describes the broad roadmap to deliver a functional repo.
 
@@ -490,7 +484,7 @@ Refer to [Common issues](doc/troubleshooting/common_issues.md) for this section.
 [:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="credits"></a>
-## 7. Credits
+## 6. Credits
 
 Repository created and maintained by [Achille Martin](https://github.com/achille-martin).
 
