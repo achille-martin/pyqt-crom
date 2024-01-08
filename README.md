@@ -29,8 +29,8 @@
         * [1.5.6. Install Android NDK matching with Qt version](#android-ndk-installation)
         * [1.5.7. Install Qt from the installer](#qt-installation)
     * [1.6. Setup the environment variables](#environment-variable-setup)
-    * [1.7. Build the .apk with pyqtdeploy](#apk-build)
-    * [1.8. Test the .apk](#apk-test)
+    * [1.7. Build the app with pyqtdeploy](#app-build)
+    * [1.8. Test the app](#app-test)
 * [2. Generating your own app](#custom-app)
     * [2.1. Create your python package](#package-creation)
     * [2.2. Update the sysroot](#sysroot-update)
@@ -326,8 +326,8 @@ printf "%s\n" \
 && source $HOME/.bashrc
 ```
 
-<a id="apk-build"></a>
-### 1.7. Build the .apk with pyqtdeploy
+<a id="app-build"></a>
+### 1.7. Build the app with pyqtdeploy
 
 Start the building process of the .apk with:
 
@@ -341,8 +341,8 @@ _Note: The app is built when you see "BUILD SUCCESSFUL"._
 
 _The Android Manifest, `build.gradle` and `gradle.properties` can be checked at debug stage at `build-android-64/android-build`._
 
-<a id="apk-test"></a>
-### 1.8. Test the .apk 
+<a id="app-test"></a>
+### 1.8. Test the app 
 
 The generated `DemoCrossPlatformApp.apk` can be found in `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/examples/demo/demo_project/releases`.
 
