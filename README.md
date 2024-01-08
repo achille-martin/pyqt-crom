@@ -50,11 +50,9 @@
 
 By the end of the tutorial, you will be able to launch the simple PyQt5 demo app from your Android phone:
 
-<center>
-   <video src="https://github.com/achille-martin/simple-pyqt-cross-platform-app/assets/66834162/e08bf0cf-2755-4381-941b-912ed72a917f">
-      <p>PyQt5 demo app Android platform video</p>
-   </video>
-</center>
+<video src="https://github.com/achille-martin/simple-pyqt-cross-platform-app/assets/66834162/e08bf0cf-2755-4381-941b-912ed72a917f">
+   <p>PyQt5 demo app Android platform video</p>
+</video>
 
 <a id="pre-requisites"></a>
 ### 1.1. Check the pre-requisites 
@@ -159,9 +157,9 @@ The PyQt5 demo app will start and you can confirm that it is displayed properly 
 - Click the button
 - An alert message is displayed stating that you have clicked the button
 
-https://github.com/achille-martin/simple-pyqt-cross-platform-app/assets/66834162/250e9449-bcde-437c-8cfd-2c4b71514736
-
-_[PyQt5 demo app linux platform video](doc/resources/multimedia/pyqt5_demo_app_linux.mp4)_
+<video src="https://github.com/achille-martin/simple-pyqt-cross-platform-app/assets/66834162/250e9449-bcde-437c-8cfd-2c4b71514736">
+   <p>PyQt5 demo app Linux platform video</p>
+</video>
 
 <a id="external-dependency-installation"></a>
 ### 1.5. Install the external dependencies
