@@ -6,7 +6,7 @@
 * [1. Troubleshooting](#troubleshooting)
     * [1.1. Module not found](#module-not-found)
     * [1.2. File not found](#file-not-found)
-    * [1.3. Setup repo with a Virtual Machine](#virtual-machin-setup)
+    * [1.3. Setup repo with a Virtual Machine](#virtual-machine-setup)
 
 <a id="troubleshooting"></a>
 ## 1. Troubleshooting
