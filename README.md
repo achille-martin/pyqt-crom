@@ -63,7 +63,7 @@ Specs of Linux machine used:
 - `Ubuntu 22.04` (EOL April 2032)
 - `Python 3.10.12` (EOL October 2026) and `pip3 v23.3.2`
 
-:bulb: _Refer to [Virtual Machine Setup](#virtual-machine-setup) if you don't have a Linux OS available on your machine._
+:bulb: _Refer to [Virtual Machine Setup](doc/features/pyqt5_features.md#virtual-machine-setup) if you don't have a Linux OS available on your machine._
 
 :bulb: _Setup pip3 on Ubuntu with:_
 
