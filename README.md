@@ -494,19 +494,13 @@ Refer to [Common issues](doc/troubleshooting/common_issues.md) for this section.
 
 Repository created and maintained by [Achille Martin](https://github.com/achille-martin).
 
-:money_with_wings: Donations are welcomed as hard work has been put into this repository.
-
-If you feel you can make progress with your projects by converting your PyQt5 apps into Android apps, please support this project.
+If you feel you can make progress with your projects by converting your PyQt5 apps into cross-platform apps, please support this project.
 
 <a href="https://www.buymeacoffee.com/achille_martin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" width="200px"></a>
 
 <a href="https://github.com/sponsors/achille-martin" target="_blank"><img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=%3Curl%3E&color=f88379" width="200px"></a>
 
 :warning: _This repo is aimed at boosting the capability of well-intentioned international developers to create apps benefitting the community._
-
-Inspiration for this repo comes from:
-- [Kviktor's github repo](https://github.com/kviktor/pyqtdeploy-android-build)
-- [Lola Rigaut-Luczak's medium article](https://medium.com/@Lola_Dam/packaging-pyqt-application-using-pyqtdeploy-for-both-linux-and-android-32ac7824708b)
 
 :clap: Huge thanks to [Phil Thompson](https://pypi.org/user/PhilThompson/), the creator and maintainer of [PyQt](https://riverbankcomputing.com/software/pyqt/intro) and [pyqtdeploy](https://pypi.org/project/pyqtdeploy/).
 
