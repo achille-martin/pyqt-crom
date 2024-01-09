@@ -496,7 +496,7 @@ If you feel you can make progress with your projects by converting your PyQt5 ap
 
 :warning: _This repo is aimed at boosting the capability of well-intentioned international developers to create apps benefitting the community._
 
-:clap: Huge thanks to [Phil Thompson](https://pypi.org/user/PhilThompson/), the creator and maintainer of [PyQt](https://riverbankcomputing.com/software/pyqt/intro) and [pyqtdeploy](https://pypi.org/project/pyqtdeploy/).
+:clap: Huge thanks to [Phil Thompson](https://pypi.org/user/PhilThompson/), the creator and maintainer of [PyQt](https://riverbankcomputing.com/software/pyqt/intro) and [pyqtdeploy](https://pypi.org/project/pyqtdeploy/). This repo is literally a hands-on tutorial for pyqtdeploy tool.
 
 [:arrow_heading_up: Back to TOP](#toc)
 
