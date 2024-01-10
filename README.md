@@ -30,7 +30,7 @@
         * [1.5.7. Install Qt from the installer](#qt-installation)
     * [1.6. Setup the environment variables](#environment-variable-setup)
     * [1.7. Build the app with pyqtdeploy](#app-build)
-    * [1.8. Test the app](#app-test)
+    * [1.8. Run the app](#app-run)
 * [2. Generating your own app](#custom-app)
     * [2.1. Create your python package](#package-creation)
     * [2.2. Update the sysroot](#sysroot-update)
@@ -340,15 +340,15 @@ _Note: The app is built when you see "BUILD SUCCESSFUL"._
 
 _The Android Manifest, `build.gradle` and `gradle.properties` can be checked at debug stage at `build-android-64/android-build`._
 
-<a id="app-test"></a>
-### 1.8. Test the app 
+<a id="app-run"></a>
+### 1.8. Run the app 
 
 The generated `DemoCrossPlatformApp.apk` can be found in `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/examples/demo/demo_project/releases`.
 
 You can then either:
 - Copy, install and run the .apk onto your phone (>=Android v9.0)
 - Install BlueStacks on Windows (https://www.bluestacks.com/download.html), enable hyper-V, open `my games` and install the .apk, run the app offline
-- Setup a virtual device in Android Studio and install the app on it to access debugging messages and application-related files
+- Setup a virtual device in Android Studio, install the app and run it on the virtual device
 
 :trophy: Congratulations! You have completed the tutorial. You can view the [demo app running on an Android phone](#pyqt5-demo-app-android-video).
 
