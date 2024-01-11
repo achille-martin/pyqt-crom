@@ -1,4 +1,4 @@
-# PyQt-CroM (Tool to generate Cross-platforM PyQt apps)
+# PyQt-CroM (Generate Cross-platforM PyQt Apps)
 
 <a id="purpose"></a>
 
