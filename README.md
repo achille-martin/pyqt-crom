@@ -8,7 +8,7 @@
 
 <a href="https://github.com/sponsors/achille-martin" target="_blank"><img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=%3Curl%3E&color=f88379" width="200px"></a>
 
-:mortar_board: PyQt-CroM is a hands-on tutorial for [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) and contains optimisations for the tool.
+:mortar_board: PyQt-CroM demonstrates the potential of [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) and optimises the tool.
 
 <a id="toc"></a>
 ## Table of Contents
