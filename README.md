@@ -492,7 +492,7 @@ To find out about common setup and running issues, look at the section dedicated
 
 :mag: This section describes the broad roadmap to deliver a functional repo.
 
-![Roadmap Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/master/doc/roadmap/roadmap.iuml)
+![Roadmap Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/doc/roadmap/roadmap.iuml)
 
 [:arrow_heading_up: Back to TOP](#toc) 
 
