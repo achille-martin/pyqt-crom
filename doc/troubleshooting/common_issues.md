@@ -67,3 +67,4 @@ sudo apt-get install libxcb-xinerama0
 
 [:arrow_heading_up: Back to TOP](#toc)
 
+[:house: Back to HOME](../../README.md)
