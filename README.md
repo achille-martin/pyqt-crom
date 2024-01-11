@@ -499,7 +499,7 @@ Repository created and maintained by [Achille Martin](https://github.com/achille
 
 :clap: Huge thanks to [Phil Thompson](https://pypi.org/user/PhilThompson/), the creator and maintainer of [PyQt](https://riverbankcomputing.com/software/pyqt/intro) and [pyqtdeploy](https://pypi.org/project/pyqtdeploy/).
 
-_For more information about licencing details, take a look at the section dedicated to Licencing._
+_For more information about licencing details, take a look at the section dedicated to [Licencing](doc/licencing/licencing_information)._
 
 :star2: If you feel that you can make progress with your own projects by converting your PyQt5 apps into cross-platform apps, please support this project by starring and sponsoring it.
 
