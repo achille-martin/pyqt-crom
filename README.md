@@ -476,12 +476,16 @@ If you wish to access more Android logs, please refer to [this issue](https://gi
 <a id="app-enhancement"></a>
 ## 3. Enhancing your app
 
-Refer to [PyQt5 features](doc/features/pyqt5_features.md) for this section.
+:mag: This section offers feature examples to enhance your custom PyQt app.
+
+To discover or analyse PyQt5 features, look at the section dedicated to [PyQt5 features](doc/features/pyqt5_features.md).
 
 <a id="troubleshooting"></a>
 ## 4. Troubleshooting
 
-Refer to [Common issues](doc/troubleshooting/common_issues.md) for this section.
+:mag: This section offers advice to get unstuck when creating your app.
+
+To find out about common setup and running issues, look at the section dedicated to [Common issues](doc/troubleshooting/common_issues.md).
 
 <a id="roadmap"></a>
 ## 5. Roadmap
