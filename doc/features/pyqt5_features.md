@@ -146,5 +146,7 @@ This demo app is built on the one highlighted in the [Getting started](#getting-
 - When selecting a shape, its coordinates are displayed at the bottom of the screen, in the status bar
 - To exit the graphics playground, hit the HOME button
 
-[:arrow_heading_up: Back to TOP](#toc) 
+[:arrow_heading_up: Back to TOP](#toc)
+
+[:house: Back to HOME](../../README.md)
 
