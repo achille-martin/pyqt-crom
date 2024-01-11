@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
-export SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR=$HOME/Documents/simple-pyqt-cross-platform-app
-export RESOURCES_DIR=$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/resources
+export PYQT_CROM_DIR=$HOME/Documents/pyqt-crom
+export RESOURCES_DIR=$PYQT_CROM_DIR/utils/resources
 export QT_DIR=$HOME/Qt5.15.2/5.15.2
 export ANDROID_SDK_ROOT=$HOME/Android/Sdk
 export ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/21.4.7075529

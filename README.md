@@ -1,4 +1,4 @@
-# Simple PyQt Cross-Platform App
+# PyQt-CroM (Tool to generate Cross-platforM PyQt apps)
 
 <a id="purpose"></a>
 
@@ -8,7 +8,7 @@
 
 <a href="https://github.com/sponsors/achille-martin" target="_blank"><img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=%3Curl%3E&color=f88379" width="200px"></a>
 
-:mortar_board: This repo is a hands-on tutorial for [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) and contains optimisations for the tool.
+:mortar_board: PyQt-CroM is a hands-on tutorial for [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) and contains optimisations for the tool.
 
 <a id="toc"></a>
 ## Table of Contents
@@ -21,7 +21,7 @@
         * [1.4.1. Create a virtual environment with python installed on your machine](#virtual-environment-creation)
         * [1.4.2. Activate your virtual environment](#virtual-environment-activation)
         * [1.4.3. Install the necessary pip packages](#pip-package-installation)
-        * [1.4.4. Test the PyQt5 demo app in your virtual environment](#virtual-environment-app-test)
+        * [1.4.4. Test the demo app in your virtual environment](#virtual-environment-app-test)
     * [1.5. Install the external dependencies](#external-dependency-installation)
         * [1.5.1. Download a set of external dependencies for pyqtdeploy](#external-dependency-download)
         * [1.5.2. Install Zlib for pyqtdeploy](#zlib-installation)
@@ -39,7 +39,7 @@
     * [2.3. Configure the pdt](#pdt-configuration)
     * [2.4. Build the app](#app-generation)
     * [2.5. Debug the app](#app-debugging)
-* [3. Extra features for your app](#app-extra-features)
+* [3. Enhancing your app](#app-enhancement)
 * [4. Troubleshooting](#troubleshooting)
 * [5. Roadmap](#roadmap)
 * [6. Credits](#credits)
@@ -53,7 +53,7 @@
 
 <a id="pyqt5-demo-app-android-video"></a>
 
-<video src="https://github.com/achille-martin/simple-pyqt-cross-platform-app/assets/66834162/6724ea92-18ee-4471-82a8-2bf255765506">
+<video src="https://github.com/achille-martin/pyqt-crom/assets/66834162/6724ea92-18ee-4471-82a8-2bf255765506">
    <p>PyQt5 demo app Android platform video</p>
 </video>
 
@@ -63,17 +63,9 @@
 Specs of Linux machine used:
 
 - `Ubuntu 22.04` (EOL April 2032)
-- `Python 3.10.12` (EOL October 2026) and `pip3 v23.3.2`
+- `Python 3.10.12` (EOL October 2026)
 
 :bulb: _Refer to [Virtual Machine Setup](doc/troubleshooting/common_issues.md#virtual-machine-setup) if you don't have a Linux OS available on your machine._
-
-:bulb: _Setup pip3 on Ubuntu with:_
-
-```
-sudo apt-get update
-sudo apt-get install python3-pip
-python3 -m pip install --upgrade pip
-```
 
 Specs of target OS:
 
@@ -83,15 +75,24 @@ Specs of target OS:
 <a id="github-repo-download"></a>
 ### 1.2. Download the github repo 
 
+Use the HTTPS method if you don't have a Github account:
+
 ```
 cd $HOME/Documents \
-&& git clone git@github.com:achille-martin/simple-pyqt-cross-platform-app
+&& git clone https://github.com/achille-martin/pyqt-crom.git
+```
+
+Use the SSH method if you have a Github account (and [SSH key setup](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)):
+
+```
+cd $HOME/Documents \
+&& git clone git@github.com:achille-martin/pyqt-crom
 ```
 
 <a id="repo-path-setup"></a>
 ### 1.3. Setup the path to the main repo
 
-:warning: _We will use `SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR` as the variable containing the path to the main repo._
+:warning: _We will use `PYQT_CROM_DIR` as the variable containing the path to the main repo._
 
 Add the variable to your `.bashrc` with:
 
@@ -99,7 +100,7 @@ Add the variable to your `.bashrc` with:
 printf "%s\n" \
 "" \
 "# Environment variable for Simple PyQt Cross-Platform App path" \
-"export SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR=$HOME/Documents/simple-pyqt-cross-platform-app" \
+"export PYQT_CROM_DIR=$HOME/Documents/pyqt-crom" \
 "" \
 >> $HOME/.bashrc \
 && source $HOME/.bashrc
@@ -113,10 +114,10 @@ printf "%s\n" \
 
 ```
 sudo apt-get install python3-virtualenv \
-&& cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR \
+&& cd $PYQT_CROM_DIR \
 && mkdir -p venv \
 && cd venv \
-&& virtualenv simple-pyqt-cross-platform-app-venv -p python3 \
+&& virtualenv pyqt-crom-venv -p python3 \
 && cd ..
 ```
 
@@ -124,7 +125,7 @@ sudo apt-get install python3-virtualenv \
 #### 1.4.2. Activate your virtual environment
 
 ```
-source $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/venv/simple-pyqt-cross-platform-app-venv/bin/activate
+source $PYQT_CROM_DIR/venv/pyqt-crom-venv/bin/activate
 ```
 
 :bulb: _To exit the virtual environment, type in your terminal `deactivate`._
@@ -132,16 +133,24 @@ source $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/venv/simple-pyqt-cross-platform-app-v
 <a id="pip-package-installation"></a>
 #### 1.4.3. Install the necessary pip packages
 
-Upgrade your version of pip to v23.3.2 in the virtual environment with:
+Setup pip3 (pip for python3) in Ubuntu with:
+
+```
+sudo apt-get update \
+&& sudo apt-get install python3-pip \
+&& python3 -m pip install --upgrade pip
+```
+
+Upgrade pip to v23.3.2 in the virtual environment with:
 
 ```
 pip3 install --upgrade pip
 ```
 
-Install the pip packages with:
+Install the pip packages in the virtual environment with:
 
 ```
-cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR \
+cd $PYQT_CROM_DIR \
 && pip3 cache purge \
 && pip3 install -r requirements.txt
 ```
@@ -149,18 +158,18 @@ cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR \
 :bulb: _You can confirm the installed pip packages with `pip3 list --local`._
 
 <a id="virtual-environment-app-test"></a>
-#### 1.4.4. Test the PyQt5 demo app in your virtual environment
+#### 1.4.4. Test the demo app in your virtual environment
 
 ```
-cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/examples/demo/demo_pkg \
-&& python3 demo_pyqt5_app.py
+cd $PYQT_CROM_DIR/examples/demo/demo_project/demo_pkg \
+&& python3 demo_app.py
 ```
 
 The PyQt5 demo app will start and you can confirm that it is displayed properly on your machine:
 - Click the button
 - An alert message is displayed stating that you have clicked the button
 
-<video src="https://github.com/achille-martin/simple-pyqt-cross-platform-app/assets/66834162/250e9449-bcde-437c-8cfd-2c4b71514736">
+<video src="https://github.com/achille-martin/pyqt-crom/assets/66834162/250e9449-bcde-437c-8cfd-2c4b71514736">
    <p>PyQt5 demo app Linux platform video</p>
 </video>
 
@@ -173,12 +182,12 @@ The PyQt5 demo app will start and you can confirm that it is displayed properly 
 Download the sources with:
 
 ```
-cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/resources \
+cd $PYQT_CROM_DIR/utils/resources \
 && chmod +x download_sources.sh \
 && ./download_sources.sh
 ```
 
-:bulb: _You can confirm that the list of packages required matches with the versions from `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/sysroot.toml`._
+:bulb: _You can confirm that the list of packages required matches with the versions from `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml`._
 
 <a id="zlib-installation"></a>
 #### 1.5.2. Install Zlib for pyqtdeploy
@@ -189,7 +198,7 @@ Install zlib on Ubuntu with:
 sudo apt install zlib1g-dev
 ```
 
-Zlib is required by the pyqtdeploy project `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/pyqt-demo.pdt` to correctly identify the dependencies from the `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/sysroot.toml`.
+Zlib is required by the pyqtdeploy project `$PYQT_CROM_DIR/examples/demo/demo_project/config.pdt` to correctly identify the dependencies from the `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml`.
 
 Sysroot setup tips can be obtained from [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html).
 
@@ -250,7 +259,7 @@ The Android Studio installer will start:
 
 :hand: _Make sure that the default SDK has been installed in `$HOME/Android/Sdk` and that `$HOME/Android/Sdk/platforms` contains `android-28` folder only.
 The reason why android-28 (corresponding to Android v9.0) is selected is because there are restrictions depending on the Java version installed and the Qt version installed.
-If not, follow the instructions at the next step to set things up correctly._
+If not, follow the instructions at the [next step](#android-sdk-installation) to set things up correctly._
 
 <a id="android-sdk-installation"></a>
 #### 1.5.5. Install correct Android SDK and Tools
@@ -291,7 +300,7 @@ cd $HOME/Downloads \
 <a id="qt-installation"></a>
 #### 1.5.7. Install Qt from the installer
 
-Download the Qt version which matches the one in `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/sysroot.toml` from the open source online installer:
+Download the Qt version which matches the one in `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml` from the open source online installer:
 
 ```
 sudo apt-get install libxcb-xfixes0-dev \
@@ -320,8 +329,8 @@ Load the environment variables on terminal startup with:
 ```
 printf "%s\n" \
 "" \
-"# Load extra environment variables for Simple PyQt Cross-Platform App" \
-"source $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils/resources/path_setup.sh" \
+"# Load extra environment variables for PyQt-CroM" \
+"source $PYQT_CROM_DIR/utils/resources/path_setup.sh" \
 "" \
 >> $HOME/.bashrc \
 && source $HOME/.bashrc
@@ -333,19 +342,17 @@ printf "%s\n" \
 Start the building process of the .apk with:
 
 ```
-cd $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/utils \
-&& python3 build_app.py --pdt $SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/examples/demo/demo_project/config.pdt --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
+cd $PYQT_CROM_DIR/utils \
+&& python3 build_app.py --pdt $PYQT_CROM_DIR/examples/demo/demo_project/config.pdt --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
 ``` 
-:hourglass_flowing_sand: _Let the app build (it may take a while)._
+:hourglass_flowing_sand: _Let the app build (it may take a while). The app is built when you see "BUILD SUCCESSFUL"._
 
-_Note: The app is built when you see "BUILD SUCCESSFUL"._
-
-_The Android Manifest, `build.gradle` and `gradle.properties` can be checked at debug stage at `build-android-64/android-build`._
+:bulb: _The Android Manifest, `build.gradle` and `gradle.properties` can be checked at debug stage in `build-android-64/android-build`._
 
 <a id="app-run"></a>
 ### 1.8. Run the app 
 
-The generated `DemoCrossPlatformApp.apk` can be found in `$SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR/examples/demo/demo_project/releases`.
+The generated `DemoCrossPlatformApp.apk` can be found in `$PYQT_CROM_DIR/examples/demo/demo_project/releases/<build_date>`.
 
 You can then either:
 - Copy, install and run the .apk onto your phone (>=Android v9.0)
@@ -359,7 +366,7 @@ You can then either:
 <a id="custom-app"></a>
 ## 2. Generating your own app
 
-_This section describes the step to generate your own `.apk` from a `PyQt5` app._
+:mag: This section describes the steps to generate an `Android` app (.apk) from a custom `PyQt5` app.
 
 <a id="package-creation"></a>
 ### 2.1. Create your python package
@@ -375,16 +382,16 @@ _Note that the `<app_name>.py` must contain a unique `main()` function (or any s
 
 * Add more files if required for your package
 
-Inside of the project folder, add a config folder to hold your configuration files:
-* Create a folder `<project_name>/config`
-* Populate with `<app_name_sysroot>.toml` and `<app_name_config>.pdt` files
+Inside of the project folder, add the following config files to specify dependency versions and build requests:
+* Add a `<app_name_sysroot>.toml` file for dependency specification
+* Add a `<app_name_config>.pdt` file for build requests
 
 <a id="sysroot-update"></a>
 ### 2.2. Update the sysroot
 
-Make sure that you update the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/sysroot.json` with any new module.
+Make sure that you update the `<app_name_sysroot>.toml` with any module used by your app.
 
-For instance, if you imported `QtSql` in your `PyQt5` app, then you must include `QtSql` in the `pyqt5/android#modules`.
+For instance, if you imported `QtSql` in your `PyQt5` app, then you must include `QtSql` in `[PyQt.android] installed_modules`.
 
 <a id="pdt-configuration"></a>
 ### 2.3. Configure the pdt
@@ -395,10 +402,10 @@ For more information, read on [Riverbank website](https://www.riverbankcomputing
 
 Make sure that any module imported in your `<app_name>.py` (or any part of your python project), is ticked in the .pdt file.
 
-Follow up by configuring the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/config_app.pdy` file:
+Follow up by configuring the `$PYQT_CROM_DIR/pyqtdeploy_app/config_app.pdy` file:
 
 APPLICATION SOURCE TAB
-* Open the `.pdy` file with `cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app && pyqtdeploy config_app.pdy`
+* Open the `.pdy` file with `cd $PYQT_CROM_DIR/pyqtdeploy_app && pyqtdeploy config_app.pdy`
 * Define an application name (called <apk_name>) with no spaces
 * Define an entry point in the form `<pkg_name>.<app_name>:main`
 * Add `sys.path` if necessary
@@ -414,7 +421,7 @@ STANDARD LIBRARY TAB
 REMAINING TABS
 * Leave as it is or add elements as necessary
 
-Once you have updated the `$SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app/config_app.pdy`, you can save it.
+Once you have updated the `$PYQT_CROM_DIR/pyqtdeploy_app/config_app.pdy`, you can save it.
 
 <a id="app-generation"></a>
 ### 2.4. Build the app
@@ -424,7 +431,7 @@ Follow up with the building of your app.
 Generate the `<apk_name>.apk` located in the `<pkg_name>/releases/<date>` repo with:
 
 ```
-cd $SIMPLE_PYQT5_ANDROID_APP_DIR/pyqtdeploy_app
+cd $PYQT_CROM_DIR/pyqtdeploy_app
 python3 build_app.py --target android-64 --source-dir $RESOURCES_DIR --installed-qt-dir $QT_DIR --verbose --no-sysroot
 ```
 
@@ -438,7 +445,7 @@ Therefore, make sure that you have added a logger to your application and that y
 
 To setup an Android Emulator, it is recommended to use Android Studio.
 
-_If you want to set up the Android Emulator in VirtualBox, please refer to [this issue](https://github.com/achille-martin/simple-pyqt5-android-app/issues/12)._
+_If you want to set up the Android Emulator in VirtualBox, please refer to [this issue](https://github.com/achille-martin/pyqt-crom/issues/12)._
 
 To setup the Android Emulator in Ubuntu, make sure that you have:
 * Android Studio installed (refer to [External dependencies setup](#external-dependency-installation) if needed)
@@ -462,12 +469,12 @@ sudo chown <username> /dev/kvm
 
 Once the Android Emulator is set up and running, you can drag and drop your `.apk` to install it and run it.
 
-If you wish to access more Android logs, please refer to [this issue](https://github.com/achille-martin/simple-pyqt5-android-app/issues/12), which mentions tips for `adb`, the Android Debug Bridge.
+If you wish to access more Android logs, please refer to [this issue](https://github.com/achille-martin/pyqt-crom/issues/12), which mentions tips for `adb`, the Android Debug Bridge.
 
 [:arrow_heading_up: Back to TOP](#toc)
 
-<a id="app-extra-features"></a>
-## 3. Extra features for your app
+<a id="app-enhancement"></a>
+## 3. Enhancing your app
 
 Refer to [PyQt5 features](doc/features/pyqt5_features.md) for this section.
 
@@ -481,7 +488,7 @@ Refer to [Common issues](doc/troubleshooting/common_issues.md) for this section.
 
 :mag: This section describes the broad roadmap to deliver a functional repo.
 
-![Roadmap Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/achille-martin/simple-pyqt-cross-platform-app/master/doc/roadmap/roadmap.iuml)
+![Roadmap Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/master/doc/roadmap/roadmap.iuml)
 
 [:arrow_heading_up: Back to TOP](#toc) 
 

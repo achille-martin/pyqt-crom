@@ -88,7 +88,7 @@ class PdtParser():
 # Example code
 if __name__ == "__main__":
     demo_pdt_path = os.path.join(
-            os.environ['SIMPLE_PYQT_CROSS_PLATFORM_APP_DIR'], 
+            os.environ['PYQT_CROM_DIR'], 
             'examples', 
             'demo', 
             'demo_project', 
