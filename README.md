@@ -480,12 +480,16 @@ If you wish to access more Android logs, please refer to [this issue](https://gi
 
 To discover or analyse PyQt5 features, look at the section dedicated to [PyQt5 features](doc/features/pyqt5_features.md).
 
+[:arrow_heading_up: Back to TOP](#toc) 
+
 <a id="troubleshooting"></a>
 ## 4. Troubleshooting
 
 :mag: This section offers advice to get unstuck when creating your app.
 
 To find out about common setup and running issues, look at the section dedicated to [Common issues](doc/troubleshooting/common_issues.md).
+
+[:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="roadmap"></a>
 ## 5. Roadmap
