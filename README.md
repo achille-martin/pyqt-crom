@@ -18,7 +18,7 @@
     * [1.2. Download the github repo](#github-repo-download)
     * [1.3. Setup the path to the main repo](#repo-path-setup)
     * [1.4. Setup the python virtual environment](#virtual-environment-setup)
-        * [1.4.1. Create a virtual environment with python installed on your machine](#virtual-environment-creation)
+        * [1.4.1. Create a virtual environment with python3 installed on your machine](#virtual-environment-creation)
         * [1.4.2. Activate your virtual environment](#virtual-environment-activation)
         * [1.4.3. Install the necessary pip packages](#pip-package-installation)
         * [1.4.4. Test the demo app in your virtual environment](#virtual-environment-app-test)
