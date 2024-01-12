@@ -99,7 +99,7 @@ Add the variable to your `.bashrc` with:
 ```
 printf "%s\n" \
 "" \
-"# Environment variable for Simple PyQt Cross-Platform App path" \
+"# Environment variable for PyQt-CroM path" \
 "export PYQT_CROM_DIR=$HOME/Documents/pyqt-crom" \
 "" \
 >> $HOME/.bashrc \
