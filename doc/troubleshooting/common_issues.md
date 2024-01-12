@@ -41,6 +41,8 @@ If you would prefer to setup a Linux Virtual Machine on MacOS via VirtualBox, fo
 
 It is also recommended to install the VirtualBox Guest Additions. Follow the [LinuxTechi guest addition setup tutorial](https://www.linuxtechi.com/install-virtualbox-guest-additions-on-ubuntu/) for more information.
 
+:bulb: _It is also recommended to set the size of the Virtual Machine to at least 50GB so that there is enough space to download and install all dependencies._
+
 [:arrow_heading_up: Back to TOP](#toc)
 
 [:house: Back to HOME](../../README.md)
