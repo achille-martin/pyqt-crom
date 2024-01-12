@@ -271,7 +271,7 @@ If `$HOME/Android/Sdk/platforms` does not contain `android-28` folder only, foll
     - Make sure that in the `SDK Platforms` tab, the following is installed (Show package details and unhide obsolete packages): (Android 9.0) Android SDK Platform 28 and Sources for Android 28.
     - Remove any additional unneeded package from the list.
     - Apply changes for `SDK Platforms` tab.
-    - Make sure that in the `SDK Tools` tab, the following is installed (Show package details and unhide obsolete packages): (Android SDK Build-Tools 28) v28.0.3, Android Emulator any version, Android SDK Tools (Obsolete) v26.1.1.
+    - Make sure that in the `SDK Tools` tab, the following is installed (Show package details and unhide obsolete packages): (Android SDK Build-Tools 34) v28.0.3, Android Emulator any version, Android SDK Tools (Obsolete) v26.1.1.
     - Remove any additional unneeded and interfering package from the list.
 - Close Android Studio
 - Download SDK Platform-Tools v28.0.3 to match the SDK Build-Tools version and add it to your SDK folder using:
