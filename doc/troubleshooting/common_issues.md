@@ -45,26 +45,6 @@ If you would prefer to setup a Linux Virtual Machine on MacOS via VirtualBox, fo
 
 It is also recommended to install the VirtualBox Guest Additions. Follow the [LinuxTechi guest addition setup tutorial](https://www.linuxtechi.com/install-virtualbox-guest-additions-on-ubuntu/) for more information.
 
-When setting the repo up in VirtualBox and trying to install Qt, you might come across the following issue with `xcb`:
-
-```
-qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though it was found.
-```
-
-- First, enable the Qt debug prints:
-
-```
-export QT_DEBUG_PLUGINS=1
-```
-
-- Second, identify the issue:
-
-    - If it is related to the package `libxcb-xinerama`, then download the package with:
-
-```
-sudo apt-get install libxcb-xinerama0
-```
-
 [:arrow_heading_up: Back to TOP](#toc)
 
 [:house: Back to HOME](../../README.md)
