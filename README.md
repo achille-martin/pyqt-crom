@@ -348,7 +348,7 @@ cd $PYQT_CROM_DIR/utils \
 ``` 
 :hourglass_flowing_sand: _Let the app build (it may take a while). The app is built when you see "BUILD SUCCESSFUL"._
 
-:bulb: _The Android Manifest, `build.gradle` and `gradle.properties` can be checked at debug stage in `build-android-64/android-build`._
+:bulb: _The Android Manifest, `build.gradle` and `gradle.properties` can be checked at debug stage in `$PYQT_CROM_DIR/examples/demo/demo_project/build-android-64/android-build`._
 
 <a id="app-run"></a>
 ### 1.8. Run the app 
