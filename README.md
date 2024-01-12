@@ -113,7 +113,10 @@ printf "%s\n" \
 #### 1.4.1. Create a virtual environment with python3 installed on your machine
 
 ```
-sudo apt-get install python3-virtualenv \
+sudo apt-get update \
+&& sudo apt-get install python3-pip \
+&& python3 -m pip install --upgrade pip \
+&& sudo apt-get install python3-virtualenv \
 && cd $PYQT_CROM_DIR \
 && mkdir -p venv \
 && cd venv \
@@ -133,15 +136,13 @@ source $PYQT_CROM_DIR/venv/pyqt-crom-venv/bin/activate
 <a id="pip-package-installation"></a>
 #### 1.4.3. Install the necessary pip packages
 
-Setup pip3 (pip for python3) in Ubuntu with:
+Make sure that pip3 (pip for python3) has been upgraded to v23.3.2 in the virtual environment with:
 
 ```
-sudo apt-get update \
-&& sudo apt-get install python3-pip \
-&& python3 -m pip install --upgrade pip
+pip3 --version
 ```
 
-Upgrade pip to v23.3.2 in the virtual environment with:
+If pip3 needs to be upgraded, run the command:
 
 ```
 pip3 install --upgrade pip
