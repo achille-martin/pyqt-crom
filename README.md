@@ -260,7 +260,7 @@ The Android Studio installer will start:
 
 :hand: _Make sure that the default SDK has been installed in `$HOME/Android/Sdk` and that `$HOME/Android/Sdk/platforms` contains `android-28` folder only.
 The reason why android-28 (corresponding to Android v9.0) is selected is because there are restrictions depending on the Java version installed and the Qt version installed.
-If not, follow the instructions at the [next step](#android-sdk-installation) to set things up correctly._
+If `$HOME/Android/Sdk/platforms` does not contain `android-28` folder only, follow the instructions at the [next step](#android-sdk-installation) to set things up correctly._
 
 <a id="android-sdk-installation"></a>
 #### 1.5.5. Install correct Android SDK and Tools
