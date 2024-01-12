@@ -320,7 +320,7 @@ A Qt window will appear on which you can sign up:
 - Select folder location `$HOME/Qt5.15.2`
 - Installation will start
 
-:hand: _Make sure that you can access `$HOME/Qt5.12.2/5.12.2` and that the folder `android` is located inside of it._
+:hand: _Make sure that you can access `$HOME/Qt5.15.2/5.15.2` and that the folder `android` is located inside of it._
 
 <a id="environment-variable-setup"></a>
 ### 1.6. Setup the environment variables
