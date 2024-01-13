@@ -40,9 +40,10 @@
     * [2.4. Build the app](#app-generation)
     * [2.5. Debug the app](#app-debugging)
 * [3. Enhancing your app](#app-enhancement)
-* [4. Troubleshooting](#troubleshooting)
-* [5. Roadmap](#roadmap)
-* [6. Credits](#credits)
+* [4. Releasing your app](#app-release)
+* [5. Troubleshooting](#troubleshooting)
+* [6. Roadmap](#roadmap)
+* [7. Credits](#credits)
 
 <a id="getting-started"></a>
 ## 1. Getting started 
@@ -369,6 +370,8 @@ You can then either:
 
 :mag: This section describes the steps to generate an `Android` app (.apk) from a custom `PyQt5` app.
 
+:bulb: _Make sure to go through the [Getting Started tutorial](#getting-started) to correctly setup your machine and environment._
+
 <a id="package-creation"></a>
 ### 2.1. Create your python package
 
@@ -483,8 +486,17 @@ To discover or analyse PyQt5 features, look at the section dedicated to [PyQt5 f
 
 [:arrow_heading_up: Back to TOP](#toc) 
 
+<a id="app-release"></a>
+## 4. Releasing your app
+
+:mag: This section provides a detailed tutorial on how to release your custom app onto main app stores.
+
+To learn more about releasing your own app on app stores, follow the online tutorial.
+
+[:arrow_heading_up: Back to TOP](#toc) 
+
 <a id="troubleshooting"></a>
-## 4. Troubleshooting
+## 5. Troubleshooting
 
 :mag: This section offers advice to get unstuck when creating your app.
 
@@ -493,7 +505,7 @@ To find out about common setup and running issues, look at the section dedicated
 [:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="roadmap"></a>
-## 5. Roadmap
+## 6. Roadmap
 
 :mag: This section describes the broad roadmap to deliver a functional repo.
 
@@ -502,7 +514,7 @@ To find out about common setup and running issues, look at the section dedicated
 [:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="credits"></a>
-## 6. Credits
+## 7. Credits
 
 Repository created and maintained by [Achille Martin](https://github.com/achille-martin).
 
