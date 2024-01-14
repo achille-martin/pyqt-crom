@@ -54,7 +54,8 @@
 
 <a id="pyqt5-demo-app-android-video"></a>
 
-<video src="https://github.com/achille-martin/pyqt-crom/assets/66834162/6724ea92-18ee-4471-82a8-2bf255765506">
+<video src="
+https://github.com/achille-martin/pyqt-crom/assets/66834162/79c95816-ce45-450c-bcb1-1e72c7da36ae">
    <p>PyQt5 demo app Android platform video</p>
 </video>
 
