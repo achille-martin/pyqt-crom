@@ -372,7 +372,7 @@ You can then either:
 
 :bulb: _Make sure to go through the [Getting Started tutorial](#getting-started) to correctly setup your machine and environment._
 
-:bulb: _In this section, the strings between `<>` define a placeholder for a custom name. For instance, `<pkg_name>` can be `demo_pkg` or `test_pkg`._
+:warning: _In this section, the strings between `<>` define a placeholder for a custom name. For instance, `<pkg_name>` can be `demo_pkg` or `test_pkg`._
 
 <a id="package-creation"></a>
 ### 2.1. Create your python package
@@ -414,7 +414,7 @@ ADD PICTURE OF PDT CONFIG PART 1
 * [AREA 3] In the `Application source tab > Application Package Directory area`, tick the files and folders you want to include into your application.
 * [AREA 4] In the `Application source tab > Entry point area`, add the `<pkg_name>.<app_name>:main` to tell where the entry point of your application is.
 
-ADD PICTURE OF PDT CONFIG PART 1
+ADD PICTURE OF PDT CONFIG PART 2
 
 * [AREA 5] In the `Packages tab > Sysroot specification file area`, click on the file icon to the right to select the desired `sysroot.toml` file.
 * [AREA 6] In the `Packages tab > Standard Library area`, tick all the python libraries you have imported in your python application. You can leave the coloured blocks as they import required libraries to build the python application.
