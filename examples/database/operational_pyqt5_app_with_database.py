@@ -1,10 +1,31 @@
 #!/usr/bin/env python3
 
+# MIT License
+
+# Copyright (c) 2023-2024 Achille MARTIN
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 # Operational pyqt5 app with database
 
-# Inspiration from:
-# * https://www.tutorialspoint.com/pyqt5/pyqt5_database_handling.htm
-# * https://realpython.com/python-pyqt-database/
+# Inspiration from Tutorials Point at https://www.tutorialspoint.com/pyqt5/pyqt5_database_handling.htm
+# And from Pozo Ramos at https://realpython.com/python-pyqt-database/
 
 ## Imports
 
@@ -208,20 +229,20 @@ class DbManager():
           return False
 
         query = QSqlQuery()
-        query.exec_("create table sportsmen(id int primary key, ""firstname varchar(20), lastname varchar(20))")
+        query.exec_("create table tennismen(id int primary key, ""firstname varchar(20), lastname varchar(20))")
 
-        query.exec_("insert into sportsmen values(101, 'Roger', 'Federer')")
-        query.exec_("insert into sportsmen values(102, 'Christiano', 'Ronaldo')")
-        query.exec_("insert into sportsmen values(103, 'Ussain', 'Bolt')")
-        query.exec_("insert into sportsmen values(104, 'Sachin', 'Tendulkar')")
-        query.exec_("insert into sportsmen values(105, 'Saina', 'Nehwal')")
-        logger.debug("DbManager::create_db - Created table of sportsmen with initial values")
+        query.exec_("insert into tennismen values(101, 'Andre', 'Agassi')")
+        query.exec_("insert into tennismen values(102, 'Novak', 'Djokovic')")
+        query.exec_("insert into tennismen values(103, 'Daniil', 'Medvedev')")
+        query.exec_("insert into tennismen values(104, 'Andy', 'Murray')")
+        query.exec_("insert into tennismen values(105, 'Rafael', 'Nadal')")
+        logger.debug("DbManager::create_db - Created table of tennismen with initial values")
         logger.debug("DbManager::create_db - Exited method")
         return True
 
     def initialise_model(self, model):
         logger.debug("DbManager::initialise_model - Entered method")
-        model.setTable('sportsmen')
+        model.setTable('tennismen')
         model.setEditStrategy(QSqlTableModel.OnFieldChange)
         model.select()
         model.setHeaderData(0, Qt.Horizontal, "ID")
@@ -257,22 +278,21 @@ def main():
     logger.debug("main - Entered function and logger instantiated")
     logger.debug("main - Log output file can be found at: " + str(logger_output_file_path))
 
-    # You need one (and only one) QApplication instance per application.
-    # Pass in sys.argv to allow command line arguments for your app.
-    # If you know you won't use command line arguments QApplication([]) works too.
+    # Only one QApplication instance is needed per application.
+    # Pass in sys.argv to allow command line arguments for the app: `QApplication(sys.argv)`
+    # If command line arguments are not needed, use: `QApplication([])`
     app = QApplication(sys.argv)
 
-    # Create a Qt widget, which will be our window.
+    # Create a QMainWindow object which represents the Main Window.
     main_window = MainWindow()
-    main_window.show()  # IMPORTANT - Windows are hidden by default.
+    main_window.show()  # This line will show windows that are normally hidden.
     
-    # Start the event loop and handle the exit code
+    # Start the application event loop and handle the exit code
     logger.info("main - App started")
     sys.exit(app.exec())
     logger.info("main - App terminated")
     
-    # Your application won't reach here until you exit and the event
-    # loop has stopped.
+    # The application will only reach here when exiting or event loop has stopped.
     logger.debug("main - Exited function")
 
 if __name__ == "__main__":    
