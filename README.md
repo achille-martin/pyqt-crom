@@ -406,7 +406,7 @@ Inside of your `<project_name>` folder, add the pdt config to specify python dep
 
 To configure the `config.pdt` file, you need to understand and use the various areas shown in the following pictures:
 
-ADD PICTURE OF PDT CONFIG PART 1
+<img src="doc/resources/multimedia/pdt_config_overview_part_1.svg">
 
 * Open the `config.pdt` file with: `cd <absolute_path>/<project_name> && pyqtdeploy config.pdt`.
 * [AREA 1] In the `Application source tab > Name area`, add the `<app_name>` with no spaces. This is the app name shown at export time.
@@ -414,7 +414,7 @@ ADD PICTURE OF PDT CONFIG PART 1
 * [AREA 3] In the `Application source tab > Application Package Directory area`, tick the files and folders you want to include into your application.
 * [AREA 4] In the `Application source tab > Entry point area`, add the `<pkg_name>.<app_name>:main` to tell where the entry point of your application is.
 
-ADD PICTURE OF PDT CONFIG PART 2
+<img src="doc/resources/multimedia/pdt_config_overview_part_2.svg">
 
 * [AREA 5] In the `Packages tab > Sysroot specification file area`, click on the file icon to the right to select the desired `sysroot.toml` file.
 * [AREA 6] In the `Packages tab > Standard Library area`, tick all the python libraries you have imported in your python application. You can leave the coloured blocks as they import required libraries to build the python application.
@@ -423,7 +423,7 @@ ADD PICTURE OF PDT CONFIG PART 2
 
 :bulb: _An example of pdt config is given in the [demo project folder](examples/demo/demo_project)._
 
-:bulb: _For more information, read on [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/pyqtdeploy.html)._
+:information_source: _For more information, read on [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/pyqtdeploy.html)._
 
 <a id="app-generation"></a>
 ### 2.4. Build the app
