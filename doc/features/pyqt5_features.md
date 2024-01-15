@@ -79,7 +79,11 @@ This demo app is built on the one highlighted in the [Getting started](../../REA
 
 :point_up: _You can view the content of `sportsdatabase.db` at any time by following the instructions in [Example PyQt5 app with database](#database-pyqt5-demo-app) after ensuring that your [Database manager](#database-management-setup) is correctly setup._
 
-!! ADD DEMO VIDEO OF DATABASE MANAGEMENT ANDROID APP !!
+<a id="pyqt5-database-management-app-android-video"></a>
+
+<video src="https://github.com/achille-martin/pyqt-crom/assets/66834162/5368d162-e8fe-42c0-bd25-cfed5c647ddb">
+   <p>PyQt5 database management app Android platform video</p>
+</video>
 
 <a id="pyqt5-graphics"></a>
 ### 2. Graphics
