@@ -134,7 +134,11 @@ This demo app is built on the one highlighted in the [Getting started](../../REA
 - When selecting a shape, its coordinates are displayed at the bottom of the screen, in the status bar
 - To exit the graphics playground, hit the HOME button
 
-!! ADD DEMO VIDEO OF GRAPHICS PLAYGROUND ANDROID APP !!
+<a id="pyqt5-graphics-playground-app-android-video"></a>
+
+<video src="https://github.com/achille-martin/pyqt-crom/assets/66834162/d1089522-c7e6-4ea4-953d-eb20550bbd96">
+   <p>PyQt5 graphics playground app Android platform video</p>
+</video>
 
 [:arrow_heading_up: Back to TOP](#toc)
 
