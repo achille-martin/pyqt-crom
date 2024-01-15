@@ -1,7 +1,29 @@
 #!/usr/bin/env python3
 
+# MIT License
+
+# Copyright (c) 2023-2024 Achille MARTIN
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 # Demo PyQt5 app
-# Inspired by: https://www.pythonguis.com/tutorials/creating-your-first-pyqt-window/
+# Inspired by Martin Fitzpatrick from https://www.pythonguis.com/tutorials/creating-your-first-pyqt-window/
 
 ## Imports
 
@@ -38,22 +60,21 @@ class MainWindow(QMainWindow):
 ## Application definition
 
 def main():
-    # You need one (and only one) QApplication instance per application.
-    # Pass in sys.argv to allow command line arguments for your app:  QApplication(sys.argv)
-    # If you know you won't use command line arguments QApplication([]) works too.
+    # Only one QApplication instance is needed per application.
+    # Pass in sys.argv to allow command line arguments for the app: `QApplication(sys.argv)`
+    # If command line arguments are not needed, use: `QApplication([])`
     app = QApplication([])
 
-    # Create a Qt widget, which will be our window.
+    # Create a QMainWindow object which represents the Main Window.
     main_window = MainWindow()
-    main_window.showMaximized()  # Windows are hidden by default, this will show your main window maximised.
+    main_window.showMaximized()  # This line will show windows that are normally hidden. Plus, it will maximise the main window.
 
-    # Start the event loop.
+    # Start the application event loop.
     app.exec()
 
-    # Your application won't reach here until you exit and the event
-    # loop has stopped.
+    # The application will only reach here when exiting or event loop has stopped.
 
 if __name__ == "__main__":
-    # This needs to only define main
+    # This section needs to only define main
     # due to how pyqtdeploy is implemented to build packages
     main()
