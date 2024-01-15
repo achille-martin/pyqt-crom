@@ -8,6 +8,7 @@
 * [1. Module not found](#module-not-found)
 * [2. File not found](#file-not-found)
 * [3. Setup repo with a Virtual Machine](#virtual-machine-setup)
+* [4. Setup an Android Emulator](#android-emulator-setup)
 
 <a id="module-not-found"></a>
 ### 1. Module not found
@@ -42,6 +43,37 @@ If you would prefer to setup a Linux Virtual Machine on MacOS via VirtualBox, fo
 It is also recommended to install the VirtualBox Guest Additions. Follow the [LinuxTechi guest addition setup tutorial](https://www.linuxtechi.com/install-virtualbox-guest-additions-on-ubuntu/) for more information.
 
 :bulb: _It is also recommended to set the size of the Virtual Machine to at least 50GB so that there is enough space to download and install all dependencies._
+
+<a id="android-emulator-setup"></a>
+### 4. Setup an Android Emulator
+
+To setup an Android Emulator, it is recommended to use Android Studio.
+
+_If you want to set up the Android Emulator in VirtualBox, please refer to [this issue](https://github.com/achille-martin/pyqt-crom/issues/12)._
+
+To setup the Android Emulator in Ubuntu, make sure that you have:
+* Android Studio installed (refer to [External dependencies setup](../../README.md#external-dependency-installation) if needed)
+* Correctly set up Android Studio as per [Expo dev recommendations](https://docs.expo.dev/workflow/android-studio-emulator/)
+* Added the following to your `$HOME/.bashrc`
+
+```
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+```
+
+* Correctly set up the virtualisation solution and solved potential issues mentioned on [Stackoverflow](https://stackoverflow.com/questions/37300811/android-studio-dev-kvm-device-permission-denied)
+
+```
+sudo apt install qemu-kvm
+ls -al /dev/kvm
+sudo adduser <username> kvm
+sudo chown <username> /dev/kvm
+```
+
+Once the Android Emulator is set up and running, you can drag and drop your `.apk` to install it and run it.
+
+If you wish to access more Android logs, please refer to [this issue](https://github.com/achille-martin/pyqt-crom/issues/12), which mentions tips for `adb`, the Android Debug Bridge.
 
 [:arrow_heading_up: Back to TOP](#toc)
 

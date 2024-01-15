@@ -35,7 +35,7 @@
     * [1.8. Run the app](#app-run)
 * [2. Generating your own app](#custom-app)
     * [2.1. Create your python package](#package-creation)
-    * [2.2. Update the sysroot](#sysroot-update)
+    * [2.2. Update the sysroot](#sysroot-configuration)
     * [2.3. Configure the pdt](#pdt-configuration)
     * [2.4. Build the app](#app-generation)
     * [2.5. Debug the app](#app-debugging)
@@ -372,108 +372,79 @@ You can then either:
 
 :bulb: _Make sure to go through the [Getting Started tutorial](#getting-started) to correctly setup your machine and environment._
 
+:bulb: _In this section, the strings between `<>` define a placeholder for a custom name. For instance, `<pkg_name>` can be `demo_pkg` or `test_pkg`._
+
 <a id="package-creation"></a>
 ### 2.1. Create your python package
 
 Start by creating a project folder:
-* Create a folder `<project_name>`
+* Create a folder `<project_name>` wherever you want (and remember its `<absolute_path>`)
 
 Inside of the project folder, create a python package to hold your `PyQt5` app:
 * Create a folder `<project_name>/<pkg_name>`
-* Populate with at least `__init__.py` file and a `<app_name>.py` script
+* Populate `<project_name>/<pkg_name>` with at least `__init__.py` file and a `<main_file_name>.py` script (you can add more files if required by your package)
 
-_Note that the `<app_name>.py` must contain a unique `main()` function (or any similar distinctive entry point)._
+_Note that the `<main_file_name>.py` must contain a unique `main()` function (or any similar distinctive entry point)._
 
-* Add more files if required for your package
+:bulb: _An example of python package is given in the [demo project folder](examples/demo/demo_project/demo_pkg)._
 
-Inside of the project folder, add the following config files to specify dependency versions and build requests:
-* Add a `<app_name_sysroot>.toml` file for dependency specification
-* Add a `<app_name_config>.pdt` file for build requests
+<a id="sysroot-configuration"></a>
+### 2.2. Configure the sysroot
 
-<a id="sysroot-update"></a>
-### 2.2. Update the sysroot
+Inside of your `<project_name>` folder, add the sysroot config to specify application dependencies:
+* Create a file called `sysroot.toml` and populate it with all the modules used by your app.
 
-Make sure that you update the `<app_name_sysroot>.toml` with any module used by your app.
+_For instance, if you imported `QtSql` in your `PyQt5` app, then you must include `QtSql` in `[PyQt.android] installed_modules`._
 
-For instance, if you imported `QtSql` in your `PyQt5` app, then you must include `QtSql` in `[PyQt.android] installed_modules`.
+:bulb: _An example of sysroot config is given in the [demo project folder](examples/demo/demo_project)._
 
 <a id="pdt-configuration"></a>
 ### 2.3. Configure the pdt
 
-Tip for 3.3.0: you can add a sysroot specification file (or sysroot directory) to target the exact file from the .pdt.
+Inside of your `<project_name>` folder, add the pdt config to specify python dependencies and build requests:
+* Create a file called `config.pdt` and configure it
 
-For more information, read on [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/pyqtdeploy.html).
+To configure the `config.pdt` file, you need to understand and use the various areas shown in the following pictures:
 
-Make sure that any module imported in your `<app_name>.py` (or any part of your python project), is ticked in the .pdt file.
+ADD PICTURE OF PDT CONFIG PART 1
 
-Follow up by configuring the `$PYQT_CROM_DIR/pyqtdeploy_app/config_app.pdy` file:
+* Open the `config.pdt` file with: `cd <absolute_path>/<project_name> && pyqtdeploy config.pdt`.
+* [AREA 1] In the `Application source tab > Name area`, add the `<app_name>` with no spaces. This is the app name shown at export time.
+* [AREA 2] In the `Application source tab`, click on the `Scan` button to select your `<project_name>/<pkg_name>` folder.
+* [AREA 3] In the `Application source tab > Application Package Directory area`, tick the files and folders you want to include into your application.
+* [AREA 4] In the `Application source tab > Entry point area`, add the `<pkg_name>.<app_name>:main` to tell where the entry point of your application is.
 
-APPLICATION SOURCE TAB
-* Open the `.pdy` file with `cd $PYQT_CROM_DIR/pyqtdeploy_app && pyqtdeploy config_app.pdy`
-* Define an application name (called <apk_name>) with no spaces
-* Define an entry point in the form `<pkg_name>.<app_name>:main`
-* Add `sys.path` if necessary
-* Scan for the application package directory <pkg_name> and tick the files/subfolders you want to include in the apk
-* Confirm the python and PyQt versions
+ADD PICTURE OF PDT CONFIG PART 1
 
-PYQT MODULES TAB
-* Tick all relevant Qt modules required for your app
+* [AREA 5] In the `Packages tab > Sysroot specification file area`, click on the file icon to the right to select the desired `sysroot.toml` file.
+* [AREA 6] In the `Packages tab > Standard Library area`, tick all the python libraries you have imported in your python application. You can leave the coloured blocks as they import required libraries to build the python application.
+* [AREA 7] In the `Packages tab > Core Packages area`, tick all the external packages that you have imported in your python application. You can leave the coloured blocks as they import required libraries to build the python application.
+* Save the `config.pdt` with `Ctrl + S` and close it.
 
-STANDARD LIBRARY TAB
-* Tick all python libraries required for your app
+:bulb: _An example of pdt config is given in the [demo project folder](examples/demo/demo_project)._
 
-REMAINING TABS
-* Leave as it is or add elements as necessary
-
-Once you have updated the `$PYQT_CROM_DIR/pyqtdeploy_app/config_app.pdy`, you can save it.
+:bulb: _For more information, read on [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/pyqtdeploy.html)._
 
 <a id="app-generation"></a>
 ### 2.4. Build the app
 
-Follow up with the building of your app.
-
-Generate the `<apk_name>.apk` located in the `<pkg_name>/releases/<date>` repo with:
+Generate the `<app_name>.apk` file using:
 
 ```
-cd $PYQT_CROM_DIR/pyqtdeploy_app
-python3 build_app.py --target android-64 --source-dir $RESOURCES_DIR --installed-qt-dir $QT_DIR --verbose --no-sysroot
+cd $PYQT_CROM_DIR/utils \
+&& python3 build_app.py --pdt <absolute_path>/<project_name>/<app_name>_config.pdt --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
 ```
 
-:hand: _If it is your first time using `build_app.py`, please refer to the [build instructions](#apk-build)._
+:bulb: _The `<app_name>.apk` can be found in the `<project_name>/releases/<build_date>` folder._
 
 <a id="app-debugging"></a>
 ### 2.5. Debug the app
 
 The most nerve-wracking part of deploying an application is the debugging part. 
-Therefore, make sure that you have added a logger to your application and that you use an Emulator (or a physical device) to confirm your expectations.
 
-To setup an Android Emulator, it is recommended to use Android Studio.
+Therefore, make sure that you have added a logger to your application and that you use an Emulator or a physical device to confirm your expectations.
 
-_If you want to set up the Android Emulator in VirtualBox, please refer to [this issue](https://github.com/achille-martin/pyqt-crom/issues/12)._
-
-To setup the Android Emulator in Ubuntu, make sure that you have:
-* Android Studio installed (refer to [External dependencies setup](#external-dependency-installation) if needed)
-* Correctly set up Android Studio as per [Expo dev recommendations](https://docs.expo.dev/workflow/android-studio-emulator/)
-* Added the following to your `$HOME/.bashrc`
-
-```
-export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-```
-
-* Have correctly set up the virtualisation solution and solved potential issues mentioned on [Stackoverflow](https://stackoverflow.com/questions/37300811/android-studio-dev-kvm-device-permission-denied)
-
-```
-sudo apt install qemu-kvm
-ls -al /dev/kvm
-sudo adduser <username> kvm
-sudo chown <username> /dev/kvm
-```
-
-Once the Android Emulator is set up and running, you can drag and drop your `.apk` to install it and run it.
-
-If you wish to access more Android logs, please refer to [this issue](https://github.com/achille-martin/pyqt-crom/issues/12), which mentions tips for `adb`, the Android Debug Bridge.
+To setup an Emulator, refer to [Android Emulator setup](doc/troubleshooting/common_issues.md#android-emulator-setup).
 
 [:arrow_heading_up: Back to TOP](#toc)
 
