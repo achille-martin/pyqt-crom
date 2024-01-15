@@ -1,0 +1,27 @@
+version = 0
+sysroot = "sysroot.toml"
+sysroots_dir = ""
+parts = [ "PyQt:PyQt5.QtWidgets", "PyQt:PyQt5.QtSql", "Python:logging",]
+
+[Application]
+entry_point = "database_management_pkg.operational_pyqt5_app_with_database:main"
+is_console = false
+is_bundle = false
+name = "DatabaseManagementApp"
+qmake_configuration = ""
+script = ""
+syspath = ""
+
+[Application.Package]
+name = "database_management_pkg"
+exclude = [ "*.pyc", "*.pyd", "*.pyo", "*.pyx", "*.pxi", "__pycache__", "*-info", "EGG_INFO", "*.so",]
+[[Application.Package.Content]]
+name = "__init__.py"
+included = true
+is_directory = false
+
+[[Application.Package.Content]]
+name = "operational_pyqt5_app_with_database.py"
+included = true
+is_directory = false
+
