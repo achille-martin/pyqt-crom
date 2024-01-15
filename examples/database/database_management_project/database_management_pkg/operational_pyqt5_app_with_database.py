@@ -25,7 +25,7 @@
 # Operational pyqt5 app with database
 
 # Inspiration from Tutorials Point at https://www.tutorialspoint.com/pyqt5/pyqt5_database_handling.htm
-# And from Pozo Ramos at https://realpython.com/python-pyqt-database/
+# And from Leodanis Pozo Ramos at https://realpython.com/python-pyqt-database/
 
 ## Imports
 
