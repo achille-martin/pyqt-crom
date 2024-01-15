@@ -378,7 +378,7 @@ You can then either:
 ### 2.1. Create your python package
 
 Start by creating a project folder:
-* Create a folder `<project_name>` wherever you want (and remember its `<absolute_path>`)
+* Create a folder `<project_name>` wherever you want (and remember the absolute path of its parent folder referred to as `<absolute_path>`)
 
 Inside of the project folder, create a python package to hold your `PyQt5` app:
 * Create a folder `<project_name>/<pkg_name>`
