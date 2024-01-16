@@ -1,6 +1,6 @@
 # PyQt5 Features
 
-:mag: This section introduces the main PyQt5 features you will need to create your custom app.
+:mag: This section introduces the main PyQt5 features needed to create a custom standard app.
 
 <a id="toc"></a>
 ## Table of Contents
@@ -8,12 +8,16 @@
 * [1. Databases](#pyqt5-databases)
     * [1.1. Engine selection](#engine-selection)
     * [1.2. Setup for database management](#database-management-setup)
-    * [1.3. Example PyQt5 app](#database-pyqt5-demo-app)
-    * [1.4. Example operational PyQt5 app](#operational-database-pyqt5-demo-app)
+    * [1.3. Example PyQt5 Database app](#database-pyqt5-demo-app)
+    * [1.4. Example operational PyQt5 Database app](#operational-database-pyqt5-demo-app)
 * [2. Graphics](#pyqt5-graphics)
     * [2.1. 2D Graphics](#pyqt5-2d-graphics)
-    * [2.2. Example PyQt5 app](#graphics-pyqt5-demo-app)
-    * [2.3. Example operational PyQt5 app](#operational-graphics-pyqt5-demo-app)
+    * [2.2. Example PyQt5 Graphics app](#graphics-pyqt5-demo-app)
+    * [2.3. Example operational PyQt5 Graphics app](#operational-graphics-pyqt5-demo-app)
+* [3. Network](#pyqt5-network)
+    * [3.1. Bluetooth](#pyqt5-bluetooth)
+    * [3.2. Example PyQt5 Bluetooth app](#bluetooth-pyqt5-demo-app)
+    * [3.3. Example operational PyQt5 Bluetooth app](#operational-bluetooth-pyqt5-demo-app)
 
 <a id="pyqt5-databases"></a>
 ### 1. Databases
@@ -40,12 +44,12 @@ sudo apt-get install sqlitebrowser
 ```
 
 <a id="database-pyqt5-demo-app"></a>
-#### 1.3. Example PyQt5 app
+#### 1.3. Example PyQt5 Database app
 
 To confirm that `SQLite` is functional on your machine, run the following:
 
 ```
-cd $PYQT_CROM_DIR/pyqt_feature_testing/database
+cd $PYQT_CROM_DIR/examples/database
 python3 pyqt5_app_with_database.py
 ```
 
@@ -57,17 +61,17 @@ A dialog window will pop up in which you can perform the following:
 You can view the content of the generated and edited database at any time outside of the application with:
 
 ```
-cd $PYQT_CROM_DIR/pyqt_feature_testing/database
+cd $PYQT_CROM_DIR/examples/database
 sqlitebrowser sportsdatabase.db
 ```
 
 <a id="operational-database-pyqt5-demo-app"></a>
-#### 1.4. Example operational PyQt5 app
+#### 1.4. Example operational PyQt5 Database app
 
 You can also run a more operational PyQt5 app boasting a database with:
 
 ```
-cd $PYQT_CROM_DIR/pyqt_feature_testing/database
+cd $PYQT_CROM_DIR/examples/database/database_management_project/database_management_pkg
 python3 operational_pyqt5_app_with_database.py
 ```
 
@@ -77,7 +81,7 @@ This demo app is built on the one highlighted in the [Getting started](../../REA
 - Once the pop-up has been acknowledged, a database (called `sportsdatabase.db`) is created in the `home` folder as shown in the alert window, if not already existing
 - In the dialog window displaying the content of the database, rows can be added, removed or edited
 
-:point_up: _You can view the content of `sportsdatabase.db` at any time by following the instructions in [Example PyQt5 app with database](#database-pyqt5-demo-app) after ensuring that your [Database manager](#database-management-setup) is correctly setup._
+:bulb: _You can view the content of `sportsdatabase.db` at any time by following the instructions in [Example PyQt5 app with database](#database-pyqt5-demo-app) after ensuring that your [Database manager](#database-management-setup) is correctly setup._
 
 <a id="pyqt5-database-management-app-android-video"></a>
 
@@ -102,13 +106,13 @@ QtQuick on the other hand, relies on the Qt Modeling language (QML) to define us
 As we are showcasing a prototyping tool for mobile apps, we have decided to explore QGraphics options rather than follow QtQuick practices. Note that both approaches are viable and handled by the pyqtdeploy tool.
 
 <a id="graphics-pyqt5-demo-app"></a>
-#### 2.2. Example PyQt5 app
+#### 2.2. Example PyQt5 Graphics app
 
 To visualise a basic example of 2D Graphics in a PyQt app, run the following:
 
 
 ```
-cd $PYQT_CROM_DIR/pyqt_feature_testing/graphics
+cd $PYQT_CROM_DIR/examples/graphics
 python3 pyqt5_app_with_graphics.py
 ```
 
@@ -118,12 +122,12 @@ A graphics window will appear, in which you can perform the following:
 * Get back to the home screen thanks to the button at the top of the window
 
 <a id="operational-graphics-pyqt5-demo-app"></a>
-#### 2.3. Example operational PyQt5 app
+#### 2.3. Example operational PyQt5 Graphics app
 
 You can also run a more operational PyQt5 app boasting a graphics playground with:
 
 ```
-cd $PYQT_CROM_DIR/pyqt_feature_testing/graphics
+cd $PYQT_CROM_DIR/examples/graphics/graphics_playground_project/graphics_playground_pkg
 python3 operational_pyqt5_app_with_graphics.py
 ```
 
@@ -139,6 +143,53 @@ This demo app is built on the one highlighted in the [Getting started](../../REA
 <video src="https://github.com/achille-martin/pyqt-crom/assets/66834162/d1089522-c7e6-4ea4-953d-eb20550bbd96">
    <p>PyQt5 graphics playground app Android platform video</p>
 </video>
+
+<a id="pyqt5-network"></a>
+#### 3. Network
+
+Network is used to interface multiple devices. The network helps interconnect devices to extend the capabilities of the application.
+
+<a id="pyqt5-bluetooth"></a>
+#### 3.1. Bluetooth
+
+The first simple type of network communication is Bluetooth (which is more practical than wired connection).
+
+There are 2 main types of Bluetooth technologies:
+
+* Classic (used for audio streaming)
+* Low Energy (LE) (used for any other application)
+
+A bigger comparison between Bluetooth Classic and Bluetooth LE is made on [symmetryelectronics website](https://www.symmetryelectronics.com/blog/the-difference-between-classic-bluetooth-and-bluetooth-low-energy/).
+
+Since the aim is not to stream audio, we will solely focus on Bluetooth LE.
+
+<a id="bluetooth-pyqt5-demo-app"></a>
+#### 3.2. Example PyQt5 Bluetooth app
+
+QtBluetooth classes are very powerful and enable the cross-platform use of Bluetooth communications.
+
+A set of classes is introduced on the [official qt website](https://doc.qt.io/qtforpython-6/PySide6/QtBluetooth/index.html#module-PySide6.QtBluetooth).
+
+To visualise a basic example of Bluetooth communications in a PyQt app, run the following:
+
+```
+cd $PYQT_CROM_DIR/examples/network
+python3 pyqt5_app_with_bluetooth.py
+```
+
+If you encounter issues with Bluetooth, please refer to the [Bluetooth troubleshooting](../troubleshooting/commong_issues.md#virtual-machine-bluetooth).
+
+<a id="operational-bluetooth-pyqt5-demo-app"></a>
+#### 3.3. Example operational PyQt5 Bluetooth app
+
+To visualise an operational example of Bluetooth communications in a PyQt app, run the following:
+
+```
+cd $PYQT_CROM_DIR/examples/network/bluetooth_scanner_project/bluetooth_scanner_pkg
+python3 operational_pyqt5_app_with_bluetooth.py
+```
+
+If you encounter issues with Bluetooth, please refer to the [Bluetooth troubleshooting](../troubleshooting/commong_issues.md#virtual-machine-bluetooth).
 
 [:arrow_heading_up: Back to TOP](#toc)
 

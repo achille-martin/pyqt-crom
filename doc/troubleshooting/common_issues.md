@@ -8,7 +8,8 @@
 * [1. Module not found](#module-not-found)
 * [2. File not found](#file-not-found)
 * [3. Setup repo with a Virtual Machine](#virtual-machine-setup)
-* [4. Setup an Android Emulator](#android-emulator-setup)
+* [4. Setup Bluetooth in a Virtual Machine](#virtual-machine-bluetooth)
+* [5. Setup an Android Emulator](#android-emulator-setup)
 
 <a id="module-not-found"></a>
 ### 1. Module not found
@@ -44,8 +45,22 @@ It is also recommended to install the VirtualBox Guest Additions. Follow the [Li
 
 :bulb: _It is also recommended to set the size of the Virtual Machine to at least 50GB so that there is enough space to download and install all dependencies._
 
+<a id="virtual-machine-bluetooth"></a>
+### 4. Setup Bluetooth in a Virtual Machine
+
+If you are using VirtualBox (Virtual Machine) and you want to run a pyqt5 app requiring a Bluetooth connection, you can follow these steps:
+
+* Turn ON Bluetooth on your host machine (Windows machine)
+* Restart VirtualBox
+* In Devices -> USB, find your Bluetooth dongle (you can find the name on Windows host by opening the `Device Manager`)
+  * If you can't see the Bluetooth dongle, you might need a physical dongle to plug into your machine
+* Open the Bluetooth settings on your Ubuntu client and turn the Bluetooth ON
+* Run `hciconfig -a` to confirm whether the dongle is present AND running (UP)
+  * If the dongle is not present, make sure that your Bluetooth dongle is ON in VirtualBox.
+  * If the dongle is not running (DOWN), you can restart the Bluetooth service with `sudo systemctl restart bluetooth.service`
+
 <a id="android-emulator-setup"></a>
-### 4. Setup an Android Emulator
+### 5. Setup an Android Emulator
 
 To setup an Android Emulator, it is recommended to use Android Studio.
 
