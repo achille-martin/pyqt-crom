@@ -145,7 +145,7 @@ This demo app is built on the one highlighted in the [Getting started](../../REA
 </video>
 
 <a id="pyqt5-network"></a>
-#### 3. Network
+### 3. Network
 
 Network is used to interface multiple devices. The network helps interconnect devices to extend the capabilities of the application.
 
@@ -172,11 +172,12 @@ A set of classes is introduced on the [official qt website](https://doc.qt.io/qt
 
 QtBluetooth classes are used in this basic example of Bluetooth communications from a PyQt app. To run the example Bluetooth app, use:
 
-
 ```
 cd $PYQT_CROM_DIR/examples/network
 python3 pyqt5_app_with_bluetooth.py
 ```
+
+:bulb: _If you encounter issues with Bluetooth, please refer to the [Bluetooth troubleshooting](../troubleshooting/commong_issues.md#virtual-machine-bluetooth)._
 
 The example Bluetooth app provides the following experience:
 - A window appears on the screen with 2 buttons: Search for Bluetooth devices and EXIT
@@ -185,7 +186,7 @@ The example Bluetooth app provides the following experience:
 - Once your Bluetooth is ON, click again on Search for Bluetooth devices so that the app can search for nearby devices for 5 seconds
 - The app displays the list of found nearby devices on the main window
 
-If you encounter issues with Bluetooth, please refer to the [Bluetooth troubleshooting](../troubleshooting/commong_issues.md#virtual-machine-bluetooth).
+
 
 <a id="operational-bluetooth-pyqt5-demo-app"></a>
 #### 3.3. Example operational PyQt5 Bluetooth app
@@ -197,9 +198,15 @@ cd $PYQT_CROM_DIR/examples/network/bluetooth_scanner_project/bluetooth_scanner_p
 python3 operational_pyqt5_app_with_bluetooth.py
 ```
 
+:bulb: _If you encounter issues with Bluetooth, please refer to the [Bluetooth troubleshooting](../troubleshooting/commong_issues.md#virtual-machine-bluetooth)._
+
 The operational example Bluetooth app has a similar behaviour to the [example Bluetooth app](#bluetooth-pyqt5-demo-app).
 
-If you encounter issues with Bluetooth, please refer to the [Bluetooth troubleshooting](../troubleshooting/commong_issues.md#virtual-machine-bluetooth).
+<a id="pyqt5-bluetooth-scanner-app-android-video"></a>
+
+<video src="https://github.com/achille-martin/pyqt-crom/assets/66834162/cd24e718-6f26-4437-8f5e-c7ffddd4bf08">
+   <p>PyQt5 Bluetooth scanner app Android platform video</p>
+</video>
 
 [:arrow_heading_up: Back to TOP](#toc)
 
