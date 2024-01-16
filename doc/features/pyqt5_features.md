@@ -170,12 +170,20 @@ QtBluetooth classes are very powerful and enable the cross-platform use of Bluet
 
 A set of classes is introduced on the [official qt website](https://doc.qt.io/qtforpython-6/PySide6/QtBluetooth/index.html#module-PySide6.QtBluetooth).
 
-To visualise a basic example of Bluetooth communications in a PyQt app, run the following:
+QtBluetooth classes are used in this basic example of Bluetooth communications from a PyQt app. To run the example Bluetooth app, use:
+
 
 ```
 cd $PYQT_CROM_DIR/examples/network
 python3 pyqt5_app_with_bluetooth.py
 ```
+
+The example Bluetooth app provides the following experience:
+- A window appears on the screen with 2 buttons: Search for Bluetooth devices and EXIT
+- If you click on EXIT, the app will close itself
+- If you click on Search for Bluetooth devices, the app will ask you whether your device is Bluetooth capable. If it is not, the app is actually unusable and will crash. If you do have Bluetooth on your device, you will be asked to turn it ON.
+- Once your Bluetooth is ON, click again on Search for Bluetooth devices so that the app can search for nearby devices for 5 seconds
+- The app displays the list of found nearby devices on the main window
 
 If you encounter issues with Bluetooth, please refer to the [Bluetooth troubleshooting](../troubleshooting/commong_issues.md#virtual-machine-bluetooth).
 
@@ -188,6 +196,8 @@ To visualise an operational example of Bluetooth communications in a PyQt app, r
 cd $PYQT_CROM_DIR/examples/network/bluetooth_scanner_project/bluetooth_scanner_pkg
 python3 operational_pyqt5_app_with_bluetooth.py
 ```
+
+The operational example Bluetooth app has a similar behaviour to the [example Bluetooth app](#bluetooth-pyqt5-demo-app).
 
 If you encounter issues with Bluetooth, please refer to the [Bluetooth troubleshooting](../troubleshooting/commong_issues.md#virtual-machine-bluetooth).
 
