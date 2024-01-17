@@ -435,7 +435,7 @@ cd $PYQT_CROM_DIR/utils \
 && python3 build_app.py --pdt <absolute_path>/<project_name>/config.pdt --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
 ```
 
-:bulb: _The `<app_name>.apk` can be found in the `<project_name>/releases/<build_date>` folder._
+:bulb: _The `<app_name>.apk` can be found in the `<absolute_path>/<project_name>/releases/<build_date>` folder._
 
 <a id="app-debugging"></a>
 ### 2.5. Debug the app
