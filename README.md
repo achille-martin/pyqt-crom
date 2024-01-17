@@ -372,7 +372,7 @@ You can then either:
 
 :bulb: _Make sure to go through the [Getting Started tutorial](#getting-started) to correctly setup your machine and environment._
 
-:warning: _In this section, the strings between `<>` define a placeholder for a custom name. For instance, `<pkg_name>` can be `demo_pkg` or `test_pkg`._
+:warning: _In this section, placeholders are defined between `<>`. For instance, `<pkg_name>` can be `demo_pkg` or `test_pkg`._
 
 <a id="package-creation"></a>
 ### 2.1. Create your python package
