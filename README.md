@@ -292,7 +292,7 @@ cd $HOME/Downloads \
 - Restart Android Studio with `cd $HOME/android-studio/bin && ./studio.sh` (skip / cancel if no SDK found)
 - On the menu screen, click on `more actions` and then `SDK manager`
     - Make sure that you are in the Settings -> Languages & Frameworks -> Android SDK
-    - Make sure that in the `SDK Tools` tab, the following is installed as an additional package to the previous ones: NDK Side-By-Side v21.4.7075529 (equivalent to r21e). According to the [Qt Website](https://doc.qt.io/qt-5/android-getting-started.html), this is the one recommended for Qt5.15.2.
+    - Make sure that in the `SDK Tools` tab, the following is installed: NDK Side-By-Side v21.4.7075529 (equivalent to r21e). According to the [Qt Website](https://doc.qt.io/qt-5/android-getting-started.html), this is the one recommended for Qt5.15.2.
 - Close Android Studio
 
 :hand: _Make sure that `$HOME/Android/Sdk/ndk/21.4.7075529/platforms` contains the folder `android-28`._
