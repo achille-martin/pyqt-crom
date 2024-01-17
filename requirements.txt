@@ -1,3 +1,7 @@
-PyQt5==5.12.1
-PyQt5-sip==4.19.15
-pyqtdeploy==2.5.1
+PyQt5==5.15.10
+PyQt5-Qt5==5.15.2
+PyQt5-sip==12.13.0
+pyqtdeploy==3.3.0
+sip==6.7.12
+PyQt-builder==1.15.3
+pipdeptree==2.13.1

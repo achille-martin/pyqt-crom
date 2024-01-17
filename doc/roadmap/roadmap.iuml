@@ -1,0 +1,75 @@
+@startuml
+start
+partition Overview {
+    :Articulate aim;
+    note right
+        Create a cross-platform app from a custom PyQt5 app
+    end note
+    :Define requirements;
+    note right
+      Relevant to custom apps
+    end note
+    :Research existing projects;
+    note right
+        **Pyqtdeploy** / Pyside / Kivy / BeeWare
+    end note
+}
+partition Implementation {
+    :App generation;
+    note right
+      Managed by build_app.py
+    end note
+    :Pkg structure;
+    note right
+      Basic python project structure
+    end note
+    :Database;
+    note right
+      Managed with QtSql
+    end note
+    :Graphics;
+    note right
+      Managed with QGraphicsScene
+    end note
+    :Multimedia;
+    note right
+      Managed with QApplication
+    end note
+    :Network;
+    note right
+      Managed with QtBluetooth
+    end note
+}
+partition Testing {
+    :Logging;
+    note right
+      Basic python logging
+    end note
+    :Tests;
+    note right
+      Emulation and basic logging
+     end note
+}
+partition Deployment {
+    :Documentation;
+    note right
+      Basic version
+      WIP: App release tutorial
+    end note
+    :Sharing and Advertising;
+    note right
+      Social media and donations
+    end note
+}
+partition Platforms {
+    :Android OS;
+    note right
+      Managed
+    end note
+    :Linux OS;
+    :Windows OS;
+    :Mac OS;
+    :iOS;
+}
+stop
+@enduml
