@@ -1,6 +1,28 @@
 #!/usr/bin/env python3
 
-# Code inspired from https://www.tutorialspoint.com/pyqt5/pyqt5_database_handling.htm
+# MIT License
+
+# Copyright (c) 2023-2024 Achille MARTIN
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# Code inspired from Tutorials Point at https://www.tutorialspoint.com/pyqt5/pyqt5_database_handling.htm
 
 import sys
 import os.path # To manage file paths for cross-platform apps
@@ -20,17 +42,17 @@ def createDB(db_type, db_name):
       return False
     
     query = QSqlQuery()
-    query.exec_("create table sportsmen(id int primary key, ""firstname varchar(20), lastname varchar(20))")
+    query.exec_("create table tennismen(id int primary key, ""firstname varchar(20), lastname varchar(20))")
 
-    query.exec_("insert into sportsmen values(101, 'Roger', 'Federer')")
-    query.exec_("insert into sportsmen values(102, 'Christiano', 'Ronaldo')")
-    query.exec_("insert into sportsmen values(103, 'Ussain', 'Bolt')")
-    query.exec_("insert into sportsmen values(104, 'Sachin', 'Tendulkar')")
-    query.exec_("insert into sportsmen values(105, 'Saina', 'Nehwal')")
+    query.exec_("insert into tennismen values(101, 'Andre', 'Agassi')")
+    query.exec_("insert into tennismen values(102, 'Novak', 'Djokovic')")
+    query.exec_("insert into tennismen values(103, 'Daniil', 'Medvedev')")
+    query.exec_("insert into tennismen values(104, 'Andy', 'Murray')")
+    query.exec_("insert into tennismen values(105, 'Rafael', 'Nadal')")
     return True
 
 def initializeModel(model):
-    model.setTable('sportsmen')
+    model.setTable('tennismen')
     model.setEditStrategy(QSqlTableModel.OnFieldChange)
     model.select()
     model.setHeaderData(0, Qt.Horizontal, "ID")

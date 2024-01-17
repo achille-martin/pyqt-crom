@@ -3,7 +3,7 @@
 # Python ######################################################################
 
 [Python]
-version = "3.7.5"
+version = "3.10.12"
 install_host_from_source = true
 
 [Python.win]
@@ -16,27 +16,23 @@ version = "5.15.10"
 
 [PyQt.android]
 disabled_features = ["PyQt_Desktop_OpenGL", "PyQt_Printer"]
-installed_modules = ["QtCore", "QtGui", "QtWidgets"]
+installed_modules = ["QtCore", "QtGui", "QtWidgets", "QtBluetooth"]
 
 [PyQt.ios]
 disabled_features = ["PyQt_Desktop_OpenGL", "PyQt_MacOSXOnly",
         "PyQt_MacCocoaViewContainer", "PyQt_Printer", "PyQt_Process",
         "PyQt_NotBootstrapped"]
-installed_modules = ["QtCore", "QtGui", "QtNetwork", "QtWidgets",
-        "QtMacExtras"]
+installed_modules = ["QtCore", "QtGui", "QtWidgets", "QtBluetooth"]
 
 [PyQt.linux]
-installed_modules = ["QtCore", "QtGui", "QtNetwork", "QtWidgets",
-        "QtX11Extras"]
+installed_modules = ["QtCore", "QtGui", "QtWidgets", "QtBluetooth"]
 
 [PyQt.macos]
-installed_modules = ["QtCore", "QtGui", "QtNetwork", "QtWidgets",
-        "QtMacExtras"]
+installed_modules = ["QtCore", "QtGui", "QtWidgets", "QtBluetooth"]
 
 [PyQt.win]
 disabled_features = ["PyQt_Desktop_OpenGL"]
-installed_modules = ["QtCore", "QtGui", "QtNetwork", "QtWidgets",
-        "QtWinExtras"]
+installed_modules = ["QtCore", "QtGui", "QtWidgets", "QtBluetooth"]
 
 # Qt ##########################################################################
 
@@ -44,9 +40,9 @@ installed_modules = ["QtCore", "QtGui", "QtNetwork", "QtWidgets",
 version = "5.15.2"
 edition = "opensource"
 configure_options = ["-opengl", "desktop", "-no-dbus", "-qt-pcre"]
-skip = ["qtactiveqt", "qtconnectivity", "qtdoc", "qtgamepad", "qtlocation",
-        "qtmultimedia", "qtquickcontrols", "qtquickcontrols2",
-        "qtremoteobjects", "qtscript", "qtscxml", "qtsensors", "qtserialbus",
+skip = ["qtactiveqt", "qtdoc", "qtgamepad",
+        "qtquickcontrols", "qtquickcontrols2",
+        "qtremoteobjects", "qtscript", "qtscxml", "qtserialbus",
         "qtserialport", "qtspeech", "qtsvg", "qttools", "qttranslations",
         "qtwayland", "qtwebchannel", "qtwebengine", "qtwebsockets",
         "qtwebview", "qtxmlpatterns"]
@@ -56,16 +52,12 @@ install_from_source = false
 
 [Qt.ios]
 install_from_source = false
-ssl = "securetransport"
 
 [Qt.linux]
-ssl = "openssl-runtime"
 
 [Qt.macos]
-ssl = "openssl-linked"
 
 [Qt.win]
-ssl = "openssl-linked"
 static_msvc_runtime = true
 
 # SIP #########################################################################
@@ -74,3 +66,12 @@ static_msvc_runtime = true
 abi_major_version = 12
 module_name = "PyQt5.sip"
 
+# zlib ########################################################################
+
+[zlib]
+install_from_source = false
+
+[zlib.win]
+version = "1.2.13"
+install_from_source = true
+static_msvc_runtime = true

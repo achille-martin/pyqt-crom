@@ -3,7 +3,7 @@
 # Python ######################################################################
 
 [Python]
-version = "3.7.5"
+version = "3.10.12"
 install_host_from_source = true
 
 [Python.win]
@@ -65,3 +65,13 @@ static_msvc_runtime = true
 [SIP]
 abi_major_version = 12
 module_name = "PyQt5.sip"
+
+# zlib ########################################################################
+
+[zlib]
+install_from_source = false
+
+[zlib.win]
+version = "1.2.13"
+install_from_source = true
+static_msvc_runtime = true
