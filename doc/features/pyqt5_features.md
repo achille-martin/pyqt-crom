@@ -76,7 +76,7 @@ python3 operational_pyqt5_app_with_database.py
 ```
 
 This demo app is built on the one highlighted in the [Getting started](../../README.md#getting-started) section:
-- A window appears on the screen in a window with 2 buttons: MAGIC or EXIT
+- A window appears on the screen with 2 buttons: MAGIC or EXIT
 - Once MAGIC is clicked, a pop-up appears on screen stating that the button has been clicked and that a database will open
 - Once the pop-up has been acknowledged, a database (called `sportsdatabase.db`) is created in the `home` folder as shown in the alert window, if not already existing
 - In the dialog window displaying the content of the database, rows can be added, removed or edited
