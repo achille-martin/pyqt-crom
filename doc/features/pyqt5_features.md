@@ -132,7 +132,7 @@ python3 operational_pyqt5_app_with_graphics.py
 ```
 
 This demo app is built on the one highlighted in the [Getting started](../../README.md#getting-started) section:
-- A window appears on the screen in a window with 2 buttons: MAGIC or EXIT
+- A window appears on the screen with 2 buttons: MAGIC or EXIT
 - Once MAGIC is clicked, a pop-up appears on screen stating that the button has been clicked and that a graphics playground will open
 - Once the pop-up has been acknowledged, a graphics playground opens up with 2 shapes that can be dragged around
 - When selecting a shape, its coordinates are displayed at the bottom of the screen, in the status bar
