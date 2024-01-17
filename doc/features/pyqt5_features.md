@@ -177,7 +177,7 @@ cd $PYQT_CROM_DIR/examples/network
 python3 pyqt5_app_with_bluetooth.py
 ```
 
-:bulb: _If you encounter issues with Bluetooth, please refer to the [Bluetooth troubleshooting](../troubleshooting/commong_issues.md#virtual-machine-bluetooth)._
+:bulb: _If you encounter issues with Bluetooth, please refer to the [Bluetooth troubleshooting](../troubleshooting/common_issues.md#virtual-machine-bluetooth)._
 
 The example Bluetooth app provides the following experience:
 - A window appears on the screen with 2 buttons: Search for Bluetooth devices and EXIT
