@@ -198,7 +198,7 @@ cd $PYQT_CROM_DIR/examples/network/bluetooth_scanner_project/bluetooth_scanner_p
 python3 operational_pyqt5_app_with_bluetooth.py
 ```
 
-:bulb: _If you encounter issues with Bluetooth, please refer to the [Bluetooth troubleshooting](../troubleshooting/commong_issues.md#virtual-machine-bluetooth)._
+:bulb: _If you encounter issues with Bluetooth, please refer to the [Bluetooth troubleshooting](../troubleshooting/common_issues.md#virtual-machine-bluetooth)._
 
 The operational example Bluetooth app has a similar behaviour to the [example Bluetooth app](#bluetooth-pyqt5-demo-app).
 
