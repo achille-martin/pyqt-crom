@@ -423,7 +423,7 @@ To configure the `config.pdt` file, you need to understand and use the various a
 
 :bulb: _An example of pdt config is given in the [demo project folder](examples/demo/demo_project)._
 
-:bulb: _For more information about pdt files, read the [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/pyqtdeploy.html) page._
+:bulb: _For more information about pdt files, read the [Riverbank website page](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/pyqtdeploy.html)._
 
 <a id="app-generation"></a>
 ### 2.4. Build the app
