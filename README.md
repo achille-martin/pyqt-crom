@@ -412,7 +412,7 @@ To configure the `config.pdt` file, you need to understand and use the various a
 * [AREA 1] In the `Application source tab > Name area`, add the `<app_name>` with no spaces. This is the app name shown at export time.
 * [AREA 2] In the `Application source tab`, click on the `Scan` button to select your `<project_name>/<pkg_name>` folder.
 * [AREA 3] In the `Application source tab > Application Package Directory area`, tick the files and folders you want to include into your application.
-* [AREA 4] In the `Application source tab > Entry point area`, add the `<pkg_name>.<app_name>:main` to tell where the entry point of your application is.
+* [AREA 4] In the `Application source tab > Entry point area`, add the `<pkg_name>.<main_file_name>:main` to tell where the entry point of your application is.
 
 <img src="doc/resources/multimedia/pdt_config_overview_part_2.svg">
 
