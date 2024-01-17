@@ -358,7 +358,7 @@ The generated `DemoCrossPlatformApp.apk` can be found in `$PYQT_CROM_DIR/example
 
 You can then either:
 - Copy, install and run the .apk onto your phone (>=Android v9.0)
-- Install BlueStacks on Windows (https://www.bluestacks.com/download.html), enable hyper-V, open `my games` and install the .apk, run the app offline
+- Install [BlueStacks](https://www.bluestacks.com/download.html) on Windows, enable hyper-V, open `my games` and install the .apk, run the app offline
 - Setup a virtual device in Android Studio, install the app and run it on the virtual device
 
 :trophy: Congratulations! You have completed the tutorial. You can view the [demo app running on an Android phone](#pyqt5-demo-app-android-video).
