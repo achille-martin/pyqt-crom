@@ -63,7 +63,7 @@
 
 Specs of Linux machine used:
 
-- `Ubuntu 22.04` (EOL April 2032)
+- `Ubuntu 22.04` (EOL April 2032) with around 40-50GB free (to install the dependencies)
 - `Python 3.10.12` (EOL October 2026)
 
 :bulb: _Refer to [Virtual Machine Setup](doc/troubleshooting/common_issues.md#virtual-machine-setup) if you don't have a Linux OS available on your machine._
