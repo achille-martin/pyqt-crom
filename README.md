@@ -1,6 +1,7 @@
 # PyQt-CroM (Create Cross-platforM PyQt Apps)
 
 <a id="purpose"></a>
+## What is it?
 
 :dart: Create cross-platform apps (Android) using only Python and the Qt Framework (PyQt5). 
 
