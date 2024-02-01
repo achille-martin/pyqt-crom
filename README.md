@@ -3,7 +3,7 @@
 <a id="purpose"></a>
 ## What is it?
 
-:dart: PyQt-CroM is a tool to create cross-platform apps (Android) using only Python and the Qt Framework (PyQt5). 
+:dart: PyQt-CroM is a tool to create cross-platform apps ([_Android_](https://www.android.com/intl/en_uk/what-is-android/)) using only [Python](https://www.python.org/) and the [Qt Framework](https://www.qt.io/product/framework) ([_PyQt5_](https://riverbankcomputing.com/software/pyqt/intro)).
 
 <a href="https://www.buymeacoffee.com/achille_martin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" width="200px"></a>
 
