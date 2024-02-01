@@ -10,6 +10,14 @@
 
 :mortar_board: PyQt-CroM demonstrates the potential of [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) while optimising the tool.
 
+## Who is it for?
+
+PyQt-CroM is aimed at:
+
+* Beginner developers (first time motivated programmers or developers who haven't practiced in a while) who want to build app prototypes with a simple language
+* Intermediate developers (regular programmers or regular app developers) who want to prototype quickly on multiple platforms or start publishing their own apps
+* Expert developers (expert programmers or expert app developers) who want to be able to: prototype, customise, enhance, publish and maintain cross-platform apps (at a professional level)
+
 <a id="toc"></a>
 ## Table of Contents
 
