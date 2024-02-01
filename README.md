@@ -1,9 +1,9 @@
-# PyQt-CroM (Create Cross-platforM PyQt Apps)
+# PyQt-CroM (Cross-platforM PyQt Apps)
 
 <a id="purpose"></a>
 ## What is it?
 
-:dart: Create cross-platform apps (Android) using only Python and the Qt Framework (PyQt5). 
+:dart: PyQt-CroM is a tool to create cross-platform apps (Android) using only Python and the Qt Framework (PyQt5). 
 
 <a href="https://www.buymeacoffee.com/achille_martin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" width="200px"></a>
 
@@ -13,7 +13,7 @@
 
 ## Who is it for?
 
-PyQt-CroM is aimed at:
+:busts_in_silhouette: PyQt-CroM is mainly aimed at the following groups.
 
 | Group | Description | Expectations |
 | --- | --- | --- |
