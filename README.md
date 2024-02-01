@@ -14,9 +14,11 @@
 
 PyQt-CroM is aimed at:
 
-* Beginner developers (first time motivated programmers or developers who haven't practiced in a while) who want to build app prototypes with a simple language
-* Intermediate developers (regular programmers or regular app developers) who want to prototype quickly on multiple platforms or start publishing their own apps
-* Expert developers (expert programmers or expert app developers) who want to be able to: prototype, customise, enhance, publish and maintain cross-platform apps (at a professional level)
+| Group | Description | Expectations |
+| --- | --- | --- |
+| Beginner developers | First time motivated programmers or developers who haven't practiced in a while | Want to build app prototypes with a simple language |
+| Intermediate developers | Regular programmers or regular app developers | Want to prototype quickly on multiple platforms or start publishing their own apps |
+| Expert developers | Expert programmers or expert app developers | Want to be able to: prototype, customise, enhance, publish and maintain cross-platform apps at a personal or professional level |
 
 <a id="toc"></a>
 ## Table of Contents
