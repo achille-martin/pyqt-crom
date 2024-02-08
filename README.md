@@ -11,6 +11,8 @@
 
 :mortar_board: PyQt-CroM demonstrates the potential of [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) while optimising the tool.
 
+:open_hands: Get customised help from me on [Fiverr](http://www.fiverr.com/s/3PGbdV).
+
 ## Who is it for?
 
 :busts_in_silhouette: PyQt-CroM is mainly aimed at the following groups.
