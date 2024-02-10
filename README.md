@@ -51,6 +51,7 @@
 * [5. Troubleshooting](#troubleshooting)
 * [6. Roadmap](#roadmap)
 * [7. Credits](#credits)
+* [8. Support](#support)
 
 <a id="getting-started"></a>
 ## 1. Getting started 
@@ -500,15 +501,19 @@ Repository created and maintained by [Achille Martin](https://github.com/achille
 
 _For more information about licencing details, take a look at the section dedicated to [Licencing](doc/licencing/licencing_information.md)._
 
+:warning: _This repo is aimed at boosting the capability of well-intentioned international developers to create apps benefitting the community._
+
+[:arrow_heading_up: Back to TOP](#toc)
+
+<a id="support"></a>
+## 8. Support
+
 :star2: If you feel that you can make progress with your own projects by converting your PyQt5 apps into cross-platform apps, please support this project by starring and sponsoring it.
 
 <a href="https://www.buymeacoffee.com/achille_martin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" width="200px"></a>
 
 <a href="https://github.com/sponsors/achille-martin" target="_blank"><img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=%3Curl%3E&color=f88379" width="200px"></a>
 
-:open_hands: Get customised help from me on [Fiverr](http://www.fiverr.com/s/3PGbdV).
-
-:warning: _This repo is aimed at boosting the capability of well-intentioned international developers to create apps benefitting the community._
+:open_hands: If you feel stuck with your projects, get customised help from me on [Fiverr](http://www.fiverr.com/s/3PGbdV).
 
 [:arrow_heading_up: Back to TOP](#toc)
-
