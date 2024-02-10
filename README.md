@@ -5,13 +5,7 @@
 
 :dart: PyQt-CroM is a tool to create cross-platform apps ([_Android_](https://www.android.com/intl/en_uk/what-is-android/)) using only [Python](https://www.python.org/) and the [Qt Framework](https://www.qt.io/product/framework) ([_PyQt5_](https://riverbankcomputing.com/software/pyqt/intro)).
 
-<a href="https://www.buymeacoffee.com/achille_martin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" width="200px"></a>
-
-<a href="https://github.com/sponsors/achille-martin" target="_blank"><img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=%3Curl%3E&color=f88379" width="200px"></a>
-
 :mortar_board: PyQt-CroM demonstrates the potential of [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) while optimising the tool.
-
-:open_hands: Get customised help from me on [Fiverr](http://www.fiverr.com/s/3PGbdV).
 
 ## Who is it for?
 
@@ -511,6 +505,8 @@ _For more information about licencing details, take a look at the section dedica
 <a href="https://www.buymeacoffee.com/achille_martin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" width="200px"></a>
 
 <a href="https://github.com/sponsors/achille-martin" target="_blank"><img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=%3Curl%3E&color=f88379" width="200px"></a>
+
+:open_hands: Get customised help from me on [Fiverr](http://www.fiverr.com/s/3PGbdV).
 
 :warning: _This repo is aimed at boosting the capability of well-intentioned international developers to create apps benefitting the community._
 
