@@ -497,7 +497,7 @@ To find out about common setup and running issues, look at the section dedicated
 
 Repository created and maintained by [Achille Martin](https://github.com/achille-martin).
 
-:heartpulse: Sincere thanks to the well-intentioned international developers who want to create apps benefitting the community.
+:heartpulse: Sincere thanks to the well-intentioned international developers who create apps benefitting the community.
 
 :clap: Gigantic thanks to [Phil Thompson](https://pypi.org/user/PhilThompson/), the creator and maintainer of [PyQt](https://riverbankcomputing.com/software/pyqt/intro) and [pyqtdeploy](https://pypi.org/project/pyqtdeploy/).
 
@@ -508,9 +508,13 @@ _For more information about licencing details, take a look at the section dedica
 <a id="support"></a>
 ## 8. Support
 
-:star2: Do you feel that you can make progress with your own projects by converting your PyQt5 apps into cross-platform apps? Please support PyQt-CroM by starring, advertising and sponsoring it.
+:star2: Do you feel that you can make progress with your own projects by converting your PyQt5 apps into cross-platform apps? 
 
-:open_hands: Do you feel stuck with your projects? Get customised help from me on [Fiverr](http://www.fiverr.com/s/3PGbdV).
+Please support PyQt-CroM by [starring](https://github.com/achille-martin/pyqt-crom), [advertising](https://github.com/achille-martin/pyqt-crom) and [sponsoring](https://github.com/sponsors/achille-martin) it.
+
+:open_hands: Do you feel stuck with your projects? 
+
+Get customised help from me on [Fiverr](http://www.fiverr.com/s/3PGbdV).
 
 <a href="https://www.buymeacoffee.com/achille_martin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" width="200px"></a>
 
