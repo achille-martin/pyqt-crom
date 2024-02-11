@@ -516,6 +516,6 @@ _For more information about licencing details, take a look at the section dedica
 
 <a href="https://github.com/sponsors/achille-martin" target="_blank"><img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=%3Curl%3E&color=f88379" width="200px"></a>
 
-<a href="https://www.fiverr.com/hardioactif39/convert-your-pyqt5-script-into-an-android-application" target="_blank"><img src="https://freelogopng.com/images/all_img/1656737178fiverr-logo-png.png" alt="My Fiverr gigs" width="200px"></a>
+<a href="https://www.fiverr.com/hardioactif39/convert-your-pyqt5-script-into-an-android-application" target="_blank"><img src="https://freelogopng.com/images/all_img/1656739457fiverr-transparent-logo.png" alt="My Fiverr gigs" width="200px"></a>
 
 [:arrow_heading_up: Back to TOP](#toc)
