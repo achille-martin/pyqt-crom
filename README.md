@@ -1,4 +1,4 @@
-# PyQt-CroM (Cross-platforM PyQt Apps)
+# PyQt-CroM
 
 <a id="purpose"></a>
 ## What is it?
