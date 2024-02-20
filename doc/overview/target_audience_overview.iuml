@@ -8,27 +8,40 @@ hide empty description
 skinparam wrapWidth 200
 skinparam maxMessageSize 150
 
-!$beginners_txt = "* First time motivated programmers \n\
-* Developers who haven't practiced in a while \n\
-____________ \n\n\
-Want to build app prototypes with a simple language"
+!$beginners_profile_txt = "* First-time motivated programmers \n\
+* Developers who haven't practiced in a while"
+!$beginners_expectations_txt = "* Build app prototypes for a specific platform with a simple language"
 
-!$intermediate_txt = "* Regular programmers \n\
-* Regular app developers \n\
-____________ \n\n\
-Want to prototype quickly on multiple platforms and start publishing their own apps on app-sharing platforms"
+!$intermediate_profile_txt = "* Regular programmers \n\
+* Regular app developers"
+!$intermediate_expectations_txt = " * Prototype quickly on multiple platforms \n\
+* Publish own apps on app stores"
 
-!$experts_txt = "* Expert programmers \n\
-* Expert app developers \n\
-____________ \n\n\
-Want to prototype, customise, enhance, publish and maintain cross-platform apps at a personal or professional level"
+!$experts_profile_txt = "* Expert programmers \n\
+* Expert app developers"
+!$experts_expectations_txt = "* Prototype, customise, enhance, publish and maintain cross-platform apps at a personal or professional level"
+
+!$sub_title_color_1 = "lightgray"
+!$sub_title_color_2 = "lavender"
 
 /' States '/
 
-state "<b>Beginner Developers</b>" as beginners #DeepSkyBlue : $beginners_txt
-state "<b>Intermediate Developers</b>" as intermediate #Gold : $intermediate_txt
-state "<b>Expert Developers</b>" as experts #MediumPurple : $experts_txt
+state "<size:16>Beginner Developers" as beginners #DeepSkyBlue {
+	state "Profile" as beginners_profile #$sub_title_color_1 : $beginners_profile_txt
+	state "Expectations" as beginners_expectations #$sub_title_color_2 : $beginners_expectations_txt
+}
+state "<size:16>Intermediate Developers" as intermediate #Gold {
+	state "Profile" as intermediate_profile #$sub_title_color_1 : $intermediate_profile_txt
+	state "Expectations" as intermediate_expectations #$sub_title_color_2 : $intermediate_expectations_txt
+}
+state "<size:16>Expert Developers" as experts #HotPink {
+	state "Profile" as experts_profile #$sub_title_color_1 : $experts_profile_txt
+	state "Expectations" as experts_expectations #$sub_title_color_2 : $experts_expectations_txt
+}
 
 /' Links '/
+
+beginners -down[hidden]-> intermediate
+intermediate -down[hidden]-> experts
 
 @enduml
