@@ -1,8 +1,6 @@
 # PyQt-CroM
 
 <a id="overview"></a>
-## Overview
-
 <a id="overview-what"></a>
 ### What is it?
 
