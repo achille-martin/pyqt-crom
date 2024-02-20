@@ -3,7 +3,7 @@
 <a id="purpose"></a>
 ## What is it?
 
-:dart: PyQt-CroM is a tool to create cross-platform apps ([_Android_](https://www.android.com/intl/en_uk/what-is-android/)) using only [Python](https://www.python.org/) and the [Qt Framework](https://www.qt.io/product/framework) ([_PyQt5_](https://riverbankcomputing.com/software/pyqt/intro)).
+:dart: PyQt-CroM is a tool to create cross-platform apps using only [Python](https://www.python.org/) and the [Qt Framework](https://www.qt.io/product/framework).
 
 ![System Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/master/doc/overview/system_overview.iuml)
 
@@ -14,12 +14,6 @@
 :busts_in_silhouette: PyQt-CroM is mainly aimed at the following groups.
 
 ![Target Audience Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/master/doc/overview/target_audience_overview.iuml)
-
-| Group | Description | Expectations |
-| --- | --- | --- |
-| Beginner developers | First time motivated programmers or developers who haven't practiced in a while | Want to build app prototypes with a simple language |
-| Intermediate developers | Regular programmers or regular app developers | Want to prototype quickly on multiple platforms or start publishing their own apps |
-| Expert developers | Expert programmers or expert app developers | Want to prototype, customise, enhance, publish and maintain cross-platform apps at a personal or professional level |
 
 ## Why bother?
 
