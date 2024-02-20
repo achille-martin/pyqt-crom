@@ -29,15 +29,15 @@
 
 * [Kivy](https://kivy.org/) and [BeeWare](https://beeware.org/) are the most famous cross-platform app development frameworks based on Python. Even though [Kivy](https://kivy.org/) is more focused on non-native user interface and [BeeWare](https://beeware.org/) is more focused on native feel, they can't provide both options in one framework simultaneously. Furthermore, they both lack community support and good documentation. On the contrary, [PyQt](https://riverbankcomputing.com/software/pyqt/intro) relies relies on the [Qt framework](https://www.qt.io/product/framework) which is the leader in GUI apps (thanks to an active community) and allows to develop apps with a native feel ([QtWidgets](https://doc.qt.io/qt-6/qtwidgets-index.html)) or a more custom and standardised look ([QtQuick](https://doc.qt.io/qt-6/qtquick-index.html)) according to [Qt framework comparison](https://www.qt.io/resources/videos/qt-widgets-or-qt-quick).
 
-* [Tkinter](https://docs.python.org/3/library/tkinter.html) relies on Python and the code is stable, however the user interface is not appealing and the code is hard to debug. On the contrary, [PyQt](https://riverbankcomputing.com/software/pyqt/intro) makes Qt components directly accessible from the Python language, which makes it easy to organise, customise and debug (thanks to recognised Qt expertise).
+* [Tkinter](https://docs.python.org/3/library/tkinter.html) relies on Python and the code is stable, however the user interface is not appealing and the code is hard to debug. On the contrary, [PyQt](https://riverbankcomputing.com/software/pyqt/intro) makes Qt components directly accessible from the Python language, which makes it easy to organise, customise and debug code (thanks to recognised Qt expertise).
 
 * [PySide](https://wiki.qt.io/Qt_for_Python) is developed by Qt, but surprisingly requires a lot of setup and various tools to convert from a script to a mobile app for instance, as expressed by Qt itself on [Qt website](https://www.qt.io/blog/taking-qt-for-python-to-android). Even though [pyqtdeploy](https://riverbankcomputing.com/software/pyqtdeploy/intro) also requires a lot of setup to convert a [PyQt](https://riverbankcomputing.com/software/pyqt/intro) script into a cross-platform app, the process is robust and reliable.
 
 The tool [pyqtdeploy](https://riverbankcomputing.com/software/pyqtdeploy/intro) is still not perfect, but the limitations are non-critical for the target audience:
 
-* The size of generated apps is usually bigger than expected, because they need to include a Python interpreter if not available on the OS (e.g. Android apps).
 * Qt documentation is great for C++, but less for Python
-* Pyqtdeploy documentation is almost non-existent (or hard to find)
+* [Pyqtdeploy](https://riverbankcomputing.com/software/pyqtdeploy/intro) documentation is almost non-existent
+* The size of generated apps is usually bigger than expected, because they need to include a Python interpreter if not available on the OS (e.g. Android apps).
 
 The aforementioned limitations constitute obstacles that can be tackled by PyQt-CroM.
 
