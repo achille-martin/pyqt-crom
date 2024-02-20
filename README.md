@@ -19,7 +19,7 @@
 
 :seedling: There are various reasons to create yet another cross-platform app generation tool (especially based on Python and the [Qt framework](https://www.qt.io/product/framework)):
 
-* Javascript is the current leading language for cross-platform app development frameworks (e.g. [React Native](https://reactnative.dev/), [Nodejs](https://nodejs.org/en), [Ionic](https://ionicframework.com/)). However, <span style="background-color: #FFFF99">Javascript is harder to pick up and learn for beginners than Python</span>. Furthermore, Python comes with built-in modules and an extensive list of libraries, whereas Javascript only comes with a few powerful libraries, which makes Javascript still less handy and less flexible for intermediate and expert developers.
+* Javascript is the current leading language for cross-platform app development frameworks (e.g. [React Native](https://reactnative.dev/), [Nodejs](https://nodejs.org/en), [Ionic](https://ionicframework.com/)). However, ==Javascript is harder to pick up and learn for beginners than Python==. Furthermore, Python comes with built-in modules and an extensive list of libraries, whereas Javascript only comes with a few powerful libraries, which makes Javascript still less handy and less flexible for intermediate and expert developers.
 
 * [Flutter](https://flutter.dev/) is gaining traction in the cross-platform ecosystem, as it is fast, flexible and allows native feature access. Its base language is [Dart language](https://dart.dev/), which is easy to learn, fast, performant and documented, but suffers from a lack of online resources and community support (as it is fairly recent). On the contrary, Python benefits from countless useful online resources, as well as a large and active community.
 
