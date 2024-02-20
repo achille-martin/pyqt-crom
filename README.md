@@ -45,7 +45,7 @@
 <a id="toc"></a>
 ## Table of Contents
 
-* [0. Overview](#overview)
+* [Overview](#overview)
 * [1. Getting started](#getting-started)
     * [1.1. Check the pre-requisites](#pre-requisites)
     * [1.2. Download the github repo](#github-repo-download)
