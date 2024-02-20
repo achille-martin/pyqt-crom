@@ -6,7 +6,7 @@
 
 :dart: A tool to create [cross-platform apps](https://www.imaginarycloud.com/blog/what-is-cross-platform-app-development/) using only [Python](https://www.python.org/) and the [Qt Framework](https://www.qt.io/product/framework).
 
-![System Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/master/doc/overview/system_overview.iuml)
+![System Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&&fmt=svg&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/doc/overview/system_overview.iuml)
 
 :mortar_board: PyQt-CroM demonstrates the capabilities of [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) and optimises its use.
 
