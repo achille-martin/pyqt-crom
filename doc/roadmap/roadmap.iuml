@@ -70,6 +70,7 @@ partition Platforms {
     :Windows OS;
     :Mac OS;
     :iOS;
+    :Web Assembly;
 }
 stop
 @enduml
