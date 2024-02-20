@@ -1,0 +1,34 @@
+/' Target audience overview for PyQt-CroM '/
+
+@startuml
+
+/' Config '/
+
+hide empty description
+skinparam wrapWidth 200
+skinparam maxMessageSize 150
+
+!$beginners_txt = "* First time motivated programmers \n\
+* Developers who haven't practiced in a while \n\
+____________ \n\n\
+Want to build app prototypes with a simple language"
+
+!$intermediate_txt = "* Regular programmers \n\
+* Regular app developers \n\
+____________ \n\n\
+Want to prototype quickly on multiple platforms and start publishing their own apps on app-sharing platforms"
+
+!$experts_txt = "* Expert programmers \n\
+* Expert app developers \n\
+____________ \n\n\
+Want to prototype, customise, enhance, publish and maintain cross-platform apps at a personal or professional level"
+
+/' States '/
+
+state "<b>Beginner Developers</b>" as beginners #DeepSkyBlue : $beginners_txt
+state "<b>Intermediate Developers</b>" as intermediate #Gold : $intermediate_txt
+state "<b>Expert Developers</b>" as experts #MediumPurple : $experts_txt
+
+/' Links '/
+
+@enduml
