@@ -1,7 +1,10 @@
 # PyQt-CroM
 
-<a id="purpose"></a>
-## What is it?
+<a id="overview"></a>
+## Overview
+
+<a id="overview-what"></a>
+### What is it?
 
 :dart: A tool to create [cross-platform apps](https://www.imaginarycloud.com/blog/what-is-cross-platform-app-development/) using only [Python](https://www.python.org/) and the [Qt Framework](https://www.qt.io/product/framework).
 
@@ -9,13 +12,15 @@
 
 :mortar_board: PyQt-CroM demonstrates the capabilities of [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) and optimises its use.
 
-## Who is it for?
+<a id="overview-who"></a>
+### Who is it for?
 
 :busts_in_silhouette: PyQt-CroM is mainly aimed at the following groups.
 
 ![Target Audience Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/master/doc/overview/target_audience_overview.iuml)
 
-## Why bother?
+<a id="overview-why"></a>
+### Why bother?
 
 :seedling: There are various reasons to create yet another cross-platform app generation tool (especially based on Python and the [Qt framework](https://www.qt.io/product/framework)):
 
@@ -42,6 +47,7 @@
 <a id="toc"></a>
 ## Table of Contents
 
+* [Overview](#overview)
 * [1. Getting started](#getting-started)
     * [1.1. Check the pre-requisites](#pre-requisites)
     * [1.2. Download the github repo](#github-repo-download)
