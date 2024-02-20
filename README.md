@@ -3,7 +3,7 @@
 <a id="purpose"></a>
 ## What is it?
 
-:dart: PyQt-CroM is a tool to create cross-platform apps using only [Python](https://www.python.org/) and the [Qt Framework](https://www.qt.io/product/framework).
+:dart: PyQt-CroM is a tool to create [cross-platform apps](https://www.imaginarycloud.com/blog/what-is-cross-platform-app-development/) using only [Python](https://www.python.org/) and the [Qt Framework](https://www.qt.io/product/framework).
 
 ![System Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/master/doc/overview/system_overview.iuml)
 
