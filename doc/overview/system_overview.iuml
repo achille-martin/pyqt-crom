@@ -10,19 +10,19 @@ skinparam maxMessageSize 150
 
 !$managed_color = "LimeGreen"
 !$not_managed_color = "Grey"
-!$header_color = "Aquamarine"
+!$header_color = "lavender"
 !$system_color = "Black"
 
 /' States '/
 
-state "INPUTS" as input {
+state "INPUTS" as input #$header_color {
 	state "PyQt5" as pyqt5 #$managed_color
 	state "PyQt6" as pyqt6 #$not_managed_color
 }
 
 state "<color:white><size:20>PyQt-CroM" as system #$system_color
 
-state "OUTPUTS" as output {
+state "OUTPUTS" as output #$header_color {
 	state "Android" as android #$managed_color
 	state "Linux" as linux #$not_managed_color
 	state "Windows" as windows #$not_managed_color
