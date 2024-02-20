@@ -1,0 +1,47 @@
+/' System overview for PyQt-CroM '/
+
+@startuml
+
+/' Config '/
+
+hide empty description
+skinparam wrapWidth 200
+skinparam maxMessageSize 150
+
+!$managed_color = "LimeGreen"
+!$not_managed_color = "Grey"
+!$header_color = "Aquamarine"
+!$system_color = "Black"
+
+/' States '/
+
+state "INPUTS" as input {
+	state "PyQt5" as pyqt5 #$managed_color
+	state "PyQt6" as pyqt6 #$not_managed_color
+}
+
+state "<color:white><size:20>PyQt-CroM" as system #$system_color
+
+state "OUTPUTS" as output {
+	state "Android" as android #$managed_color
+	state "Linux" as linux #$not_managed_color
+	state "Windows" as windows #$not_managed_color
+	state "MacOS" as macos #$not_managed_color
+	state "iOS" as ios #$not_managed_color
+	state "Web Assembly" as wasm #$not_managed_color
+}
+
+/' Links '/
+
+android -down[hidden]-> linux
+android -right[hidden]-> macos
+linux -down[hidden]-> windows
+macos -down[hidden]-> ios
+ios -down[hidden]-> wasm
+
+input -right-> system
+system -right-> output
+
+pyqt5 -down[hidden]-> pyqt6
+
+@enduml
