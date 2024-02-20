@@ -6,7 +6,7 @@
 
 :dart: A tool to create [cross-platform apps](https://www.imaginarycloud.com/blog/what-is-cross-platform-app-development/) using only [Python](https://www.python.org/) and the [Qt Framework](https://www.qt.io/product/framework).
 
-![System Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&&fmt=svg&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/doc/overview/system_overview.iuml)
+![System Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/doc/overview/system_overview.iuml)
 
 :mortar_board: PyQt-CroM demonstrates the capabilities of [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) and optimises its use.
 
@@ -15,7 +15,7 @@
 
 :busts_in_silhouette: PyQt-CroM is mainly aimed at the following groups.
 
-![Target Audience Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/master/doc/overview/target_audience_overview.iuml)
+![Target Audience Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/doc/overview/target_audience_overview.iuml)
 
 <a id="overview-why"></a>
 ### Why bother?
@@ -514,7 +514,7 @@ To find out about common setup and running issues, look at the section dedicated
 
 :mag: This section describes the broad roadmap to deliver a functional repo.
 
-![Roadmap Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/master/doc/roadmap/roadmap.iuml)
+![Roadmap Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/doc/roadmap/roadmap.iuml)
 
 [:arrow_heading_up: Back to TOP](#toc) 
 
