@@ -7,9 +7,10 @@
 
 * [1. Module not found](#module-not-found)
 * [2. File not found](#file-not-found)
-* [3. Setup repo with a Virtual Machine](#virtual-machine-setup)
-* [4. Setup Bluetooth in a Virtual Machine](#virtual-machine-bluetooth)
-* [5. Setup an Android Emulator](#android-emulator-setup)
+* [3. Qt plugin error](#qt-plugin-error)
+* [4. Setup repo with a Virtual Machine](#virtual-machine-setup)
+* [5. Setup Bluetooth in a Virtual Machine](#virtual-machine-bluetooth)
+* [6. Setup an Android Emulator](#android-emulator-setup)
 
 <a id="module-not-found"></a>
 ### 1. Module not found
@@ -34,8 +35,31 @@ If you have followed the tutorial, then ensure that you have [activated your vir
 
 If the [building process](../../README.md#app-generation) or any other process fails because some files cannot be found, ensure that you have correctly setup your `.bashrc` to load the environment: go through the [Getting started](../../README.md#getting-started) tutorial and confirm the state of your `.bashrc`.
 
+<a id="qt-plugin-error"></a>
+### 3. Qt plugin error
+
+If you encounter Qt plugin errors (when trying to run your `PyQt5 application`), such as:
+
+> qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though it was found.
+
+Follow the instructions below to find the origin of the problem and solve it:
+
+* Enable the Qt debug prints:
+
+```
+export QT_DEBUG_PLUGINS=1
+```
+
+* Run your `PyQt5 application` again to read the DEBUG prints
+
+* Identify the issue. For instance, if it is related to the package `libxcb-xinerama`, install it with:
+
+```
+sudo apt-get install libxcb-xinerama0
+```
+
 <a id="virtual-machine-setup"></a>
-### 3. Setup repo with a Virtual Machine
+### 4. Setup repo with a Virtual Machine
 
 To setup a Linux Virtual Machine on Windows via VirtualBox, follow [It's FOSS virtualbox setup tutorial](https://itsfoss.com/install-linux-in-virtualbox/).
 
@@ -46,7 +70,7 @@ It is also recommended to install the VirtualBox Guest Additions. Follow the [Li
 :bulb: _It is also recommended to set the size of the Virtual Machine to at least 50GB so that there is enough space to download and install all dependencies._
 
 <a id="virtual-machine-bluetooth"></a>
-### 4. Setup Bluetooth in a Virtual Machine
+### 5. Setup Bluetooth in a Virtual Machine
 
 If you are using VirtualBox (Virtual Machine) and you want to run a pyqt5 app requiring a Bluetooth connection, you can follow these steps:
 
@@ -60,7 +84,7 @@ If you are using VirtualBox (Virtual Machine) and you want to run a pyqt5 app re
   * If the dongle is not running (DOWN), you can restart the Bluetooth service with `sudo systemctl restart bluetooth.service`
 
 <a id="android-emulator-setup"></a>
-### 5. Setup an Android Emulator
+### 6. Setup an Android Emulator
 
 To setup an Android Emulator, it is recommended to use Android Studio.
 
