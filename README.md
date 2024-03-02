@@ -339,7 +339,7 @@ cd $HOME/Downloads \
 Download the Qt version which matches the one in `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml` from the open source online installer:
 
 ```
-sudo apt-get install libxcb-xfixes0-dev \
+sudo apt-get install libxcb-xfixes0-dev libxcb-xinerama0 \
 && cd $HOME/Downloads \
 && wget https://d13lb3tujbc8s0.cloudfront.net/onlineinstallers/qt-unified-linux-x64-4.6.1-online.run \
 && chmod +x qt*.run \
@@ -356,6 +356,8 @@ A Qt window will appear on which you can sign up:
 - Installation will start
 
 :hand: _Make sure that you can access `$HOME/Qt5.15.2/5.15.2` and that the folder `android` is located inside of it._
+
+:bulb: _The package `libxcb-xinerama0` is installed to prevent an issue inherent to Qt5.15 (but solved in Qt6) with `xcb` Qt platform plugin, according to [QT DEBUG reports](https://bugreports.qt.io/browse/QTBUG-84749)._
 
 <a id="environment-variable-setup"></a>
 ### 1.6. Setup the environment variables
