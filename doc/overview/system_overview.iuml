@@ -20,7 +20,7 @@ state "<b>INPUTS" as input #$header_color {
 	state "PyQt6" as pyqt6 #$not_managed_color
 }
 
-state "<color:white><size:20>PyQt-CroM" as system #$system_color
+state "<color:white><size:20>PyQt-CroM</size> \n<color:white><size:11><i>Powered by pyqtdeploy</i></size>" as system #$system_color
 
 state "<b>OUTPUTS" as output #$header_color {
 	state "[[https://developer.android.com/about Android]]" as android #$managed_color
