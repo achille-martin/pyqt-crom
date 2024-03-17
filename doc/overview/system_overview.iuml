@@ -16,11 +16,11 @@ skinparam maxMessageSize 150
 /' States '/
 
 state "<b>INPUTS" as input #$header_color {
-	state "[[https://pypi.org/project/PyQt5/ PyQt5]]" as pyqt5 #$managed_color
-	state "PyQt6" as pyqt6 #$not_managed_color
+	state "[[https://pypi.org/project/PyQt5/ PyQt5]]\n\n<size:11><i>Python + Qt5" as pyqt5 #$managed_color
+	state "PyQt6\n\n<size:11><i>Python + Qt6" as pyqt6 #$not_managed_color
 }
 
-state "<color:white><size:20>PyQt-CroM</size> \n<color:white><size:11><i>Powered by pyqtdeploy</i></size>" as system #$system_color
+state "<color:white><size:20>PyQt-CroM</size> \n\n<color:white><size:11><i>Powered by pyqtdeploy</i></size>" as system #$system_color
 
 state "<b>OUTPUTS" as output #$header_color {
 	state "[[https://developer.android.com/about Android]]" as android #$managed_color
