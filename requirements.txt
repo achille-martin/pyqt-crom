@@ -4,4 +4,5 @@ PyQt5-sip==12.13.0
 pyqtdeploy==3.3.0
 sip==6.7.12
 PyQt-builder==1.15.3
+PyYAML==6.0.1
 pipdeptree==2.13.1
