@@ -1,0 +1,32 @@
+version = 0
+sysroot = "sysroot.toml"
+sysroots_dir = ""
+parts = [ "PyQt:PyQt5.QtWidgets", "pyyaml:pyyaml",]
+
+[Application]
+entry_point = "external_python_pkg.operational_pyqt5_app_with_yaml:main"
+is_console = false
+is_bundle = false
+name = "ExternalPythonApp"
+qmake_configuration = ""
+script = ""
+syspath = ""
+
+[Application.Package]
+name = "external_python_pkg"
+exclude = [ "*.pyc", "*.pyd", "*.pyo", "*.pyx", "*.pxi", "__pycache__", "*-info", "EGG_INFO", "*.so",]
+[[Application.Package.Content]]
+name = "__init__.py"
+included = true
+is_directory = false
+
+[[Application.Package.Content]]
+name = "example_config.yaml"
+included = true
+is_directory = false
+
+[[Application.Package.Content]]
+name = "operational_pyqt5_app_with_yaml.py"
+included = true
+is_directory = false
+

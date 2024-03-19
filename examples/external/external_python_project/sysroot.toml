@@ -1,0 +1,86 @@
+# The sysroot for the demo application.
+
+# Python ######################################################################
+
+[Python]
+version = "3.10.12"
+install_host_from_source = true
+
+[Python.win]
+install_host_from_source = false
+
+# PyQt ########################################################################
+
+[PyQt]
+version = "5.15.10"
+
+[PyQt.android]
+disabled_features = ["PyQt_Desktop_OpenGL", "PyQt_Printer"]
+installed_modules = ["QtCore", "QtGui", "QtWidgets"]
+
+[PyQt.ios]
+disabled_features = ["PyQt_Desktop_OpenGL", "PyQt_MacOSXOnly",
+        "PyQt_MacCocoaViewContainer", "PyQt_Printer", "PyQt_Process",
+        "PyQt_NotBootstrapped"]
+installed_modules = ["QtCore", "QtGui", "QtWidgets"]
+
+[PyQt.linux]
+installed_modules = ["QtCore", "QtGui", "QtWidgets"]
+
+[PyQt.macos]
+installed_modules = ["QtCore", "QtGui", "QtWidgets"]
+
+[PyQt.win]
+disabled_features = ["PyQt_Desktop_OpenGL"]
+installed_modules = ["QtCore", "QtGui", "QtWidgets"]
+
+# Qt ##########################################################################
+
+[Qt]
+version = "5.15.2"
+edition = "opensource"
+configure_options = ["-opengl", "desktop", "-no-dbus", "-qt-pcre"]
+skip = ["qtactiveqt", "qtdoc", "qtgamepad",
+        "qtquickcontrols", "qtquickcontrols2",
+        "qtremoteobjects", "qtscript", "qtscxml", "qtserialbus",
+        "qtserialport", "qtspeech", "qtsvg", "qttools", "qttranslations",
+        "qtwayland", "qtwebchannel", "qtwebengine", "qtwebsockets",
+        "qtwebview", "qtxmlpatterns"]
+
+[Qt.android]
+install_from_source = false
+
+[Qt.ios]
+install_from_source = false
+
+[Qt.linux]
+
+[Qt.macos]
+
+[Qt.win]
+static_msvc_runtime = true
+
+# PyYAML ######################################################################
+
+[pyyaml]
+plugin = "wheel"
+wheel = "PyYAML-6.0.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+# dependencies = [""]
+# exclusions = [""]
+
+# SIP #########################################################################
+
+[SIP]
+abi_major_version = 12
+module_name = "PyQt5.sip"
+
+# zlib ########################################################################
+
+[zlib]
+install_from_source = false
+
+[zlib.win]
+version = "1.2.13"
+install_from_source = true
+static_msvc_runtime = true
+
