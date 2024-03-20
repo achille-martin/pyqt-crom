@@ -1,7 +1,7 @@
 version = 0
 sysroot = "sysroot.toml"
 sysroots_dir = ""
-parts = [ "PyQt:PyQt5.QtWidgets", "pyyaml:pyyaml",]
+parts = [ "PyQt:PyQt5.QtWidgets",]
 
 [Application]
 entry_point = "external_python_pkg.operational_pyqt5_app_with_yaml:main"

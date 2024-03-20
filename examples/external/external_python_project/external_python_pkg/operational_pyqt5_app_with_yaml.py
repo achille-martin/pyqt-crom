@@ -27,8 +27,8 @@
 ## Imports
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox
-from yaml import safe_load
-from os import path.isfile, path.realpath
+# from yaml import safe_load
+from os.path import isfile, realpath
 
 # Only needed for access to command line arguments
 # import sys
@@ -80,8 +80,10 @@ class MainWindow(QMainWindow):
         alert.exec()
 
     def import_yaml_config(self, config_file_path):
+        empty_dict = dict()
+        config = empty_dict
         # Check whether config file exists
-        if not path.isfile(config_file_path):
+        if not isfile(config_file_path):
             print(
                     f"""
                     Cannot import yaml config from {config_file_path}
@@ -89,15 +91,14 @@ class MainWindow(QMainWindow):
                     Returning empty dict
                     """
             )
-            empty_dict = dict()
             return empty_dict
 
         # Import yaml config from file
-        with open(config_file_path, 'r') as file:
-            config = safe_load(file)
+        # with open(config_file_path, 'r') as file:
+        #     config = safe_load(file)
         print(
                 f"""
-                Imported yaml config from {path.realpath(config_file_path)}:
+                Imported yaml config from {realpath(config_file_path)}:
                 {config}
                 """
         )
