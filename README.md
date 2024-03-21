@@ -4,23 +4,23 @@
 <a id="overview-what"></a>
 ### What is it?
 
-:dart: A tool to create [cross-platform apps](https://www.imaginarycloud.com/blog/what-is-cross-platform-app-development/) using only [Python](https://www.python.org/) and the [Qt Framework](https://www.qt.io/product/framework).
+A tool to create [cross-platform apps](https://www.imaginarycloud.com/blog/what-is-cross-platform-app-development/) using only [Python](https://www.python.org/) and the [Qt Framework](https://www.qt.io/product/framework).
 
 ![System Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/doc/overview/system_overview.iuml)
 
-:mortar_board: PyQt-CroM demonstrates the capabilities of [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) and optimises its use.
+PyQt-CroM demonstrates the capabilities of [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) and optimises its use.
 
 <a id="overview-who"></a>
 ### Who is it for?
 
-:busts_in_silhouette: PyQt-CroM is mainly aimed at the following groups.
+PyQt-CroM is mainly aimed at the following groups.
 
 ![Target Audience Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/doc/overview/target_audience_overview.iuml)
 
 <a id="overview-why"></a>
 ### Why bother?
 
-:seedling: There are various reasons to create yet another cross-platform app generation tool (especially based on Python and the [Qt framework](https://www.qt.io/product/framework)):
+There are various reasons to create yet another cross-platform app generation tool (especially based on Python and the [Qt framework](https://www.qt.io/product/framework)):
 
 * Javascript is the current leading language for cross-platform app development frameworks (e.g. [React Native](https://reactnative.dev/), [Nodejs](https://nodejs.org/en), [Ionic](https://ionicframework.com/)). However, `Javascript is harder to pick up and learn for beginners than Python`. Furthermore, Python comes with built-in modules and an extensive list of libraries, whereas Javascript only comes with a few powerful libraries, which makes `Javascript still less handy and less flexible for intermediate and expert developers`.
 
@@ -40,7 +40,7 @@
 * [Pyqtdeploy](https://riverbankcomputing.com/software/pyqtdeploy/intro) documentation is almost non-existent
 * The size of generated apps is usually bigger than expected, because they need to include a Python interpreter if not available on the OS (e.g. Android apps).
 
-:sunglasses: The aforementioned limitations constitute obstacles that can be tackled by PyQt-CroM.
+The aforementioned limitations constitute obstacles that can be tackled by PyQt-CroM.
 
 <a id="toc"></a>
 ## Table of Contents
