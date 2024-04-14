@@ -408,31 +408,51 @@ You can then either:
 
 :bulb: _Make sure to go through the [Getting Started tutorial](#getting-started) to correctly setup your machine and environment._
 
-:warning: _In this section, placeholders are defined between `<>`. For instance, `<pkg_name>` can be `demo_pkg` or `test_pkg`._
+:warning: _In this section, placeholders are defined between `<>`. For instance, `<pkg_name>` can be `demo_pkg`, or `test_pkg`, or even `hello`._
 
 <a id="package-creation"></a>
 ### 2.1. Create your python package
 
 Start by creating a project folder:
-* Create a folder `<project_name>` wherever you want (and remember the absolute path of its parent folder referred to as `<absolute_path>`)
+* Create a folder called `<project_name>` wherever you want on your machine
+* Identify the absolute path of its parent folder, referred to as `<absolute_path_to_project_parent_folder>`, so that your project folder can be located as `<absolute_path_to_project_parent_folder>/<project_name>`
+
+:bulb: _For instance, the [demo project folder](examples/demo/demo_project) is called `<project_name> = demo_project` and the absolute path to its parent folder is `<absolute_path_to_project_parent_folder> = $PYQT_CROM/examples/demo`._
 
 Inside of the project folder, create a python package to hold your `PyQt5` app:
-* Create a folder `<project_name>/<pkg_name>`
+* Create a folder `<project_name>/<pkg_name>`, where `<pkg_name>` is the name of your python package
 * Populate `<project_name>/<pkg_name>` with at least `__init__.py` file and a `<main_file_name>.py` script (you can add more files if required by your package)
 
 _Note that the `<main_file_name>.py` must contain a unique `main()` function (or any similar distinctive entry point)._
 
-:bulb: _An example of python package is given in the [demo project folder](examples/demo/demo_project/demo_pkg)._
+:bulb: _An example of python package (called `demo_pkg`) is given in the [demo project folder](examples/demo/demo_project)._
 
 <a id="sysroot-configuration"></a>
 ### 2.2. Configure the sysroot
 
 Inside of your `<project_name>` folder, add the sysroot config to specify application dependencies:
-* Create a file called `sysroot.toml` and populate it with all the modules used by your app.
-
-_For instance, if you imported `QtSql` in your `PyQt5` app, then you must include `QtSql` in `[PyQt.android] installed_modules`._
+* Create / copy a file called `sysroot.toml` and populate it with all the non-standard python modules, as well as non-python modules, used by your app.
 
 :bulb: _An example of sysroot config is given in the [demo project folder](examples/demo/demo_project)._
+
+#### 2.2.1. Specify non-python modules
+
+Non-python modules are modules and libraries that are not related to python.
+
+For instance, in the [demo sysroot](examples/demo/demo_project/sysroot.toml), `[Qt]` is a non-python module
+
+:warning: The following non-python modules are compulsory for the `PyQt5` app to compile / work as expected:
+* `[Python]`
+* `[PyQt]`
+* `[Qt]`
+* `[SIP]`
+* `[zlib]`
+
+#### 2.2.2. Specify non-standard python modules
+
+:bulb: _An example of sysroot config is given in the [demo project folder](examples/demo/demo_project)._
+
+_To illustrate the update of `sysroot.toml`: if you imported `QtSql` in your `PyQt5` app, then you must include `QtSql` in `[PyQt.android] installed_modules`._
 
 <a id="pdt-configuration"></a>
 ### 2.3. Configure the pdt
