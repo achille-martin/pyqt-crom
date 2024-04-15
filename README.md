@@ -511,14 +511,18 @@ To create your own sysroot plugins, follow the [Riverbank sysroot plugin tutoria
 <a id="pdt-configuration"></a>
 ### 2.3. Configure the pdt
 
-Inside of your `<project_name>` folder, add the pdt config to specify python dependencies and build requests:
-* Create a file called `config.pdt` and configure it
+Inside of your `<project_name>` folder, add the pdt config to further specify python dependencies and build requests:
+* Create / copy a file called `config.pdt` and configure it
+
+:bulb: _An example of pdt config is given in the [demo project folder](examples/demo/demo_project)._
+
+:bulb: _Interact with pdt config through the pyqtdeploy command: `pyqtdeploy <pdt_file_path>`._
 
 To configure the `config.pdt` file, you need to understand and use the various areas shown in the following pictures:
 
 <img src="doc/resources/multimedia/pdt_config_overview_part_1.svg">
 
-* Open the `config.pdt` file with: `cd <absolute_path>/<project_name> && pyqtdeploy config.pdt`.
+* Open the `config.pdt` file with: `cd <absolute_path_to_project_parent_folder>/<project_name> && pyqtdeploy config.pdt`.
 * [AREA 1] In the `Application source tab > Name area`, add the `<app_name>` with no spaces. This is the app name shown at export time.
 * [AREA 2] In the `Application source tab`, click on the `Scan` button to select your `<project_name>/<pkg_name>` folder.
 * [AREA 3] In the `Application source tab > Application Package Directory area`, tick the files and folders you want to include into your application.
@@ -531,8 +535,6 @@ To configure the `config.pdt` file, you need to understand and use the various a
 * [AREA 7] In the `Packages tab > Core Packages area`, tick all the external packages that you have imported in your python application. You can leave the coloured blocks as they import required libraries to build the python application.
 * Save the `config.pdt` with `Ctrl + S` and close it.
 
-:bulb: _An example of pdt config is given in the [demo project folder](examples/demo/demo_project)._
-
 :bulb: _For more information about pdt files, read the [Riverbank website page](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/pyqtdeploy.html)._
 
 <a id="app-generation"></a>
@@ -542,10 +544,10 @@ Generate the `<app_name>.apk` file using:
 
 ```
 cd $PYQT_CROM_DIR/utils \
-&& python3 build_app.py --pdt <absolute_path>/<project_name>/config.pdt --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
+&& python3 build_app.py --pdt <absolute_path_to_project_parent_folder>/<project_name>/config.pdt --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
 ```
 
-:bulb: _The `<app_name>.apk` can be found in the `<absolute_path>/<project_name>/releases/<build_date>` folder._
+:bulb: _The `<app_name>.apk` can be found in the `<absolute_path_to_project_parent_folder>/<project_name>/releases/<build_date>` folder._
 
 <a id="app-debugging"></a>
 ### 2.5. Debug the app
@@ -573,6 +575,8 @@ To discover or analyse PyQt5 features, look at the section dedicated to [PyQt5 f
 :mag: This section provides a detailed tutorial on how to release your custom app onto main app stores.
 
 To learn more about releasing your own app on app stores, follow the online tutorial.
+
+:warning: _The tutorial has not been released yet._
 
 [:arrow_heading_up: Back to TOP](#toc) 
 
