@@ -412,7 +412,7 @@ You can then either:
 
 :mag: This section describes the steps to generate an `Android` app (.apk) from a custom `PyQt5` app.
 
-:bulb: _Make sure to go through the [Getting Started tutorial](#getting-started) to correctly setup your machine and environment._
+:hand: _Make sure to go through the [Getting Started tutorial](#getting-started) to correctly setup your machine and environment._
 
 :warning: _In this section, placeholders are defined between `<>`. For instance, `<pkg_name>` can be `demo_pkg`, or `test_pkg`, or even `hello`._
 
@@ -448,15 +448,11 @@ Inside of your `<project_name>` folder, add the sysroot config to specify applic
 
 Non-python modules are modules and libraries that are not related to python.
 
-:bulb: To display all options / tags available for the sysroot packages listed in the sysroot file, type in a terminal:
+:bulb: _To display all options / tags available for the sysroot packages listed in the sysroot file, type in a terminal: `pyqtdeploy-sysroot --options <sysroot_file_path>`._
 
-```
-pyqtdeploy-sysroot --options <sysroot_file_path>
-```
+:bulb: _In the [demo sysroot](examples/demo/demo_project/sysroot.toml), `[Qt]` is a non-python module for instance._
 
-:bulb: In the [demo sysroot](examples/demo/demo_project/sysroot.toml), `[Qt]` is a non-python module for instance.
-
-:warning: The following non-python modules are compulsory for the `PyQt5` app to compile / work as expected:
+:warning: _The following non-python modules are compulsory for the `PyQt5` app to compile / work as expected:_
 * `[Qt]`
 * `[SIP]`
 * `[zlib]`
@@ -464,18 +460,22 @@ pyqtdeploy-sysroot --options <sysroot_file_path>
 <a id="sysroot-non-standard-python-modules"></a>
 #### 2.2.2. Specify non-standard python modules
 
-Non-standard python modules are modules and libraries that are python libraries, but not the [standard python library](https://docs.python.org/3/library/index.html).
+Non-standard python modules are modules and libraries that are python libraries, but not from the [standard python library](https://docs.python.org/3/library/index.html).
 
-:bulb: In the [demo sysroot](examples/demo/demo_project/sysroot.toml), `[PyQt]` is a non-standard python module for instance. Whenever you import a sub-module from the main module, you need to update the sysroot. For instance, if you imported `QtSql` in your `PyQt5` app (that you want to release for Android), then you must include `QtSql` in `[PyQt.android] installed_modules`._
+:bulb: _In the [demo sysroot](examples/demo/demo_project/sysroot.toml), `[PyQt]` is a non-standard python module for instance. Whenever you import a sub-module from the main module, you need to update the sysroot. For instance, if you imported `QtSql` in your `PyQt5` app (that you want to release for Android), then you must include `QtSql` in `[PyQt.android] installed_modules`._
 
-:warning: In the `sysroot.toml` file, `[PyQt]` is a non-standard python module that is compulsory for `PyQt5` apps.
+:warning: _In the `sysroot.toml` file, `[PyQt]` is a non-standard python module that is compulsory for `PyQt5` apps._
 
 <a id="sysroot-non-standard-python-modules-with-wheels"></a>
 ##### 2.2.2.1. Modules with wheels
 
-Python wheels are the new standard of pre-built binary package format for Python modules and libraries. This means that Python modules are ready to be installed by unpacking, without having to build anything. The advantage is that it is faster to install compared to a package that needs to get built. The limitation is that wheels are platform and version dependent, so they are tied to a specific version of Python on a specific platform. Sometimes finding the right wheel can be tricky.
+Python wheels are the new standard of pre-built binary package format for Python modules and libraries. This means that Python modules are ready to be installed by unpacking, without having to build anything. 
 
-[Python Wheels website](https://pythonwheels.com/) offers an overview of all Python modules with wheels available.
+The advantage of python wheels is that they enable faster instllation of a package, compared to a package that needs to get built. 
+
+The limitation of python wheels is that they are platform and version dependent, so they are tied to a specific version of Python on a specific platform. Sometimes finding the right wheel can be tricky.
+
+:bulb: _[Python Wheels website](https://pythonwheels.com/) offers an overview of all Python modules with wheels available._
 
 The fastest way to specify a non-standard python module with wheels in the sysroot is to follow the guide:
 1) **TODO**
@@ -495,16 +495,18 @@ If your desired non-standard python module does not have wheels:
 
 Standard python modules come from the [standard python library](https://docs.python.org/3/library/index.html).
 
-:warning: In the `sysroot.toml` file, `[Python]` is the only standard python "module" allowed and it is compulsory for `PyQt5` apps.
+:warning: _In the `sysroot.toml` file, `[Python]` is the only standard python "module" allowed and it is compulsory for `PyQt5` apps._
 
-:bulb: All other standard python modules can be added / removed from the `.pdt`.
+:warning: _All standard python modules (apart from `Python` itself) must be added / removed from the `.pdt`._
 
 <a id="sysroot-custom-plugins"></a>
 #### 2.2.4. Create custom plugins
 
-If you wish to create your own plugins (because you cannot import / find the module you need), follow the [Riverbank sysroot plugin tutorial](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html#defining-a-component-using-a-plugin).
+In case you cannot import / find the module you need, you can create your own sysroot plugins.
 
-Example and original plugins provided with `pyqtdeploy` can be found in `pyqtdeploy-3.3.0/pyqtdeploy/sysroot/plugins`.
+To create your own sysroot plugins, follow the [Riverbank sysroot plugin tutorial](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html#defining-a-component-using-a-plugin).
+
+:bulb: _Example and original plugins provided with `pyqtdeploy` can be found in `pyqtdeploy-3.3.0/pyqtdeploy/sysroot/plugins`._
 
 <a id="pdt-configuration"></a>
 ### 2.3. Configure the pdt
