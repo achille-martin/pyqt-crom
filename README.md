@@ -423,7 +423,7 @@ You can then either:
 
 Start by creating a project folder:
 * Create a folder called `<project_name>` wherever you want on your machine
-* Identify the absolute path of its parent folder, referred to as `<absolute_path_to_project_parent_folder>`, so that your project folder can be located as `<absolute_path_to_project_parent_folder>/<project_name>`
+* Identify the absolute path of its parent folder, referred to as `<absolute_path_to_project_parent_folder>`, so that your project folder is located as `<absolute_path_to_project_parent_folder>/<project_name>`
 
 :bulb: _For instance, the [demo project folder](examples/demo/demo_project) is called `<project_name> = demo_project` and the absolute path to its parent folder is `<absolute_path_to_project_parent_folder> = $PYQT_CROM/examples/demo`._
 
