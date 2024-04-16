@@ -4,23 +4,23 @@
 <a id="overview-what"></a>
 ### What is it?
 
-:dart: A tool to create [cross-platform apps](https://www.imaginarycloud.com/blog/what-is-cross-platform-app-development/) using only [Python](https://www.python.org/) and the [Qt Framework](https://www.qt.io/product/framework).
+A tool to create [cross-platform apps](https://www.imaginarycloud.com/blog/what-is-cross-platform-app-development/) using only [Python](https://www.python.org/) and the [Qt Framework](https://www.qt.io/product/framework).
 
-![System Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/doc/overview/system_overview.iuml)
+![System Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/docs/overview/system_overview.iuml)
 
-:mortar_board: PyQt-CroM demonstrates the capabilities of [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) and optimises its use.
+PyQt-CroM demonstrates the capabilities of [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) and optimises its use.
 
 <a id="overview-who"></a>
 ### Who is it for?
 
-:busts_in_silhouette: PyQt-CroM is mainly aimed at the following groups.
+PyQt-CroM is mainly aimed at the following groups.
 
-![Target Audience Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/doc/overview/target_audience_overview.iuml)
+![Target Audience Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/docs/overview/target_audience_overview.iuml)
 
 <a id="overview-why"></a>
 ### Why bother?
 
-:seedling: There are various reasons to create yet another cross-platform app generation tool (especially based on Python and the [Qt framework](https://www.qt.io/product/framework)):
+There are various reasons to create yet another cross-platform app generation tool (especially based on Python and the [Qt framework](https://www.qt.io/product/framework)):
 
 * Javascript is the current leading language for cross-platform app development frameworks (e.g. [React Native](https://reactnative.dev/), [Nodejs](https://nodejs.org/en), [Ionic](https://ionicframework.com/)). However, `Javascript is harder to pick up and learn for beginners than Python`. Furthermore, Python comes with built-in modules and an extensive list of libraries, whereas Javascript only comes with a few powerful libraries, which makes `Javascript still less handy and less flexible for intermediate and expert developers`.
 
@@ -40,7 +40,7 @@
 * [Pyqtdeploy](https://riverbankcomputing.com/software/pyqtdeploy/intro) documentation is almost non-existent
 * The size of generated apps is usually bigger than expected, because they need to include a Python interpreter if not available on the OS (e.g. Android apps).
 
-:sunglasses: The aforementioned limitations constitute obstacles that can be tackled by PyQt-CroM.
+The aforementioned limitations constitute obstacles that can be tackled by PyQt-CroM.
 
 <a id="toc"></a>
 ## Table of Contents
@@ -51,7 +51,7 @@
     * [1.2. Download the github repo](#github-repo-download)
     * [1.3. Setup the path to the main repo](#repo-path-setup)
     * [1.4. Setup the python virtual environment](#virtual-environment-setup)
-        * [1.4.1. Create a virtual environment with python3 installed on your machine](#virtual-environment-creation)
+        * [1.4.1. Create a python virtual environment](#virtual-environment-creation)
         * [1.4.2. Activate your virtual environment](#virtual-environment-activation)
         * [1.4.3. Install the necessary pip packages](#pip-package-installation)
         * [1.4.4. Test the demo app in your virtual environment](#virtual-environment-app-test)
@@ -106,7 +106,7 @@ Specs of Linux machine used:
 - `Ubuntu 22.04` (EOL April 2032) with around 40-50GB available (to install the dependencies)
 - `Python 3.10.12` (EOL October 2026) pre-installed on Ubuntu 22
 
-:bulb: _Refer to [Virtual Machine Setup](doc/troubleshooting/common_issues.md#virtual-machine-setup) if you don't have a Linux OS available on your machine._
+:bulb: _Refer to [Virtual Machine Setup](docs/troubleshooting/common_issues.md#virtual-machine-setup) if you don't have a Linux OS available on your machine._
 
 Specs of target OS:
 
@@ -151,7 +151,7 @@ printf "%s\n" \
 ### 1.4. Setup the python virtual environment
 
 <a id="virtual-environment-creation"></a>
-#### 1.4.1. Create a virtual environment with python3 installed on your machine
+#### 1.4.1. Create a python virtual environment
 
 ```
 sudo apt-get update \
@@ -520,7 +520,7 @@ Inside of your `<project_name>` folder, add the pdt config to further specify py
 
 To configure the `config.pdt` file, you need to understand and use the various areas shown in the following pictures:
 
-<img src="doc/resources/multimedia/pdt_config_overview_part_1.svg">
+<img src="docs/resources/multimedia/pdt_config_overview_part_1.svg">
 
 * Open the `config.pdt` file with: `cd <absolute_path_to_project_parent_folder>/<project_name> && pyqtdeploy config.pdt`.
 * [AREA 1] In the `Application source tab > Name area`, add the `<app_name>` with no spaces. This is the app name shown at export time.
@@ -528,7 +528,7 @@ To configure the `config.pdt` file, you need to understand and use the various a
 * [AREA 3] In the `Application source tab > Application Package Directory area`, tick the files and folders you want to include into your application.
 * [AREA 4] In the `Application source tab > Entry point area`, add the `<pkg_name>.<main_file_name>:main` to tell where the entry point of your application is.
 
-<img src="doc/resources/multimedia/pdt_config_overview_part_2.svg">
+<img src="docs/resources/multimedia/pdt_config_overview_part_2.svg">
 
 * [AREA 5] In the `Packages tab > Sysroot specification file area`, click on the file icon to the right to select the desired `sysroot.toml` file.
 * [AREA 6] In the `Packages tab > Standard Library area`, tick all the python libraries you have imported in your python application. You can leave the coloured blocks as they import required libraries to build the python application.
@@ -556,7 +556,7 @@ The most nerve-wracking part of deploying an application is the debugging part.
 
 Therefore, make sure that you have added a logger to your application and that you use an Emulator or a physical device to confirm your expectations.
 
-To setup an Emulator, refer to [Android Emulator setup](doc/troubleshooting/common_issues.md#android-emulator-setup).
+To setup an Emulator, refer to [Android Emulator setup](docs/troubleshooting/common_issues.md#android-emulator-setup).
 
 [:arrow_heading_up: Back to TOP](#toc)
 
@@ -565,7 +565,7 @@ To setup an Emulator, refer to [Android Emulator setup](doc/troubleshooting/comm
 
 :mag: This section offers feature examples to enhance your custom PyQt app.
 
-To discover or analyse PyQt5 features, look at the section dedicated to [PyQt5 features](doc/features/pyqt5_features.md).
+To discover or analyse PyQt5 features, look at the section dedicated to [PyQt5 features](docs/features/pyqt5_features.md).
 
 [:arrow_heading_up: Back to TOP](#toc) 
 
@@ -585,7 +585,7 @@ To learn more about releasing your own app on app stores, follow the online tuto
 
 :mag: This section offers advice to get unstuck when creating your app.
 
-To find out about common setup and running issues, look at the section dedicated to [Common issues](doc/troubleshooting/common_issues.md).
+To find out about common setup and running issues, look at the section dedicated to [Common issues](docs/troubleshooting/common_issues.md).
 
 [:arrow_heading_up: Back to TOP](#toc) 
 
@@ -594,7 +594,7 @@ To find out about common setup and running issues, look at the section dedicated
 
 :mag: This section describes the broad roadmap to deliver a functional repo.
 
-![Roadmap Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/doc/roadmap/roadmap.iuml)
+![Roadmap Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/docs/roadmap/roadmap.iuml)
 
 [:arrow_heading_up: Back to TOP](#toc) 
 
@@ -607,7 +607,7 @@ Repository created and maintained by [Achille Martin](https://github.com/achille
 
 :heartpulse: Sincere thanks to the well-intentioned international developers who create apps benefitting the community.
 
-_For more information about licencing details, take a look at the section dedicated to [Licencing](doc/licencing/licencing_information.md)._
+_For more information about licencing details, take a look at the section dedicated to [Licencing](docs/licencing/licencing_information.md)._
 
 [:arrow_heading_up: Back to TOP](#toc)
 
