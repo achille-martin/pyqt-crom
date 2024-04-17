@@ -416,8 +416,6 @@ You can then either:
 
 :warning: _In this section, placeholders are defined between `<>`. For instance, `<pkg_name>` can be `demo_pkg`, or `test_pkg`, or even `hello`._
 
-:bulb: _Refer to [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html) for more in-depth information about sysroot (System Root)._
-
 <a id="package-creation"></a>
 ### 2.1. Create your python package
 
@@ -439,7 +437,7 @@ _Note that the `<main_file_name>.py` must contain a unique `main()` function (or
 ### 2.2. Configure the sysroot
 
 Inside of your `<project_name>` folder, add the sysroot config to specify application dependencies:
-* Create / copy a file called `sysroot.toml` and populate it with all the non-standard python modules, as well as non-python modules, used by your app.
+* Create / copy a file called `sysroot.toml` and populate it with all the non-python modules, as well as the non-standard python modules, used by your app.
 
 :bulb: _An example of sysroot config is given in the [demo project folder](examples/demo/demo_project)._
 
@@ -450,7 +448,7 @@ Non-python modules are modules and libraries that are not related to python.
 
 :bulb: _To display all options / tags available for the sysroot packages listed in the sysroot file, type in a terminal: `pyqtdeploy-sysroot --options <sysroot_file_path>`._
 
-:bulb: _In the [demo sysroot](examples/demo/demo_project/sysroot.toml), `[Qt]` is a non-python module for instance._
+:bulb: _For instance, in the [demo sysroot](examples/demo/demo_project/sysroot.toml), `[Qt]` is a non-python module and some of its options / tags include: `disabled_features`, `edition`, `ssl`._
 
 :warning: _The following non-python modules are compulsory for the `PyQt5` app to compile / work as expected:_
 * `[Qt]`
@@ -464,7 +462,11 @@ Non-standard python modules are modules and libraries that are python libraries,
 
 :bulb: _In the [demo sysroot](examples/demo/demo_project/sysroot.toml), `[PyQt]` is a non-standard python module for instance. Whenever you import a sub-module from the main module, you need to update the sysroot. For instance, if you imported `QtSql` in your `PyQt5` app (that you want to release for Android), then you must include `QtSql` in `[PyQt.android] installed_modules`._
 
-:warning: _In the `sysroot.toml` file, `[PyQt]` is a non-standard python module that is compulsory for `PyQt5` apps._
+:warning: _In the in the [demo sysroot](examples/demo/demo_project/sysroot.toml), `[PyQt]` is a non-standard python module that is compulsory for `PyQt5` apps._
+
+There are 2 ways to install non-standard python modules:
+* From wheels (built distribution)
+* From source (source distribution)
 
 <a id="sysroot-non-standard-python-modules-with-wheels"></a>
 ##### 2.2.2.1. Modules with wheels
@@ -473,7 +475,7 @@ Python wheels are the new standard of pre-built binary package format for Python
 
 The advantage of python wheels is that they enable faster instllation of a package, compared to a package that needs to get built. 
 
-The limitation of python wheels is that they are platform and version dependent, so they are tied to a specific version of Python on a specific platform. Sometimes finding the right wheel can be tricky.
+The limitation of python wheels is that they are platform and version dependent, so they are tied to a specific version of Python on a specific platform. Sometimes finding the right wheel can be challenging.
 
 :bulb: _[Python Wheels website](https://pythonwheels.com/) offers an overview of all Python modules with wheels available._
 
@@ -507,6 +509,8 @@ In case you cannot import / find the module you need, you can create your own sy
 To create your own sysroot plugins, follow the [Riverbank sysroot plugin tutorial](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html#defining-a-component-using-a-plugin).
 
 :bulb: _Example and original plugins provided with `pyqtdeploy` can be found in `pyqtdeploy-3.3.0/pyqtdeploy/sysroot/plugins`._
+
+:bulb: _Refer to [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html) for more in-depth information about sysroot (System Root)._
 
 <a id="pdt-configuration"></a>
 ### 2.3. Configure the pdt
