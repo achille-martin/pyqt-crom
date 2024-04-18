@@ -177,7 +177,7 @@ source $PYQT_CROM_DIR/venv/pyqt-crom-venv/bin/activate
 <a id="pip-package-installation"></a>
 #### 1.4.3. Install the necessary pip packages
 
-Make sure that pip3 (pip for python3) has been upgraded to v23.3.2 in the virtual environment with:
+Make sure that pip3 (pip for python3) has been upgraded to v23.3.2 (or later) in the virtual environment with:
 
 ```
 pip3 --version
