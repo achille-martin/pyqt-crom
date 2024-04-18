@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 export PYQT_CROM_DIR=$HOME/Documents/pyqt-crom
 export RESOURCES_DIR=$PYQT_CROM_DIR/utils/resources
 export QT_DIR=$HOME/Qt5.15.2/5.15.2

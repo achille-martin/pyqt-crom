@@ -374,7 +374,7 @@ Load the environment variables on terminal startup with:
 printf "%s\n" \
 "" \
 "# Load extra environment variables for PyQt-CroM" \
-"source $PYQT_CROM_DIR/utils/resources/path_setup.sh" \
+"source $PYQT_CROM_DIR/utils/bash/setup_path.sh" \
 "" \
 >> $HOME/.bashrc \
 && source $HOME/.bashrc
