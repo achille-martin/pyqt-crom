@@ -482,7 +482,17 @@ The limitation of python wheels is that they are platform and version dependent,
 :bulb: _[Python Wheels website](https://pythonwheels.com/) offers an overview of all Python modules with wheels available._
 
 The fastest way to specify a non-standard python module with wheels in the sysroot is to follow the guide:
-1) **TODO**
+1) Identify the <python_package_name> and <python_package_version> you are looking for
+2) Get the wheels for the specific python package name and version, using the script:
+
+```
+$PYQT_CROM_DIR/utils/bash/get_wheel_for_python_package.sh <python_package_name> <python_package_version>
+```
+
+_Note: the script returns the name of the wheels suited for your source OS specifications, which you can copy-paste._
+
+3) **TODO**
+
 
 If your desired non-standard python module does not have wheels:
 * Request them to the maintainer
