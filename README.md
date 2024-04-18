@@ -455,6 +455,8 @@ Non-python modules are modules and libraries that are not related to python.
 * `[SIP]`
 * `[zlib]`
 
+_Note: the compulsory non-python modules must be listed at the end of the sysroot file._
+
 <a id="sysroot-non-standard-python-modules"></a>
 #### 2.2.2. Specify non-standard python modules
 
