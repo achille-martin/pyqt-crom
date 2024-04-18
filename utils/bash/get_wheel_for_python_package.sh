@@ -29,7 +29,7 @@ echo "Python package version desired: $python_package_version"
 mkdir -p $HOME/Downloads/temp_wheels
 
 # Download the wheels for the current OS specifications
-pip download --only-binary :all: --dest . --no-cache -d $HOME/Downloads/temp_wheels $1==$2
+pip download --only-binary :all: --dest . --no-cache -d $HOME/Downloads/temp_wheels $python_package_name==$python_package_version
 
 # Get the name of the wheels from the downloaded material
 wheel_name=$(ls $HOME/Downloads/temp_wheels -tp | grep -v /$ | head -1)
@@ -40,5 +40,5 @@ wheel_name=$(ls $HOME/Downloads/temp_wheels -tp | grep -v /$ | head -1)
 
 # Print out the name of the wheels
 echo "------"
-echo "Wheel name for Python package $python_package_name and for current OS specifications is:"
+echo "Wheel name for Python package $python_package_name (version $python_package_version) and for current OS specifications is:"
 echo "$wheel_name"
