@@ -224,7 +224,7 @@ The PyQt5 demo app will start and you can confirm that it is displayed properly 
 Download the sources with:
 
 ```
-cd $PYQT_CROM_DIR/utils/resources \
+cd $PYQT_CROM_DIR/utils/bash \
 && chmod +x download_sources.sh \
 && ./download_sources.sh
 ```
