@@ -487,8 +487,8 @@ The fastest way to specify a non-standard python module with wheels in the sysro
 2) Get the wheels for the specific python package name and version, using the script:
 
 ```
-chmod +x $PYQT_CROM_DIR/utils/bash/get_wheel_for_python_package.sh \
-&& $PYQT_CROM_DIR/utils/bash/get_wheel_for_python_package.sh <python_package_name> <python_package_version>
+chmod +x $PYQT_CROM_DIR/utils/bash/get_python_package_wheel.sh \
+&& $PYQT_CROM_DIR/utils/bash/get_python_package_wheel.sh <python_package_name> <python_package_version>
 ```
 
 _Note: the script returns the name of the wheels suited for your source OS specifications, which you can copy-paste._

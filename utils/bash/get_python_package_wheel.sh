@@ -42,7 +42,7 @@
 
 # Define print usage function
 print_usage() {
-    printf "Usage: get_wheel_for_python_package.sh <python_package_name> <python_package_version>\n"
+    printf "Usage: get_python_package_wheel.sh <python_package_name> <python_package_version>\n"
 }
 
 # Define a custom error handler function
