@@ -23,9 +23,8 @@
 # SOFTWARE.
 
 ##########################################
-# Purpose
+# PURPOSE
 # -------
-#
 # Setup handy path variables
 # for the repo and its dependencies
 ##########################################
