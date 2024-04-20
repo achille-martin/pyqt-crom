@@ -387,7 +387,7 @@ chmod +x $PYQT_CROM_DIR/utils/bash/setup_path.sh \
 Start the building process of the .apk with:
 
 ```
-cd $PYQT_CROM_DIR/utils \
+cd $PYQT_CROM_DIR/utils/python \
 && python3 build_app.py --pdt $PYQT_CROM_DIR/examples/demo/demo_project/config.pdt --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
 ``` 
 :hourglass_flowing_sand: _Let the app build (it may take a while). The app is built when you see "BUILD SUCCESSFUL"._
@@ -560,7 +560,7 @@ To configure the `config.pdt` file, you need to understand and use the various a
 Generate the `<app_name>.apk` file using:
 
 ```
-cd $PYQT_CROM_DIR/utils \
+cd $PYQT_CROM_DIR/utils/python \
 && python3 build_app.py --pdt <absolute_path_to_project_parent_folder>/<project_name>/config.pdt --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
 ```
 
