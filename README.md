@@ -371,7 +371,8 @@ A Qt window will appear on which you can sign up:
 Load the environment variables on terminal startup with:
 
 ```
-printf "%s\n" \
+chmod +x $PYQT_CROM_DIR/utils/bash/setup_path.sh \
+&& printf "%s\n" \
 "" \
 "# Load extra environment variables for PyQt-CroM" \
 "source $PYQT_CROM_DIR/utils/bash/setup_path.sh" \
