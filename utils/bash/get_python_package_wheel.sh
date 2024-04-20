@@ -45,6 +45,12 @@ print_usage() {
     printf "Usage: get_python_package_wheel.sh <python_package_name> <python_package_version>\n"
 }
 
+# Ensure that package name and version are supplied
+if [[ "$#" -ne 2 ]]; then
+    print_usage
+    exit 1
+fi
+
 # Define a custom error handler function
 handle_error() {
     printf "An error occurred: $1\n"
@@ -54,13 +60,7 @@ handle_error() {
 # Set the error handler to be called when an error occurs
 trap 'handle_error "please review the input arguments"' ERR
 
-# Ensure that package name and version are supplied
-if [ "$#" -ne 2 ]
-then
-    print_usage
-    exit 1
-fi
-
+# Collect required arguments
 python_package_name=$1
 python_package_version=$2
 printf "Python package deisred: $python_package_name\n"
