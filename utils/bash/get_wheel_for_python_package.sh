@@ -34,7 +34,7 @@
 
 # Define a custom error handler function
 handle_error() {
-    echo "An error occurred: $1"
+    printf "An error occurred: $1\n"
     exit 1
 }
 
@@ -44,15 +44,15 @@ trap 'handle_error "please review the input arguments"' ERR
 # Ensure that package name is supplied
 if [ "$#" -ne 2 ]
 then
-  echo "Usage: get_wheel_for_python_package.sh <python_package_name> <python_package_version>"
+  printf "Usage: get_wheel_for_python_package.sh <python_package_name> <python_package_version>\n"
   exit 1
 fi
 
 python_package_name=$1
 python_package_version=$2
-echo "Python package deisred: $python_package_name"
-echo "Python package version desired: $python_package_version"
-echo "------"
+printf "Python package deisred: $python_package_name\n"
+printf "Python package version desired: $python_package_version\n"
+printf "______\n"
 
 # Create a temporary folder to download the wheels
 temp_wheels_folder_path="$HOME/Downloads/temp_wheels"
@@ -69,6 +69,6 @@ wheel_name=$(ls $temp_wheels_folder_path -tp | grep -v /$ | head -1)
 # User can manually delete the temporary folder if needed.
 
 # Print out the name of the wheels
-echo "------"
-echo "Wheel name for Python package $python_package_name (version $python_package_version) and for current OS specifications is:"
-echo "$wheel_name"
+printf "______\n"
+printf "Wheel name for Python package $python_package_name (version $python_package_version) and for current OS specifications is:\n"
+printf "$wheel_name\n"
