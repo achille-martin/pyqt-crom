@@ -22,15 +22,23 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-##########################################
-# Purpose
+###################################################
+# PURPOSE
 # -------
-#
 # Identify wheels 
 # for desired non-standard python package
 # with specific package version
 # for the current OS specifications
-##########################################
+#
+# INPUTS
+# ------
+# * Python package name
+# * Python package version number
+# 
+# OUTPUTS
+# -------
+# * Wheel name associated to input python package
+###################################################
 
 # Define print usage function
 print_usage() {
@@ -69,7 +77,7 @@ pip download --only-binary :all: --dest . --no-cache -d $temp_wheels_folder_path
 # Get the name of the wheels from the downloaded material
 wheel_name=$(ls $temp_wheels_folder_path -tp | grep -v /$ | head -1)
 
-# Possibility to remove the temporary wheel folder,
+# It is possible to remove the temporary wheel folder,
 # but might look risky from a user perspective.
 # User can manually delete the temporary folder if needed.
 
