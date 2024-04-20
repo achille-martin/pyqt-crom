@@ -32,8 +32,8 @@
 # for the current OS specifications
 ##########################################
 
-# Define usage function
-usage() {
+# Define print usage function
+print_usage() {
     printf "Usage: get_wheel_for_python_package.sh <python_package_name> <python_package_version>\n"
 }
 
@@ -49,7 +49,7 @@ trap 'handle_error "please review the input arguments"' ERR
 # Ensure that package name and version are supplied
 if [ "$#" -ne 2 ]
 then
-    usage
+    print_usage
     exit 1
 fi
 
