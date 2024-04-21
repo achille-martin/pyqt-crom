@@ -457,7 +457,7 @@ Non-python modules are modules and libraries that are not related to python.
 :warning: _The following non-python modules are compulsory for the `PyQt5` app to compile / work as expected:_
 * `[Qt]`
 * `[SIP]`
-* `[zlib]`
+* `[zlib]` (Note that `zlib` is also a standard python module, but it is usually installed from external source in `pyqtdeploy`)
 
 _Note: the compulsory non-python modules must be listed at the end of the sysroot file._
 
