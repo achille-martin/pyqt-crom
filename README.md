@@ -57,7 +57,7 @@ The aforementioned limitations constitute obstacles that can be tackled by PyQt-
         * [1.4.4. Test the demo app in your virtual environment](#virtual-environment-app-test)
     * [1.5. Install the external dependencies](#external-dependency-installation)
         * [1.5.1. Download a set of external dependencies for pyqtdeploy](#external-dependency-download)
-        * [1.5.2. Install Zlib for pyqtdeploy](#zlib-installation)
+        * [1.5.2. Install zlib for pyqtdeploy](#zlib-installation)
         * [1.5.3. Install Java for Android Studio](#java-installation)
         * [1.5.4. Install Android Studio](#android-studio-installation)
         * [1.5.5. Install correct Android SDK and Tools](#android-sdk-installation)
@@ -231,7 +231,7 @@ chmod +x download_sources.sh &&
 :bulb: _You can confirm that the list of packages required matches with the versions from `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml`._
 
 <a id="zlib-installation"></a>
-#### 1.5.2. Install Zlib for pyqtdeploy
+#### 1.5.2. Install zlib for pyqtdeploy
 
 Install zlib on Ubuntu with:
 
@@ -239,7 +239,7 @@ Install zlib on Ubuntu with:
 sudo apt install zlib1g-dev
 ```
 
-Zlib is required by the pyqtdeploy project `$PYQT_CROM_DIR/examples/demo/demo_project/config.pdt` to correctly identify the dependencies from the `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml`.
+`zlib` component is required by `Qt` component in `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml` to be pre-installed, but there is no default way specified in the `zlib` component itself to install it. Therefore, the installation method needs to be explicitly specified in `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml`.
 
 :bulb: _Sysroot setup tips can be obtained from [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html)._
 
