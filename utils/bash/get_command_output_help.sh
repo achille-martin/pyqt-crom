@@ -132,12 +132,14 @@ python_version=$(python --version |& tee '/dev/null')
 pip_version=$(pip --version |& tee '/dev/null')
 pip_packages_installed=$(pip list --local |& tee '/dev/null')
 pip_dependency_tree=$(pipdeptree --local |& tee '/dev/null')
+python_site_packages=$(ls -l $PYQT_CROM_DIR/venv/pyqt-crom-venv/lib/python3.10/site-packages |& tee '/dev/null')
 
 text_to_add="## Python information
 * Python version: $code_snippet_start $python_version $code_snippet_end
 * Pip version: $code_snippet_start $pip_version $code_snippet_end
 * Pip packages installed: $code_snippet_start $pip_packages_installed $code_snippet_end
 * Pip dependency tree: $code_snippet_start $pip_dependency_tree $code_snippet_end
+* Python site packages: $code_snippet_start $python_site_packages $code_snippet_end
 "
 printf "$text_to_add" >> $log_file_path 2>&1
 
