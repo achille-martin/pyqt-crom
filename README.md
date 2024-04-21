@@ -119,15 +119,15 @@ Specs of target OS:
 Use the HTTPS method if you don't have a Github account:
 
 ```
-cd $HOME/Documents \
-&& git clone https://github.com/achille-martin/pyqt-crom.git
+cd $HOME/Documents &&
+git clone https://github.com/achille-martin/pyqt-crom.git
 ```
 
 Use the SSH method if you have a Github account (and [SSH key setup](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)):
 
 ```
-cd $HOME/Documents \
-&& git clone git@github.com:achille-martin/pyqt-crom
+cd $HOME/Documents &&
+git clone git@github.com:achille-martin/pyqt-crom
 ```
 
 <a id="repo-path-setup"></a>
@@ -138,13 +138,12 @@ cd $HOME/Documents \
 Add the variable to your `.bashrc` with:
 
 ```
-printf "%s\n" \
-"" \
-"# Environment variable for PyQt-CroM path" \
-"export PYQT_CROM_DIR=$HOME/Documents/pyqt-crom" \
-"" \
->> $HOME/.bashrc \
-&& source $HOME/.bashrc
+text_to_add="
+# Environment variable for PyQt-CroM path
+export PYQT_CROM_DIR=$HOME/Documents/pyqt-crom
+" &&
+printf "$text_to_add" >> $HOME/.bashrc &&
+source $HOME/.bashrc
 ```
 
 <a id="virtual-environment-setup"></a>
@@ -154,15 +153,15 @@ printf "%s\n" \
 #### 1.4.1. Create a python virtual environment
 
 ```
-sudo apt-get update \
-&& sudo apt-get install python3-pip \
-&& python3 -m pip install --upgrade pip \
-&& sudo apt-get install python3-virtualenv \
-&& cd $PYQT_CROM_DIR \
-&& mkdir -p venv \
-&& cd venv \
-&& virtualenv pyqt-crom-venv -p python3 \
-&& cd ..
+sudo apt-get update &&
+sudo apt-get install python3-pip &&
+python3 -m pip install --upgrade pip &&
+sudo apt-get install python3-virtualenv &&
+cd $PYQT_CROM_DIR &&
+mkdir -p venv &&
+cd venv &&
+virtualenv pyqt-crom-venv -p python3 &&
+cd ..
 ```
 
 <a id="virtual-environment-activation"></a>
@@ -192,9 +191,9 @@ pip3 install --upgrade pip
 Install the pip packages in the virtual environment with:
 
 ```
-cd $PYQT_CROM_DIR \
-&& pip3 cache purge \
-&& pip3 install -r requirements.txt
+cd $PYQT_CROM_DIR &&
+pip3 cache purge &&
+pip3 install -r requirements.txt
 ```
 
 :bulb: _You can confirm the installed pip packages with `pip3 list --local`._
@@ -203,8 +202,8 @@ cd $PYQT_CROM_DIR \
 #### 1.4.4. Test the demo app in your virtual environment
 
 ```
-cd $PYQT_CROM_DIR/examples/demo/demo_project/demo_pkg \
-&& python3 demo_app.py
+cd $PYQT_CROM_DIR/examples/demo/demo_project/demo_pkg &&
+python3 demo_app.py
 ```
 
 The PyQt5 demo app will start and you can confirm that it is displayed properly on your machine:
@@ -224,9 +223,9 @@ The PyQt5 demo app will start and you can confirm that it is displayed properly 
 Download the sources with:
 
 ```
-cd $PYQT_CROM_DIR/utils/bash \
-&& chmod +x download_sources.sh \
-&& ./download_sources.sh
+cd $PYQT_CROM_DIR/utils/bash &&
+chmod +x download_sources.sh &&
+./download_sources.sh
 ```
 
 :bulb: _You can confirm that the list of packages required matches with the versions from `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml`._
@@ -256,8 +255,8 @@ sudo apt install openjdk-11-jdk openjdk-11-jre
 Set the default java and javac version to 11 using:
 
 ```
-sudo update-alternatives --config java \
-&& sudo update-alternatives --config javac
+sudo update-alternatives --config java &&
+sudo update-alternatives --config javac
 ```
 
 :hand: _Confirm the version with `java -version && javac -version` which should be `v11.0.21`._
@@ -268,24 +267,24 @@ sudo update-alternatives --config java \
 Download Android Studio version `2023.1.1.26` with:
 
 ```
-sudo apt-get install wget \
-&& cd $HOME/Downloads \
-&& wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2023.1.1.26/android-studio-2023.1.1.26-linux.tar.gz
+sudo apt-get install wget &&
+cd $HOME/Downloads &&
+wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2023.1.1.26/android-studio-2023.1.1.26-linux.tar.gz
 ```
 
 Move the contents of the downloaded `tar.gz` to your `$HOME` directory using:
 
 ```
-cd $HOME/Downloads \
-&& tar -xvf android-studio-2023.1.1.26-linux.tar.gz \
-&& mv android-studio $HOME
+cd $HOME/Downloads &&
+tar -xvf android-studio-2023.1.1.26-linux.tar.gz &&
+mv android-studio $HOME
 ```
 
 Start the installation with:
 
 ```
-cd $HOME/android-studio/bin \
-&& ./studio.sh
+cd $HOME/android-studio/bin &&
+./studio.sh
 ```
 
 :bulb: _Tip: if there is an issue with android studio start, use `sudo ./studio.sh`._
@@ -318,12 +317,12 @@ If `$HOME/Android/Sdk/platforms` does not contain `android-28` folder only, foll
 - Download SDK Platform-Tools v28.0.3 to match the SDK Build-Tools version and add it to your SDK folder using:
 
 ```
-cd $HOME/Downloads \
-&& wget https://dl.google.com/android/repository/platform-tools_r28.0.3-linux.zip \
-&& sudo apt-get install unzip \
-&& unzip platform-tools_r28.0.3-linux.zip \
-&& rm -r $HOME/Android/Sdk/platform-tools \
-&& mv platform-tools $HOME/Android/Sdk
+cd $HOME/Downloads &&
+wget https://dl.google.com/android/repository/platform-tools_r28.0.3-linux.zip &&
+sudo apt-get install unzip &&
+unzip platform-tools_r28.0.3-linux.zip &&
+rm -r $HOME/Android/Sdk/platform-tools &&
+mv platform-tools $HOME/Android/Sdk
 ```
 
 <a id="android-ndk-installation"></a>
@@ -345,11 +344,11 @@ cd $HOME/Downloads \
 Download the Qt version which matches the one in `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml` from the open source online installer:
 
 ```
-sudo apt-get install libxcb-xfixes0-dev libxcb-xinerama0 \
-&& cd $HOME/Downloads \
-&& wget https://d13lb3tujbc8s0.cloudfront.net/onlineinstallers/qt-unified-linux-x64-4.6.1-online.run \
-&& chmod +x qt*.run \
-&& ./qt-unified-linux-x64-4.6.1-online.run
+sudo apt-get install libxcb-xfixes0-dev libxcb-xinerama0 &&
+cd $HOME/Downloads &&
+wget https://d13lb3tujbc8s0.cloudfront.net/onlineinstallers/qt-unified-linux-x64-4.6.1-online.run &&
+chmod +x qt*.run &&
+./qt-unified-linux-x64-4.6.1-online.run
 ```
 
 A Qt window will appear on which you can sign up:
@@ -371,14 +370,13 @@ A Qt window will appear on which you can sign up:
 Load the environment variables on terminal startup with:
 
 ```
-chmod +x $PYQT_CROM_DIR/utils/bash/setup_path.sh \
-&& printf "%s\n" \
-"" \
-"# Load extra environment variables for PyQt-CroM" \
-"source $PYQT_CROM_DIR/utils/bash/setup_path.sh" \
-"" \
->> $HOME/.bashrc \
-&& source $HOME/.bashrc
+chmod +x $PYQT_CROM_DIR/utils/bash/setup_path.sh &&
+text_to_add="
+# Load extra environment variables for PyQt-CroM
+source $PYQT_CROM_DIR/utils/bash/setup_path.sh
+" &&
+printf "$text_to_add" >> $HOME/.bashrc &&
+source $HOME/.bashrc
 ```
 
 <a id="app-build"></a>
@@ -387,8 +385,8 @@ chmod +x $PYQT_CROM_DIR/utils/bash/setup_path.sh \
 Start the building process of the .apk with:
 
 ```
-cd $PYQT_CROM_DIR/utils/python \
-&& python3 build_app.py --pdt $PYQT_CROM_DIR/examples/demo/demo_project/config.pdt --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
+cd $PYQT_CROM_DIR/utils/python &&
+python3 build_app.py --pdt $PYQT_CROM_DIR/examples/demo/demo_project/config.pdt --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
 ``` 
 :hourglass_flowing_sand: _Let the app build (it may take a while). The app is built when you see "BUILD SUCCESSFUL"._
 
@@ -487,8 +485,8 @@ The fastest way to specify a non-standard python module with wheels in the sysro
 2) Get the wheels for the specific python package name and version, using the script:
 
 ```
-chmod +x $PYQT_CROM_DIR/utils/bash/get_python_package_wheel.sh \
-&& $PYQT_CROM_DIR/utils/bash/get_python_package_wheel.sh <python_package_name> <python_package_version>
+chmod +x $PYQT_CROM_DIR/utils/bash/get_python_package_wheel.sh &&
+$PYQT_CROM_DIR/utils/bash/get_python_package_wheel.sh <python_package_name> <python_package_version>
 ```
 
 _Note: the script returns the name of the wheels suited for your source OS specifications, which you can copy-paste._
@@ -561,8 +559,8 @@ To configure the `config.pdt` file, you need to understand and use the various a
 Generate the `<app_name>.apk` file using:
 
 ```
-cd $PYQT_CROM_DIR/utils/python \
-&& python3 build_app.py --pdt <absolute_path_to_project_parent_folder>/<project_name>/config.pdt --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
+cd $PYQT_CROM_DIR/utils/python &&
+python3 build_app.py --pdt <absolute_path_to_project_parent_folder>/<project_name>/config.pdt --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
 ```
 
 :bulb: _The `<app_name>.apk` can be found in the `<absolute_path_to_project_parent_folder>/<project_name>/releases/<build_date>` folder._
