@@ -56,27 +56,29 @@ if [[ "$#" -lt 1 ]]; then
     exit 1
 fi
 
-# Get optional arguments
-flags="f:"
-OPTIND=2
-file_input=()
-while getopts $flags flag; do
-    case "${flag}" in
-        f) file_input+=( "${OPTARG}" ) ;;
-        *) print_usage; exit 1 ;;
-    esac
-done
-
 # Ensure that the required arguments are correctly supplied
-if [[ "$1" == "-f"  ]]; then
+command_to_run="$1"
+if [[ "$command_to_run" == "-f"*  ]]; then
     printf "First required argument is not valid: $1\n"
     print_usage
     exit 1
 fi
 
+# Get optional arguments
+flags="f:"  # Expected arguments for `f` flag
+OPTIND=2  # Ignore the first required argument
+file_input_list=()
+while getopts $flags flag; do
+    case "${flag}" in
+        f) file_input_list+=( "${OPTARG}" ) ;;
+        *) print_usage ; exit 1 ;;
+    esac
+done
+
 # Define handy variables
 code_snippet_start="\n \`\`\` \n"
 code_snippet_end=$code_snippet_start
+text_to_add=""
 
 # Create log folder if not already created
 log_folder="$PYQT_CROM_DIR/log"
@@ -89,7 +91,7 @@ cd $log_folder
 current_date_time=$(date +"%Y_%m_%d-%H_%M_%S")
 log_file="command_output_help_$current_date_time.md"
 
-printf "[INFO] Creating file $log_file in $log_folder to hold information...\n"
+printf "[INFO] Creating file $log_folder/$log_file to hold information...\n"
 
 touch $log_file
 
@@ -98,11 +100,14 @@ printf "[INFO] ...Done.\n"
 # Pre-populate the log file with relevant information about the request
 printf "[INFO] Populating file with relevant information about the request...\n"
 
-printf "# Command output help\n" >> $log_file 2>&1
-printf "\n## Request information\n\n" >> $log_file 2>&1
-printf "* Command requested: $code_snippet_start XXX $code_snippet_end" >> $log_file 2>&1
-printf "* Date and time requested at: $code_snippet_start $current_date_time $code_snippet_end\n"  >> $log_file 2>&1
-printf "* User emitting request: $code_snippet_start $USER $code_snippet_end\n" >> $log_file 2>&1
+text_to_add="# Command output help
+
+## Request information
+* Command requested: $code_snippet_start $command_to_run $code_snippet_end
+* Date and time requested at: $code_snippet_start $current_date_time $code_snippet_end
+* User emitting request: $code_snippet_start $USER $code_snippet_end
+"
+printf "$text_to_add" >> $log_file 2>&1
 
 printf "[INFO] ...Done.\n"
 
@@ -111,9 +116,11 @@ printf "[INFO] ...Done.\n"
 ## Get information about source OS
 printf "[INFO] Populating file with information about source OS...\n"
 
-printf "\n## Source OS information\n" >> $log_file 2>&1
 os_pretty_name=$(cat "/etc/os-release" | grep "PRETTY_NAME")
-printf "* Source OS pretty name: $code_snippet_start $os_pretty_name $code_snippet_end\n" >> $log_file 2>&1
+text_to_add="## Source OS information
+* Source OS pretty name: $code_snippet_start $os_pretty_name $code_snippet_end
+"
+printf "$text_to_add" >> $log_file 2>&1
 
 printf "[INFO] ...Done.\n"
 
@@ -126,11 +133,13 @@ pip_version=$(pip --version)
 pip_packages_installed=$(pip list --local)
 pip_dependency_tree=$(pipdeptree --local)
 
-printf "\n## Python information\n" >> $log_file 2>&1
-printf "* Python version: $code_snippet_start $python_version $code_snippet_end\n" >> $log_file 2>&1
-printf "* Pip version: $code_snippet_start $pip_version $code_snippet_end\n" >> $log_file 2>&1
-printf "* Pip packages installed: $code_snippet_start $pip_packages_installed $code_snippet_end\n" >> $log_file 2>&1
-printf "* Pip dependency tree: $code_snippet_start $pip_dependency_tree $code_snippet_end\n" >> $log_file 2>&1
+text_to_add="## Python information
+* Python version: $code_snippet_start $python_version $code_snippet_end
+* Pip version: $code_snippet_start $pip_version $code_snippet_end
+* Pip packages installed: $code_snippet_start $pip_packages_installed $code_snippet_end
+* Pip dependency tree: $code_snippet_start $pip_dependency_tree $code_snippet_end
+"
+printf "$text_to_add" >> $log_file 2>&1
 
 printf "[INFO] ...Done.\n"
 
