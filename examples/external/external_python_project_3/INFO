@@ -1,0 +1,3 @@
+This repo can generate a "pip" python package that can be called with console command "externalpycmd" and will launch the PyQt5 app.
+
+However, this repo cannot generate an Android app that will read the content of "app_config.yaml".

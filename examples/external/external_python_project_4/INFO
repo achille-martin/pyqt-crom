@@ -1,0 +1,3 @@
+This repo can output an Android that can read from "app_config.yaml" and "app_config_2.txt" using "importlib.resources.read_text()" only.
+
+Note that the main script of ".pdt" is used. "build_app.py" needs to be manually set so that "app_entrypoint_name" = "pyqt5_app_with_yaml".
