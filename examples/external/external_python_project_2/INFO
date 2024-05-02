@@ -1,9 +1,0 @@
-This repo manages to generate an Android app that can find the config files "app_config.yaml" and "app_config_2.txt" in the Android filesystem as temp files.
-
-The files can be read only using "importlib.resources.read_text()" though, not using the functions defined to read yaml files, because the files can't be found. There is probably a need to use "with open" to access the temp files (accessing the temp path and then the object will not work at all).
-
-Note that on its own in Linux, the PyQt5 app will not work because the module "externalpy" cannot be found.
-
-However, within the Android app, the module "externalpy" is found since it is the root defined in the ".pdt".
-
-The definition of a "pyqtdeploy package" is literally a single "python package" (no sub-packages allowed).
