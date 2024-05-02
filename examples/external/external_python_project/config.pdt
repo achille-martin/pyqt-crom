@@ -26,11 +26,6 @@ included = true
 is_directory = false
 
 [[Application.Package.Content]]
-name = "app_config_2.txt"
-included = true
-is_directory = false
-
-[[Application.Package.Content]]
 name = "pyqt5_app_with_yaml.py"
 included = true
 is_directory = false
