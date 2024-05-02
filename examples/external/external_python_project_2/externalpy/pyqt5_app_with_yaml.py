@@ -33,10 +33,7 @@ from os import makedirs
 from os.path import isfile, realpath, dirname, join, exists
 import logging as log_tool  # The logging library for debugging
 import sys
-try:
-    import importlib.resources as resources
-except ImportError:
-    import importlib_resources as resources
+import importlib.resources as resources
 
 ## Main variables and objects
 
@@ -47,15 +44,19 @@ std_app_data_folder_path_list = QStandardPaths.writableLocation(
 if std_app_data_folder_path_list is None:
     sys.exit("[ERROR] Cannot find writable App Data folder path")
 
-# Define app data folder path
+# Define custom app data folder path
 std_app_data_folder_path = ""
 if isinstance(std_app_data_folder_path_list, list):
     std_app_data_folder_path = std_app_data_folder_path_list[0]
 else:
     std_app_data_folder_path = str(std_app_data_folder_path_list)
-app_data_folder_path = join(std_app_data_folder_path, 'pyqt5_app_data', 'pyqt5_app_with_yaml')
+app_data_folder_path = join(
+    std_app_data_folder_path, 
+    'pyqt5_app_data', 
+    'pyqt5_app_with_yaml',
+)
 
-# Generate app data folder at convenient writable location
+# Generate custom app data folder at convenient writable location
 makedirs(app_data_folder_path, exist_ok = True)
 
 # Set logger config and instantiate object
@@ -70,9 +71,47 @@ formatter = log_tool.Formatter(logger_output_prefix_format)
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
+# Set additional log output location
+# for non-root debugging
+# when flag is_non_root_debug_active is set to True
+is_non_root_debug_active = False
+# WARNING: this feature might require 
+# to allow storage access permission before launching the app
+if is_non_root_debug_active:
+    # Retrieve documents folder path reference
+    # to save logs at a location accessible by non-root users
+    std_documents_folder_path_list = QStandardPaths.writableLocation(
+        QStandardPaths.DocumentsLocation
+    )
+    if std_documents_folder_path_list is None:
+        sys.exit("[ERROR] Cannot find writable documents folder path")
+    # Define custom alternative app data folder path
+    std_documents_folder_path = ""
+    if isinstance(std_documents_folder_path_list, list):
+        std_documents_folder_path = std_documents_folder_path_list[0]
+    else:
+        std_documents_folder_path = str(std_documents_folder_path_list)
+    alternative_app_data_folder_path = join(
+        std_documents_folder_path, 
+        'pyqt5_app_data', 
+        'pyqt5_app_with_yaml',
+    )
+    # Generate alternative app data folder at convenient writable location
+    makedirs(alternative_app_data_folder_path, exist_ok = True)
+    # Add log file output alternative to logger
+    logger_output_file_path_alternative = join(
+        alternative_app_data_folder_path, 
+        str(logger_output_file_name)
+    )
+    file_handler_alternative = log_tool.FileHandler(
+        logger_output_file_path_alternative
+    )
+    formatter_alternative = log_tool.Formatter(logger_output_prefix_format)
+    file_handler_alternative.setFormatter(formatter_alternative)
+    logger.addHandler(file_handler_alternative)
+
 # Reference app config file name
 app_config_file_name = "app_config.yaml"
-app_config_file_name_2 = "app_config_2.txt"
 
 
 ## Class definition
@@ -94,33 +133,24 @@ class MainWindow(QMainWindow):
         
         # Import app config from yaml file
         self.app_config_file_path = ""
+        self.app_config = dict()
         self.app_name = ""
         self.min_app_load_speed_s = ""
         self.max_nb_crash_allowed = ""
         try:
-            logger.debug(f"MainWindow::__init__ - Attempt at getting file content of {app_config_file_name}")
-            file_resource = str(resources.files('externalpy').joinpath(app_config_file_name))
-            logger.debug(f"MainWindow::__init__ - Obtained file resource: {file_resource}")
-            file_content = ""
-            #with file_resource.open(encoding='utf-8') as fp:
-            #    file_content = fp.read()
-            logger.debug(f"MainWindow::__init__ - file content: \n{file_content}")
-            logger.debug(f"MainWindow::__init__ - Attempt at getting file content of {app_config_file_name_2}")
-            file_path = ""
-            with resources.path('externalpy', app_config_file_name_2) as path:
-                file_path = path
-            logger.debug(f"MainWindow::__init__ - Obtained file path: {file_path}")
-            file_content = resources.read_text('externalpy', app_config_file_name_2)
-            logger.debug(f"MainWindow::__init__ - Obtained file content: {file_content}")
-            logger.debug(f"MainWindow::__init__ - Attempt at getting file path of {app_config_file_name}")
+            logger.debug(
+                f"""
+                MainWindow::__init__ - 
+                Getting file path and content of {app_config_file_name}
+                """
+            )
             with resources.path('externalpy', app_config_file_name) as path:
                 self.app_config_file_path = path
+                self.app_config = self.import_yaml_config(self.app_config_file_path)
             logger.debug(f"MainWindow::__init__ - Obtained file path: {self.app_config_file_path}")
-            file_content = resources.read_text('externalpy', app_config_file_name)
-            logger.debug(f"MainWindow::__init__ - Obtained file content: \n{file_content}")
-            app_config = self.import_yaml_config(self.app_config_file_path)
-            self.app_name = app_config.get('app_name', '')
-            target_performance_details = app_config.get('target_performance', dict())
+            logger.debug(f"MainWindow::__init__ - Obtained file content: \n{self.app_config}")
+            self.app_name = self.app_config.get('app_name', '')
+            target_performance_details = self.app_config.get('target_performance', dict())
             self.min_app_load_speed_s = target_performance_details.get('min_app_load_speed_s', '')
             self.max_nb_crash_allowed = target_performance_details.get('max_nb_crash_allowed', '')
         except Exception as e:
