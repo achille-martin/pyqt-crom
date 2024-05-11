@@ -30,10 +30,30 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox
 from PyQt5.QtCore import QStandardPaths
 from yaml import safe_load
 from os import makedirs
-from os.path import isfile, realpath, dirname, join, exists
+from os.path import isfile, realpath, dirname, join, exists, pardir
 import logging as log_tool  # The logging library for debugging
 import sys
 import importlib.resources as resources
+import importlib.util
+
+## Local package imports
+## Used to search for packages
+## on the local machine
+## (for testing purposes only)
+
+importer_folder = dirname(
+    realpath(__file__)
+)
+parent_of_importer_folder = join(
+    importer_folder,    
+    pardir,
+)
+parent_of_parent_of_importer_folder = join(
+    parent_of_importer_folder,    
+    pardir,
+)
+sys.path.append(parent_of_importer_folder)
+sys.path.append(parent_of_parent_of_importer_folder)
 
 ## Main variables and objects
 
@@ -53,7 +73,6 @@ else:
 app_data_folder_path = join(
     std_app_data_folder_path, 
     'pyqt5_app_data', 
-    'pyqt5_app_with_yaml',
 )
 
 # Generate custom app data folder at convenient writable location
@@ -74,7 +93,7 @@ logger.addHandler(file_handler)
 # Set additional log output location
 # for non-root debugging
 # when flag is_non_root_debug_active is set to True
-is_non_root_debug_active = False
+is_non_root_debug_active = True
 # WARNING: this feature might require 
 # to allow storage access permission before launching the app
 if is_non_root_debug_active:
@@ -94,7 +113,6 @@ if is_non_root_debug_active:
     alternative_app_data_folder_path = join(
         std_documents_folder_path, 
         'pyqt5_app_data', 
-        'pyqt5_app_with_yaml',
     )
     # Generate alternative app data folder at convenient writable location
     makedirs(alternative_app_data_folder_path, exist_ok = True)
@@ -112,6 +130,21 @@ if is_non_root_debug_active:
 
 # Reference app config file name
 app_config_file_name = "app_config.yaml"
+
+# Handy function to use most relevant
+# package naming convention
+# for the application
+def validate_pkg_format(dotted_pkg_name):
+    supported_pkg_name = ''
+    split_pkg_name_list = dotted_pkg_name.split('.')
+    joined_pkg_name = join(*split_pkg_name_list)
+    if importlib.util.find_spec(joined_pkg_name) is not None:
+        supported_pkg_name = joined_pkg_name
+    elif importlib.util.find_spec(dotted_pkg_name) is not None:
+        supported_pkg_name = dotted_pkg_name
+    else:
+        pass
+    return supported_pkg_name
 
 
 ## Class definition
@@ -144,8 +177,17 @@ class MainWindow(QMainWindow):
                 Getting file path and content of {app_config_file_name}
                 """
             )
-            with resources.path('externalpy', app_config_file_name) as path:
-                self.app_config_file_path = path
+            with resources.path(
+                    validate_pkg_format('externalpy_pkg.config'), 
+                    app_config_file_name) as path:
+                self.app_config_file_path = realpath(path)
+                logger.debug(
+                    f"""
+                    MainWindow::__init__ - 
+                    Obtained file path for {app_config_file_name}: 
+                    {self.app_config_file_path}
+                    """
+                )
                 self.app_config = self.import_yaml_config(self.app_config_file_path)
             logger.debug(f"MainWindow::__init__ - Obtained file path: {self.app_config_file_path}")
             logger.debug(f"MainWindow::__init__ - Obtained file content: \n{self.app_config}")
