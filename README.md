@@ -447,14 +447,14 @@ If you wish to create an "advanced" root python package (i.e. including nested p
 
 This is the structure of an advanced python package:
 
-* <root_pkg_name> (located at the same level as the [config.pdt file](#pdt-configuration))
-    * __init__.py (required to consider <root_pkg_name> a python package)
-    * <main_pkg_name> (name of your main python package)
-        * __init__.py
-        * main_file.py (main() from this file is considered as entrypoint for the [config.pdt file](#pdt-configuration))
-    * <second_pkg_name> (name of your second python package)
-        * __init__.py
-        * second_file.py (python module containing functionalities useful for main_file.py for instance)
+* `<root_pkg_name>` (located at the same level as the [config.pdt file](#pdt-configuration))
+    * `__init__.py` (required to consider `<root_pkg_name>` a python package)
+    * `<main_pkg_name>` (name of your main python package)
+        * `__init__.py`
+        * `main_file.py` (`main()` from this file is usually considered as entrypoint for the [config.pdt file](#pdt-configuration))
+    * `<second_pkg_name>` (name of your second python package)
+        * `__init__.py`
+        * `second_file.py` (python module containing functionalities useful for `main_file.py` for instance)
 
 To import the functionalities from `second_file.py` into `main_file.py`, you need to refer to the `<root_pkg_name>`, because that is the only package actually identified by the [config.pdt file](#pdt-configuration). This means: `from root_pkg_name.second_pkg_name.second_file import functionality`.
 
@@ -467,18 +467,18 @@ If you wish to add resources (non-python files) to your root python package, you
 
 This is the structure of a python package including non-python files:
 
-* <root_pkg_name> (located at the same level as the [config.pdt file](#pdt-configuration))
-    * __init__.py (required to consider <root_pkg_name> a python package)
-    * <main_pkg_name> (name of your main python package)
-        * __init__.py
-        * main_file.py (main() from this file is considered as entrypoint for the [config.pdt file](#pdt-configuration))
-    * data (name of the "package" containing non-python files)
-        * __init__.py (actually required for `importlib.resources` to identify the data inside the "package")
-        * img.png (image which is not a python script)
+* `<root_pkg_name>` (located at the same level as the [config.pdt file](#pdt-configuration))
+    * `__init__.py` (required to consider `<root_pkg_name>` a python package)
+    * `<main_pkg_name>` (name of your main python package)
+        * `__init__.py`
+        * `main_file.py` (`main()` from this file is usually considered as entrypoint for the [config.pdt file](#pdt-configuration))
+    * `data` (name of the "package" containing non-python files)
+        * `__init__.py` (actually required for `importlib.resources` to identify the data inside the "package")
+        * `<img>.png` (image which is not a python script)
 
-To perform operations on `img.png` from `main_file.py`, it is recommended to use [importlib.resources](https://docs.python.org/3.10/library/importlib.html#module-importlib.resources) built-in python module. The module can provide a path to the image contained within the built package. For instance: `with importlib.resources.path(os.path.join('root_pkg_name', 'data'), 'img.png') as path:`.
+To perform operations on `img.png` from `main_file.py`, it is recommended to use [importlib.resources built-in python module](https://docs.python.org/3.10/library/importlib.html#module-importlib.resources). The module can provide a path to the image contained within the built package. For instance: `with importlib.resources.path(os.path.join('root_pkg_name', 'data'), 'img.png') as path:`.
 
-:warning: Multiplexed path (dotted chain of packages) only works on directories, therefore, it is necessary to reference the data package name (nested package) with `os.path.join('root_pkg_name', 'data')` instead of `root_pkg_name.data` for the built application (Android app for instance) due to how `pyqtdeploy` freezes the resources.
+:warning: _Multiplexed path (dotted chain of packages) only works on directories, therefore, it is necessary to reference the data package name (nested package) with `os.path.join('root_pkg_name', 'data')` instead of `root_pkg_name.data` for the built application (Android app for instance) due to how `pyqtdeploy` freezes the resources._
 
 :bulb: _An example of a root python package including non-python files is given in [example external project](examples/external/external_python_project) and the root package is called `externalpy_pkg`._
 
