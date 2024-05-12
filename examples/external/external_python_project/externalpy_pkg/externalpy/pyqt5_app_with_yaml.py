@@ -34,7 +34,6 @@ from os.path import isfile, realpath, dirname, join, exists, pardir
 import logging as log_tool  # The logging library for debugging
 import sys
 import importlib.resources as resources
-import importlib.util
 
 ## Local package imports
 ## Used to search for packages
@@ -54,6 +53,8 @@ parent_of_parent_of_importer_folder = join(
 )
 sys.path.append(parent_of_importer_folder)
 sys.path.append(parent_of_parent_of_importer_folder)
+
+from externalpy_pkg.tools.validation_tools import validate_pkg_format
 
 ## Main variables and objects
 
@@ -131,21 +132,6 @@ if is_non_root_debug_active:
 # Reference app config file name
 app_config_file_name = "app_config.yaml"
 
-# Handy function to use most relevant
-# package naming convention
-# for the application
-def validate_pkg_format(dotted_pkg_name):
-    supported_pkg_name = ''
-    split_pkg_name_list = dotted_pkg_name.split('.')
-    joined_pkg_name = join(*split_pkg_name_list)
-    if importlib.util.find_spec(joined_pkg_name) is not None:
-        supported_pkg_name = joined_pkg_name
-    elif importlib.util.find_spec(dotted_pkg_name) is not None:
-        supported_pkg_name = dotted_pkg_name
-    else:
-        pass
-    return supported_pkg_name
-
 
 ## Class definition
 
@@ -178,7 +164,7 @@ class MainWindow(QMainWindow):
                 """
             )
             with resources.path(
-                    validate_pkg_format('externalpy_pkg.config'), 
+                    validate_pkg_format('externalpy_pkg.config', logger), 
                     app_config_file_name) as path:
                 self.app_config_file_path = realpath(path)
                 logger.debug(
