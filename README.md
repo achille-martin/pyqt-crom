@@ -68,6 +68,9 @@ The aforementioned limitations constitute obstacles that can be tackled by PyQt-
     * [1.8. Run the app](#app-run)
 * [2. Generating your own app](#custom-app)
     * [2.1. Create your python package](#package-creation)
+        * [2.1.1. Advanced python package](#package-creation-advanced")
+        * [2.1.2. Non-python file management](#package-creation-non-python-management)
+        * [2.1.3. Standard python package](#package-creation-standard)
     * [2.2. Update the sysroot](#sysroot-configuration)
         * [2.2.1. Specify non-python modules](#sysroot-non-python-modules)
         * [2.2.2. Specify non-standard python modules](#sysroot-non-standard-python-modules)
@@ -418,7 +421,7 @@ You can then either:
 
 :hand: _Make sure to go through the [Getting Started tutorial](#getting-started) to correctly setup your machine and environment._
 
-:warning: _In this section, placeholders are defined between `<>`. For instance, `<pkg_name>` can be `demo_pkg`, or `test_pkg`, or even `hello`._
+:warning: _In this section, placeholders are defined between `<>`. For instance, `<root_pkg_name>` can be `demo_pkg`, or `test_pkg`, or even `hello`._
 
 <a id="package-creation"></a>
 ### 2.1. Create your python package
@@ -430,12 +433,59 @@ Start by creating a project folder:
 :bulb: _For instance, the [demo project folder](examples/demo/demo_project) is called `<project_name> = demo_project` and the absolute path to its parent folder is `<absolute_path_to_project_parent_folder> = $PYQT_CROM_DIR/examples/demo`._
 
 Inside of the project folder, create a python package to hold your `PyQt5` app:
-* Create a folder `<project_name>/<pkg_name>`, where `<pkg_name>` is the name of your python package
-* Populate `<project_name>/<pkg_name>` with at least `__init__.py` file and a `<main_file_name>.py` script (you can add more files if required by your package)
+* Create a folder `<project_name>/<root_pkg_name>`, where `<root_pkg_name>` is the name of your "root" python package (identifying the root of your python packages if you require nested python packages)
+* Populate `<project_name>/<root_pkg_name>` with at least `__init__.py` file and a `<main_file_name>.py` script (you can add more files and folders / packages if required by your package)
 
 _Note that the `<main_file_name>.py` must contain a unique `main()` function (or any similar distinctive entry point)._
 
-:bulb: _An example of python package (called `demo_pkg`) is given in the [demo project folder](examples/demo/demo_project)._
+:bulb: _An example of root python package (called `demo_pkg`) is given in the [demo project folder](examples/demo/demo_project)._
+
+<a id="package-creation-advanced"></a>
+#### 2.1.1. Advanced python package
+
+If you wish to create an "advanced" root python package (i.e. including nested python packages), you need to understand the optimal structure of the root package, which is inspired from the [Standard python package](https://docs.python-guide.org/writing/structure/) structure (i.e. containing the `setup.py` file).
+
+This is the structure of an advanced python package:
+
+* <root_pkg_name> (located at the same level as the [config.pdt file](#pdt-configuration))
+    * __init__.py (required to consider <root_pkg_name> a python package)
+    * <main_pkg_name> (name of your main python package)
+        * __init__.py
+        * main_file.py (main() from this file is considered as entrypoint for the [config.pdt file](#pdt-configuration))
+    * <second_pkg_name> (name of your second python package)
+        * __init__.py
+        * second_file.py (python module containing functionalities useful for main_file.py for instance)
+
+To import the functionalities from `second_file.py` into `main_file.py`, you need to refer to the `<root_pkg_name>`, because that is the only package actually identified by the [config.pdt file](#pdt-configuration). This means: `from root_pkg_name.second_pkg_name.second_file import functionality`.
+
+:bulb: _An example of "advanced" root python package is given in [example external project](examples/external/external_python_project) and the root package is called `externalpy_pkg`._
+
+<a id="package-creation-non-python-management"></a>
+#### 2.1.2. Non-python file management
+
+If you wish to add resources (non-python files) to your root python package, you need to understand how to fetch the data from your python scripts / modules.
+
+This is the structure of a python package including non-python files:
+
+* <root_pkg_name> (located at the same level as the [config.pdt file](#pdt-configuration))
+    * __init__.py (required to consider <root_pkg_name> a python package)
+    * <main_pkg_name> (name of your main python package)
+        * __init__.py
+        * main_file.py (main() from this file is considered as entrypoint for the [config.pdt file](#pdt-configuration))
+    * data (name of the "package" containing non-python files)
+        * __init__.py (actually required for `importlib.resources` to identify the data inside the "package")
+        * img.png (image which is not a python script)
+
+To perform operations on `img.png` from `main_file.py`, it is recommended to use [importlib.resources](https://docs.python.org/3.10/library/importlib.html#module-importlib.resources) built-in python module. The module can provide a path to the image contained within the built package. For instance: `with importlib.resources.path(os.path.join('root_pkg_name', 'data'), 'img.png') as path:`.
+
+:warning: Multiplexed path (dotted chain of packages) only works on directories, therefore, it is necessary to reference the data package name (nested package) with `os.path.join('root_pkg_name', 'data')` instead of `root_pkg_name.data` for the built application (Android app for instance) due to how `pyqtdeploy` freezes the resources.
+
+:bulb: _An example of a root python package including non-python files is given in [example external project](examples/external/external_python_project) and the root package is called `externalpy_pkg`._
+
+<a id="package-creation-standard"></a>
+#### 2.1.3. Standard python package
+
+If you have created a [Standard python package](https://docs.python-guide.org/writing/structure/), you can generate its wheels and load your package into your application by following the [non-standard python module with wheels tutorial](#sysroot-non-standard-python-modules-with-wheels).
 
 <a id="sysroot-configuration"></a>
 ### 2.2. Configure the sysroot
@@ -466,9 +516,9 @@ _Note: the compulsory non-python modules must be listed at the end of the sysroo
 
 Non-standard python modules are modules and libraries that are python libraries, but not from the [standard python library](https://docs.python.org/3/library/index.html).
 
-:bulb: _In the [demo sysroot](examples/demo/demo_project/sysroot.toml), `[PyQt]` is a non-standard python module for instance. Whenever you import a sub-module from the main module, you need to update the sysroot. For instance, if you imported `QtSql` in your `PyQt5` app (that you want to release for Android), then you must include `QtSql` in `[PyQt.android] installed_modules`._
+:bulb: _In the [demo sysroot](examples/demo/demo_project/sysroot.toml), `[PyQt]` is a non-standard python module for instance. Whenever you import a sub-module from the main module, you need to update the sysroot. For instance, if you imported `QtSql` in your `PyQt5` app (that you want to release for Android), then you must include `QtSql` in `[PyQt.android] installed_modules`. A relevant example is provided in [example database sysroot](exmaples/database/database_management_project)._
 
-:warning: _In the in the [demo sysroot](examples/demo/demo_project/sysroot.toml), `[PyQt]` is a non-standard python module that is compulsory for `PyQt5` apps._
+:warning: _In the [demo sysroot](examples/demo/demo_project/sysroot.toml), `[PyQt]` is a non-standard python module that is obvisouly compulsory for `PyQt` apps (`PyQt5` for instance)._
 
 There are 2 ways to install non-standard python modules:
 * From wheels (built distribution)
@@ -479,9 +529,9 @@ There are 2 ways to install non-standard python modules:
 
 Python wheels are the new standard of pre-built binary package format for Python modules and libraries. This means that Python modules are ready to be installed by unpacking, without having to build anything. 
 
-The advantage of python wheels is that they enable faster instllation of a package, compared to a package that needs to get built. 
+The advantage of python wheels is that they enable faster installation of a package, compared to a package that needs to get built. 
 
-The limitation of python wheels is that they are platform and version dependent, so they are tied to a specific version of Python on a specific platform. Sometimes finding the right wheel can be challenging.
+The limitation of python wheels is that they are platform and version dependent, so they are tied to a specific version of Python on a specific platform. Sometimes finding the right wheel can be challenging. The right platform for a wheel is the platform on which the wheel is unpacked. That means, if you build apps from Linux OS (Source OS) for Android OS (Target OS), get the wheels for Linux. Once unpacked, the wheels content is retrieved by utilities from `pyqtdeploy` and frozen into the "built" app.
 
 :bulb: _[Python Wheels website](https://pythonwheels.com/) offers an overview of all Python modules with wheels available._
 
@@ -545,9 +595,9 @@ To configure the `config.pdt` file, you need to understand and use the various a
 
 * Open the `config.pdt` file with: `cd <absolute_path_to_project_parent_folder>/<project_name> && pyqtdeploy config.pdt`.
 * [AREA 1] In the `Application source tab > Name area`, add the `<app_name>` with no spaces. This is the app name shown at export time.
-* [AREA 2] In the `Application source tab`, click on the `Scan` button to select your `<project_name>/<pkg_name>` folder.
+* [AREA 2] In the `Application source tab`, click on the `Scan` button to select your `<project_name>/<root_pkg_name>` folder.
 * [AREA 3] In the `Application source tab > Application Package Directory area`, tick the files and folders you want to include into your application.
-* [AREA 4] In the `Application source tab > Entry point area`, add the `<pkg_name>.<main_file_name>:main` to tell where the entry point of your application is.
+* [AREA 4] In the `Application source tab > Entry point area`, add the `<root_pkg_name>.<main_file_name>:main` to tell where the entry point of your application is.
 
 <img src="docs/resources/multimedia/pdt_config_overview_part_2.svg">
 
