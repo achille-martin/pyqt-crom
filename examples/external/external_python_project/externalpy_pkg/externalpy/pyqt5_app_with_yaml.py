@@ -93,7 +93,7 @@ logger.addHandler(file_handler)
 # Set additional log output location
 # for non-root debugging
 # when flag is_non_root_debug_active is set to True
-is_non_root_debug_active = True
+is_non_root_debug_active = False
 # WARNING: this feature might require 
 # to allow storage access permission before launching the app
 if is_non_root_debug_active:
