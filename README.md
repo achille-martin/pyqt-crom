@@ -458,6 +458,8 @@ This is the structure of an advanced python package:
 
 To import the functionalities from `second_file.py` into `main_file.py`, you need to refer to the `<root_pkg_name>`, because that is the only package actually identified by the [config.pdt file](#pdt-configuration). This means: `from root_pkg_name.second_pkg_name.second_file import functionality`.
 
+:warning: _If you want to test your "advanced" root python package on your source OS, you need to include the paths of each python package with `sys.path.append`.
+
 :bulb: _An example of "advanced" root python package is given in [example external project](examples/external/external_python_project) and the root package is called `externalpy_pkg`._
 
 <a id="package-creation-non-python-management"></a>
@@ -479,6 +481,8 @@ This is the structure of a python package including non-python files:
 To perform operations on `img.png` from `main_file.py`, it is recommended to use [importlib.resources built-in python module](https://docs.python.org/3.10/library/importlib.html#module-importlib.resources). The module can provide a path to the image contained within the built package. For instance: `with importlib.resources.path(os.path.join('root_pkg_name', 'data'), 'img.png') as path:`.
 
 :warning: _Multiplexed path (dotted chain of packages) only works on directories, therefore, it is necessary to reference the data package name (nested package) with `os.path.join('root_pkg_name', 'data')` instead of `root_pkg_name.data` for the built application (Android app for instance) due to how `pyqtdeploy` freezes the resources._
+
+:warning: _If you want to test your root python package including non-python files on your source OS, you need to include the paths of each python package with `sys.path.append`.
 
 :bulb: _An example of a root python package including non-python files is given in [example external project](examples/external/external_python_project) and the root package is called `externalpy_pkg`._
 
@@ -531,28 +535,67 @@ Python wheels are the new standard of pre-built binary package format for Python
 
 The advantage of python wheels is that they enable faster installation of a package, compared to a package that needs to get built. 
 
-The limitation of python wheels is that they are platform and version dependent, so they are tied to a specific version of Python on a specific platform. Sometimes finding the right wheel can be challenging. The right platform for a wheel is the platform on which the wheel is unpacked. That means, if you build apps from Linux OS (Source OS) for Android OS (Target OS), get the wheels for Linux. Once unpacked, the wheels content is retrieved by utilities from `pyqtdeploy` and frozen into the "built" app.
+The limitation of python wheels is that they are platform and version dependent, so they are tied to a specific version of Python on a specific platform. Sometimes finding the right wheel can be challenging. The right platform for a wheel is the platform on which the wheel is unpacked. That means, if you build apps from Linux OS (source OS) for Android OS (target OS), get the wheels for Linux. Once unpacked, the wheels content is retrieved by utilities from `pyqtdeploy` and frozen into the "built" app.
 
 :bulb: _[Python Wheels website](https://pythonwheels.com/) offers an overview of all Python modules with wheels available._
 
-The fastest way to specify a non-standard python module with wheels in the sysroot is to follow the guide:
-1) Identify the <python_package_name> and <python_package_version> you are looking for
-2) Get the wheels for the specific python package name and version, using the script:
+The recommended way to specify a non-standard python module with wheels in the sysroot is:
+
+1) Identify from [PyPI](https://pypi.org/) the `<python_package_name>` and `<python_package_version>` you are looking for (for instance `pyyaml` version `6.0.1`, as demonstrated in [example external project](examples/external/external_python_project))
+
+2) Install the desired `<python_package_name>` (with `pip3 install <python_package_name>`) on your source OS (for instance Linux) and make sure that your `PyQt5` application works as expected
+
+3) Get the wheels for the specific python package name and version, using the script:
 
 ```
 chmod +x $PYQT_CROM_DIR/utils/bash/get_python_package_wheel.sh &&
 $PYQT_CROM_DIR/utils/bash/get_python_package_wheel.sh <python_package_name> <python_package_version>
 ```
 
-_Note: the script returns the name of the wheels suited for your source OS specifications, which you can copy-paste._
+_Note: the script returns the name of the wheels (which we will call `<wheel_name>`) suited for your source OS specifications, which you can copy-paste._
+_In the example, the script returns `PyYAML-6.0.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl`._
 
-3) **TODO**
-
-
-If your desired non-standard python module does not have wheels:
+:warning: _If your desired non-standard python module does not have wheels:_
 * Request them to the maintainer
 * Refer to sub-section [Sysroot non-standard python modules without wheels](#sysroot-non-standard-python-modules-without-wheels)
 * Refer to sub-section [Create custom sysroot plugins](#sysroot-custom-plugins)
+
+4) Get the `<site_python_package_name>` used to refer to `<python_package_name>` in `site-packages` with:
+
+```
+cd $PYQT_CROM_DIR/venv/pyqt-crom-venv/lib/python3.10/site-packages && 
+ls -a
+```
+
+Sometimes `<site_python_package_name>` is different than `<python_package_name>` and this is the name used by `pyqtdeploy` to retrieve the python package name (for instance `pyyaml` is used on [PyPI](https://pypi.org/), but `yaml` folder is used in `$PYQT_CROM_DIR/venv/pyqt-crom-venv/lib/python3.10/site-packages`, so `<site_python_package_name>=yaml`).
+
+5) Collect all the dependencies required by `<site_python_package_name>` with:
+
+```
+cd $PYQT_CROM_DIR/venv/pyqt-crom-venv/lib/python3.10/site-packages &&
+cd <site_python_package_name> &&
+find . -type f -name "*.py" | xargs python -m list_imports | awk -F"." '{print $1}'
+```
+
+:bulb: _If the command returns an error, you might need to use alternative options:_
+* Run the command in each sub-directory of `<site_python_package_name>`
+* Run a modified command that lets you identify "all" the "imports": `find . -type f -name "*.py" | xargs python -m list_imports`
+* Open all files in `<site_python_package_name>` and manually collect all the "import"
+
+:warning: _If `<site_python_package_name>` depends on other non-standard python modules, apply the [sysroot update process]() for each of these modules in addition to the current one. For instance, `pandas` depends on `numpy` among other modules._
+
+:bulb: _Extra tip: `sys` module does not need to be explicitly imported._
+
+6) Add a section to the `sysroot.toml` reflecting the `<site_python_package_name>` dependency, before the [required non-python modules](#sysroot-non-python-modules):
+
+```
+[<site_python_package_name>]
+plugin = "wheel"
+wheel = "<wheel_name>"
+dependencies = [<list_of_deps>]
+```
+
+:bulb: _The example of `yaml` is provided in [example external project sysroot](examples/external/external_python_project/sysroot.toml)._
 
 <a id="sysroot-non-standard-python-modules-without-wheels"></a>
 ##### 2.2.2.2. Modules without wheels
