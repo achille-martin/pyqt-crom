@@ -8,7 +8,7 @@ A tool to create [cross-platform apps](https://www.imaginarycloud.com/blog/what-
 
 ![System Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/docs/overview/system_overview.iuml)
 
-PyQt-CroM demonstrates the capabilities of [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) and optimises its use.
+> :mag: **Info**: PyQt-CroM demonstrates the capabilities of [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) and optimises its use.
 
 <a id="overview-who"></a>
 ### Who is it for?
@@ -91,9 +91,9 @@ The aforementioned limitations constitute obstacles that can be tackled by PyQt-
 <a id="getting-started"></a>
 ## 1. Getting started 
 
-:mag: This tutorial guides you through the process of generating a cross-platform app from a simple PyQt5 demo app.
+> :mag: **Info**: This tutorial guides you through the process of generating a cross-platform app from a simple PyQt5 demo app.
 
-:trophy: By the end of the tutorial, you will be able to launch the simple PyQt5 demo app from your Android phone:
+> :trophy: **Target**: By the end of the tutorial, you will be able to launch the following simple PyQt5 demo app from your Android phone.
 
 <a id="pyqt5-demo-app-android-video"></a>
 
@@ -121,24 +121,35 @@ Specs of target OS:
 <a id="github-repo-download"></a>
 ### 1.2. Download the github repo 
 
-Use the HTTPS method if you don't have a Github account:
+Use the relevant method to download the github repo
 
-```
-cd $HOME/Documents &&
-git clone https://github.com/achille-martin/pyqt-crom.git
-```
-
-Use the SSH method if you have a Github account (and [SSH key setup](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)):
-
-```
-cd $HOME/Documents &&
-git clone git@github.com:achille-martin/pyqt-crom
-```
+<table style="width:100%">
+    <!-- Headers -->
+    <tr>
+        <th align="center" style="width:30%"> CONDITION </th> <!-- Col 1 -->
+        <th align="center" style="width:10%"> METHOD </th> <!-- Col 2 -->
+        <th align="center"> COMMAND </th> <!-- Col 3 -->
+    </tr>
+    <!-- Row 1 -->
+    <tr>
+        <td>You don't have a <a href="https:https://github.com/">Github account</a></td>
+        <td>HTTPS</td>
+        <td><pre><code class="language-python">cd $HOME/Documents &&
+git clone https://github.com/achille-martin/pyqt-crom.git</code></pre</td>
+    </tr>
+    <!-- Row 2 -->
+    <tr>
+        <td>You have a <a href="https:https://github.com/">Github account</a> and <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh">SSH keys setup</a></td>
+        <td>HTTPS</td>
+        <td><pre><code class="language-python">cd $HOME/Documents &&
+git clone git@github.com:achille-martin/pyqt-crom</code></pre</td>
+    </tr>
+</table>
 
 <a id="repo-path-setup"></a>
 ### 1.3. Setup the path to the main repo
 
-> :warning: **Warning**: We will use `PYQT_CROM_DIR` as the variable containing the path to the main repo.
+> :loudspeaker: **Important**: We will use `PYQT_CROM_DIR` as the variable containing the path to the main repo.
 
 Add the variable to your `.bashrc` with:
 
