@@ -584,10 +584,11 @@ Sometimes `<site_python_package_name>` is different than `<python_package_name>`
 5) Collect all the dependencies required by `<site_python_package_name>` with:
 
 ```
-cd $PYQT_CROM_DIR/venv/pyqt-crom-venv/lib/python3.10/site-packages &&
-cd <site_python_package_name> &&
-find . -type f -name "*.py" | xargs python -m list_imports | awk -F"." '{print $1}'
+cd $PYQT_CROM_DIR/utils/python &&
+python3 py_package_dependency_collector.py -n <site_python_package_name>
 ```
+
+> :bulb: **Tip**: You can get all dependencies from python package path with `cd $PYQT_CROM_DIR/utils/python && python3 py_package_dependency_collector.py -p <python_package_path>`.
 
 > :bulb: **Tip**: If the command returns an error, you might need to use one of the following alternative options.
 
