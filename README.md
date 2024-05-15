@@ -212,7 +212,7 @@ pip3 cache purge &&
 pip3 install -r requirements.txt
 ```
 
-:bulb: _You can confirm the installed pip packages with `pip3 list --local`._
+> :bulb: **Tip** You can confirm the installed pip packages with `pip3 list --local`.
 
 <a id="virtual-environment-app-test"></a>
 #### 1.4.4. Test the demo app in your virtual environment
