@@ -35,10 +35,17 @@
 
 import argparse
 import sys
-from os.path import realpath, join
+from os import walk
+from os.path import (
+    realpath, 
+    join,
+    isdir,
+    isfile,
+)
 import subprocess
 from importlib.metadata import packages_distributions
 import list_imports
+from inspect import cleandoc as cl
 
 
 class PyDepCollector():
@@ -53,11 +60,36 @@ class PyDepCollector():
         
         # Initialise attributes
         self.deps_collected_list = []
+        
+        print(
+            cl(
+                f"""
+                [DEBUG] Initialised PyDepCollector object
+                ----------
+                """
+            )
+        )
 
     def collect_deps_from_pkg_name(self, py_pkg_name): 
         assert isinstance(py_pkg_name, str), \
             f"Python package name must be a string\
             This is your input: {py_pkg_name}"
+
+        print(
+            cl(
+                f"""
+                [DEBUG] Received request
+                to collect deps
+                from pkg name:
+                {py_pkg_name}
+                ----------
+                """
+            )
+        )
+     
+        # Initialise pkg installation path list
+        # associated to py pkg name
+        pkg_installation_path_list = []
 
         try:
             # Retrieve PyPI package name from pip package name
@@ -71,16 +103,23 @@ class PyDepCollector():
                 for elem 
                 in pip_show_res_b_list
             ]
-            print(pip_show_res_list)
             pip_show_res_dict = {
                 elem.split(":")[0]: elem.split(":")[1].lstrip() 
                 for elem 
                 in pip_show_res_list
                 if ":" in elem
             }
-            print(pip_show_res_dict)
             pypi_pkg_name = pip_show_res_dict["Name"]
-            print(pypi_pkg_name)
+            print(
+                cl(
+                    f"""
+                    [DEBUG] pkg name {py_pkg_name}
+                    is equivalent to  pypi package name:
+                    {pypi_pkg_name}
+                    ----------
+                    """
+                )
+            )
             
             # Retrieve site-packages names from PyPI package name
             # using `importlib.metadata`
@@ -90,7 +129,16 @@ class PyDepCollector():
                 for key, value in pkg_distr_dict.items()
                 if value[0] == pypi_pkg_name
             ]
-            print(site_pkg_name_list)
+            print(
+                cl(
+                    f"""
+                    [DEBUG] pypi package name {pypi_pkg_name}
+                    is associated to site package names:
+                    {site_pkg_name_list}
+                    ----------
+                    """
+                )
+            )
             
             # Identify installation path of site-packages names
             pkg_installation_path_list = [
@@ -98,30 +146,115 @@ class PyDepCollector():
                 for name
                 in site_pkg_name_list
             ]
-            print(pkg_installation_path_list)
+            print(
+                cl(
+                    f"""
+                    [DEBUG] site package names can be found
+                    at locations:
+                    {pkg_installation_path_list}
+                    ----------
+                    """
+                )
+            )
         except Exception as e:
             print(
-                f"""
-                Cannot collect deps from pkg name
-                Exception caught: {e}
-                """
+                cl(
+                    f"""
+                    [WARN] Cannot collect deps from pkg name {py_pkg_name}
+                    Exception caught: {e}
+                    ----------
+                    """
+                )
             )
 
-            # Search through the python package
-            # at the specific path
-            for path in pkg_installation_path_list:
-                self.collect_deps_from_pkg_path(pkg_installation_path_list)
+        # Search through the python package
+        # at the specific path
+        for path in pkg_installation_path_list:
+            self.collect_deps_from_pkg_path(path)
     
     def collect_deps_from_pkg_path(self, py_pkg_path):
         assert isinstance(py_pkg_path, str), \
             f"Python package path must be a string\
             This is your input: {py_pkg_path}"
+         
+        print(
+            cl(
+                f"""
+                [DEBUG] Received request
+                to collect deps
+                from pkg path:
+                {py_pkg_path}
+                ----------
+                """
+            )
+        )
+
+        try:
+
+            # Determine if path exists
+            py_pkg_path = realpath(py_pkg_path)
+            print(
+                cl(
+                    f"""
+                    [DEBUG] The pkg path exists
+                    and is equivalent to:
+                    {py_pkg_path}
+                    ----------
+                    """
+                )
+            )
+            
+            # Initialise list of python files in path
+            py_file_list = []
+            
+            # Determine whether path is a directory
+            if isdir(py_pkg_path):
+                for dir_path, dir_names, file_names in walk(py_pkg_path):
+                    for file_name in file_names:
+                        file_path = join(dir_path, file_name)
+                        if file_path.endswith('.py'):
+                            py_file_list.append(file_path)
+            
+            # Determine whether path is a file
+            if isfile(py_pkg_path):
+                py_file_list.append(py_pkg_path)
+
+            # Collect imports from each py file
+            for file_path in py_file_list:
+                py_file_imports = []
+                try:
+                    py_file_imports = list_imports.get(file_path)
+                except Exception as e:
+                    print(
+                        cl(
+                            f"""
+                            [WARN] Cannot collect deps for py file {file_path}
+                            Exception caught: {e}
+                            ----------
+                            """
+                        )
+                    )
+                self.deps_collected_list.extend(py_file_imports)
+
+        except Exception as e:
+            print(
+                cl(
+                    f"""
+                    [WARN] Cannot collect deps from pkg path {py_pkg_path}
+                    Exception caught: {e}
+                    ----------
+                    """
+                )
+            )
     
     def get_deps_list(self):
         return self.deps_collected_list
     
     def get_top_level_deps_list(self, pdt_format=False):
         pass
+
+    def reset_deps_list(self):
+        self.deps_collected_list = []
 
 
 def parse_args():
@@ -169,12 +302,22 @@ def main():
     # Start dependency collection
     if inputs.pkg_name:
         py_dep_collector.collect_deps_from_pkg_name(inputs.pkg_name)
-    if inputs.pkg_path:
+    elif inputs.pkg_path:
         py_dep_collector.collect_deps_from_pkg_path(inputs.pkg_path)
+    else:
+        pass
 
     # Get dependency list
     deps_list = py_dep_collector.get_deps_list()
-    print(deps_list)
+    print(
+        cl(
+            f"""
+            [INFO] Dependencies collected:
+            {deps_list}
+            ----------
+            """
+        )
+    )
 
 if __name__ == "__main__":
     main()
