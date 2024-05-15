@@ -43,7 +43,7 @@ from os.path import (
     isfile,
 )
 import subprocess
-from importlib.metadata import packages_distributions
+from importlib_metadata import packages_distributions
 import list_imports
 from inspect import cleandoc as cl
 

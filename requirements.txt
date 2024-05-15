@@ -7,3 +7,4 @@ PyQt-builder==1.15.3
 PyYAML==6.0.1
 pipdeptree==2.18.1
 list-imports @ git+https://github.com/achille-martin/list-imports@2024.3.20
+importlib_metadata==7.1.0
