@@ -608,6 +608,8 @@ wheel = "<wheel_name>"
 dependencies = [<list_of_deps>]
 ```
 
+> :bulb: **Tip**: You can exclude some files from being added to the built app with the line `exclusions: [<list_of_files_or_regex>]`, as shown on [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html#defining-a-component-using-the-sysroot-specification-file).
+
 > :bulb: **Tip**: The example of `yaml` is provided in [example external project sysroot](examples/external/external_python_project/sysroot.toml).
 
 <a id="sysroot-non-standard-python-modules-without-wheels"></a>
