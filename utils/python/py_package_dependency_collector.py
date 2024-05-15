@@ -246,7 +246,17 @@ class PyDepCollector():
                     """
                 )
             )
-    
+        
+        # Make deps collected list unique for clarity
+        self.deps_collected_list = list(
+            set(
+                self.deps_collected_list
+            )
+        )
+
+        # Sort deps collected list for clarity
+        self.deps_collected_list.sort()
+
     def get_deps_list(self):
         print(
             cl(
@@ -257,30 +267,24 @@ class PyDepCollector():
                 """
             )
         )
-        self.make_deps_list_unique() 
         return self.deps_collected_list
     
     # Method returning the top-level imports (before the `.`)
     # and sorting the imports by module origin if `pdt_format`
     # is set to `True`
     def get_top_level_deps_list(self, pdt_format=False):
-        pass
-
-    def make_deps_list_unique(self):
         print(
             cl(
                 f"""
                 [DEBUG] Received request
-                to make deps list unique
+                to share top-level deps list
+                with pdt format option {pdt_format}
                 ----------
                 """
             )
         )
-        self.deps_collected_list = list(
-            set(
-                self.deps_collected_list
-            )
-        )
+        top_level_deps_collected_list = []
+        return top_level_deps_collected_list
 
     def reset_deps_list(self):
         self.deps_collected_list = []
@@ -338,6 +342,7 @@ def main():
 
     # Get dependency list
     deps_list = py_dep_collector.get_deps_list()
+    # deps_list = py_dep_collector.get_top_level_deps_list()
     print(
         cl(
             f"""
