@@ -114,7 +114,7 @@ class PyDepCollector():
                 cl(
                     f"""
                     [DEBUG] pkg name {py_pkg_name}
-                    is equivalent to  pypi package name:
+                    is equivalent to pypi package name:
                     {pypi_pkg_name}
                     ----------
                     """
@@ -248,10 +248,39 @@ class PyDepCollector():
             )
     
     def get_deps_list(self):
+        print(
+            cl(
+                f"""
+                [DEBUG] Received request
+                to share deps list
+                ----------
+                """
+            )
+        )
+        self.make_deps_list_unique() 
         return self.deps_collected_list
     
+    # Method returning the top-level imports (before the `.`)
+    # and sorting the imports by module origin if `pdt_format`
+    # is set to `True`
     def get_top_level_deps_list(self, pdt_format=False):
         pass
+
+    def make_deps_list_unique(self):
+        print(
+            cl(
+                f"""
+                [DEBUG] Received request
+                to make deps list unique
+                ----------
+                """
+            )
+        )
+        self.deps_collected_list = list(
+            set(
+                self.deps_collected_list
+            )
+        )
 
     def reset_deps_list(self):
         self.deps_collected_list = []
@@ -312,7 +341,7 @@ def main():
     print(
         cl(
             f"""
-            [INFO] Dependencies collected:
+            [INFO] Dependencies obtained:
             {deps_list}
             ----------
             """
