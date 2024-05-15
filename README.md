@@ -255,7 +255,7 @@ Install zlib on Ubuntu with:
 sudo apt install zlib1g-dev
 ```
 
-`zlib` component is required by `Qt` component in `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml` to be pre-installed, but there is no default way specified in the `zlib` component itself to install it. Therefore, the installation method needs to be explicitly specified in `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml`.
+The `zlib` component is required by `Qt` component in `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml` to be pre-installed, but there is no default way specified in the `zlib` component itself to install it. Therefore, the installation method needs to be explicitly specified in `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml`.
 
 > :bulb: **Tip**: Sysroot setup tips can be obtained from [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html).
 
@@ -739,7 +739,7 @@ Repository created and maintained by [Achille Martin](https://github.com/achille
 
 :heartpulse: **Thank**: Sincere thanks to the well-intentioned international developers who create apps benefitting the community.
 
-> :bulb: **Tip**: For more information about licencing details, take a look at the section dedicated to [Licencing](docs/licencing/licencing_information.md).
+:mortar_board: For more information about licencing details, take a look at the section dedicated to [Licencing](docs/licencing/licencing_information.md).
 
 [:arrow_heading_up: Back to TOP](#toc)
 
@@ -748,11 +748,11 @@ Repository created and maintained by [Achille Martin](https://github.com/achille
 
 :star2: Do you feel that you can make progress with your own projects by converting your PyQt5 apps into cross-platform apps? 
 
-> :bulb: **Tip**: Please support PyQt-CroM by [starring](https://github.com/achille-martin/pyqt-crom), [advertising](https://github.com/achille-martin/pyqt-crom) and [sponsoring](https://github.com/sponsors/achille-martin) it.
+> Please support PyQt-CroM by [starring](https://github.com/achille-martin/pyqt-crom), [advertising](https://github.com/achille-martin/pyqt-crom) and [sponsoring](https://github.com/sponsors/achille-martin) it.
 
 :open_hands: Do you feel stuck with your projects? 
 
-> :bulb: **Tip**: Get customised help from me on [Fiverr](http://www.fiverr.com/s/3PGbdV).
+> Get customised help from me on [Fiverr](http://www.fiverr.com/s/3PGbdV).
 
 <a href="https://www.buymeacoffee.com/achille_martin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" width="200px"></a>
 
