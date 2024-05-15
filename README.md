@@ -8,7 +8,7 @@ A tool to create [cross-platform apps](https://www.imaginarycloud.com/blog/what-
 
 ![System Overview Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/docs/overview/system_overview.iuml)
 
-> :mag: **Info**: PyQt-CroM demonstrates the capabilities of [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) and optimises its use.
+PyQt-CroM demonstrates the capabilities of [pyqtdeploy](https://pypi.org/project/pyqtdeploy/) and optimises its use.
 
 <a id="overview-who"></a>
 ### Who is it for?
@@ -149,7 +149,7 @@ git clone git@github.com:achille-martin/pyqt-crom</code></pre</td>
 <a id="repo-path-setup"></a>
 ### 1.3. Setup the path to the main repo
 
-> :loudspeaker: **Important**: We will use `PYQT_CROM_DIR` as the variable containing the path to the main repo.
+> :triangular_flag_on_post: **Important**: We will use `PYQT_CROM_DIR` as the variable containing the path to the main repo.
 
 Add the variable to your `.bashrc` with:
 
