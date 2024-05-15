@@ -47,6 +47,7 @@ from importlib_metadata import packages_distributions
 from stdlib_list import stdlib_list
 import list_imports
 from inspect import cleandoc as cl
+import re
 
 
 class PyDepCollector():
@@ -216,10 +217,23 @@ class PyDepCollector():
             
             # Determine whether path is a directory
             if isdir(py_pkg_path):
+                # Create a list of directories to exclude
+                # 1) Directory names starting with `_` are for internal use
                 for dir_path, dir_names, file_names in walk(py_pkg_path):
+                    # Modify directory names in place
+                    # to make the exclusion effective
+                    dir_names[:] = [
+                        d 
+                        for d in dir_names 
+                        if re.search("^_[^_].*$", d)
+                    ]
                     for file_name in file_names:
                         file_path = join(dir_path, file_name)
-                        if file_path.endswith('.py'):
+                        # Confirm that file has python extension
+                        # and does not start with a unique `_`
+                        # since meant for internal use only
+                        if (not re.search("^_[^_].*$", file_path) 
+                                and re.search("(\.py)$", file_path)):
                             py_file_list.append(file_path)
             
             # Determine whether path is a file
