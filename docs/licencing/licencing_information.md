@@ -1,6 +1,6 @@
 # Licencing information
 
-:mag: This section gathers the licences of the main dependencies.
+> :mag: **Info**: This section gathers the licences of the main dependencies.
 
 | Dependency | Version | Licence |
 | --- | --- | --- |

@@ -1,6 +1,6 @@
 # Common issues
 
-:mag: This section walks you through tips and fixes for the main challenges you might encounter while setting up the repo or running the scripts.
+> :mag: **Info**: This section walks you through tips and fixes for the main challenges you might encounter while setting up the repo or running the scripts.
 
 <a id="toc"></a>
 ## Table of Contents
@@ -61,13 +61,32 @@ sudo apt-get install libxcb-xinerama0
 <a id="virtual-machine-setup"></a>
 ### 4. Setup repo with a Virtual Machine
 
-To setup a Linux Virtual Machine on Windows via VirtualBox, follow [It's FOSS virtualbox setup tutorial](https://itsfoss.com/install-linux-in-virtualbox/).
+Follow the relevant tutorial to setup a Virtual Machine on your machine.
 
-If you would prefer to setup a Linux Virtual Machine on MacOS via VirtualBox, follow [TecAdmin virtualbox setup tutorial](https://tecadmin.net/how-to-install-virtualbox-on-macos/).
+<table style="width:100%">
+    <!-- Headers -->
+    <tr>
+        <th align="center" style="width:30%"> HOST </th> <!-- Col 1 -->
+        <th align="center" style="width:30%"> GUEST </th> <!-- Col 2 -->
+        <th align="center"> TUTORIAL </th> <!-- Col 3 -->
+    </tr>
+    <!-- Row 1 -->
+    <tr>
+        <td>You have Windows OS installed on your machine</td>
+        <td>You want a Linux Virtual Machine</td>
+        <td><a href="https://itsfoss.com/install-linux-in-virtualbox">It's FOSS virtualbox setup tutorial</a> </td>
+    </tr>
+    <!-- Row 2 -->
+    <tr>
+        <td>You have Mac OS installed on your machine</td>
+        <td>You want a Linux Virtual Machine</td>
+        <td><a href="https://tecadmin.net/how-to-install-virtualbox-on-macos/">TecAdmin virtualbox setup tutorial</a> </td>
+    </tr>
+</table>
 
-It is also recommended to install the VirtualBox Guest Additions. Follow the [LinuxTechi guest addition setup tutorial](https://www.linuxtechi.com/install-virtualbox-guest-additions-on-ubuntu/) for more information.
+> :bulb: **Tip**: It is recommended to install the VirtualBox Guest Additions. Follow the [LinuxTechi guest addition setup tutorial](https://www.linuxtechi.com/install-virtualbox-guest-additions-on-ubuntu/) for more information.
 
-:bulb: _It is also recommended to set the size of the Virtual Machine to at least 50GB so that there is enough space to download and install all dependencies._
+> :bulb: **Tip**: It is also recommended to set the size of the Virtual Machine to at least 50GB so that there is enough space to download and install all dependencies.
 
 <a id="virtual-machine-bluetooth"></a>
 ### 5. Setup Bluetooth in a Virtual Machine
@@ -88,7 +107,7 @@ If you are using VirtualBox (Virtual Machine) and you want to run a pyqt5 app re
 
 To setup an Android Emulator, it is recommended to use Android Studio.
 
-_If you want to set up the Android Emulator in VirtualBox, please refer to [this issue](https://github.com/achille-martin/pyqt-crom/issues/12)._
+> :bulb: **Tip**: If you want to set up the Android Emulator in VirtualBox, please refer to [this issue](https://github.com/achille-martin/pyqt-crom/issues/12).
 
 To setup the Android Emulator in Ubuntu, make sure that you have:
 * Android Studio installed (refer to [External dependencies setup](../../README.md#external-dependency-installation) if needed)
@@ -112,7 +131,7 @@ sudo chown <username> /dev/kvm
 
 Once the Android Emulator is set up and running, you can drag and drop your `.apk` to install it and run it.
 
-If you wish to access more Android logs, please refer to [this issue](https://github.com/achille-martin/pyqt-crom/issues/12), which mentions tips for `adb`, the Android Debug Bridge.
+> :bulb: **Tip**: If you wish to access more Android logs, please refer to [this issue](https://github.com/achille-martin/pyqt-crom/issues/12), which mentions tips for `adb`, the Android Debug Bridge.
 
 [:arrow_heading_up: Back to TOP](#toc)
 
