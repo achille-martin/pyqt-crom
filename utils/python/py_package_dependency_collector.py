@@ -44,6 +44,7 @@ from os.path import (
 )
 import subprocess
 from importlib_metadata import packages_distributions
+from stdlib_list import stdlib_list
 import list_imports
 from inspect import cleandoc as cl
 
@@ -51,13 +52,6 @@ from inspect import cleandoc as cl
 class PyDepCollector():
     def __init__(self):
 
-        # Ensure minimum python version
-        major, minor, micro = sys.version_info[:3]
-        self.py_version = f"{major}.{minor}"
-        assert sys.version_info >= (3, 10), \
-            f"Python 3.10 or higher is required \n\
-            Your Python version is: {self.py_version}"
-        
         # Initialise attributes
         self.deps_collected_list = []
         
@@ -71,9 +65,6 @@ class PyDepCollector():
         )
 
     def collect_deps_from_pkg_name(self, py_pkg_name): 
-        assert isinstance(py_pkg_name, str), \
-            f"Python package name must be a string\
-            This is your input: {py_pkg_name}"
 
         print(
             cl(
@@ -92,6 +83,16 @@ class PyDepCollector():
         pkg_installation_path_list = []
 
         try:
+            # Ensure that py pkg name is a string
+            if not isinstance(py_pkg_name, str):
+                raise Exception(
+                    f"""
+                    Python package name must be a string
+                    This is your input: {py_pkg_name}
+                    ----------
+                    """
+                )
+            
             # Retrieve PyPI package name from pip package name
             # using `pip show <py_pkg_name>`
             pip_show_res_b = subprocess.check_output(
@@ -173,9 +174,6 @@ class PyDepCollector():
             self.collect_deps_from_pkg_path(path)
     
     def collect_deps_from_pkg_path(self, py_pkg_path):
-        assert isinstance(py_pkg_path, str), \
-            f"Python package path must be a string\
-            This is your input: {py_pkg_path}"
          
         print(
             cl(
@@ -190,6 +188,15 @@ class PyDepCollector():
         )
 
         try:
+            # Ensure that py pkg path is a string
+            if not isinstance(py_pkg_path, str):
+                raise Exception(
+                    f"""
+                    Python package name must be a string
+                    This is your input: {py_pkg_path}
+                    ----------
+                    """
+                )
 
             # Determine if path exists
             py_pkg_path = realpath(py_pkg_path)
@@ -247,14 +254,12 @@ class PyDepCollector():
                 )
             )
         
-        # Make deps collected list unique for clarity
+        # Make deps collected list unique and sorted for clarity
         self.deps_collected_list = list(
             set(
                 self.deps_collected_list
             )
         )
-
-        # Sort deps collected list for clarity
         self.deps_collected_list.sort()
 
     def get_deps_list(self):
@@ -283,7 +288,41 @@ class PyDepCollector():
                 """
             )
         )
-        top_level_deps_collected_list = []
+        
+        # Split deps collected 
+        # and retrieve only top level module
+        top_level_deps_collected_list = [
+            dep_name.split(".")[0] 
+            for dep_name 
+            in self.deps_collected_list
+        ]
+ 
+        # Sort the imports by module origin
+        # if pdt format is desired
+        if pdt_format:
+            # Identify python version
+            # to list standard libraries
+            # associated to the version
+            major, minor, micro = sys.version_info[:3]
+            py_version = f"{major}.{minor}"
+            py_std_libs_list = stdlib_list(py_version) 
+            
+            top_level_deps_collected_list = [
+                    "Python:" + lib 
+                    if lib in py_std_libs_list
+                    else lib
+                    for lib
+                    in top_level_deps_collected_list
+            ]
+
+        # Make the top level deps list unique and sorted
+        top_level_deps_collected_list = list(
+            set(
+                top_level_deps_collected_list
+            )
+        )
+        top_level_deps_collected_list.sort()
+
         return top_level_deps_collected_list
 
     def reset_deps_list(self):
@@ -341,8 +380,9 @@ def main():
         pass
 
     # Get dependency list
-    deps_list = py_dep_collector.get_deps_list()
+    # deps_list = py_dep_collector.get_deps_list()
     # deps_list = py_dep_collector.get_top_level_deps_list()
+    deps_list = py_dep_collector.get_top_level_deps_list(pdt_format=True)
     print(
         cl(
             f"""
