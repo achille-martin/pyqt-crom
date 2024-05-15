@@ -93,7 +93,7 @@ The aforementioned limitations constitute obstacles that can be tackled by PyQt-
 
 > :mag: **Info**: This tutorial guides you through the process of generating a cross-platform app from a simple PyQt5 demo app.
 
-> :trophy: **Target**: By the end of the tutorial, you will be able to launch the following simple PyQt5 demo app from your Android phone.
+> :dart: **Target**: By the end of the tutorial, you will be able to launch the following simple PyQt5 demo app from your Android phone.
 
 <a id="pyqt5-demo-app-android-video"></a>
 
@@ -422,7 +422,7 @@ You can then either:
 - Install [BlueStacks](https://www.bluestacks.com/download.html) on Windows, enable hyper-V, open `my games` and install the .apk, run the app offline
 - Setup a virtual device in Android Studio, install the app and run it on the virtual device
 
-> :trophy: **Target**: Congratulations! You have completed the tutorial. You can view the [demo app running on an Android phone](#pyqt5-demo-app-android-video).
+> :trophy: **Reward**: Congratulations! You have completed the tutorial. You can view the [demo app running on an Android phone](#pyqt5-demo-app-android-video).
 
 [:arrow_heading_up: Back to TOP](#toc) 
 
