@@ -104,12 +104,14 @@ The aforementioned limitations constitute obstacles that can be tackled by PyQt-
 <a id="pre-requisites"></a>
 ### 1.1. Check the pre-requisites 
 
+> :warning: **Warning**: It is highly recommended to use the following machine specs, as support can be provided.
+
 Specs of Linux machine used:
 
 - `Ubuntu 22.04` (EOL April 2032) with around 40-50GB available (to install the dependencies)
 - `Python 3.10.12` (EOL October 2026) pre-installed on Ubuntu 22
 
-:bulb: _Refer to [Virtual Machine Setup](docs/troubleshooting/common_issues.md#virtual-machine-setup) if you don't have a Linux OS available on your machine._
+> :bulb: **Tip**: Refer to [Virtual Machine Setup](docs/troubleshooting/common_issues.md#virtual-machine-setup) if you don't have a Linux OS available on your machine.
 
 Specs of target OS:
 
@@ -136,7 +138,7 @@ git clone git@github.com:achille-martin/pyqt-crom
 <a id="repo-path-setup"></a>
 ### 1.3. Setup the path to the main repo
 
-:warning: _We will use `PYQT_CROM_DIR` as the variable containing the path to the main repo._
+> :warning: **Warning**: We will use `PYQT_CROM_DIR` as the variable containing the path to the main repo.
 
 Add the variable to your `.bashrc` with:
 
@@ -174,7 +176,7 @@ cd ..
 source $PYQT_CROM_DIR/venv/pyqt-crom-venv/bin/activate
 ```
 
-:bulb: _To exit the virtual environment, type in your terminal `deactivate`._
+> :bulb: **Tip**: To exit the virtual environment, type in your terminal `deactivate`.
 
 <a id="pip-package-installation"></a>
 #### 1.4.3. Install the necessary pip packages
