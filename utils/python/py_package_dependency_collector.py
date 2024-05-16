@@ -62,6 +62,7 @@ class PyDepCollector():
         # Initialise attributes
         self.deps_collected_list = []
         self.pip_required_deps_list = []
+        self.site_pkg_names_list = []
         
         print(
             cl(
@@ -145,18 +146,22 @@ class PyDepCollector():
             
             # Retrieve site-packages names from PyPI package name
             # using `importlib.metadata`
+            # Note that the names starting with a unique underscore
+            # are dropped
             pkg_distr_dict = packages_distributions()
-            site_pkg_name_list = [
+            site_pkg_names_list = [
                 key
                 for key, value in pkg_distr_dict.items()
-                if value[0] == pypi_pkg_name
+                if (value[0] == pypi_pkg_name
+                    and not re.search("^_[^_].*$", key))
             ]
+            self.site_pkg_names_list.extend(site_pkg_names_list)
             print(
                 cl(
                     f"""
                     [DEBUG] pypi package name {pypi_pkg_name}
                     is associated to site package names:
-                    {site_pkg_name_list}
+                    {self.site_pkg_names_list}
                     ----------
                     """
                 )
@@ -166,7 +171,7 @@ class PyDepCollector():
             pkg_installation_path_list = [
                 join(pip_show_res_dict["Location"], name)
                 for name
-                in site_pkg_name_list
+                in self.site_pkg_names_list
             ]
             print(
                 cl(
@@ -397,12 +402,51 @@ class PyDepCollector():
         return top_level_deps_collected_list
 
     def get_pip_required_deps_list(self):
+        print(
+            cl(
+                f"""
+                [DEBUG] Received request
+                to share pip required deps list
+                ----------
+                """
+            )
+        )
         return self.pip_required_deps_list
 
+    def get_site_pkg_names_list(self):
+        print(
+            cl(
+                f"""
+                [DEBUG] Received request
+                to share site pkg names list
+                ----------
+                """
+            )
+        )
+        return self.site_pkg_names_list
+
     def reset_deps_list(self):
+        print(
+            cl(
+                f"""
+                [DEBUG] Received request
+                to reset deps list
+                ----------
+                """
+            )
+        )
         self.deps_collected_list = []
 
     def reset_pip_required_deps_list(self):
+        print(
+            cl(
+                f"""
+                [DEBUG] Received request
+                to reset pip required deps list
+                ----------
+                """
+            )
+        )
         self.deps_collected_list = []
 
 # Method defining custom argument type 
@@ -494,24 +538,44 @@ def main():
     # deps_list = py_dep_collector.get_deps_list()
     # deps_list = py_dep_collector.get_top_level_deps_list()
     deps_list = py_dep_collector.get_top_level_deps_list(pdt_format=True)
-    print(
-        cl(
-            f"""
-            ====================
-            [INFO] Dependencies obtained:
-            {deps_list}
-            ----------
-            """
-        )
-    )
-
+    
+    # Get site packages name list
+    site_pkg_names_list = py_dep_collector.get_site_pkg_names_list()
+    
     # Get pip required dependency list
     pip_required_deps_list = py_dep_collector.get_pip_required_deps_list()
+    
+    # Print output in a clear way
+    # for the user
+    if inputs.pkg_name:
+        print(
+            cl(
+                f"""
+                ====================
+                [INFO] Site packages names obtained:
+                {site_pkg_names_list}
+                ----------
+                """
+            )
+        )
+
+        print(
+            cl(
+                f"""
+                [INFO] Pip required dependencies obtained:
+                {pip_required_deps_list}
+                ----------
+                """
+            )
+        )
+    else:
+        print(cl(f"===================="))
+    
     print(
         cl(
             f"""
-            [INFO] Pip required dependencies obtained:
-            {pip_required_deps_list}
+            [INFO] Dependencies obtained:
+            {deps_list}
             ====================
             """
         )
