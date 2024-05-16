@@ -26,8 +26,13 @@
 # Python package dependency collector
 # based on module imports
 
-# Note: this script assumes that pip package names
+# Assumption 1: this script assumes that pip package names
 # that are searched have been installed on the machine
+# Assumption 2: this script will not search
+# for folders with unique leading underscore
+# and will not search
+# for files with unique leading underscore
+# since they are all meant for internal use
 
 # Example:
 # pip install pyyaml
@@ -41,6 +46,7 @@ from os.path import (
     join,
     isdir,
     isfile,
+    basename,
 )
 import subprocess
 from importlib_metadata import packages_distributions
@@ -55,17 +61,24 @@ class PyDepCollector():
 
         # Initialise attributes
         self.deps_collected_list = []
+        self.pip_required_deps_list = []
         
         print(
             cl(
                 f"""
                 [DEBUG] Initialised PyDepCollector object
+                Dependencies collected list is:
+                {self.deps_collected_list}
                 ----------
                 """
             )
         )
 
-    def collect_deps_from_pkg_name(self, py_pkg_name): 
+    def collect_deps_from_pkg_name(
+            self, 
+            py_pkg_name,
+            dir_name_exclusion_list=[],
+            file_name_exclusion_list=[]): 
 
         print(
             cl(
@@ -74,6 +87,10 @@ class PyDepCollector():
                 to collect deps
                 from pkg name:
                 {py_pkg_name}
+                with directories to exclude:
+                {dir_name_exclusion_list}
+                and files to exclude:
+                {file_name_exclusion_list}
                 ----------
                 """
             )
@@ -93,7 +110,10 @@ class PyDepCollector():
                     ----------
                     """
                 )
-            
+           
+            # Reset pip required deps list
+            self.reset_pip_required_deps_list()
+
             # Retrieve PyPI package name from pip package name
             # using `pip show <py_pkg_name>`
             pip_show_res_b = subprocess.check_output(
@@ -158,6 +178,22 @@ class PyDepCollector():
                     """
                 )
             )
+            
+            # Save pip required deps
+            print(pip_show_res_dict["Requires"])
+            self.pip_required_deps_list.extend(
+                pip_show_res_dict["Requires"].split(",")
+            )
+            print(
+                cl(
+                    f"""
+                    [DEBUG] Saved pip required deps:
+                    {self.pip_required_deps_list}
+                    ----------
+                    """
+                )
+            )
+
         except Exception as e:
             print(
                 cl(
@@ -172,9 +208,17 @@ class PyDepCollector():
         # Search through the python package
         # at the specific path
         for path in pkg_installation_path_list:
-            self.collect_deps_from_pkg_path(path)
+            self.collect_deps_from_pkg_path(
+                path,
+                dir_name_exclusion_list,
+                file_name_exclusion_list, 
+            )
     
-    def collect_deps_from_pkg_path(self, py_pkg_path):
+    def collect_deps_from_pkg_path(
+            self, 
+            py_pkg_path,
+            dir_name_exclusion_list=[],
+            file_name_exclusion_list=[]): 
          
         print(
             cl(
@@ -183,6 +227,10 @@ class PyDepCollector():
                 to collect deps
                 from pkg path:
                 {py_pkg_path}
+                with directories to exclude:
+                {dir_name_exclusion_list}
+                and files to exclude:
+                {file_name_exclusion_list}
                 ----------
                 """
             )
@@ -217,27 +265,36 @@ class PyDepCollector():
             
             # Determine whether path is a directory
             if isdir(py_pkg_path):
-                # Create a list of directories to exclude
-                # 1) Directory names starting with `_` are for internal use
-                for dir_path, dir_names, file_names in walk(py_pkg_path):
+                # Create a list of directories
+                # and exclude directory names
+                # starting with `_` (since they are for internal use)
+                # as well as the dir names
+                # specified in the dir_name_exclusion_list
+                for dir_path, dir_names, file_names in walk(py_pkg_path, topdown=True):
                     # Modify directory names in place
                     # to make the exclusion effective
                     dir_names[:] = [
                         d 
                         for d in dir_names 
-                        if re.search("^_[^_].*$", d)
+                        if (d not in set(dir_name_exclusion_list)
+                            and not re.search("^_[^_].*$", d))
                     ]
                     for file_name in file_names:
                         file_path = join(dir_path, file_name)
                         # Confirm that file has python extension
                         # and does not start with a unique `_`
                         # since meant for internal use only
+                        # Besides, exclude file names
+                        # specified in the file_name_exclusion_list
                         if (not re.search("^_[^_].*$", file_path) 
-                                and re.search("(\.py)$", file_path)):
+                                and re.search("(\.py)$", file_path)
+                                and file_name not in file_name_exclusion_list):
                             py_file_list.append(file_path)
             
             # Determine whether path is a file
-            if isfile(py_pkg_path):
+            if (isfile(py_pkg_path) 
+                    and basename(py_pkg_path) 
+                    not in file_name_exclusion_list):
                 py_file_list.append(py_pkg_path)
 
             # Collect imports from each py file
@@ -339,9 +396,19 @@ class PyDepCollector():
 
         return top_level_deps_collected_list
 
+    def get_pip_required_deps_list(self):
+        return self.pip_required_deps_list
+
     def reset_deps_list(self):
         self.deps_collected_list = []
 
+    def reset_pip_required_deps_list(self):
+        self.deps_collected_list = []
+
+# Method defining custom argument type 
+# for a list of strings
+def list_of_strings(arg):
+    return arg.split(',')
 
 def parse_args():
     # Instantiate argument parser
@@ -364,15 +431,31 @@ def parse_args():
         action="store",
         help="Search through a python package for its dependencies from its root path",
     )
+    parser.add_argument(
+        "-d",
+        "--exclude-dirs", 
+        dest="exclude_dir_list",
+        type=list_of_strings,
+        action="store",
+        help="List directory names (comma-separated) to exclude from the search",
+    )
+    parser.add_argument(
+        "-f",
+        "--exclude-files", 
+        dest="exclude_file_list",
+        type=list_of_strings,
+        action="store",
+        help="List file names (comma-separated) to exclude from the search",
+    )
     
     # Collect arguments
     args = parser.parse_args()
     
     # Ensure one argument only is used  
     if not args.pkg_name and not args.pkg_path:
-        parser.error("Please specify at least one argument")
+        parser.error("Please specify at least one argument between -n and -p")
     elif args.pkg_name and args.pkg_path:
-        parser.error("Please only specify one argument")
+        parser.error("Please only specify one argument -n or -p")
     else:
         pass
     
@@ -381,15 +464,29 @@ def parse_args():
 def main():
     # Parse arguments
     inputs=parse_args()
-    
+   
+    # Convert None inputs where required
+    if inputs.exclude_dir_list is None:
+        inputs.exclude_dir_list = []
+    if inputs.exclude_file_list is None:
+        inputs.exclude_file_list = []
+
     # Instantiate python dependency collector
     py_dep_collector = PyDepCollector()
 
     # Start dependency collection
     if inputs.pkg_name:
-        py_dep_collector.collect_deps_from_pkg_name(inputs.pkg_name)
+        py_dep_collector.collect_deps_from_pkg_name(
+            inputs.pkg_name,
+            inputs.exclude_dir_list,
+            inputs.exclude_file_list,
+        )
     elif inputs.pkg_path:
-        py_dep_collector.collect_deps_from_pkg_path(inputs.pkg_path)
+        py_dep_collector.collect_deps_from_pkg_path(
+            inputs.pkg_path,
+            inputs.exclude_dir_list,
+            inputs.exclude_file_list,
+        )
     else:
         pass
 
@@ -400,12 +497,26 @@ def main():
     print(
         cl(
             f"""
+            ====================
             [INFO] Dependencies obtained:
             {deps_list}
             ----------
             """
         )
     )
+
+    # Get pip required dependency list
+    pip_required_deps_list = py_dep_collector.get_pip_required_deps_list()
+    print(
+        cl(
+            f"""
+            [INFO] Pip required dependencies obtained:
+            {pip_required_deps_list}
+            ====================
+            """
+        )
+    )
+
 
 if __name__ == "__main__":
     main()
