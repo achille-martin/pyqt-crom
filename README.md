@@ -575,27 +575,24 @@ $PYQT_CROM_DIR/utils/bash/get_python_package_wheel.sh <python_package_name> <pyt
 4) Get the `<site_python_package_name>` used to refer to `<python_package_name>` in `site-packages` with:
 
 ```
-cd $PYQT_CROM_DIR/venv/pyqt-crom-venv/lib/python3.10/site-packages && 
-ls -a
+python3 $PYQT_CROM_DIR/utils/python/py_package_dependency_collector.py -n <site_python_package_name>
 ```
 
-Sometimes `<site_python_package_name>` is different than `<python_package_name>` and this is the name used by `pyqtdeploy` to retrieve the python package name (for instance `pyyaml` is used on [PyPI](https://pypi.org/), but `yaml` folder is used in `$PYQT_CROM_DIR/venv/pyqt-crom-venv/lib/python3.10/site-packages`, so `<site_python_package_name>=yaml`).
+The `<site_python_package_name>` will be displayed at the top of the block between `==========`.
 
-5) Collect all the dependencies required by `<site_python_package_name>` with:
+> :bulb: **Tip**: Sometimes `<site_python_package_name>` is different than `<python_package_name>` and this is the name used by `pyqtdeploy` to retrieve the python package name (for instance `pyyaml` is used on [PyPI](https://pypi.org/), but `yaml` folder is used in `$PYQT_CROM_DIR/venv/pyqt-crom-venv/lib/python3.10/site-packages`, so `<site_python_package_name>=yaml`).
+
+5) Collect all the `<dependencies>` required by `<site_python_package_name>` with:
 
 ```
 python3 $PYQT_CROM_DIR/utils/python/py_package_dependency_collector.py -n <site_python_package_name>
 ```
 
-> :bulb: **Tip**: You can get all dependencies from python package path with `cd python3 $PYQT_CROM_DIR/utils/python/py_package_dependency_collector.py -p <python_package_path>`.
+The `<dependencies>` for `<site_python_package_name>` will be displayed at the bottom of the block between `==========`.
 
-> :bulb: **Tip**: If the command returns an error, you might need to use one of the following alternative options.
+> :bulb: **Tip**: You can get all `<dependencies>` from python package path with `cd python3 $PYQT_CROM_DIR/utils/python/py_package_dependency_collector.py -p <python_package_path>`.
 
-* Run the command in each sub-directory of `<site_python_package_name>`
-* Run a modified command that lets you identify "all" the "imports": `find . -type f -name "*.py" | xargs python -m list_imports`
-* Open all files in `<site_python_package_name>` and manually collect all the "import"
-
-> :warning: **Warning**: If `<site_python_package_name>` depends on other non-standard python modules, apply the [sysroot update process]() for each of these modules in addition to the current one. For instance, `pandas` depends on `numpy` among other modules.
+> :warning: **Warning**: If `<site_python_package_name>` depends on other non-standard python modules (called `<pip_required_dependencies>` and displayed in the middle of the block between `==========`), apply the [sysroot update process](sysroot-configuration) for each of these modules in addition to the current one. For instance, `pandas` depends on `numpy` among other modules.
 
 > :bulb: **Tip**: Extra tip: `sys` module does not need to be explicitly imported.
 
@@ -605,7 +602,7 @@ python3 $PYQT_CROM_DIR/utils/python/py_package_dependency_collector.py -n <site_
 [<site_python_package_name>]
 plugin = "wheel"
 wheel = "<wheel_name>"
-dependencies = [<list_of_deps>]
+dependencies = `<dependencies>`
 ```
 
 > :bulb: **Tip**: You can exclude some files from being added to the built app with the line `exclusions: [<list_of_files_or_regex>]`, as shown on [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html#defining-a-component-using-the-sysroot-specification-file).
