@@ -611,7 +611,7 @@ The `<dependencies>` for `<site_python_package_name>` will be displayed at the b
 [<site_python_package_name>]
 plugin = "wheel"
 wheel = "<wheel_name>"
-dependencies = `<dependencies>`
+dependencies = <dependencies>
 ```
 
 > :bulb: **Tip**: You can exclude some files from being added to the built app with the line `exclusions: [<list_of_files_or_regex>]`, as shown on [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html#defining-a-component-using-the-sysroot-specification-file).
