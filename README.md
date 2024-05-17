@@ -121,7 +121,7 @@ Specs of target OS:
 <a id="github-repo-download"></a>
 ### 1.2. Download the github repo 
 
-Use the relevant method to download the github repo
+Use the command from the relevant method below to download the github repo.
 
 <table style="width:100%">
     <!-- Headers -->
@@ -139,12 +139,21 @@ git clone https://github.com/achille-martin/pyqt-crom.git</code></pre</td>
     </tr>
     <!-- Row 2 -->
     <tr>
-        <td>You have a <a href="https:https://github.com/">Github account</a> and <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh">SSH keys setup</a></td>
-        <td>HTTPS</td>
+        <td>You have a <a href="https:https://github.com/">Github account</a> and <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh">SSH keys set up</a></td>
+        <td>SSH</td>
         <td><pre><code class="language-python">cd $HOME/Documents &&
 git clone git@github.com:achille-martin/pyqt-crom</code></pre</td>
     </tr>
 </table>
+
+For stability purposes, pick a [release name](https://github.com/achille-martin/pyqt-crom/releases) (which we will call `<release_name>`) and once you have downloaded the github repo, access your desired release with the following command.
+
+> :warning: **Warning**: The `<release_name>` placeholder in the command below needs to be modified to match your desired release name. For instance, it can be `v2.0.0`.
+
+```
+cd $HOME/Documents/pyqt-crom &&
+git checkout <release_name>
+```
 
 <a id="repo-path-setup"></a>
 ### 1.3. Setup the path to the main repo
