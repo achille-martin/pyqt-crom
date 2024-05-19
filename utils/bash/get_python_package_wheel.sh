@@ -67,19 +67,19 @@ printf "Python package deisred: $python_package_name\n"
 printf "Python package version desired: $python_package_version\n"
 printf "______\n"
 
-# Create a temporary folder to download the wheels
-temp_wheels_folder_path="$HOME/Downloads/temp_wheels"
-mkdir -p $temp_wheels_folder_path
-
-# Download the wheels for the current OS specifications
-pip download --only-binary :all: --dest . --no-cache -d $temp_wheels_folder_path $python_package_name==$python_package_version
+# Download the wheels and no dependencies for the current OS specifications
+# The wheels are downloaded into the `tmp` folder (cleared up on reboot)
+# The wheels do not include dependencies for the python package
+temp_wheels_folder_path="/tmp"
+if [ ! -d "$temp_wheels_folder_path" ]; then
+  echo "$temp_wheels_folder_path does not exist"
+  echo "Ensure your OS is supported"
+fi
+pip download --only-binary :all: --no-deps -d $temp_wheels_folder_path $python_package_name==$python_package_version
 
 # Get the name of the wheels from the downloaded material
-wheel_name=$(ls $temp_wheels_folder_path -tp | grep -v /$ | head -1)
-
-# It is possible to remove the temporary wheel folder,
-# but might look risky from a user perspective.
-# User can manually delete the temporary folder if needed.
+regex_pattern="$python_package_version.*\.whl"
+wheel_name=$(find $temp_wheels_folder_path -printf "%f\n" 2>/dev/null | grep -iE $regex_pattern)
 
 # Print out the name of the wheels
 printf "______\n"
