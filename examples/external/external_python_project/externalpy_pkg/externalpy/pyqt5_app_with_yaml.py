@@ -24,37 +24,13 @@
 
 # PyQt5 app with PyYAML
 
-## Imports
+## Validated imports
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox
 from PyQt5.QtCore import QStandardPaths
-from yaml import safe_load
 from os import makedirs
 from os.path import isfile, realpath, dirname, join, exists, pardir
 import logging as log_tool  # The logging library for debugging
 import sys
-import importlib.resources as resources
-
-## Local package imports
-## Used to search for packages
-## on the local machine
-## (for testing purposes only)
-
-importer_folder = dirname(
-    realpath(__file__)
-)
-parent_of_importer_folder = join(
-    importer_folder,    
-    pardir,
-)
-parent_of_parent_of_importer_folder = join(
-    parent_of_importer_folder,    
-    pardir,
-)
-sys.path.append(parent_of_importer_folder)
-sys.path.append(parent_of_parent_of_importer_folder)
-
-from externalpy_pkg.tools.validation_tools import validate_pkg_format
 
 ## Main variables and objects
 
@@ -94,7 +70,7 @@ logger.addHandler(file_handler)
 # Set additional log output location
 # for non-root debugging
 # when flag is_non_root_debug_active is set to True
-is_non_root_debug_active = False
+is_non_root_debug_active = True
 # WARNING: this feature might require 
 # to allow storage access permission before launching the app
 if is_non_root_debug_active:
@@ -131,6 +107,62 @@ if is_non_root_debug_active:
 
 # Reference app config file name
 app_config_file_name = "app_config.yaml"
+
+## Non-validated imports
+try:
+    from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox
+    from yaml import safe_load
+    import importlib.resources as resources
+    # import numpy as np
+except Exception as e:
+    logger.debug("pre-main - Error caught while importing: {e}")
+
+## Local package imports
+## Used to search for packages
+## on the local machine
+## (for testing purposes only)
+
+importer_folder = dirname(
+    realpath(__file__)
+)
+parent_of_importer_folder = join(
+    importer_folder,    
+    pardir,
+)
+parent_of_parent_of_importer_folder = join(
+    parent_of_importer_folder,    
+    pardir,
+)
+sys.path.append(parent_of_importer_folder)
+sys.path.append(parent_of_parent_of_importer_folder)
+
+from externalpy_pkg.tools.validation_tools import validate_pkg_format
+
+## Visualise Python modules and paths
+# Show where python looks for modules
+logger.debug("========================\n")
+logger.info("******************************")
+logger.debug("pre-main - SYS PATH")
+sys_path = sys.path
+sys_path.sort()
+logger.debug("\n" + "\n".join(sys_path))
+# Show where all the imported modules come from
+logger.debug("pre-main - IMPORTED PYTHON MODULES")
+sys_modules = dict(sorted(sys.modules.items()))
+key_value_pair_txt = ''
+for k, v in sys_modules.items():
+    key_value_pair_txt = key_value_pair_txt + f"{k}: {v}\n"
+logger.debug("\n" + key_value_pair_txt)
+# Show standard python libs
+logger.debug("pre-main - STANDARD PYTHON MODULES")
+sys_stdlib_module_names = list(sys.stdlib_module_names)
+sys_stdlib_module_names.sort()
+# logger.debug("\n" + "\n".join(sys_stdlib_module_names))
+# Show python builtin
+logger.debug("pre-main - BUILT-IN PYTHON MODULES")
+sys_builtin_module_names = list(sys.builtin_module_names)
+sys_builtin_module_names.sort()
+logger.debug("\n" + "\n".join(sys_builtin_module_names))
 
 
 ## Class definition
@@ -221,6 +253,8 @@ class MainWindow(QMainWindow):
             {logger_output_file_path}
             """
         )
+        # Sqrt of 2 is: {np.sqrt(2)}
+
         alert.exec()
         
         logger.debug(f"MainWindow::on_button_clicked - Exiting function")
@@ -262,8 +296,7 @@ class MainWindow(QMainWindow):
 ## Application definition
 
 def main():
-    logger.info("========================\n")
-    logger.info("========================")
+    logger.info("******************************\n")
     logger.debug(f"main - Log output file can be found at: {logger_output_file_path}")
     # Only one QApplication instance is needed per application.
     # Pass in sys.argv to allow command line arguments for the app: `QApplication(sys.argv)`
