@@ -121,10 +121,11 @@ class PyDepCollector():
                 ["pip", "show", py_pkg_name]
             )
             pip_show_res_b_list = pip_show_res_b.split(b"\n")
+            pip_show_line_index_list = [0, 1, -1, -2, -3, -4]
             pip_show_res_list = [
-                elem.decode('utf-8') 
-                for elem 
-                in pip_show_res_b_list
+                pip_show_res_b_list[idx].decode('utf-8') 
+                for idx 
+                in pip_show_line_index_list
             ]
             pip_show_res_dict = {
                 elem.split(":")[0]: elem.split(":")[1].lstrip() 
