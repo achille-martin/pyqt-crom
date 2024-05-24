@@ -157,6 +157,7 @@ class PyDepCollector():
                     and not re.search("^_[^_].*$", key))
             ]
             self.site_pkg_names_list.extend(site_pkg_names_list)
+            self.site_pkg_names_list.sort()
             print(
                 cl(
                     f"""
@@ -174,6 +175,7 @@ class PyDepCollector():
                 for name
                 in self.site_pkg_names_list
             ]
+            pkg_installation_path_list.sort()
             print(
                 cl(
                     f"""
@@ -186,14 +188,14 @@ class PyDepCollector():
             )
             
             # Save pip required deps
-            print(pip_show_res_dict["Requires"])
             self.pip_required_deps_list.extend(
                 pip_show_res_dict["Requires"].split(",")
             )
+            self.pip_required_deps_list.sort()
             print(
                 cl(
                     f"""
-                    [DEBUG] Saved pip required deps:
+                    [DEBUG] pip required deps identified:
                     {self.pip_required_deps_list}
                     ----------
                     """
