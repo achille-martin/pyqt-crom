@@ -70,7 +70,7 @@ logger.addHandler(file_handler)
 # Set additional log output location
 # for non-root debugging
 # when flag is_non_root_debug_active is set to True
-is_non_root_debug_active = True
+is_non_root_debug_active = False
 # WARNING: this feature might require 
 # to allow storage access permission before launching the app
 if is_non_root_debug_active:
@@ -113,7 +113,6 @@ try:
     from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QMessageBox
     from yaml import safe_load
     import importlib.resources as resources
-    # import numpy as np
 except Exception as e:
     logger.debug("pre-main - Error caught while importing: {e}")
 
@@ -137,32 +136,6 @@ sys.path.append(parent_of_importer_folder)
 sys.path.append(parent_of_parent_of_importer_folder)
 
 from externalpy_pkg.tools.validation_tools import validate_pkg_format
-
-## Visualise Python modules and paths
-# Show where python looks for modules
-logger.debug("========================\n")
-logger.info("******************************")
-logger.debug("pre-main - SYS PATH")
-sys_path = sys.path
-sys_path.sort()
-logger.debug("\n" + "\n".join(sys_path))
-# Show where all the imported modules come from
-logger.debug("pre-main - IMPORTED PYTHON MODULES")
-sys_modules = dict(sorted(sys.modules.items()))
-key_value_pair_txt = ''
-for k, v in sys_modules.items():
-    key_value_pair_txt = key_value_pair_txt + f"{k}: {v}\n"
-logger.debug("\n" + key_value_pair_txt)
-# Show standard python libs
-logger.debug("pre-main - STANDARD PYTHON MODULES")
-sys_stdlib_module_names = list(sys.stdlib_module_names)
-sys_stdlib_module_names.sort()
-# logger.debug("\n" + "\n".join(sys_stdlib_module_names))
-# Show python builtin
-logger.debug("pre-main - BUILT-IN PYTHON MODULES")
-sys_builtin_module_names = list(sys.builtin_module_names)
-sys_builtin_module_names.sort()
-logger.debug("\n" + "\n".join(sys_builtin_module_names))
 
 
 ## Class definition
@@ -253,7 +226,6 @@ class MainWindow(QMainWindow):
             {logger_output_file_path}
             """
         )
-        # Sqrt of 2 is: {np.sqrt(2)}
 
         alert.exec()
         
