@@ -14,9 +14,18 @@ install_host_from_source = false
 [yaml]
 plugin = "wheel"
 wheel = "PyYAML-6.0.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-dependencies = ["Python:collections", "Python:datetime", 
-        "Python:base64", "Python:binascii", "Python:re", 
-        "Python:types", "Python:codecs", "Python:copyreg", "Python:io"] 
+dependencies = [
+    "Python:base64",
+    "Python:binascii",
+    "Python:codecs",
+    "Python:collections", 
+    "Python:copyreg",
+    "Python:datetime",
+    "Python:io",
+    "Python:re",
+    "Python:types",
+    "Python:warnings",
+] 
 
 # PyQt ########################################################################
 
