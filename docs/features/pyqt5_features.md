@@ -1,6 +1,6 @@
 # PyQt5 Features
 
-:mag: This section introduces the main PyQt5 features needed to create a custom standard app.
+> :mag: **Info**: This section introduces the main PyQt5 features needed to create a custom standard app.
 
 <a id="toc"></a>
 ## Table of Contents
@@ -36,7 +36,7 @@ PyQt5 lets you work with many other database engines as shown on [tutorialspoint
 <a id="database-management-setup"></a>
 #### 1.2. Setup for database management
 
-Before attempting to run any `SQLite`-related actions, make sure that the library is available on your machine:
+> :triangular_flag_on_post: **Important**: Before attempting to run any `SQLite`-related actions, make sure that the library is available on your machine with the following command.
 
 ```
 sudo apt-get install sqlite3
@@ -58,7 +58,7 @@ A dialog window will pop up in which you can perform the following:
 - Add a row to the database
 - Remove a row from the database
 
-You can view the content of the generated and edited database at any time outside of the application with:
+> :bulb: **Tip**: You can view the content of the generated and edited database at any time outside of the application with the following command.
 
 ```
 cd $PYQT_CROM_DIR/examples/database
@@ -81,7 +81,7 @@ This demo app is built on the one highlighted in the [Getting started](../../REA
 - Once the pop-up has been acknowledged, a database (called `sportsdatabase.db`) is created in the `home` folder as shown in the alert window, if not already existing
 - In the dialog window displaying the content of the database, rows can be added, removed or edited
 
-:bulb: _You can view the content of `sportsdatabase.db` at any time by following the instructions in [Example PyQt5 app with database](#database-pyqt5-demo-app) after ensuring that your [Database manager](#database-management-setup) is correctly setup._
+> :bulb: **Tip**: You can view the content of `sportsdatabase.db` at any time by following the instructions in [Example PyQt5 app with database](#database-pyqt5-demo-app) after ensuring that your [Database manager](#database-management-setup) is correctly setup.
 
 <a id="pyqt5-database-management-app-android-video"></a>
 
@@ -109,7 +109,6 @@ As we are showcasing a prototyping tool for mobile apps, we have decided to expl
 #### 2.2. Example PyQt5 Graphics app
 
 To visualise a basic example of 2D Graphics in a PyQt app, run the following:
-
 
 ```
 cd $PYQT_CROM_DIR/examples/graphics
@@ -177,7 +176,7 @@ cd $PYQT_CROM_DIR/examples/network
 python3 pyqt5_app_with_bluetooth.py
 ```
 
-:bulb: _If you encounter issues with Bluetooth, please refer to the [Bluetooth troubleshooting](../troubleshooting/common_issues.md#virtual-machine-bluetooth)._
+> :bulb: **Tip**: If you encounter issues with Bluetooth, please refer to the [Bluetooth troubleshooting](../troubleshooting/common_issues.md#virtual-machine-bluetooth).
 
 The example Bluetooth app provides the following experience:
 - A window appears on the screen with 2 buttons: Search for Bluetooth devices and EXIT
@@ -185,8 +184,6 @@ The example Bluetooth app provides the following experience:
 - If you click on Search for Bluetooth devices, the app will ask you whether your device is Bluetooth capable. If it is not, the app is actually unusable and will crash. If you do have Bluetooth on your device, you will be asked to turn it ON.
 - Once your Bluetooth is ON, click again on Search for Bluetooth devices so that the app can search for nearby devices for 5 seconds
 - The app displays the list of found nearby devices on the main window
-
-
 
 <a id="operational-bluetooth-pyqt5-demo-app"></a>
 #### 3.3. Example operational PyQt5 Bluetooth app
@@ -198,9 +195,9 @@ cd $PYQT_CROM_DIR/examples/network/bluetooth_scanner_project/bluetooth_scanner_p
 python3 operational_pyqt5_app_with_bluetooth.py
 ```
 
-:bulb: _If you encounter issues with Bluetooth, please refer to the [Bluetooth troubleshooting](../troubleshooting/common_issues.md#virtual-machine-bluetooth)._
+> :bulb: **Tip**: If you encounter issues with Bluetooth, please refer to the [Bluetooth troubleshooting](../troubleshooting/common_issues.md#virtual-machine-bluetooth).
 
-The operational example Bluetooth app has a similar behaviour to the [example Bluetooth app](#bluetooth-pyqt5-demo-app).
+> :bulb: **Tip**: The operational example Bluetooth app has a similar behaviour to the [example Bluetooth app](#bluetooth-pyqt5-demo-app).
 
 <a id="pyqt5-bluetooth-scanner-app-android-video"></a>
 

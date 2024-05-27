@@ -23,6 +23,8 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+# Modified by Achille MARTIN 2024
+
 
 import argparse
 import os
@@ -47,35 +49,54 @@ def run(args):
         sys.exit(ec)
 
 
-# Parse the command line.
+# Parse the command line
 parser = argparse.ArgumentParser()
-parser.add_argument('--pdt',
-        help="the .pdt file used to define application sources and imported packages",
-        metavar="FILE",
-        required=True)      
-parser.add_argument('--jobs',
-        help="the number of make jobs to be run in parallel on Linux and "
-                "macOS [default: 1]",
-        metavar="NUMBER", type=int, default=1)
-parser.add_argument('--qmake',
-        help="the qmake executable when using an existing Qt installation",
-        metavar="FILE")
-parser.add_argument('--target', help="the target architecture", default='')
-parser.add_argument('--reload-sysroot',
-        help="Delete existing sysroot build folder and load target sysroot file",
-        action='store_true')
-parser.add_argument('--quiet', help="disable progress messages",
-        action='store_true')
-parser.add_argument('--verbose', help="enable verbose progress messages",
-        action='store_true')
+parser.add_argument(
+    '--pdt',
+    help="the .pdt file used to define application sources and imported packages",
+    metavar="FILE",
+    required=True,
+)      
+parser.add_argument(
+    '--jobs',
+    help="the number of make jobs to be run in parallel on Linux and macOS [default: 1]",
+    metavar="NUMBER", 
+    type=int, 
+    default=1,
+)
+parser.add_argument(
+    '--qmake',
+    help="the qmake executable when using an existing Qt installation",
+    metavar="FILE",
+)
+parser.add_argument(
+    '--target', 
+    help="the target architecture", 
+    default='',
+)
+parser.add_argument(
+    '--reload-sysroot',
+    help="Delete existing sysroot build folder and load target sysroot file",
+    action='store_true',
+)
+parser.add_argument(
+    '--quiet', 
+    help="disable progress messages",
+    action='store_true',
+)
+parser.add_argument(
+    '--verbose', 
+    help="enable verbose progress messages",
+    action='store_true',
+)
 cmd_line_args = parser.parse_args()
-pdt = os.path.abspath(cmd_line_args.pdt) if cmd_line_args.pdt else None
+pdt = os.path.realpath(cmd_line_args.pdt) if cmd_line_args.pdt else None
 if not os.path.exists(pdt):
     print(f"[ERROR] Path to .pdt file {pdt} does not exist.", file=sys.stderr)
     print("Please specify a .pdt file that exists.")
     sys.exit(2)
 jobs = cmd_line_args.jobs
-qmake = os.path.abspath(cmd_line_args.qmake) if cmd_line_args.qmake else None
+qmake = os.path.realpath(cmd_line_args.qmake) if cmd_line_args.qmake else None
 target = cmd_line_args.target
 reload_sysroot = cmd_line_args.reload_sysroot
 quiet = cmd_line_args.quiet
@@ -94,7 +115,7 @@ print("\n----- INITIALISING AND COLLECTING VARIABLES -----\n")
 
 # Initialise handy variables and tools
 ## Define pdt location as reference (for practicality)
-pdt_dir = os.path.dirname(os.path.abspath(pdt))
+pdt_dir = os.path.dirname(os.path.realpath(pdt))
 print(f"[INFO] Pdt directory location is: {pdt_dir}. This is the reference directory.")
 ## Define default variable values
 app_name_default = "MyCrossPlatformApp"
@@ -116,7 +137,14 @@ print(f"[INFO] The app package path received is: {app_package_dir}")
 ## Generate practical release directory structure
 ## By creating directories with date timestamp to store the app releases
 current_datetime = datetime.now().strftime("%Y_%m_%d-%H_%M_%S")
-app_release_dir = os.path.join(app_package_dir, os.path.pardir, 'releases', str(current_datetime)) 
+app_release_dir = os.path.realpath(
+    os.path.join(
+        app_package_dir, 
+        os.path.pardir, 
+        'releases', 
+        str(current_datetime),
+    )
+)
 print(f"[INFO] The app release dir is set to: {app_release_dir}")
 os.makedirs(app_release_dir, exist_ok=True) 
 
@@ -215,7 +243,7 @@ run(args)
 print("\n----- RUNNING QMAKE -----\n")
 
 # Run qmake.  Use the qmake left by pyqtdeploy-sysroot if there is one.
-sysroot_dir = os.path.abspath('sysroot-' + target)
+sysroot_dir = os.path.realpath('sysroot-' + target)
 qmake_path = os.path.join(sysroot_dir, 'Qt', 'bin', 'qmake')
 
 if sys.platform == 'win32':
@@ -262,7 +290,7 @@ os.chdir(pdt_dir)
 if target.startswith('android'):
     # Copy the output app to the specified release directory
     shutil.copy(os.path.join(apk_dir, apk), app_release_dir)
-    print(f"The released app {apk} can be found in {os.path.abspath(app_release_dir)}\n")
+    print(f"The released app {apk} can be found in {app_release_dir}\n")
     print(f"""Debug tip: the {apk} file can also be found in the '{apk_dir}' directory. 
 Run adb to install it to a simulator.""")
 
@@ -270,18 +298,18 @@ elif target.startswith('ios'):
     xcodeproj_app = app_entrypoint_name + '.xcodeproj'
     # Copy the output built app to the specified release directory
     shutil.copy(os.path.join(pdt_dir, build_dir, xcodeproj_app), app_release_dir)
-    print(f"The released app {xcodeproj_app} can be found in {os.path.abspath(app_release_dir)}\n")
+    print(f"The released app {xcodeproj_app} can be found in {app_release_dir}\n")
     print(f"""Debug tip: the {xcodeproj_app} file can be found in the '{build_dir}' directory.
 Run Xcode to build the app and run it in the simulator or deploy it to a device.""")
 
 elif target.startswith('win') or sys.platform == 'win32':
     # Copy the output built app to the specified release directory
     shutil.copy(os.path.join(pdt_dir, build_dir, app_entrypoint_name), app_release_dir)
-    print(f"The released app {app_entrypoint_name} can be found in {os.path.abspath(app_release_dir)}\n")
+    print(f"The released app {app_entrypoint_name} can be found in {app_release_dir}\n")
     print(f"The {app_entrypoint_name} executable can be found in the '{os.path.join(build_dir, 'release')}' directory.")
 
 else:
     # Copy the output built app to the specified release directory
     shutil.copy(os.path.join(pdt_dir, build_dir, app_entrypoint_name), app_release_dir)
-    print(f"The released app {app_entrypoint_name} can be found in {os.path.abspath(app_release_dir)}\n")
+    print(f"The released app {app_entrypoint_name} can be found in {app_release_dir}\n")
     print(f"Debug tip: the {app_entrypoint_name} executable can be found in the '{build_dir}' directory.")

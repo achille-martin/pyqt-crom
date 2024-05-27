@@ -57,7 +57,7 @@ The aforementioned limitations constitute obstacles that can be tackled by PyQt-
         * [1.4.4. Test the demo app in your virtual environment](#virtual-environment-app-test)
     * [1.5. Install the external dependencies](#external-dependency-installation)
         * [1.5.1. Download a set of external dependencies for pyqtdeploy](#external-dependency-download)
-        * [1.5.2. Install Zlib for pyqtdeploy](#zlib-installation)
+        * [1.5.2. Install zlib for pyqtdeploy](#zlib-installation)
         * [1.5.3. Install Java for Android Studio](#java-installation)
         * [1.5.4. Install Android Studio](#android-studio-installation)
         * [1.5.5. Install correct Android SDK and Tools](#android-sdk-installation)
@@ -68,7 +68,16 @@ The aforementioned limitations constitute obstacles that can be tackled by PyQt-
     * [1.8. Run the app](#app-run)
 * [2. Generating your own app](#custom-app)
     * [2.1. Create your python package](#package-creation)
+        * [2.1.1. Advanced python package](#package-creation-advanced")
+        * [2.1.2. Non-python file management](#package-creation-non-python-management)
+        * [2.1.3. Standard python package](#package-creation-standard)
     * [2.2. Update the sysroot](#sysroot-configuration)
+        * [2.2.1. Specify non-python modules](#sysroot-non-python-modules)
+        * [2.2.2. Specify non-standard python modules](#sysroot-non-standard-python-modules)
+            * [2.2.2.1. Modules with wheels](#sysroot-non-standard-python-modules-with-wheels)
+            * [2.2.2.2. Modules without wheels](#sysroot-non-standard-python-modules-without-wheels)
+        * [2.2.3. Specify standard python modules](#sysroot-standard-python-modules)
+        * [2.2.4. Create custom plugins](#sysroot-custom-plugins)
     * [2.3. Configure the pdt](#pdt-configuration)
     * [2.4. Build the app](#app-generation)
     * [2.5. Debug the app](#app-debugging)
@@ -82,9 +91,9 @@ The aforementioned limitations constitute obstacles that can be tackled by PyQt-
 <a id="getting-started"></a>
 ## 1. Getting started 
 
-:mag: This tutorial guides you through the process of generating a cross-platform app from a simple PyQt5 demo app.
+> :mag: **Info**: This tutorial guides you through the process of generating a cross-platform app from a simple PyQt5 demo app.
 
-:trophy: By the end of the tutorial, you will be able to launch the simple PyQt5 demo app from your Android phone:
+> :dart: **Target**: By the end of the tutorial, you will be able to launch the following simple PyQt5 demo app from your Android phone.
 
 <a id="pyqt5-demo-app-android-video"></a>
 
@@ -95,12 +104,14 @@ The aforementioned limitations constitute obstacles that can be tackled by PyQt-
 <a id="pre-requisites"></a>
 ### 1.1. Check the pre-requisites 
 
+> :warning: **Warning**: It is highly recommended to use the following machine specs, as support can be provided.
+
 Specs of Linux machine used:
 
 - `Ubuntu 22.04` (EOL April 2032) with around 40-50GB available (to install the dependencies)
 - `Python 3.10.12` (EOL October 2026) pre-installed on Ubuntu 22
 
-:bulb: _Refer to [Virtual Machine Setup](docs/troubleshooting/common_issues.md#virtual-machine-setup) if you don't have a Linux OS available on your machine._
+> :bulb: **Tip**: Refer to [Virtual Machine Setup](docs/troubleshooting/common_issues.md#virtual-machine-setup) if you don't have a Linux OS available on your machine.
 
 Specs of target OS:
 
@@ -110,35 +121,54 @@ Specs of target OS:
 <a id="github-repo-download"></a>
 ### 1.2. Download the github repo 
 
-Use the HTTPS method if you don't have a Github account:
+Use the command from the relevant method below to download the github repo.
+
+<table style="width:100%">
+    <!-- Headers -->
+    <tr>
+        <th align="center" style="width:30%"> CONDITION </th> <!-- Col 1 -->
+        <th align="center" style="width:10%"> METHOD </th> <!-- Col 2 -->
+        <th align="center"> COMMAND </th> <!-- Col 3 -->
+    </tr>
+    <!-- Row 1 -->
+    <tr>
+        <td>You don't have a <a href="https:https://github.com/">Github account</a></td>
+        <td>HTTPS</td>
+        <td><pre><code class="language-python">cd $HOME/Documents &&
+git clone https://github.com/achille-martin/pyqt-crom.git</code></pre</td>
+    </tr>
+    <!-- Row 2 -->
+    <tr>
+        <td>You have a <a href="https:https://github.com/">Github account</a> and <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh">SSH keys set up</a></td>
+        <td>SSH</td>
+        <td><pre><code class="language-python">cd $HOME/Documents &&
+git clone git@github.com:achille-martin/pyqt-crom</code></pre</td>
+    </tr>
+</table>
+
+For stability purposes, pick a [release name](https://github.com/achille-martin/pyqt-crom/releases) (which we will call `<release_name>`) and once you have downloaded the github repo, access your desired release with the following command.
+
+> :warning: **Warning**: The `<release_name>` placeholder in the command below needs to be modified to match your desired release name. For instance, it can be `v2.0.0`.
 
 ```
-cd $HOME/Documents \
-&& git clone https://github.com/achille-martin/pyqt-crom.git
-```
-
-Use the SSH method if you have a Github account (and [SSH key setup](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)):
-
-```
-cd $HOME/Documents \
-&& git clone git@github.com:achille-martin/pyqt-crom
+cd $HOME/Documents/pyqt-crom &&
+git checkout <release_name>
 ```
 
 <a id="repo-path-setup"></a>
 ### 1.3. Setup the path to the main repo
 
-:warning: _We will use `PYQT_CROM_DIR` as the variable containing the path to the main repo._
+> :triangular_flag_on_post: **Important**: We will use `PYQT_CROM_DIR` as the variable containing the path to the main repo.
 
 Add the variable to your `.bashrc` with:
 
 ```
-printf "%s\n" \
-"" \
-"# Environment variable for PyQt-CroM path" \
-"export PYQT_CROM_DIR=$HOME/Documents/pyqt-crom" \
-"" \
->> $HOME/.bashrc \
-&& source $HOME/.bashrc
+text_to_add="
+# Environment variable for PyQt-CroM path
+export PYQT_CROM_DIR=$HOME/Documents/pyqt-crom
+" &&
+printf "$text_to_add" >> $HOME/.bashrc &&
+source $HOME/.bashrc
 ```
 
 <a id="virtual-environment-setup"></a>
@@ -148,15 +178,15 @@ printf "%s\n" \
 #### 1.4.1. Create a python virtual environment
 
 ```
-sudo apt-get update \
-&& sudo apt-get install python3-pip \
-&& python3 -m pip install --upgrade pip \
-&& sudo apt-get install python3-virtualenv \
-&& cd $PYQT_CROM_DIR \
-&& mkdir -p venv \
-&& cd venv \
-&& virtualenv pyqt-crom-venv -p python3 \
-&& cd ..
+sudo apt-get update &&
+sudo apt-get install python3-pip &&
+python3 -m pip install --upgrade pip &&
+sudo apt-get install python3-virtualenv &&
+cd $PYQT_CROM_DIR &&
+mkdir -p venv &&
+cd venv &&
+virtualenv pyqt-crom-venv -p python3 &&
+cd ..
 ```
 
 <a id="virtual-environment-activation"></a>
@@ -166,7 +196,7 @@ sudo apt-get update \
 source $PYQT_CROM_DIR/venv/pyqt-crom-venv/bin/activate
 ```
 
-:bulb: _To exit the virtual environment, type in your terminal `deactivate`._
+> :bulb: **Tip**: To exit the virtual environment, type in your terminal `deactivate`.
 
 <a id="pip-package-installation"></a>
 #### 1.4.3. Install the necessary pip packages
@@ -186,19 +216,19 @@ pip3 install --upgrade pip
 Install the pip packages in the virtual environment with:
 
 ```
-cd $PYQT_CROM_DIR \
-&& pip3 cache purge \
-&& pip3 install -r requirements.txt
+cd $PYQT_CROM_DIR &&
+pip3 cache purge &&
+pip3 install -r requirements.txt
 ```
 
-:bulb: _You can confirm the installed pip packages with `pip3 list --local`._
+> :bulb: **Tip**: You can confirm the installed pip packages with `pip3 list --local`.
 
 <a id="virtual-environment-app-test"></a>
 #### 1.4.4. Test the demo app in your virtual environment
 
 ```
-cd $PYQT_CROM_DIR/examples/demo/demo_project/demo_pkg \
-&& python3 demo_app.py
+cd $PYQT_CROM_DIR/examples/demo/demo_project/demo_pkg &&
+python3 demo_app.py
 ```
 
 The PyQt5 demo app will start and you can confirm that it is displayed properly on your machine:
@@ -218,15 +248,15 @@ The PyQt5 demo app will start and you can confirm that it is displayed properly 
 Download the sources with:
 
 ```
-cd $PYQT_CROM_DIR/utils/resources \
-&& chmod +x download_sources.sh \
-&& ./download_sources.sh
+cd $PYQT_CROM_DIR/utils/bash &&
+chmod +x download_sources.sh &&
+./download_sources.sh
 ```
 
-:bulb: _You can confirm that the list of packages required matches with the versions from `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml`._
+> :bulb: **Tip**: You can confirm that the list of packages required matches with the versions from `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml`.
 
 <a id="zlib-installation"></a>
-#### 1.5.2. Install Zlib for pyqtdeploy
+#### 1.5.2. Install zlib for pyqtdeploy
 
 Install zlib on Ubuntu with:
 
@@ -234,9 +264,9 @@ Install zlib on Ubuntu with:
 sudo apt install zlib1g-dev
 ```
 
-Zlib is required by the pyqtdeploy project `$PYQT_CROM_DIR/examples/demo/demo_project/config.pdt` to correctly identify the dependencies from the `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml`.
+The `zlib` component is required by `Qt` component in `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml` to be pre-installed, but there is no default way specified in the `zlib` component itself to install it. Therefore, the installation method needs to be explicitly specified in `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml`.
 
-:bulb: _Sysroot setup tips can be obtained from [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html)._
+> :bulb: **Tip**: Sysroot setup tips can be obtained from [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html).
 
 <a id="java-installation"></a>
 #### 1.5.3. Install Java for Android Studio
@@ -250,11 +280,11 @@ sudo apt install openjdk-11-jdk openjdk-11-jre
 Set the default java and javac version to 11 using:
 
 ```
-sudo update-alternatives --config java \
-&& sudo update-alternatives --config javac
+sudo update-alternatives --config java &&
+sudo update-alternatives --config javac
 ```
 
-:hand: _Confirm the version with `java -version && javac -version` which should be `v11.0.21`._
+> :triangular_flag_on_post: **Important**: Confirm the version with `java -version && javac -version` which should be `v11.0.21`.
 
 <a id="android-studio-installation"></a>
 #### 1.5.4. Install Android Studio
@@ -262,27 +292,27 @@ sudo update-alternatives --config java \
 Download Android Studio version `2023.1.1.26` with:
 
 ```
-sudo apt-get install wget \
-&& cd $HOME/Downloads \
-&& wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2023.1.1.26/android-studio-2023.1.1.26-linux.tar.gz
+sudo apt-get install wget &&
+cd $HOME/Downloads &&
+wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2023.1.1.26/android-studio-2023.1.1.26-linux.tar.gz
 ```
 
 Move the contents of the downloaded `tar.gz` to your `$HOME` directory using:
 
 ```
-cd $HOME/Downloads \
-&& tar -xvf android-studio-2023.1.1.26-linux.tar.gz \
-&& mv android-studio $HOME
+cd $HOME/Downloads &&
+tar -xvf android-studio-2023.1.1.26-linux.tar.gz &&
+mv android-studio $HOME
 ```
 
 Start the installation with:
 
 ```
-cd $HOME/android-studio/bin \
-&& ./studio.sh
+cd $HOME/android-studio/bin &&
+./studio.sh
 ```
 
-:bulb: _Tip: if there is an issue with android studio start, use `sudo ./studio.sh`._
+> :bulb: **Tip**: If there is an issue with android studio start, use `sudo ./studio.sh`.
 
 The Android Studio installer will start:
 - Do not import settings
@@ -293,9 +323,8 @@ The Android Studio installer will start:
 - Start the download (unless you want to install extra features)
 - Close Android Studio
 
-:hand: _Make sure that the default SDK has been installed in `$HOME/Android/Sdk` and that `$HOME/Android/Sdk/platforms` contains `android-28` folder only.
-The reason why android-28 (corresponding to Android v9.0) is selected is because there are restrictions depending on the Java version installed and the Qt version installed.
-If `$HOME/Android/Sdk/platforms` does not contain `android-28` folder only, follow the instructions at the [next step](#android-sdk-installation) to set things up correctly._
+> :triangular_flag_on_post: **Important**: Make sure that the default SDK has been installed in `$HOME/Android/Sdk` and that `$HOME/Android/Sdk/platforms` contains `android-28` folder only.
+The reason why android-28 (corresponding to Android v9.0) is selected is because there are restrictions depending on the Java version installed and the Qt version installed. If `$HOME/Android/Sdk/platforms` does not contain `android-28` folder only, follow the instructions at the [next step](#android-sdk-installation) to set things up correctly.
 
 <a id="android-sdk-installation"></a>
 #### 1.5.5. Install correct Android SDK and Tools
@@ -312,12 +341,12 @@ If `$HOME/Android/Sdk/platforms` does not contain `android-28` folder only, foll
 - Download SDK Platform-Tools v28.0.3 to match the SDK Build-Tools version and add it to your SDK folder using:
 
 ```
-cd $HOME/Downloads \
-&& wget https://dl.google.com/android/repository/platform-tools_r28.0.3-linux.zip \
-&& sudo apt-get install unzip \
-&& unzip platform-tools_r28.0.3-linux.zip \
-&& rm -r $HOME/Android/Sdk/platform-tools \
-&& mv platform-tools $HOME/Android/Sdk
+cd $HOME/Downloads &&
+wget https://dl.google.com/android/repository/platform-tools_r28.0.3-linux.zip &&
+sudo apt-get install unzip &&
+unzip platform-tools_r28.0.3-linux.zip &&
+rm -r $HOME/Android/Sdk/platform-tools &&
+mv platform-tools $HOME/Android/Sdk
 ```
 
 <a id="android-ndk-installation"></a>
@@ -329,9 +358,9 @@ cd $HOME/Downloads \
     - Make sure that in the `SDK Tools` tab, the following is installed: NDK Side-By-Side v21.4.7075529 (equivalent to r21e). According to the [Qt Website](https://doc.qt.io/qt-5/android-getting-started.html), this is the one recommended for Qt5.15.2.
 - Close Android Studio
 
-:hand: _Make sure that `$HOME/Android/Sdk/ndk/21.4.7075529/platforms` contains the folder `android-28`._
+> :triangular_flag_on_post: **Important**: Make sure that `$HOME/Android/Sdk/ndk/21.4.7075529/platforms` contains the folder `android-28`.
 
-:bulb: _The NDK corresponds to the minimum version required to run the app. Technically, you could choose a lower version than Android API 9.0 (android-28)._
+> :bulb: **Tip**: The NDK corresponds to the minimum version required to run the app. Technically, you could choose a lower version than Android API 9.0 (android-28).
 
 <a id="qt-installation"></a>
 #### 1.5.7. Install Qt from the installer
@@ -339,11 +368,11 @@ cd $HOME/Downloads \
 Download the Qt version which matches the one in `$PYQT_CROM_DIR/examples/demo/demo_project/sysroot.toml` from the open source online installer:
 
 ```
-sudo apt-get install libxcb-xfixes0-dev libxcb-xinerama0 \
-&& cd $HOME/Downloads \
-&& wget https://d13lb3tujbc8s0.cloudfront.net/onlineinstallers/qt-unified-linux-x64-4.6.1-online.run \
-&& chmod +x qt*.run \
-&& ./qt-unified-linux-x64-4.6.1-online.run
+sudo apt-get install libxcb-xfixes0-dev libxcb-xinerama0 &&
+cd $HOME/Downloads &&
+wget https://d13lb3tujbc8s0.cloudfront.net/onlineinstallers/qt-unified-linux-x64-4.6.1-online.run &&
+chmod +x qt*.run &&
+./qt-unified-linux-x64-4.6.1-online.run
 ```
 
 A Qt window will appear on which you can sign up:
@@ -355,9 +384,9 @@ A Qt window will appear on which you can sign up:
 - Select folder location `$HOME/Qt5.15.2`
 - Installation will start
 
-:hand: _Make sure that you can access `$HOME/Qt5.15.2/5.15.2` and that the folder `android` is located inside of it._
+> :triangular_flag_on_post: **Important**: Make sure that you can access `$HOME/Qt5.15.2/5.15.2` and that the folder `android` is located inside of it.
 
-:bulb: _The package `libxcb-xinerama0` is installed to prevent an issue inherent to Qt5.15 (but solved in Qt6) with `xcb` Qt platform plugin, according to [QT DEBUG reports](https://bugreports.qt.io/browse/QTBUG-84749)._
+> :bulb: **Tip**: The package `libxcb-xinerama0` is installed to prevent an issue inherent to Qt5.15 (but solved in Qt6) with `xcb` Qt platform plugin, according to [QT DEBUG reports](https://bugreports.qt.io/browse/QTBUG-84749).
 
 <a id="environment-variable-setup"></a>
 ### 1.6. Setup the environment variables
@@ -365,13 +394,13 @@ A Qt window will appear on which you can sign up:
 Load the environment variables on terminal startup with:
 
 ```
-printf "%s\n" \
-"" \
-"# Load extra environment variables for PyQt-CroM" \
-"source $PYQT_CROM_DIR/utils/resources/path_setup.sh" \
-"" \
->> $HOME/.bashrc \
-&& source $HOME/.bashrc
+chmod +x $PYQT_CROM_DIR/utils/bash/setup_path.sh &&
+text_to_add="
+# Load extra environment variables for PyQt-CroM
+source $PYQT_CROM_DIR/utils/bash/setup_path.sh
+" &&
+printf "$text_to_add" >> $HOME/.bashrc &&
+source $HOME/.bashrc
 ```
 
 <a id="app-build"></a>
@@ -380,12 +409,17 @@ printf "%s\n" \
 Start the building process of the .apk with:
 
 ```
-cd $PYQT_CROM_DIR/utils \
-&& python3 build_app.py --pdt $PYQT_CROM_DIR/examples/demo/demo_project/config.pdt --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
+cd $PYQT_CROM_DIR/utils/python &&
+python3 build_app.py \
+    --pdt $PYQT_CROM_DIR/examples/demo/demo_project/config.pdt \
+    --jobs 1 \
+    --target android-64 \
+    --qmake $QT_DIR/android/bin/qmake \
+    --verbose
 ``` 
-:hourglass_flowing_sand: _Let the app build (it may take a while). The app is built when you see "BUILD SUCCESSFUL"._
+> :hourglass_flowing_sand: **Wait**: Let the app build (it may take a while). The app is built when you see "BUILD SUCCESSFUL".
 
-:bulb: _The Android Manifest, `build.gradle` and `gradle.properties` can be checked at debug stage in `$PYQT_CROM_DIR/examples/demo/demo_project/build-android-64/android-build`._
+> :bulb: **Tip**: The Android Manifest, `build.gradle` and `gradle.properties` can be checked at debug stage in `$PYQT_CROM_DIR/examples/demo/demo_project/build-android-64/android-build`.
 
 <a id="app-run"></a>
 ### 1.8. Run the app 
@@ -397,69 +431,246 @@ You can then either:
 - Install [BlueStacks](https://www.bluestacks.com/download.html) on Windows, enable hyper-V, open `my games` and install the .apk, run the app offline
 - Setup a virtual device in Android Studio, install the app and run it on the virtual device
 
-:trophy: Congratulations! You have completed the tutorial. You can view the [demo app running on an Android phone](#pyqt5-demo-app-android-video).
+> :trophy: **Reward**: Congratulations! You have completed the tutorial. You can view the [demo app running on an Android phone](#pyqt5-demo-app-android-video).
 
 [:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="custom-app"></a>
 ## 2. Generating your own app
 
-:mag: This section describes the steps to generate an `Android` app (.apk) from a custom `PyQt5` app.
+> :mag: **Info**: This section describes the steps to generate an `Android` app (.apk) from a custom `PyQt5` app.
 
-:bulb: _Make sure to go through the [Getting Started tutorial](#getting-started) to correctly setup your machine and environment._
+> :triangular_flag_on_post: **Important**: Make sure to go through the [Getting Started tutorial](#getting-started) to correctly setup your machine and environment.
 
-:warning: _In this section, placeholders are defined between `<>`. For instance, `<pkg_name>` can be `demo_pkg` or `test_pkg`._
+> :warning: **Warning**: In this section, placeholders are defined between `<>`. For instance, `<root_pkg_name>` can be `demo_pkg`, or `test_pkg`, or even `hello`.
 
 <a id="package-creation"></a>
 ### 2.1. Create your python package
 
 Start by creating a project folder:
-* Create a folder `<project_name>` wherever you want (and remember the absolute path of its parent folder referred to as `<absolute_path>`)
+* Create a folder called `<project_name>` wherever you want on your machine
+* Identify the absolute path of its parent folder, referred to as `<absolute_path_to_project_parent_folder>`, so that your project folder is located as `<absolute_path_to_project_parent_folder>/<project_name>`
+
+> :bulb: **Tip**: For instance, the [demo project folder](examples/demo/demo_project) is called `<project_name> = demo_project` and the absolute path to its parent folder is `<absolute_path_to_project_parent_folder> = $PYQT_CROM_DIR/examples/demo`.
 
 Inside of the project folder, create a python package to hold your `PyQt5` app:
-* Create a folder `<project_name>/<pkg_name>`
-* Populate `<project_name>/<pkg_name>` with at least `__init__.py` file and a `<main_file_name>.py` script (you can add more files if required by your package)
+* Create a folder `<project_name>/<root_pkg_name>`, where `<root_pkg_name>` is the name of your "root" python package (identifying the root of your python packages if you require nested python packages)
+* Populate `<project_name>/<root_pkg_name>` with at least `__init__.py` file and a `<main_file_name>.py` script (you can add more files and folders / packages if required by your package)
 
 _Note that the `<main_file_name>.py` must contain a unique `main()` function (or any similar distinctive entry point)._
 
-:bulb: _An example of python package is given in the [demo project folder](examples/demo/demo_project/demo_pkg)._
+> :bulb: **Tip**: An example of root python package (called `demo_pkg`) is given in the [demo project folder](examples/demo/demo_project).
+
+<a id="package-creation-advanced"></a>
+#### 2.1.1. Advanced python package
+
+If you wish to create an "advanced" root python package (i.e. including nested python packages), you need to understand the optimal structure of the root package, which is inspired from the [Standard python package](https://docs.python-guide.org/writing/structure/) structure (i.e. containing the `setup.py` file).
+
+This is the structure of an advanced python package:
+
+* `<root_pkg_name>` (located at the same level as the [config.pdt file](#pdt-configuration))
+    * `__init__.py` (required to consider `<root_pkg_name>` a python package)
+    * `<main_pkg_name>` (name of your main python package)
+        * `__init__.py`
+        * `main_file.py` (`main()` from this file is usually considered as entrypoint for the [config.pdt file](#pdt-configuration))
+    * `<second_pkg_name>` (name of your second python package)
+        * `__init__.py`
+        * `second_file.py` (python module containing functionalities useful for `main_file.py` for instance)
+
+To import the functionalities from `second_file.py` into `main_file.py`, you need to refer to the `<root_pkg_name>`, because that is the only package actually identified by the [config.pdt file](#pdt-configuration). This means: `from root_pkg_name.second_pkg_name.second_file import functionality`.
+
+> :warning: **Warning**: If you want to test your "advanced" root python package on your source OS, you need to include the paths of each python package with `sys.path.append`.
+
+> :bulb: **Tip**: An example of "advanced" root python package is given in [example external project](examples/external/external_python_project) and the root package is called `externalpy_pkg`.
+
+<a id="package-creation-non-python-management"></a>
+#### 2.1.2. Non-python file management
+
+If you wish to add resources (non-python files) to your root python package, you need to understand how to fetch the data from your python scripts / modules.
+
+This is the structure of a python package including non-python files:
+
+* `<root_pkg_name>` (located at the same level as the [config.pdt file](#pdt-configuration))
+    * `__init__.py` (required to consider `<root_pkg_name>` a python package)
+    * `<main_pkg_name>` (name of your main python package)
+        * `__init__.py`
+        * `main_file.py` (`main()` from this file is usually considered as entrypoint for the [config.pdt file](#pdt-configuration))
+    * `data` (name of the "package" containing non-python files)
+        * `__init__.py` (actually required for `importlib.resources` to identify the data inside the "package")
+        * `<img>.png` (image which is not a python script)
+
+To perform operations on `img.png` from `main_file.py`, it is recommended to use [importlib.resources built-in python module](https://docs.python.org/3.10/library/importlib.html#module-importlib.resources). The module can provide a path to the image contained within the built package. For instance: `with importlib.resources.path(os.path.join('root_pkg_name', 'data'), 'img.png') as path:`.
+
+:warning: _Multiplexed path (dotted chain of packages) only works on directories, therefore, it is necessary to reference the data package name (nested package) with `os.path.join('root_pkg_name', 'data')` instead of `root_pkg_name.data` for the built application (Android app for instance) due to how `pyqtdeploy` freezes the resources._
+
+> :warning: **Warning**: If you want to test your root python package including non-python files on your source OS, you need to include the paths of each python package with `sys.path.append`.
+
+> :bulb: **Tip**: An example of a root python package including non-python files is given in [example external project](examples/external/external_python_project) and the root package is called `externalpy_pkg`.
+
+<a id="package-creation-standard"></a>
+#### 2.1.3. Standard python package
+
+If you have created a [Standard python package](https://docs.python-guide.org/writing/structure/), you can generate its wheels and load your package into your application by following the [non-standard python module with wheels tutorial](#sysroot-non-standard-python-modules-with-wheels).
 
 <a id="sysroot-configuration"></a>
 ### 2.2. Configure the sysroot
 
 Inside of your `<project_name>` folder, add the sysroot config to specify application dependencies:
-* Create a file called `sysroot.toml` and populate it with all the modules used by your app.
+* Create / copy a file called `sysroot.toml` and populate it with all the non-python modules, as well as the non-standard python modules, used by your app.
 
-_For instance, if you imported `QtSql` in your `PyQt5` app, then you must include `QtSql` in `[PyQt.android] installed_modules`._
+> :bulb: **Tip**: An example of sysroot config is given in the [demo project folder](examples/demo/demo_project).
 
-:bulb: _An example of sysroot config is given in the [demo project folder](examples/demo/demo_project)._
+<a id="sysroot-non-python-modules"></a>
+#### 2.2.1. Specify non-python modules
+
+Non-python modules are modules and libraries that are not related to python.
+
+> :bulb: **Tip**: To display all options / tags available for the sysroot packages listed in the sysroot file, type in a terminal: `pyqtdeploy-sysroot --options <sysroot_file_path>`.
+
+> :bulb: **Tip**: For instance, in the [demo sysroot](examples/demo/demo_project/sysroot.toml), `[Qt]` is a non-python module and some of its options / tags include: `disabled_features`, `edition`, `ssl`.
+
+> :warning: **Warning**: The following non-python modules are compulsory for the `PyQt5` app to compile / work as expected, and must be listed at the end of the sysroot file.
+
+* `[Qt]`
+* `[SIP]`
+* `[zlib]` (Note that `zlib` is also a standard python module, but it is usually installed from external source in `pyqtdeploy`)
+
+<a id="sysroot-non-standard-python-modules"></a>
+#### 2.2.2. Specify non-standard python modules
+
+Non-standard python modules are modules and libraries that are python libraries, but not from the [standard python library](https://docs.python.org/3/library/index.html).
+
+> :bulb: **Tip**: In the [demo sysroot](examples/demo/demo_project/sysroot.toml), `[PyQt]` is a non-standard python module for instance. Whenever you import a sub-module from the main module, you need to update the sysroot. For instance, if you imported `QtSql` in your `PyQt5` app (that you want to release for Android), then you must include `QtSql` in `[PyQt.android] installed_modules`. A relevant example is provided in [example database sysroot](exmaples/database/database_management_project).
+
+> :warning: **Warning**: In the [demo sysroot](examples/demo/demo_project/sysroot.toml), `[PyQt]` is a non-standard python module that is obvisouly compulsory for `PyQt` apps (`PyQt5` for instance).
+
+There are 2 ways to install non-standard python modules:
+* From wheels (built distribution)
+* From source (source distribution)
+
+<a id="sysroot-non-standard-python-modules-with-wheels"></a>
+##### 2.2.2.1. Modules with wheels
+
+Python wheels are the new standard of pre-built binary package format for Python modules and libraries. This means that Python modules are ready to be installed by unpacking, without having to build anything. 
+
+The advantage of python wheels is that they enable faster installation of a package, compared to a package that needs to get built. 
+
+The limitation of python wheels is that they are platform and version dependent, so they are tied to a specific version of Python on a specific platform. Sometimes finding the right wheel can be challenging. The right platform for a wheel is the platform on which the wheel is unpacked. That means, if you build apps from Linux OS (source OS) for Android OS (target OS), get the wheels for Linux. Once unpacked, the wheels content is retrieved by utilities from `pyqtdeploy` and frozen into the "built" app.
+
+> :bulb: **Tip**: [Python Wheels website](https://pythonwheels.com/) offers an overview of all Python modules with wheels available.
+
+The recommended way to specify a non-standard python module with wheels in the sysroot is:
+
+1) Identify from [PyPI](https://pypi.org/) the `<python_package_name>` and `<python_package_version>` you are looking for (for instance `pyyaml` version `6.0.1`, as demonstrated in [example external project](examples/external/external_python_project))
+
+2) Install the desired `<python_package_name>` (with `pip3 install <python_package_name>`) on your source OS (for instance Linux) and make sure that your `PyQt5` application works as expected
+
+3) Get the wheels for the specific python package name and version, using the script:
+
+```
+chmod +x $PYQT_CROM_DIR/utils/bash/get_python_package_wheel.sh &&
+$PYQT_CROM_DIR/utils/bash/get_python_package_wheel.sh <python_package_name> <python_package_version>
+```
+
+> :bulb: **Tip**: The script returns the name of the wheels (which we will call `<wheel_name>`) suited for your source OS specifications, which you can copy-paste.
+
+> :bulb: **Tip**: In the example, the script returns `PyYAML-6.0.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl`.
+
+:warning: _If your desired non-standard python module does not have wheels:_
+* Request them to the maintainer
+* Refer to sub-section [Sysroot non-standard python modules without wheels](#sysroot-non-standard-python-modules-without-wheels)
+* Refer to sub-section [Create custom sysroot plugins](#sysroot-custom-plugins)
+
+4) Get the `<site_python_package_name>` used to refer to `<python_package_name>` in `site-packages` with:
+
+```
+python3 $PYQT_CROM_DIR/utils/python/py_package_dependency_collector.py -n <site_python_package_name>
+```
+
+The `<site_python_package_name>` will be displayed at the top of the block between `==========`.
+
+> :bulb: **Tip**: Sometimes `<site_python_package_name>` is different than `<python_package_name>` and this is the name used by `pyqtdeploy` to retrieve the python package name (for instance `pyyaml` is used on [PyPI](https://pypi.org/), but `yaml` folder is used in `$PYQT_CROM_DIR/venv/pyqt-crom-venv/lib/python3.10/site-packages`, so `<site_python_package_name>=yaml`).
+
+5) Collect all the `<dependencies>` required by `<site_python_package_name>` with:
+
+```
+python3 $PYQT_CROM_DIR/utils/python/py_package_dependency_collector.py -n <site_python_package_name>
+```
+
+The `<dependencies>` for `<site_python_package_name>` will be displayed at the bottom of the block between `==========`.
+
+> :bulb: **Tip**: You can get all `<dependencies>` from python package path with `cd python3 $PYQT_CROM_DIR/utils/python/py_package_dependency_collector.py -p <python_package_path>`.
+
+> :warning: **Warning**: If `<site_python_package_name>` depends on other non-standard python modules (called `<pip_required_dependencies>` and displayed in the middle of the block between `==========`), apply the [sysroot update process](sysroot-configuration) for each of these modules in addition to the current one. For instance, `pandas` depends on `numpy` among other modules.
+
+> :bulb: **Tip**: Extra tip: `sys` module does not need to be explicitly imported.
+
+6) Add a section to the `sysroot.toml` reflecting the `<site_python_package_name>` dependency, before the [required non-python modules](#sysroot-non-python-modules):
+
+```
+[<site_python_package_name>]
+plugin = "wheel"
+wheel = "<wheel_name>"
+dependencies = <dependencies>
+```
+
+> :bulb: **Tip**: You can exclude some files from being added to the built app with the line `exclusions: [<list_of_files_or_regex>]`, as shown on [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html#defining-a-component-using-the-sysroot-specification-file).
+
+> :bulb: **Tip**: The example of `yaml` is provided in [example external project sysroot](examples/external/external_python_project/sysroot.toml).
+
+<a id="sysroot-non-standard-python-modules-without-wheels"></a>
+##### 2.2.2.2. Modules without wheels
+
+> :warning: **Warning**: This case has not been documented yet.
+
+<a id="sysroot-standard-python-modules"></a>
+#### 2.2.3. Specify standard python modules
+
+Standard python modules come from the [standard python library](https://docs.python.org/3/library/index.html).
+
+> :warning: **Warning**: In the `sysroot.toml` file, `[Python]` is the only standard python "module" allowed and it is compulsory for `PyQt5` apps.
+
+> :warning: **Warning**: All standard python modules (apart from `Python` itself) must be added / removed from the `.pdt`.
+
+<a id="sysroot-custom-plugins"></a>
+#### 2.2.4. Create custom plugins
+
+In case you cannot import / find the module you need, you can create your own sysroot plugins.
+
+To create your own sysroot plugins, follow the [Riverbank sysroot plugin tutorial](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html#defining-a-component-using-a-plugin).
+
+> :bulb: **Tip**: Example and original plugins provided with `pyqtdeploy` can be found in `pyqtdeploy-3.3.0/pyqtdeploy/sysroot/plugins`.
+
+> :bulb: **Tip**: Refer to [Riverbank website](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/sysroot.html) for more in-depth information about sysroot (System Root).
 
 <a id="pdt-configuration"></a>
 ### 2.3. Configure the pdt
 
-Inside of your `<project_name>` folder, add the pdt config to specify python dependencies and build requests:
-* Create a file called `config.pdt` and configure it
+Inside of your `<project_name>` folder, add the pdt config to further specify python dependencies and build requests:
+* Create / copy a file called `config.pdt` and configure it
+
+> :bulb: **Tip**: An example of pdt config is given in the [demo project folder](examples/demo/demo_project).
+
+> :bulb: **Tip**: Interact with pdt config through the pyqtdeploy command: `pyqtdeploy <pdt_file_path>`.
 
 To configure the `config.pdt` file, you need to understand and use the various areas shown in the following pictures:
 
 <img src="docs/resources/multimedia/pdt_config_overview_part_1.svg">
 
-* Open the `config.pdt` file with: `cd <absolute_path>/<project_name> && pyqtdeploy config.pdt`.
+* Open the `config.pdt` file with: `cd <absolute_path_to_project_parent_folder>/<project_name> && pyqtdeploy config.pdt`.
 * [AREA 1] In the `Application source tab > Name area`, add the `<app_name>` with no spaces. This is the app name shown at export time.
-* [AREA 2] In the `Application source tab`, click on the `Scan` button to select your `<project_name>/<pkg_name>` folder.
+* [AREA 2] In the `Application source tab`, click on the `Scan` button to select your `<project_name>/<root_pkg_name>` folder.
 * [AREA 3] In the `Application source tab > Application Package Directory area`, tick the files and folders you want to include into your application.
-* [AREA 4] In the `Application source tab > Entry point area`, add the `<pkg_name>.<main_file_name>:main` to tell where the entry point of your application is.
+* [AREA 4] In the `Application source tab > Entry point area`, add the `<root_pkg_name>.<main_file_name>:main` to tell where the entry point of your application is.
 
 <img src="docs/resources/multimedia/pdt_config_overview_part_2.svg">
 
 * [AREA 5] In the `Packages tab > Sysroot specification file area`, click on the file icon to the right to select the desired `sysroot.toml` file.
 * [AREA 6] In the `Packages tab > Standard Library area`, tick all the python libraries you have imported in your python application. You can leave the coloured blocks as they import required libraries to build the python application.
-* [AREA 7] In the `Packages tab > Core Packages area`, tick all the external packages that you have imported in your python application. You can leave the coloured blocks as they import required libraries to build the python application.
+* [AREA 7] In the `Packages tab > Other Packages area`, tick all the external packages that you have imported in your python application. You can leave the coloured blocks as they import required libraries to build the python application.
 * Save the `config.pdt` with `Ctrl + S` and close it.
 
-:bulb: _An example of pdt config is given in the [demo project folder](examples/demo/demo_project)._
-
-:bulb: _For more information about pdt files, read the [Riverbank website page](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/pyqtdeploy.html)._
+> :bulb: **Tip**: For more information about pdt files, read the [Riverbank website page](https://www.riverbankcomputing.com/static/Docs/pyqtdeploy/pyqtdeploy.html).
 
 <a id="app-generation"></a>
 ### 2.4. Build the app
@@ -467,11 +678,16 @@ To configure the `config.pdt` file, you need to understand and use the various a
 Generate the `<app_name>.apk` file using:
 
 ```
-cd $PYQT_CROM_DIR/utils \
-&& python3 build_app.py --pdt <absolute_path>/<project_name>/config.pdt --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
+cd $PYQT_CROM_DIR/utils/python &&
+python3 build_app.py \
+    --pdt <absolute_path_to_project_parent_folder>/<project_name>/config.pdt \
+    --jobs 1 \
+    --target android-64 \
+    --qmake $QT_DIR/android/bin/qmake \
+    --verbose
 ```
 
-:bulb: _The `<app_name>.apk` can be found in the `<absolute_path>/<project_name>/releases/<build_date>` folder._
+> :bulb: **Tip**: The `<app_name>.apk` can be found in the `<absolute_path_to_project_parent_folder>/<project_name>/releases/<build_date>` folder.
 
 <a id="app-debugging"></a>
 ### 2.5. Debug the app
@@ -487,7 +703,7 @@ To setup an Emulator, refer to [Android Emulator setup](docs/troubleshooting/com
 <a id="app-enhancement"></a>
 ## 3. Enhancing your app
 
-:mag: This section offers feature examples to enhance your custom PyQt app.
+> :mag: **Info**: This section offers feature examples to enhance your custom PyQt app.
 
 To discover or analyse PyQt5 features, look at the section dedicated to [PyQt5 features](docs/features/pyqt5_features.md).
 
@@ -496,16 +712,18 @@ To discover or analyse PyQt5 features, look at the section dedicated to [PyQt5 f
 <a id="app-release"></a>
 ## 4. Releasing your app
 
-:mag: This section provides a detailed tutorial on how to release your custom app onto main app stores.
+> :mag: **Info**: This section provides a detailed tutorial on how to release your custom app onto main app stores.
 
 To learn more about releasing your own app on app stores, follow the online tutorial.
+
+> :warning: **Warning**: The tutorial has not been released yet.
 
 [:arrow_heading_up: Back to TOP](#toc) 
 
 <a id="troubleshooting"></a>
 ## 5. Troubleshooting
 
-:mag: This section offers advice to get unstuck when creating your app.
+> :mag: **Info**: This section offers advice to get unstuck when creating your app.
 
 To find out about common setup and running issues, look at the section dedicated to [Common issues](docs/troubleshooting/common_issues.md).
 
@@ -514,7 +732,7 @@ To find out about common setup and running issues, look at the section dedicated
 <a id="roadmap"></a>
 ## 6. Roadmap
 
-:mag: This section describes the broad roadmap to deliver a functional repo.
+> :mag: **Info**: This section describes the broad roadmap to deliver a functional repo.
 
 ![Roadmap Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/docs/roadmap/roadmap.iuml)
 
@@ -525,11 +743,11 @@ To find out about common setup and running issues, look at the section dedicated
 
 Repository created and maintained by [Achille Martin](https://github.com/achille-martin).
 
-:clap: Gigantic thanks to [Phil Thompson](https://pypi.org/user/PhilThompson/), the creator and maintainer of [PyQt](https://riverbankcomputing.com/software/pyqt/intro) and [pyqtdeploy](https://pypi.org/project/pyqtdeploy/).
+:clap: **Thank**: Gigantic thanks to [Phil Thompson](https://pypi.org/user/PhilThompson/), the creator and maintainer of [PyQt](https://riverbankcomputing.com/software/pyqt/intro) and [pyqtdeploy](https://pypi.org/project/pyqtdeploy/).
 
-:heartpulse: Sincere thanks to the well-intentioned international developers who create apps benefitting the community.
+:heartpulse: **Thank**: Sincere thanks to the well-intentioned international developers who create apps benefitting the community.
 
-_For more information about licencing details, take a look at the section dedicated to [Licencing](docs/licencing/licencing_information.md)._
+:mortar_board: For more information about licencing details, take a look at the section dedicated to [Licencing](docs/licencing/licencing_information.md).
 
 [:arrow_heading_up: Back to TOP](#toc)
 

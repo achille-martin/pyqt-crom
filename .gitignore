@@ -1,5 +1,6 @@
 # Generated repos
 venv/
+log/
 sysroot-android-64/
 build-android-64/
 
