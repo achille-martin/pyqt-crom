@@ -80,7 +80,7 @@ The aforementioned limitations constitute obstacles that can be tackled by PyQt-
 * [8. Support](#support)
 
 <a id="getting-started"></a>
-## 1. Getting started 
+## 1. Getting started
 
 :mag: This tutorial guides you through the process of generating a cross-platform app from a simple PyQt5 demo app.
 
@@ -93,7 +93,7 @@ The aforementioned limitations constitute obstacles that can be tackled by PyQt-
 </video>
 
 <a id="pre-requisites"></a>
-### 1.1. Check the pre-requisites 
+### 1.1. Check the pre-requisites
 
 Specs of Linux machine used:
 
@@ -108,7 +108,7 @@ Specs of target OS:
 - `Android 9.0` as minimum Android version to run the app (default)
 
 <a id="github-repo-download"></a>
-### 1.2. Download the github repo 
+### 1.2. Download the github repo
 
 Use the HTTPS method if you don't have a Github account:
 
@@ -382,13 +382,13 @@ Start the building process of the .apk with:
 ```
 cd $PYQT_CROM_DIR/utils \
 && python3 build_app.py --pdt $PYQT_CROM_DIR/examples/demo/demo_project/config.pdt --jobs 1 --target android-64 --qmake $QT_DIR/android/bin/qmake --verbose
-``` 
+```
 :hourglass_flowing_sand: _Let the app build (it may take a while). The app is built when you see "BUILD SUCCESSFUL"._
 
 :bulb: _The Android Manifest, `build.gradle` and `gradle.properties` can be checked at debug stage in `$PYQT_CROM_DIR/examples/demo/demo_project/build-android-64/android-build`._
 
 <a id="app-run"></a>
-### 1.8. Run the app 
+### 1.8. Run the app
 
 The generated `DemoCrossPlatformApp.apk` can be found in `$PYQT_CROM_DIR/examples/demo/demo_project/releases/<build_date>`.
 
@@ -399,7 +399,7 @@ You can then either:
 
 :trophy: Congratulations! You have completed the tutorial. You can view the [demo app running on an Android phone](#pyqt5-demo-app-android-video).
 
-[:arrow_heading_up: Back to TOP](#toc) 
+[:arrow_heading_up: Back to TOP](#toc)
 
 <a id="custom-app"></a>
 ## 2. Generating your own app
@@ -476,7 +476,7 @@ cd $PYQT_CROM_DIR/utils \
 <a id="app-debugging"></a>
 ### 2.5. Debug the app
 
-The most nerve-wracking part of deploying an application is the debugging part. 
+The most nerve-wracking part of deploying an application is the debugging part.
 
 Therefore, make sure that you have added a logger to your application and that you use an Emulator or a physical device to confirm your expectations.
 
@@ -491,7 +491,7 @@ To setup an Emulator, refer to [Android Emulator setup](docs/troubleshooting/com
 
 To discover or analyse PyQt5 features, look at the section dedicated to [PyQt5 features](docs/features/pyqt5_features.md).
 
-[:arrow_heading_up: Back to TOP](#toc) 
+[:arrow_heading_up: Back to TOP](#toc)
 
 <a id="app-release"></a>
 ## 4. Releasing your app
@@ -500,7 +500,7 @@ To discover or analyse PyQt5 features, look at the section dedicated to [PyQt5 f
 
 To learn more about releasing your own app on app stores, follow the online tutorial.
 
-[:arrow_heading_up: Back to TOP](#toc) 
+[:arrow_heading_up: Back to TOP](#toc)
 
 <a id="troubleshooting"></a>
 ## 5. Troubleshooting
@@ -509,7 +509,7 @@ To learn more about releasing your own app on app stores, follow the online tuto
 
 To find out about common setup and running issues, look at the section dedicated to [Common issues](docs/troubleshooting/common_issues.md).
 
-[:arrow_heading_up: Back to TOP](#toc) 
+[:arrow_heading_up: Back to TOP](#toc)
 
 <a id="roadmap"></a>
 ## 6. Roadmap
@@ -518,7 +518,7 @@ To find out about common setup and running issues, look at the section dedicated
 
 ![Roadmap Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/achille-martin/pyqt-crom/main/docs/roadmap/roadmap.iuml)
 
-[:arrow_heading_up: Back to TOP](#toc) 
+[:arrow_heading_up: Back to TOP](#toc)
 
 <a id="credits"></a>
 ## 7. Credits
@@ -536,18 +536,16 @@ _For more information about licencing details, take a look at the section dedica
 <a id="support"></a>
 ## 8. Support
 
-:star2: Do you feel that you can make progress with your own projects by converting your PyQt5 apps into cross-platform apps? 
+:star2: Do you feel that you can make progress with your own projects by converting your PyQt5 apps into cross-platform apps?
 
 > Please support PyQt-CroM by [starring](https://github.com/achille-martin/pyqt-crom), [advertising](https://github.com/achille-martin/pyqt-crom) and [sponsoring](https://github.com/sponsors/achille-martin) it.
 
-:open_hands: Do you feel stuck with your projects? 
+:open_hands: Do you feel stuck with your projects?
 
-> Get customised help from me on [Fiverr](http://www.fiverr.com/s/3PGbdV).
+> Get customised help from me on [LinkedIn](https://www.linkedin.com/in/achillemartin/).
 
 <a href="https://www.buymeacoffee.com/achille_martin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" width="200px"></a>
 
 <a href="https://github.com/sponsors/achille-martin" target="_blank"><img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=%3Curl%3E&color=f88379" width="200px"></a>
-
-<a href="https://www.fiverr.com/hardioactif39/convert-your-pyqt5-script-into-an-android-application" target="_blank"><img src="https://freelogopng.com/images/all_img/1656739173fiverr-logo-white.png" alt="My Fiverr gigs" width="200px"></a>
 
 [:arrow_heading_up: Back to TOP](#toc)
